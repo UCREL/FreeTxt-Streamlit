@@ -645,7 +645,7 @@ unsafe_allow_html=True)
         st.write(f"You've uploaded {st.session_state.uploaded_file.name}")
     else:
         text = st.text_area("Paste your text here")
-        uploaded_file = st.file_uploader("Or upload a document", type=['txt', 'doc', 'docx', 'pdf'])
+        #uploaded_file = st.file_uploader("Or upload a document", type=['txt', 'doc', 'docx', 'pdf'])
 
         if text:
             st.session_state.uploaded_text = text

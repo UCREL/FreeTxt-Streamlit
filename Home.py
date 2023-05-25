@@ -249,6 +249,7 @@ def analysis_page():
     with col1:
          
         st.image("img/FreeTxt_logo.png", width=300) 
+        st.write("---")
         bt1,bt2,bt3 = st.columns([2,2,1])
         with bt1:
             if st.button('Home'):

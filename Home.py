@@ -649,9 +649,9 @@ unsafe_allow_html=True)
 
         if text:
             st.session_state.uploaded_text = text
-        elif uploaded_file:
-            save_uploaded_file(uploaded_file)
-            st.session_state.uploaded_file = uploaded_file
+        #elif uploaded_file:
+         #   save_uploaded_file(uploaded_file)
+          #  st.session_state.uploaded_file = uploaded_file
     #####---------------get the data
     option = st.radio(MESSAGES[lang][0], (MESSAGES[lang][1], MESSAGES[lang][2]))
     if option == MESSAGES[lang][1]: input_data = get_data()

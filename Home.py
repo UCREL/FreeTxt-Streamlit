@@ -51,10 +51,6 @@ from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Table, TableStyle, Image as ReportLabImage, Spacer, BaseDocTemplate, Frame, PageTemplate
 from reportlab.lib.units import inch
 
-
-
-
-
 def get_image_as_base64(path):
     with open(path, "rb") as img_file:
         return base64.b64encode(img_file.read()).decode('utf-8')
@@ -68,10 +64,140 @@ def save_uploaded_file(uploadedfile):
          f.write(uploadedfile.getbuffer())
     return st.success("Saved File:{} to temp".format(uploadedfile.name))
 
+# Update with the Welsh stopwords (source: https://github.com/techiaith/ataleiriau)
+en_stopwords = list(stopwords.words('english'))
+cy_stopwords = open('welsh_stopwords.txt', 'r', encoding='iso-8859-1').read().split('\n') # replaced 'utf8' with 'iso-8859-1'
+STOPWORDS = set(en_stopwords + cy_stopwords)
+PUNCS = '''!→()-[]{};:'"\,<>./?@#$%^&*_~'''
+pd.set_option('display.max_colwidth',None)
+
+lang='en'
+EXAMPLES_DIR = 'example_texts_pub'
+
+
+
+# reading example and uploaded files
+@st.cache(suppress_st_warning=True)
+def read_file(fname, file_source):
+    file_name = fname if file_source=='example' else fname.name
+    if file_name.endswith('.txt'):
+        data = open(fname, 'r', errors='ignore').read().split(r'[.\n]+') if file_source=='example' else fname.read().decode('utf8', errors='ignore').split('\n')
+        data = pd.DataFrame.from_dict({i+1: data[i] for i in range(len(data))}, orient='index', columns = ['Reviews'])
+        
+    elif file_name.endswith(('.xls','.xlsx')):
+        data = pd.read_excel(pd.ExcelFile(fname)) if file_source=='example' else pd.read_excel(fname)
+
+    elif file_name.endswith('.tsv'):
+        data = pd.read_csv(fname, sep='\t', encoding='cp1252') if file_source=='example' else pd.read_csv(fname, sep='\t', encoding='cp1252')
+    else:
+        return False, st.error(f"""**FileFormatError:** Unrecognised file format. Please ensure your file name has the extension `.txt`, `.xlsx`, `.xls`, `.tsv`.""", icon="🚨")
+    return True, data
+
+def get_data(file_source='example'):
+    try:
+        if file_source=='example':
+            example_files = sorted([f for f in os.listdir(EXAMPLES_DIR) if f.startswith('Reviews')])
+            fnames = st.sidebar.multiselect('Select example data file(s)', example_files, example_files[0])
+            if fnames:
+                return True, {fname:read_file(os.path.join(EXAMPLES_DIR, fname), file_source) for fname in fnames}
+            else:
+                return False, st.info('''**NoFileSelected:** Please select at least one file from the sidebar list.''', icon="ℹ️")
+        
+        elif file_source=='uploaded': # Todo: Consider a maximum number of files for memory management. 
+            uploaded_files = st.sidebar.file_uploader("Upload your data file(s)", accept_multiple_files=True, type=['txt','tsv','xlsx', 'xls'])
+            if uploaded_files:
+                return True, {uploaded_file.name:read_file(uploaded_file, file_source) for uploaded_file in uploaded_files}
+            else:
+                return False, st.info('''**NoFileUploaded:** Please upload files with the upload button or by dragging the file into the upload area. Acceptable file formats include `.txt`, `.xlsx`, `.xls`, `.tsv`.''', icon="ℹ️")
+        else:
+            return False, st.error(f'''**UnexpectedFileError:** Some or all of your files may be empty or invalid. Acceptable file formats include `.txt`, `.xlsx`, `.xls`, `.tsv`.''', icon="🚨")
+    except Exception as err:
+        return False, st.error(f'''**UnexpectedFileError:** {err} Some or all of your files may be empty or invalid. Acceptable file formats include `.txt`, `.xlsx`, `.xls`, `.tsv`.''', icon="🚨")
+
+
+def select_columns(data, key):
+    layout = st.columns([7, 0.2, 2, 0.2, 2, 0.2, 3, 0.2, 3])
+    selected_columns = layout[0].multiselect('Select column(s) below to analyse', data.columns, help='Select columns you are interested in with this selection box', key= f"{key}_cols_multiselect")
+    start_row=0
+    if selected_columns: start_row = layout[2].number_input('Choose start row:', value=0, min_value=0, max_value=5)
+    
+    if len(selected_columns)>=2 and layout[4].checkbox('Filter rows?'):
+        filter_column = layout[6].selectbox('Select filter column', selected_columns)
+        if filter_column: 
+            filter_key = layout[8].selectbox('Select filter key', set(data[filter_column]))
+            data = data[selected_columns][start_row:].dropna(how='all')
+            return data.loc[data[filter_column] == filter_key].drop_duplicates()
+    else:
+        return data[selected_columns][start_row:].dropna(how='all').drop_duplicates()
+
+def detect_language(df):
+    detected_languages = []
+
+    # Loop through all columns in the DataFrame
+    for col in df.columns:
+        # Loop through all rows in the column
+        for text in df[col].fillna(''):
+            # Use langdetect's detect_langs to detect the language of the text
+            try:
+                lang_probs =  detect_langs(text)
+                most_probable_lang = max(lang_probs, key=lambda x: x.prob)
+                detected_languages.append(most_probable_lang.lang)
+            except Exception as e:
+                print(f"Error detecting language: {e}")
+
+    # Count the number of occurrences of each language
+    lang_counts = pd.Series(detected_languages).value_counts()
+
+    # Determine the most common language in the DataFrame
+    if not lang_counts.empty:
+        most_common_lang = lang_counts.index[0]
+    else:
+        most_common_lang = None
+        print("No languages detected in the DataFrame.")
+
+    return most_common_lang
+
 
 ###############PAGES########################################################################################
+
+# ----------------
+st.set_page_config(
+     page_title='Welsh Free Text Tool',
+     page_icon='🌐',
+     layout="wide",
+     initial_sidebar_state="expanded",
+     menu_items={
+         'Get Help': "https://ucrel.lancs.ac.uk/freetxt/",
+         'Report a bug': "https://github.com/UCREL/welsh-freetxt-app/issues",
+                 'About': '''## The FreeTxt/TestunRhydd tool 
+         FreeTxt was developed as part of an AHRC funded collaborative
+    FreeTxt supporting bilingual free-text survey  
+    and questionnaire data analysis
+    research project involving colleagues from
+    Cardiff University and Lancaster University (Grant Number AH/W004844/1). 
+    The team included PI - Dawn Knight;
+    CIs - Paul Rayson, Mo El-Haj;
+    RAs - Ignatius Ezeani, Nouran Khallaf and Steve Morris. 
+    The Project Advisory Group included representatives from 
+    National Trust Wales, Cadw, National Museum Wales,
+    CBAC | WJEC and National Centre for Learning Welsh.
+    -------------------------------------------------------   
+    Datblygwyd TestunRhydd fel rhan o brosiect ymchwil 
+    cydweithredol a gyllidwyd gan yr AHRC 
+    ‘TestunRhydd: yn cefnogi dadansoddi data arolygon testun 
+    rhydd a holiaduron dwyieithog’ sy’n cynnwys cydweithwyr
+    o Brifysgol Caerdydd a Phrifysgol Caerhirfryn (Rhif y 
+    Grant AH/W004844/1).  
+    Roedd y tîm yn cynnwys PY – Dawn Knight; 
+    CYwyr – Paul Rayson, Mo El-Haj; CydY 
+    – Igantius Ezeani, Nouran Khallaf a Steve Morris.
+    Roedd Grŵp Ymgynghorol y Prosiect yn cynnwys cynrychiolwyr 
+    o Ymddiriedolaeth Genedlaethol Cymru, Amgueddfa Cymru,
+    CBAC a’r Ganolfan Dysgu Cymraeg Genedlaethol.  
+       '''
+     }
+ )
 ###########################################Demo page#######################################################################
-st.set_page_config(page_title="FreeTxt", layout="wide")
 def demo_page():
     # Demo page content and layout
     # ...

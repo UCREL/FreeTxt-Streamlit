@@ -162,8 +162,6 @@ def detect_language(df):
 
 ###########Ployglot Welsh
 
-
-
 def preprocess_text(text):
     # remove URLs, mentions, and hashtags
     text = re.sub(r"http\S+|@\S+|#\S+", "", text)
@@ -497,8 +495,7 @@ def download_csv(df):
 #-----------------------------------------------------------------------------------------
 
 
-MESSAGES[lang][2]: input_data = get_data(file_source='uploaded')
-status, data = input_data
+
 ###############PAGES########################################################################################
 
 # ----------------
@@ -655,7 +652,12 @@ unsafe_allow_html=True)
         elif uploaded_file:
             save_uploaded_file(uploaded_file)
             st.session_state.uploaded_file = uploaded_file
-            
+    #####---------------get the data
+    option = st.radio(MESSAGES[lang][0], (MESSAGES[lang][1], MESSAGES[lang][2]))
+    if option == MESSAGES[lang][1]: input_data = get_data()
+    elif option == MESSAGES[lang][2]: input_data = get_data(file_source='uploaded')
+    else: pass
+    status, data = input_data
     tab1, tab2,tab3 = st.tabs(["📈 Meaning analysis",'💬 Keyword scatter','📥 Download pdf'])
     with tab1:
         if status:

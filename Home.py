@@ -233,6 +233,7 @@ def demo_page():
         st.markdown("<h1 style='text-align: center; margin-top: 0px;'>Demo</h1>", unsafe_allow_html=True)
     with col3:
         st.image("img/FreeTxt_logo.png", width=300)
+     
     coll1, coll2, coll3 = st.columns([2, 2, 2])
     with coll1:
         bt1,bt2,bt3 = st.columns([2,2,1])
@@ -289,14 +290,15 @@ unsafe_allow_html=True)
        
         st.image("img/FreeTxt_logo.png", width=300) 
     # Analysis page content and layout
-        bt1,bt2,bt3,bt4,bt5,bt6 = st.columns([2,2,1,1,1,1])
-        with bt1:
+    st.write("---")
+    bt1,bt2,bt3,bt4,bt5,bt6 = st.columns([2,2,1,1,1,1])
+    with bt1:
             if st.button('Home'):
                 st.experimental_set_query_params(page=None)
-        with bt2:
+    with bt2:
             if st.button('Demo'):
                 st.experimental_set_query_params(page="demo")
-    st.write("---")
+    
     st.header("Start analysing your text")
     
     if 'uploaded_text' in st.session_state:

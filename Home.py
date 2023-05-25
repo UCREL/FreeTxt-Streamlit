@@ -104,7 +104,7 @@ def get_data(file_source='example'):
                 return False, st.info('''**NoFileSelected:** Please select at least one file from the sidebar list.''', icon="ℹ️")
         
         elif file_source=='uploaded': # Todo: Consider a maximum number of files for memory management. 
-            uploaded_files = st.sidebar.file_uploader("Upload your data file(s)", accept_multiple_files=True, type=['txt','tsv','xlsx', 'xls'])
+            uploaded_files = st.file_uploader("Upload your data file(s)", accept_multiple_files=True, type=['txt','tsv','xlsx', 'xls'])
             if uploaded_files:
                 return True, {uploaded_file.name:read_file(uploaded_file, file_source) for uploaded_file in uploaded_files}
             else:

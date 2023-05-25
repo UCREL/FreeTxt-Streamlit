@@ -1,0 +1,20 @@
+button.css-1n543e5.edgvbvh10 {
+    background-color: black;
+    color: white;
+    padding: 20px 50px;
+    font-size: 32px;
+    border-radius: 5px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+div#bui3__anchor {
+    display: flex;
+    justify-content: center; /* Center items on the horizontal axis */
+}
+div[data-testid="stMarkdownContainer"] p {
+    font-size: 32px; /* Change this value to increase or decrease font size */
+}
+button.css-1n543e5.edgvbvh10:hover {
+    background-color: green;
+    transform: scale(1.2); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}

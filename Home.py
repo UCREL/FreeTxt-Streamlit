@@ -665,7 +665,7 @@ unsafe_allow_html=True)
         	num_classes = 3 if num_classes.startswith("3") else 5
         # With tabbed multiselect
         filenames = list(data.keys())
-       
+        dfanalysis = pd.DataFrame()
         for i in range(len(filenames)):
           
                 _, df = data[filenames[i]]

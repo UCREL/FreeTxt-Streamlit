@@ -935,7 +935,6 @@ def gen_ngram(text, _ngrams=2, topn=10):
 
 def plot_kwic_txt(input_text,tab):
     tab.markdown('''💬 Word location in text''')
-    tab.write(input_text)
     input_data = input_text
     
     for c in PUNCS: input_data = input_data.lower().replace(c,'')
@@ -993,7 +992,7 @@ def plot_kwic_txt(input_text,tab):
                 collocs = get_collocs(kwic_instances) #TODO: Modify to accept 'topn'               
                 colloc_str = ', '.join([f"{w}[{c}]" for w, c in collocs])
                 st.write(f"Collocations for '{keyword}':\n{colloc_str}")
-                #plot_collocation(keyword, collocs,expander,tab)
+                plot_coll_14(keyword, collocs,expander,tab)
                 #plot_coll(keyword, collocs,expander,tab)
     except ValueError as err:
         with tab:

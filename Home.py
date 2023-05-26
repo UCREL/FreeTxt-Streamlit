@@ -918,6 +918,7 @@ def gen_ngram(text, _ngrams=2, topn=10):
 
 def plot_kwic_txt(df,tab):
     tab.markdown('''💬 Word location in text''')
+    tab.write(df)
     input_data = ' '.join([str(t) for t in df[0].split(' ') if t not in STOPWORDS])
     
     for c in PUNCS: input_data = input_data.lower().replace(c,'')

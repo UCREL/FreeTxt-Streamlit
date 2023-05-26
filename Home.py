@@ -916,7 +916,7 @@ def gen_ngram(text, _ngrams=2, topn=10):
     return [(f"{' '.join(ng):27s}", f"{c:10d}", f"{c/sum_ngram_counts:.2f}%")
             for ng, c in ngram_counts]
 
-def plot_kwic_txt(df,tab):
+def plot_kwic_txt(input_text,tab):
     tab.markdown('''💬 Word location in text''')
     tab.write(input_text)
     input_data = input_text

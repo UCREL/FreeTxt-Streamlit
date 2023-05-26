@@ -818,10 +818,7 @@ unsafe_allow_html=True)
                          components.html(source_code,height = 1500,width = 800)
                     with tab3:
                        st.write('This tool, adapted from the Welsh Summarization project, produces a basic extractive summary of the review text from the selected columns.')
-                       if df.empty:
-                             st.info('''**NoColumnSelected 🤨**: Please select one or more columns to analyse.''', icon="ℹ️")
-                       else:
-                             summarized_text =run_summarizer(input_text[:2000],i)
+                       summarized_text =run_summarizer(input_text[:2000],i)
 
                          
                     with tab4:

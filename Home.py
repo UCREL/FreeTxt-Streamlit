@@ -1364,7 +1364,7 @@ unsafe_allow_html=True)
                     tab4.dataframe(df ,use_container_width=True)
                     textanalysis = txtanalysis(df)
                     textanalysis.show_reviews(filenames[i],tab4)
-                    word_cloud_path = textanalysis.show_wordcloud(filenames[i],tab5)
+                    #word_cloud_path = textanalysis.show_wordcloud(filenames[i],tab5)
                     Keyword_context = textanalysis.show_kwic(filenames[i])
                     textanalysis.concordance(filenames[i])
         ###show word cloud

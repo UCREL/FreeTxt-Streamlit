@@ -651,9 +651,9 @@ def load_image(image_file):
 	img = PilImage.open(image_file)
 	return img
 
-def get_wordcloud (data, key):
+def get_wordcloud (data, key,tab):
 
-    tab2.markdown('''    
+    tab.markdown('''    
     ☁️ Word Cloud
     ''')
     
@@ -714,7 +714,7 @@ def get_wordcloud (data, key):
         
         # Allow the user to select the measure to use
 	#measure = tab2.selectbox("Select a measure:", options=["Frequency","KENESS", "Log-Likelihood"])    
-        cloud_type = tab2.selectbox('Choose Cloud category:',
+        cloud_type = tab.selectbox('Choose Cloud category:',
             ['All words','Semantic Tags', 'Bigrams', 'Trigrams', '4-grams', 'Nouns', 'Proper nouns', 'Verbs', 'Adjectives', 'Adverbs', 'Numbers'], key= f"{key}_cloud_select")
         if cloud_type == 'All words':
             #wordcloud = wc.generate(input_data)
@@ -753,7 +753,7 @@ def get_wordcloud (data, key):
             
         else: 
             pass
-        color = tab2.radio('Select image colour:', ('Color', 'Black'), key=f"{key}_cloud_radio")
+        color = tab.radio('Select image colour:', ('Color', 'Black'), key=f"{key}_cloud_radio")
         img_cols = ImageColorGenerator(mask) if color == 'Black' else None
         plt.figure(figsize=[20,15])
         wordcloud_img = wordcloud.recolor(color_func=img_cols)
@@ -1364,7 +1364,7 @@ unsafe_allow_html=True)
                     tab4.dataframe(df ,use_container_width=True)
                     textanalysis = txtanalysis(df)
                     textanalysis.show_reviews(filenames[i],tab4)
-                    word_cloud_path = textanalysis.show_wordcloud(filenames[i])
+                    word_cloud_path = textanalysis.show_wordcloud(filenames[i],tab5)
                     Keyword_context = textanalysis.show_kwic(filenames[i])
                     textanalysis.concordance(filenames[i])
         ###show word cloud

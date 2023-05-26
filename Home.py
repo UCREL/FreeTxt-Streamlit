@@ -887,7 +887,7 @@ unsafe_allow_html=True)
 ###########################################Home page#######################################################################
 def main():
     
-    
+    st.write("---")
     col1, col2, col3 = st.columns([1, 2, 1])
     with col1:
         st.image("img/FreeTxt_logo.png", width=300) 
@@ -895,7 +895,7 @@ def main():
         st.markdown("<h1 style='text-align: center; margin-top: 0px;'>Welcome to FreeTxt</h1>", unsafe_allow_html=True)
     with col3:
         st.image("img/FreeTxt_logo.png", width=300) 
-
+    st.write("---")
     with open('style.css') as f:
         st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html =True)
     st.markdown(

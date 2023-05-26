@@ -916,14 +916,14 @@ def gen_ngram(text, _ngrams=2, topn=10):
     return [(f"{' '.join(ng):27s}", f"{c:10d}", f"{c/sum_ngram_counts:.2f}%")
             for ng, c in ngram_counts]
 
-def plot_kwic_txt(df):
-    tab6.markdown('''💬 Word location in text''')
+def plot_kwic_txt(df,tab):
+    tab.markdown('''💬 Word location in text''')
     input_data = ' '.join([str(t) for t in df[0].split(' ') if t not in STOPWORDS])
     
     for c in PUNCS: input_data = input_data.lower().replace(c,'')
     
     try:
-        with tab6:
+        with tab:
             topwords = [f"{w} ({c})" for w, c in getTopNWords(input_data, removeStops=True)]
             keyword = st.selectbox('Select a keyword:', topwords).split('(',1)[0].strip()
             window_size = st.slider('Select the window size:', 1, 10, 5)
@@ -931,7 +931,7 @@ def plot_kwic_txt(df):
         # col2_lcase = st.checkbox("Lowercase?", key='col2_checkbox')
             kwic_instances = get_kwic(input_data, keyword, window_size, maxInsts, True)
         
-        #keyword_analysis = tab6.radio('Analysis:', ('Keyword in context', 'Collocation'))
+        #keyword_analysis = tab.radio('Analysis:', ('Keyword in context', 'Collocation'))
         #if keyword_analysis == 'Keyword in context':
             with st.expander('Keyword in Context'):
                 kwic_instances_df = pd.DataFrame(kwic_instances,
@@ -975,10 +975,10 @@ def plot_kwic_txt(df):
                 collocs = get_collocs(kwic_instances) #TODO: Modify to accept 'topn'               
                 colloc_str = ', '.join([f"{w}[{c}]" for w, c in collocs])
                 st.write(f"Collocations for '{keyword}':\n{colloc_str}")
-                plot_collocation(keyword, collocs,expander,tab6)
-                plot_coll(keyword, collocs,expander,tab6)
+                plot_collocation(keyword, collocs,expander,tab)
+                plot_coll(keyword, collocs,expander,tab)
     except ValueError as err:
-        with tab6:
+        with tab:
                 st.info(f'Please ensure that at least one free text column is chosen: {err}', icon="🤨")
     return kwic_instances_df
 
@@ -1426,7 +1426,7 @@ unsafe_allow_html=True)
                             st.info(f'Oh oh.. Please ensure that at least one free text column is chosen: {err}', icon="🤨")
         
                     with tab6:
-                          plot_kwic_txt(df)
+                          plot_kwic_txt(df,tab6)
 
 
                          

@@ -1353,8 +1353,8 @@ unsafe_allow_html=True)
             ''')
     
                     layout = tab5.columns([7, 1, 4])
-                    input_data = ' '.join([str(t) for t in df[0].split(' ') if t not in STOPWORDS])
-        
+                    #input_data = ' '.join([str(t) for t in df[0].split(' ') if t not in STOPWORDS])
+                    input_data= input_text
                     for c in PUNCS: input_data = input_data.lower().replace(c,'')
     
                     input_bigrams  = [' '.join(g) for g in nltk.ngrams(input_data.split(),2)]

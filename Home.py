@@ -852,7 +852,7 @@ unsafe_allow_html=True)
                             generated_pdf_data = buffer.read()
 
    # Display the download button only after generating the report
-                    	if generated_pdf_data:
+                        if generated_pdf_data:
                               st.download_button("Download PDF", generated_pdf_data, "report_positiveandnegative.pdf", "application/pdf")
 
 

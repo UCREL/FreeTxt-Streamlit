@@ -832,7 +832,7 @@ unsafe_allow_html=True)
                         sentiment_bar_checkbox = st.checkbox("Include Sentiment Bar Graph")
                        # scatter_text_checkbox = st.checkbox("Include Scatter Text")
 		       ##############summarisation,
-			download_text = st.checkbox("Include original text")
+                        download_text = st.checkbox("Include original text")
                         download_summary = st.checkbox("Include summarized text")
                         generate_pdf_checkbox = st.checkbox("Generate PDF report")
 			

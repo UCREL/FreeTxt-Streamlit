@@ -429,9 +429,9 @@ nlp = spacy.load('en_core_web_sm-3.2.0')
 nlp.max_length = 9000000
 ######generate the scatter text 
 
-def generate_scattertext_visualization(analysis):
+def generate_scattertext_visualization(dfanalysis):
     # Get the DataFrame with sentiment analysis results
-    df = analysis
+    df = dfanalysis
     # Parse the text using spaCy
     df['ParsedReview'] = df['Review'].apply(nlp)
 
@@ -681,27 +681,27 @@ unsafe_allow_html=True)
                         
                         if language == 'en':
                             sentiments = analyze_sentiment(input_text,num_classes)
-                            analysis = pd.DataFrame(sentiments, columns=['Review', 'Sentiment Label', 'Sentiment Score'])
-                            plot_sentiment_pie(analysis)
-                            plot_sentiment(analysis)
+                            dfanalysis = pd.DataFrame(sentiments, columns=['Review', 'Sentiment Label', 'Sentiment Score'])
+                            plot_sentiment_pie(dfanalysis)
+                            plot_sentiment(dfanalysis)
                       
                         elif language == 'cy':
                             #sentiments = analyze_sentiment_welsh(input_text)
                             sentiments = analyze_sentiment(input_text,num_classes)
-                            analysis = pd.DataFrame(sentiments, columns=['Review', 'Sentiment Label', 'Sentiment Score'])
-                            plot_sentiment_pie(analysis)
-                            plot_sentiment(analysis)
+                            dfanalysis = pd.DataFrame(sentiments, columns=['Review', 'Sentiment Label', 'Sentiment Score'])
+                            plot_sentiment_pie(dfanalysis)
+                            plot_sentiment(dfanalysis)
                        
     with tab2:
                          #### interactive dataframe
-                         gb = GridOptionsBuilder.from_dataframe(analysis)
+                         gb = GridOptionsBuilder.from_dataframe(dfanalysis)
                          gb.configure_pagination(paginationAutoPageSize=True) #Add pagination
                          gb.configure_side_bar() #Add a sidebar
                          gb.configure_selection('multiple', use_checkbox=True, groupSelectsChildren="Group checkbox select children") #Enable multi-row selection
                          gridOptions = gb.build()
 
                          grid_response = AgGrid(
-                              analysis,
+                              dfanalysis,
                               gridOptions=gridOptions,
                                data_return_mode='AS_INPUT', 
                             update_mode='MODEL_CHANGED', 
@@ -717,7 +717,7 @@ unsafe_allow_html=True)
                          df = pd.DataFrame(selected) #Pass the selected rows to a new dataframe df
                          # Add a button to download the DataFrame as a CSV file
                          if st.button('Download CSV'):
-                                    st.markdown(download_csv(analysis), unsafe_allow_html=True)
+                                    st.markdown(download_csv(dfanalysis), unsafe_allow_html=True)
 
 			
 			
@@ -726,7 +726,7 @@ unsafe_allow_html=True)
                                                   # Copy the scattertext_visualization.html to a temporary file
                          st.write('For better reprentation we recommend selecting 3 sentiment classes')
                          st.write('The 2,000 most sentiment-associated uni grams are displayed as points in the scatter plot. Their x- and y- axes are the dense ranks of their usage in positive vs negative and neutral respectively.')
-                         generate_scattertext_visualization(analysis)
+                         generate_scattertext_visualization(dfanalysis)
                          scattertext_html_path='scattertext_visualization.html'
                          tmp_scattertext_path = "tmp_scattertext_visualization.html"
                          shutil.copyfile(scattertext_html_path, tmp_scattertext_path)
@@ -753,7 +753,7 @@ unsafe_allow_html=True)
     with tab3:
                     try:
                      # Check if the DataFrame exists
-                       if analysis is not None:
+                       if dfanalysis is not None:
 			#####pdf_generator
                         data_list_checkbox = st.checkbox("Include Data List as a Table")
                         sentiment_pie_checkbox = st.checkbox("Include Sentiment Pie Graph")
@@ -783,7 +783,7 @@ unsafe_allow_html=True)
   
 
                             column_names = ['Review', 'Sentiment Label', 'Sentiment Score']
-                            table_data = [column_names] + analysis[column_names].values.tolist()
+                            table_data = [column_names] + dfanalysis[column_names].values.tolist()
                             col_widths = [200, 100, 100]  # Adjust these values according to your needs
                             wrapped_cells = []
 
@@ -916,7 +916,7 @@ any sector in Wales and beyond to use it.
     with button_col1:
         if st.button("Start Analysis", key="analysis_button", help="Redirects to the Analysis page"):
 
-            st.experimental_set_query_params(page="analysis")
+            st.experimental_set_query_params(page="textanalysis")
 
     with button_col2:
         if st.button("Watch a Demo", key="demo_button", help="Redirects to the Demo page"):

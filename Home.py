@@ -515,9 +515,8 @@ def run_summarizertxt(input_text, lang='en'):
         else:
             st.write("Please enter your text in the above textbox")
 	
-##-------------------------------------------Review analysis and illuistration------------------------------------
-			
-class txtAnalysis:
+##-------------------------------------------Review analysis and illuistration------------------------------------		
+class txtanalysis:
     def __init__(self, reviews):
         self.reviews = reviews
 

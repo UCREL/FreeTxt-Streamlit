@@ -918,8 +918,8 @@ def gen_ngram(text, _ngrams=2, topn=10):
 
 def plot_kwic_txt(df,tab):
     tab.markdown('''💬 Word location in text''')
-    tab.write(df)
-    input_data = ' '.join([str(t) for t in df[1].split(' ') if t not in STOPWORDS])
+    tab.write(input_text)
+    input_data = input_text
     
     for c in PUNCS: input_data = input_data.lower().replace(c,'')
     
@@ -1427,7 +1427,7 @@ unsafe_allow_html=True)
                             st.info(f'Oh oh.. Please ensure that at least one free text column is chosen: {err}', icon="🤨")
         
                     with tab6:
-                          plot_kwic_txt(df,tab6)
+                          plot_kwic_txt(input_text,tab6)
 
 
                          

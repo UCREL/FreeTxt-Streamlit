@@ -1363,6 +1363,11 @@ unsafe_allow_html=True)
                        summarized_text =run_summarizer(input_text[:2000],i)
 	       ##show review
                     tab4.dataframe(df ,use_container_width=True)
+                    
+                    analysis.show_reviews(filenames[i])
+                    word_cloud_path = analysis.show_wordcloud(filenames[i])
+                    Keyword_context = analysis.show_kwic(filenames[i])
+                    analysis.concordance(filenames[i])
         ###show word cloud
         
                     tab5.markdown('''    

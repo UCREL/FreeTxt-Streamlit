@@ -517,7 +517,7 @@ def run_summarizertxt(input_text, lang='en'):
 	
 ##-------------------------------------------Review analysis and illuistration------------------------------------
 			
-class Analysis:
+class txtAnalysis:
     def __init__(self, reviews):
         self.reviews = reviews
 
@@ -1364,10 +1364,10 @@ unsafe_allow_html=True)
 	       ##show review
                     tab4.dataframe(df ,use_container_width=True)
                     
-                    analysis.show_reviews(filenames[i])
-                    word_cloud_path = analysis.show_wordcloud(filenames[i])
-                    Keyword_context = analysis.show_kwic(filenames[i])
-                    analysis.concordance(filenames[i])
+                    txtanalysis.show_reviews(filenames[i])
+                    word_cloud_path = txtanalysis.show_wordcloud(filenames[i])
+                    Keyword_context = txtanalysis.show_kwic(filenames[i])
+                    txtanalysis.concordance(filenames[i])
         ###show word cloud
         
                     tab5.markdown('''    

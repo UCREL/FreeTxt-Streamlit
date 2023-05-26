@@ -741,9 +741,9 @@ unsafe_allow_html=True)
                         
                     input_text = '\n'.join(['\n'.join([str(t) for t in list(df[col]) if str(t) not in STOPWORDS and str(t) not in PUNCS]) for col in df])
                      
-        tab1, tab2,tab3,tab4 = st.tabs(["📈 Meaning analysis",'💬 Keyword scatter','📝 Summarisation','📥 Download pdf'])
-        with tab1:
-           if status:
+                    tab1, tab2,tab3,tab4 = st.tabs(["📈 Meaning analysis",'💬 Keyword scatter','📝 Summarisation','📥 Download pdf'])
+                    with tab1:
+                      if status:
                         num_classes = st.radio('How do you want to categorize the sentiments?', ('3 Class Sentiments (Positive, Neutral, Negative)', '5 Class Sentiments (Very Positive, Positive, Neutral, Negative, Very Negative)'))
                         num_classes = 3 if num_classes.startswith("3") else 5
                         language = detect_language(df)  
@@ -760,8 +760,8 @@ unsafe_allow_html=True)
                             plot_sentiment_pie(dfanalysis)
                             plot_sentiment(dfanalysis)
                        
-        with tab2:
-          if not dfanalysis.empty:
+                    with tab2:
+                      if not dfanalysis.empty:
                          #### interactive dataframe
                          gb = GridOptionsBuilder.from_dataframe(dfanalysis)
                          gb.configure_pagination(paginationAutoPageSize=True) #Add pagination
@@ -816,16 +816,16 @@ unsafe_allow_html=True)
                          source_code = HtmlFile.read() 
                          print(source_code)
                          components.html(source_code,height = 1500,width = 800)
-        with tab3:
-         st.write('This tool, adapted from the Welsh Summarization project, produces a basic extractive summary of the review text from the selected columns.')
-         if df.empty:
-                    st.info('''**NoColumnSelected 🤨**: Please select one or more columns to analyse.''', icon="ℹ️")
-         else:
-	         summarized_text =run_summarizer(input_text[:2000],i)
+                    with tab3:
+                       st.write('This tool, adapted from the Welsh Summarization project, produces a basic extractive summary of the review text from the selected columns.')
+                       if df.empty:
+                             st.info('''**NoColumnSelected 🤨**: Please select one or more columns to analyse.''', icon="ℹ️")
+                       else:
+	                   summarized_text =run_summarizer(input_text[:2000],i)
 
                          
-        with tab4:
-                    try:
+                    with tab4:
+                      try:
                      # Check if the DataFrame exists
                        if not dfanalysis.empty :
 			#####pdf_generator
@@ -933,7 +933,7 @@ unsafe_allow_html=True)
                        else:
                            st.error("DataFrame not found")
 
-                    except Exception as e:
+                      except Exception as e:
                             st.error(f"An error occurred: {str(e)}")
                     
 ###########################################Home page#######################################################################

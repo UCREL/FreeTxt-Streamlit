@@ -579,8 +579,8 @@ class txtanalysis:
     def show_kwic(self, fname,tab):
         context = plot_kwic(self.reviews, fname,tab)
         return context
-    def concordance(self, fname):
-        with tab8:
+    def concordance(self, fname,tab):
+        with tab:
        	    st.header('Search Word')
             search_word = st.text_input('', 'the')
             html.create_html(self, fname,search_word)
@@ -1483,7 +1483,7 @@ unsafe_allow_html=True)
                     textanalysis.show_reviews(filenames[i],tab4)
                     #word_cloud_path = textanalysis.show_wordcloud(filenames[i],tab5)
                     Keyword_context = textanalysis.show_kwic(filenames[i],tab6)
-                    textanalysis.concordance(filenames[i])
+                    textanalysis.concordance(filenames[i],tab7)
         ###show word cloud
         
                     tab5.markdown('''    

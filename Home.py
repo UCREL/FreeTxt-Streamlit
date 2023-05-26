@@ -817,7 +817,7 @@ unsafe_allow_html=True)
                          print(source_code)
                          components.html(source_code,height = 1500,width = 800)
     with tab3:
-	st.write('This tool, adapted from the Welsh Summarization project, produces a basic extractive summary of the review text from the selected columns.')
+        st.write('This tool, adapted from the Welsh Summarization project, produces a basic extractive summary of the review text from the selected columns.')
         summarized_text =run_summarizer(input_text[:2000],i)
 
                          

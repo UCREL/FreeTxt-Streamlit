@@ -579,7 +579,7 @@ def demo_page():
             if st.button('Home'):
                 st.experimental_set_query_params(page=None)
             if st.button('Analysis'):
-                st.experimental_set_query_params(page="analysis")
+                st.experimental_set_query_params(page="textanalysis")
         
 ###########################################Analysis page#######################################################################
 def analysis_page():
@@ -1061,8 +1061,8 @@ def app():
     if page == "demo":
         st.experimental_set_query_params(page="demo")
         demo_page()
-    elif page == "analysis":
-        st.experimental_set_query_params(page="analysis")
+    elif page == "textanalysis":
+        st.experimental_set_query_params(page="textanalysis")
         analysis_page()
     else:
         main()

@@ -695,7 +695,7 @@ def get_wordcloud (data, key):
     outlines = tab2.selectbox('Select cloud outline color ', colors, help='Select outline color word cloud')
     mask = np.array(PilImage.open(maskfile_2)) if maskfile_2 else maskfile_2
    
-    nlp = spacy.load('en_core_web_sm-3.2.0')
+    
     doc = nlp(input_data)
 
     try:
@@ -919,7 +919,7 @@ def gen_ngram(text, _ngrams=2, topn=10):
 def plot_kwic_txt(df,tab):
     tab.markdown('''💬 Word location in text''')
     tab.write(df)
-    input_data = ' '.join([str(t) for t in df[0].split(' ') if t not in STOPWORDS])
+    input_data = ' '.join([str(t) for t in df[1].split(' ') if t not in STOPWORDS])
     
     for c in PUNCS: input_data = input_data.lower().replace(c,'')
     

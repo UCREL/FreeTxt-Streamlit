@@ -582,7 +582,7 @@ def demo_page():
                 st.experimental_set_query_params(page="textanalysis")
         
 ###########################################Analysis page#######################################################################
-def analysis_page():
+def textanalysis_page():
     
     col1, col2, col3 = st.columns([1, 2, 1])
     with col1:
@@ -1063,7 +1063,7 @@ def app():
         demo_page()
     elif page == "textanalysis":
         st.experimental_set_query_params(page="textanalysis")
-        analysis_page()
+        textanalysis_page()
     else:
         main()
 

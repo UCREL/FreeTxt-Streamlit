@@ -997,7 +997,124 @@ def plot_kwic_txt(input_text,tab):
         with tab:
                 st.info(f'Please ensure that at least one free text column is chosen: {err}', icon="🤨")
     return kwic_instances_df
+def plot_kwic(data, key):
+    tab5.markdown('''💬 Word location in text''')
+    
+    # cloud_columns = st.multiselect(
+        # 'Select your free text columns:', data.columns, list(data.columns), help='Select free text columns to view the word cloud', key=f"{key}_kwic_multiselect")
+        
+    # input_data = ' '.join([' '.join([str(t) for t in list(data[col]) if t not in STOPWORDS]) for col in cloud_columns])
+    input_data = ' '.join([' '.join([str(t) for t in list(data[col]) if t not in STOPWORDS]) for col in data])
+    nlp = spacy.load('en_core_web_sm-3.2.0')
+    doc = nlp(input_data)
+    for c in PUNCS: input_data = input_data.lower().replace(c,'')
+    
+    try:
+        with tab5:
+            topwords = [f"{w} ({c})" for w, c in getTopNWords(input_data, removeStops=True)]
+            keyword = st.selectbox('Select keyword:', topwords).split('(',1)[0].strip()
+            window_size = st.slider('Select window size:', 1, 10, 5)
+            maxInsts = st.slider('Maximum number of instances:', 5, 50, 15, 5,  key="slider1_key")
+        
+            kwic_instances = get_kwic(input_data, keyword, window_size, maxInsts, True)
+            with st.expander('Keyword_in_Context'):
+                kwic_instances_df = pd.DataFrame(kwic_instances,
+                    columns =['Left context', 'Keyword', 'Right context'])
+                #kwic_instances_df.style.hide_index()
+                
+          
+		   #### interactive dataframe
+                gb = GridOptionsBuilder.from_dataframe(kwic_instances_df)
+              
+                gb.configure_column("Left context", cellClass ='text-right', headerClass= 'ag-header-cell-text' )
+		
+                gb.configure_column("Keyword", cellClass ='text-center', cellStyle= {
+                   'color': 'red', 
+                   'font-weight': 'bold'  })
+                gb.configure_column("Right context", cellClass ='text-left')
+                gb.configure_pagination(paginationAutoPageSize=True) #Add pagination
+                gb.configure_side_bar() #Add a sidebar
+                gb.configure_selection('multiple', use_checkbox=True, groupSelectsChildren="Group checkbox select children") #Enable multi-row selection
+                gridOptions = gb.build()
 
+                grid_response = AgGrid(
+                kwic_instances_df,
+                gridOptions=gridOptions,
+                   data_return_mode='AS_INPUT', 
+                   update_mode='MODEL_CHANGED', 
+                   fit_columns_on_grid_load=False,
+    
+                   enable_enterprise_modules=True,
+		   key='select_grid',
+                   height=350, width= '100%',
+                   columns_auto_size_mode=ColumnsAutoSizeMode.FIT_CONTENTS,
+                     reload_data=True
+                      )
+                data = grid_response['data']
+                selected = grid_response['selected_rows'] 
+                df = pd.DataFrame(selected) 
+                #st.write(df)
+		
+            expander = st.expander('Collocation')
+            with expander: #Could you replace with NLTK concordance later?
+            # keyword = st.text_input('Enter a keyword:','staff')
+                Word_type = st.selectbox('Choose word type:',
+                 ['All words', 'Nouns', 'Proper nouns', 'Verbs', 'Adjectives', 'Adverbs', 'Numbers'], key= f"{key}_type_select")
+                collocs = get_collocs(kwic_instances)
+                colloc_str = ', '.join([f"{w} [{c}]" for w, c in collocs])
+                words = nlp(colloc_str)
+                if Word_type == 'All words':
+                       st.write(f"Collocations for '{keyword}':\n{colloc_str}")
+                    
+                elif Word_type == 'Nouns':
+                       
+                       collocs = [token.text for token in words if token.pos_ == "NOUN"]
+                       st.write(collocs)
+                       st.write(f"Collocations for '{keyword}':\n{colloc_str}")
+                elif Word_type == 'Proper nouns':
+                       collocs = [token.text for token in words if token.pos_ == "PROPN"]
+                       st.write(collocs)
+                       st.write(f"Collocations for '{keyword}':\n{colloc_str}")
+                
+                elif Word_type == 'Verbs':
+                       collocs = [token.text for token in words if token.pos_ == "VERB"]
+                       st.write(collocs)
+                       st.write(f"Collocations for '{keyword}':\n{colloc_str}")
+                elif Word_type == 'Adjectives':
+                       collocs = [token.text for token in words if token.pos_ == "ADJ"]
+                       st.write(collocs)
+                       st.write(f"Collocations for '{keyword}':\n{colloc_str}")
+                elif Word_type == 'Adverbs':
+                       collocs = [token.text for token in words if token.pos_ == "ADV"]
+                       st.write(collocs)
+                       st.write(f"Collocations for '{keyword}':\n{colloc_str}")
+                elif Word_type == 'Numbers':
+                       collocs = [token.text for token in words if token.pos_ == "NUM"]
+                       st.write(collocs)
+                       st.write(f"Collocations for '{keyword}':\n{colloc_str}")
+                else: 
+                      pass
+		
+             
+                plot_coll_14(keyword, collocs, expander, tab3,output_file='network_output.html')
+                with open('network_output.html', 'r', encoding='utf-8') as f:
+                         html_string = f.read()
+                components.html(html_string, width=800, height=750, scrolling=True)
+                with open('network_output.html', 'rb') as f:
+                        html_bytes = f.read()
+                st.download_button(
+                  label='Download Collocation Graph',
+                  data=html_bytes,
+                  file_name='network_output.html',
+                   mime='text/html'
+                       )
+    
+     
+                
+    except ValueError as err:
+        with tab5:
+                st.info(f'Oh oh.. Please ensure that at least one free text column is chosen: {err}', icon="🤨")
+    return kwic_instances_df
 ########## Generate the PDF#############
 # Add a state variable to store the generated PDF data
 generated_pdf_data = None

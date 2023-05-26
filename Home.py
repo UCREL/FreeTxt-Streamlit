@@ -1096,7 +1096,7 @@ def plot_kwic(data, key,tab):
                       pass
 		
              
-                plot_coll_14(keyword, collocs, expander, tab3,output_file='network_output.html')
+                plot_coll_14(keyword, collocs, expander, tab,output_file='network_output.html')
                 with open('network_output.html', 'r', encoding='utf-8') as f:
                          html_string = f.read()
                 components.html(html_string, width=800, height=750, scrolling=True)

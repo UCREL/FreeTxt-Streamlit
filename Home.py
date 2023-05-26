@@ -701,7 +701,7 @@ unsafe_allow_html=True)
                          	gb.configure_selection('multiple', use_checkbox=True, groupSelectsChildren="Group checkbox select children") #Enable multi-row selection
                          	gridOptions = gb.build()
 
-                         grid_response = AgGrid(
+                                grid_response = AgGrid(
                               dfanalysis,
                               gridOptions=gridOptions,
                                data_return_mode='AS_INPUT', 
@@ -733,7 +733,7 @@ unsafe_allow_html=True)
                          	shutil.copyfile(scattertext_html_path, tmp_scattertext_path)
 
                          # Add a download button for the Scattertext HTML file
-                        	 with open(tmp_scattertext_path, "rb") as file:
+                        	with open(tmp_scattertext_path, "rb") as file:
                                     scattertext_html_data = file.read()
 
                          	st.download_button(

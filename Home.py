@@ -701,17 +701,17 @@ unsafe_allow_html=True)
                          	gb.configure_selection('multiple', use_checkbox=True, groupSelectsChildren="Group checkbox select children") #Enable multi-row selection
                          	gridOptions = gb.build()
                                 grid_response = AgGrid(
-                              dfanalysis,
-                              gridOptions=gridOptions,
+                                 dfanalysis,
+                                 gridOptions=gridOptions,
                                data_return_mode='AS_INPUT', 
-                            update_mode='MODEL_CHANGED', 
-                             fit_columns_on_grid_load=False,
+                                update_mode='MODEL_CHANGED', 
+                                fit_columns_on_grid_load=False,
     
                                   enable_enterprise_modules=True,
-                             height=350, 
-                              width='100%',
-                              reload_data=True
-                                                )
+                                 height=350, 
+                                 width='100%',
+                                  reload_data=True
+                                                  )
                          	data = grid_response['data']
                          	selected = grid_response['selected_rows'] 
                          	df = pd.DataFrame(selected) #Pass the selected rows to a new dataframe df

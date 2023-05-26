@@ -694,14 +694,14 @@ unsafe_allow_html=True)
                        
     with tab2:
                          #### interactive dataframe
-                         gb = GridOptionsBuilder.from_dataframe(analysis)
+                         gb = GridOptionsBuilder.from_dataframe(dfanalysis)
                          gb.configure_pagination(paginationAutoPageSize=True) #Add pagination
                          gb.configure_side_bar() #Add a sidebar
                          gb.configure_selection('multiple', use_checkbox=True, groupSelectsChildren="Group checkbox select children") #Enable multi-row selection
                          gridOptions = gb.build()
 
                          grid_response = AgGrid(
-                              analysis,
+                              dfanalysis,
                               gridOptions=gridOptions,
                                data_return_mode='AS_INPUT', 
                             update_mode='MODEL_CHANGED', 
@@ -717,7 +717,7 @@ unsafe_allow_html=True)
                          df = pd.DataFrame(selected) #Pass the selected rows to a new dataframe df
                          # Add a button to download the DataFrame as a CSV file
                          if st.button('Download CSV'):
-                                    st.markdown(download_csv(analysis), unsafe_allow_html=True)
+                                    st.markdown(download_csv(dfanalysis), unsafe_allow_html=True)
 
 			
 			
@@ -726,7 +726,7 @@ unsafe_allow_html=True)
                                                   # Copy the scattertext_visualization.html to a temporary file
                          st.write('For better reprentation we recommend selecting 3 sentiment classes')
                          st.write('The 2,000 most sentiment-associated uni grams are displayed as points in the scatter plot. Their x- and y- axes are the dense ranks of their usage in positive vs negative and neutral respectively.')
-                         generate_scattertext_visualization(analysis)
+                         generate_scattertext_visualization(dfanalysis)
                          scattertext_html_path='scattertext_visualization.html'
                          tmp_scattertext_path = "tmp_scattertext_visualization.html"
                          shutil.copyfile(scattertext_html_path, tmp_scattertext_path)

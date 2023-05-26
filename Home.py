@@ -898,6 +898,23 @@ def plot_coll_14(keyword, collocs, expander, tab, output_file='network.html'):
 
     # Save the visualization to an HTML file
     net.save_graph(output_file)
+#----------- plot collocation ------------------------
+def plot_collocation(keyword, collocs):
+    words, counts = zip(*collocs)
+    N, total = len(counts), sum(counts)
+    plt.figure(figsize=(8,8))
+    plt.xlim([-0.5, 0.5])
+    plt.ylim([-0.5, 0.5])
+    plt.plot([0],[0], '-o', color='blue',  markersize=25, alpha=0.7)
+    plt.text(0,0, keyword, color='red', fontsize=14)
+    for i in range(N):
+        x, y = random.uniform((i+1)/(2*N),(i+1.5)/(2*N)), random.uniform((i+1)/(2*N), (i+1.5)/(2*N)) 
+        x = x if random.choice((True, False)) else -x
+        y = y if random.choice((True, False)) else -y
+        plt.plot(x, y, '-og', markersize=counts[i]*10, alpha=0.3)
+        plt.text(x, y, words[i], fontsize=12)
+    st.set_option('deprecation.showPyplotGlobalUse', False)
+    st.pyplot()
 
  #-------------------------- N-gram Generator ---------------------------
 #, topn=10

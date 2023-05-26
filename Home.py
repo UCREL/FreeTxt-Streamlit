@@ -576,7 +576,7 @@ class txtanalysis:
         image_path=get_wordcloud(self.reviews, fname)
         return image_path
     
-    def show_kwic(self, fname):
+    def show_kwic(self, fname,tab):
         context = plot_kwic(self.reviews, fname,tab)
         return context
     def concordance(self, fname):

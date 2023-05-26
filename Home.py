@@ -1482,7 +1482,7 @@ unsafe_allow_html=True)
                     textanalysis = txtanalysis(df)
                     textanalysis.show_reviews(filenames[i],tab4)
                     #word_cloud_path = textanalysis.show_wordcloud(filenames[i],tab5)
-                    Keyword_context = textanalysis.show_kwic(filenames[i])
+                    Keyword_context = textanalysis.show_kwic(filenames[i],tab6)
                     textanalysis.concordance(filenames[i])
         ###show word cloud
         

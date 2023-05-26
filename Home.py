@@ -1249,6 +1249,8 @@ def demo_page():
                 st.experimental_set_query_params(page=None)
             if st.button('Analysis'):
                 st.experimental_set_query_params(page="analysis")
+            if st.button('About'):
+                st.experimental_set_query_params(page="about")
 
 #######################################################################################################
 ##create the html file for the wordTree
@@ -1698,7 +1700,18 @@ unsafe_allow_html=True)
 
                       except Exception as e:
                             st.error(f"An error occurred: {str(e)}")
-                    
+############################################ about Page ###############################
+def about_page():
+    st.write("---")
+    col1, col2, col3 = st.columns([1, 2, 1])
+    with col1:
+        st.image("img/FreeTxt_logo.png", width=300) 
+    with col2:
+        st.markdown("<h1 style='text-align: center; margin-top: 0px;'>Welcome to FreeTxt</h1>", unsafe_allow_html=True)
+    with col3:
+        st.image("img/FreeTxt_logo.png", width=300) 
+    st.write("---")
+	
 ###########################################Home page#######################################################################
 def main():
     
@@ -1885,6 +1898,10 @@ def app():
     elif page == "analysis":
         st.experimental_set_query_params(page="analysis")
         analysis_page()
+    elif page == 'about':
+	st.experimental_set_query_params(page="about")
+        about_page()
+	
     else:
         main()
 

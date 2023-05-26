@@ -595,9 +595,9 @@ def demo_page():
         st.markdown("<h1 style='text-align: center; margin-top: 0px;'>Demo</h1>", unsafe_allow_html=True)
     with col3:
         st.image("img/FreeTxt_logo.png", width=300)
-    st.write("---") 
+    st.write("---")
     bt1,bt2,bt3,bt4,bt5,bt6,bt7,bt8,bt9,bt10,bt11,bt12 = st.columns([2,2,2,2,2,2,2,2,2,2,2,2])
-        with bt1:
+    with bt1:
             if st.button('Home'):
                 st.experimental_set_query_params(page=None)
             if st.button('Analysis'):

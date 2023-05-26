@@ -997,8 +997,8 @@ def plot_kwic_txt(input_text,tab):
         with tab:
                 st.info(f'Please ensure that at least one free text column is chosen: {err}', icon="🤨")
     return kwic_instances_df
-def plot_kwic(data, key):
-    tab5.markdown('''💬 Word location in text''')
+def plot_kwic(data, key,tab):
+    tab.markdown('''💬 Word location in text''')
     
     # cloud_columns = st.multiselect(
         # 'Select your free text columns:', data.columns, list(data.columns), help='Select free text columns to view the word cloud', key=f"{key}_kwic_multiselect")
@@ -1010,7 +1010,7 @@ def plot_kwic(data, key):
     for c in PUNCS: input_data = input_data.lower().replace(c,'')
     
     try:
-        with tab5:
+        with tab:
             topwords = [f"{w} ({c})" for w, c in getTopNWords(input_data, removeStops=True)]
             keyword = st.selectbox('Select keyword:', topwords).split('(',1)[0].strip()
             window_size = st.slider('Select window size:', 1, 10, 5)
@@ -1112,7 +1112,7 @@ def plot_kwic(data, key):
      
                 
     except ValueError as err:
-        with tab5:
+        with tab:
                 st.info(f'Oh oh.. Please ensure that at least one free text column is chosen: {err}', icon="🤨")
     return kwic_instances_df
 ########## Generate the PDF#############

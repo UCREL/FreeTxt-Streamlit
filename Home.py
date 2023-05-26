@@ -548,6 +548,16 @@ st.set_page_config(
        '''
      }
  )
+
+css = '''
+<style>
+    .stTabs [data-baseweb="tab-list"] button [data-testid="stMarkdownContainer"] p {
+    font-size:1.5rem;
+    }
+</style>
+'''
+
+st.markdown(css, unsafe_allow_html=True)   
 ###########################################Demo page#######################################################################
 def demo_page():
     # Demo page content and layout

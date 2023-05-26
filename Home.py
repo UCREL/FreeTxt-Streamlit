@@ -658,12 +658,8 @@ unsafe_allow_html=True)
     elif option == MESSAGES[lang][2]: input_data = get_data(file_source='uploaded')
     else: pass
     status, data = input_data
-    tab1, tab2,tab3 = st.tabs(["📈 Meaning analysis",'💬 Keyword scatter','📥 Download pdf'])
-    with tab1:
-        if status:
-        	num_classes = st.radio('How do you want to categorize the sentiments?', ('3 Class Sentiments (Positive, Neutral, Negative)', '5 Class Sentiments (Very Positive, Positive, Neutral, Negative, Very Negative)'))
-        	num_classes = 3 if num_classes.startswith("3") else 5
-        # With tabbed multiselect
+           
+    if status:
         filenames = list(data.keys())
         dfanalysis = pd.DataFrame()
         for i in range(len(filenames)):
@@ -676,6 +672,12 @@ unsafe_allow_html=True)
                         
                         input_text = '\n'.join(['\n'.join([str(t) for t in list(df[col]) if str(t) not in STOPWORDS and str(t) not in PUNCS]) for col in df])
                         
+    tab1, tab2,tab3 = st.tabs(["📈 Meaning analysis",'💬 Keyword scatter','📥 Download pdf'])
+    with tab1:
+        if status:
+        	num_classes = st.radio('How do you want to categorize the sentiments?', ('3 Class Sentiments (Positive, Neutral, Negative)', '5 Class Sentiments (Very Positive, Positive, Neutral, Negative, Very Negative)'))
+        	num_classes = 3 if num_classes.startswith("3") else 5
+
                         language = detect_language(df)
                       
                         

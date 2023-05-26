@@ -728,10 +728,7 @@ unsafe_allow_html=True)
     else: pass
     status, data = input_data
     dfanalysis = pd.DataFrame()
-    # Define the styles for summarisation
-    styles = getSampleStyleSheet()
-    styles.add(ParagraphStyle(name='InputText', fontSize=12, textColor=colors.black))
-    styles.add(ParagraphStyle(name='SummarizedText', fontSize=12, textColor=colors.black))
+
     if status:
         filenames = list(data.keys())
 	
@@ -871,7 +868,10 @@ unsafe_allow_html=True)
                             styles = getSampleStyleSheet()
                             cell_style_normal = ParagraphStyle(name='cell_style_normal', parent=styles['Normal'], alignment=1)
                             cell_style_header = ParagraphStyle(name='cell_style_header', parent=styles['Normal'], alignment=1, textColor=colors.whitesmoke, backColor=colors.grey, fontName='Helvetica-Bold', fontSize=14, spaceAfter=12)
-
+                                # Define the styles for summarisation
+  
+                            styles.add(ParagraphStyle(name='InputText', fontSize=12, textColor=colors.black))
+                            styles.add(ParagraphStyle(name='SummarizedText', fontSize=12, textColor=colors.black))
                             wrapped_data = []
                             for row in table_data:
                                   wrapped_cells = []

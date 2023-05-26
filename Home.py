@@ -677,7 +677,6 @@ unsafe_allow_html=True)
         if status:
         	        num_classes = st.radio('How do you want to categorize the sentiments?', ('3 Class Sentiments (Positive, Neutral, Negative)', '5 Class Sentiments (Very Positive, Positive, Neutral, Negative, Very Negative)'))
         	        num_classes = 3 if num_classes.startswith("3") else 5
-
                         language = detect_language(df)
                       
                         

@@ -661,8 +661,8 @@ unsafe_allow_html=True)
            
     if status:
         filenames = list(data.keys())
-	language = detect_language(df)
-        dfanalysis = pd.DataFrame()
+	
+       
         for i in range(len(filenames)):
           
                 _, df = data[filenames[i]]
@@ -671,8 +671,8 @@ unsafe_allow_html=True)
                     st.info('''**NoColumnSelected 🤨**: Please select one or more columns to analyse.''', icon="ℹ️")
                 else:
                         
-                        input_text = '\n'.join(['\n'.join([str(t) for t in list(df[col]) if str(t) not in STOPWORDS and str(t) not in PUNCS]) for col in df])
-                        
+                    input_text = '\n'.join(['\n'.join([str(t) for t in list(df[col]) if str(t) not in STOPWORDS and str(t) not in PUNCS]) for col in df])
+                    language = detect_language(df)   
     tab1, tab2,tab3 = st.tabs(["📈 Meaning analysis",'💬 Keyword scatter','📥 Download pdf'])
     with tab1:
         if status:

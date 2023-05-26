@@ -692,7 +692,7 @@ unsafe_allow_html=True)
                             plot_sentiment_pie(dfanalysis)
                             plot_sentiment(dfanalysis)
                        
-    			with tab2:
+    with tab2:
        
                          #### interactive dataframe
                          	gb = GridOptionsBuilder.from_dataframe(dfanalysis)

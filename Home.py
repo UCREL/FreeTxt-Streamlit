@@ -821,7 +821,7 @@ unsafe_allow_html=True)
                        if df.empty:
                              st.info('''**NoColumnSelected 🤨**: Please select one or more columns to analyse.''', icon="ℹ️")
                        else:
-	                   summarized_text =run_summarizer(input_text[:2000],i)
+                             summarized_text =run_summarizer(input_text[:2000],i)
 
                          
                     with tab4:

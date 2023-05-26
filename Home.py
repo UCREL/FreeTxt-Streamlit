@@ -1363,10 +1363,10 @@ unsafe_allow_html=True)
 	       ##show review
                     tab4.dataframe(df ,use_container_width=True)
                     
-                    txtanalysis.show_reviews(filenames[i])
-                    word_cloud_path = txtanalysis.show_wordcloud(filenames[i])
-                    Keyword_context = txtanalysis.show_kwic(filenames[i])
-                    txtanalysis.concordance(filenames[i])
+                    txtanalysis.show_reviews(filenames[0])
+                    word_cloud_path = txtanalysis.show_wordcloud(filenames[0])
+                    Keyword_context = txtanalysis.show_kwic(filenames[0])
+                    txtanalysis.concordance(filenames[0])
         ###show word cloud
         
                     tab5.markdown('''    

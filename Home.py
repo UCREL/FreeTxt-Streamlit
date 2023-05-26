@@ -64,6 +64,10 @@ from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Table, TableStyle, Image as ReportLabImage, Spacer, BaseDocTemplate, Frame, PageTemplate
 from reportlab.lib.units import inch
 
+##Multilinguial 
+import gettext
+_ = gettext.gettext
+
 def get_image_as_base64(path):
     with open(path, "rb") as img_file:
         return base64.b64encode(img_file.read()).decode('utf-8')
@@ -471,6 +475,46 @@ def generate_scattertext_visualization(dfanalysis):
     # Save the visualization as an HTML file
     with open("scattertext_visualization.html", "w") as f:
         f.write(html)
+#----------------------------------------------------------summarisation----------------------------------------------------#	
+summary=''
+# text_rank
+def text_rank_summarize(article, ratio):
+  return summa_summarizer(article, ratio=ratio)
+
+# ------------------Summarizer--------------
+def run_summarizer(input_text, num,lang='en'):
+
+    chosen_ratio_2 = st.slider(SUM_MESSAGES[f'{lang}.sb.sl'],key = f"q{num}_1", min_value=10, max_value=50, step=10)/100
+
+    #if st.button(SUM_MESSAGES[f'{lang}.button'],key = f'bb+ {num}'):
+    #if input_text and input_text!='<Rhowch eich testun (Please enter your text...)>':
+    summary = text_rank_summarize(input_text, ratio=chosen_ratio_2)
+    if summary:
+                st.write(text_rank_summarize(input_text, ratio=chosen_ratio_2))
+    else:
+                st.write(sent_tokenize(text_rank_summarize(input_text, ratio=0.5))[0])
+    #else:
+     #       st.write("Please enter your text in the above textbox")
+    return summary      
+            
+            
+#-------------Summariser--------------
+def run_summarizertxt(input_text, lang='en'):
+
+    chosen_ratio = st.slider(SUM_MESSAGES[f'{lang}.sb.sl']+ ' ',min_value=10, max_value=50, step=10)/100
+
+    if st.button(SUM_MESSAGES[f'{lang}.button']):
+        if input_text and input_text!='<Please enter your text...>' and len(input_text) > 10:
+            summ = text_rank_summarize(input_text, ratio=chosen_ratio)
+            if summ:
+                summary = text_rank_summarize(input_text, ratio=chosen_ratio)
+                st.write(summary)
+            else:
+                summary = sent_tokenize(text_rank_summarize(input_text, ratio=0.5))[0]
+                st.write(summary)
+        else:
+            st.write("Please enter your text in the above textbox")
+	
 ########## Generate the PDF#############
 # Add a state variable to store the generated PDF data
 generated_pdf_data = None
@@ -506,7 +550,9 @@ def download_csv(df):
     href = f'<a href="data:file/csv;base64,{b64}" download="Sentiment-analysis.csv">Download CSV File</a>'
     return href
 #-----------------------------------------------------------------------------------------
-
+# --- Initialising SessionState ---
+if "load_state" not in st.session_state:
+     st.session_state.load_state = False
 
 
 ###############PAGES########################################################################################
@@ -695,7 +741,7 @@ unsafe_allow_html=True)
                         
                     input_text = '\n'.join(['\n'.join([str(t) for t in list(df[col]) if str(t) not in STOPWORDS and str(t) not in PUNCS]) for col in df])
                      
-    tab1, tab2,tab3 = st.tabs(["📈 Meaning analysis",'💬 Keyword scatter','📥 Download pdf'])
+    tab1, tab2,tab3,tab4 = st.tabs(["📈 Meaning analysis",'💬 Keyword scatter','📝 Summarisation','📥 Download pdf'])
     with tab1:
         if status:
                         num_classes = st.radio('How do you want to categorize the sentiments?', ('3 Class Sentiments (Positive, Neutral, Negative)', '5 Class Sentiments (Very Positive, Positive, Neutral, Negative, Very Negative)'))
@@ -770,9 +816,12 @@ unsafe_allow_html=True)
                          source_code = HtmlFile.read() 
                          print(source_code)
                          components.html(source_code,height = 1500,width = 800)
+    with tab3:
+	st.write('This tool, adapted from the Welsh Summarization project, produces a basic extractive summary of the review text from the selected columns.')
+        summarized_text =run_summarizer(input_text[:2000],i)
 
                          
-    with tab3:
+    with tab4:
                     try:
                      # Check if the DataFrame exists
                        if not dfanalysis.empty :

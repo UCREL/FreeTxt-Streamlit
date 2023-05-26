@@ -515,62 +515,8 @@ def run_summarizertxt(input_text, lang='en'):
         else:
             st.write("Please enter your text in the above textbox")
 	
-##-------------------------------------------Review analysis and illuistration-------------------------------------
-##create the html file for the wordTree
-class html:
-    def __init__(self, reviews):
-        self.reviews = reviews
-    def create_html(self, fname,search_word):
-    
-    # Creating an HTML file to pass to google chart
-        Func = open("GFG-1.html","w")
-        sentences = ''.join(str(self.reviews.values.tolist()))
-        Func.write('''<html>
-  <head>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-      google.charts.load('current', {packages:['wordtree']});
-      google.charts.setOnLoadCallback(drawChart);
-
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable(
-          '''+
-           sentences
-             +
-         ''' 
-        );
-
-        var options = {
-          wordtree: {
-            format: 'implicit',
-            type: 'double',
-            word:
-            "'''          
-            +
-            search_word
-            +
-            '''"
-                        
-            ,
-            colors: ['red', 'black', 'green']
-          }
-        };
-
-        var chart = new google.visualization.WordTree(document.getElementById('wordtree_basic'));
-        chart.draw(data, options);
-      }
-    </script>
-  </head>
-  <body>
-    <div id="wordtree_basic" style="width: 900px; height: 500px;"></div>
-  </body>
-</html>
-
-    
-        ''')
-        Func.close()
-		
-		
+##-------------------------------------------Review analysis and illuistration------------------------------------
+			
 class Analysis:
     def __init__(self, reviews):
         self.reviews = reviews
@@ -1177,7 +1123,61 @@ def demo_page():
                 st.experimental_set_query_params(page=None)
             if st.button('Analysis'):
                 st.experimental_set_query_params(page="analysis")
-        
+
+#######################################################################################################
+##create the html file for the wordTree
+class html:
+    def __init__(self, reviews):
+        self.reviews = reviews
+    def create_html(self, fname,search_word):
+    
+    # Creating an HTML file to pass to google chart
+        Func = open("GFG-1.html","w")
+        sentences = ''.join(str(self.reviews.values.tolist()))
+        Func.write('''<html>
+  <head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {packages:['wordtree']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable(
+          '''+
+           sentences
+             +
+         ''' 
+        );
+
+        var options = {
+          wordtree: {
+            format: 'implicit',
+            type: 'double',
+            word:
+            "'''          
+            +
+            search_word
+            +
+            '''"
+                        
+            ,
+            colors: ['red', 'black', 'green']
+          }
+        };
+
+        var chart = new google.visualization.WordTree(document.getElementById('wordtree_basic'));
+        chart.draw(data, options);
+      }
+    </script>
+  </head>
+  <body>
+    <div id="wordtree_basic" style="width: 900px; height: 500px;"></div>
+  </body>
+</html>
+
+    
+        ''')
+        Func.close()
 ###########################################Analysis page#######################################################################
 def analysis_page():
     state = get_state()
@@ -1257,7 +1257,7 @@ unsafe_allow_html=True)
     else: pass
     status, data = input_data
     dfanalysis = pd.DataFrame()
-
+    
     if status:
         filenames = list(data.keys())
 	

@@ -520,8 +520,8 @@ class txtanalysis:
     def __init__(self, reviews):
         self.reviews = reviews
 
-    def show_reviews(self, fname):
-        with tab4:
+    def show_reviews(self, fname,tab):
+        with tab:
             st.markdown(f'''📄 Viewing data: `{fname}`''')
             #df = pd.DataFrame(self.reviews)
             data = self.reviews 
@@ -1363,7 +1363,7 @@ unsafe_allow_html=True)
 	       ##show review
                     tab4.dataframe(df ,use_container_width=True)
                     textanalysis = txtanalysis(df)
-                    textanalysis.show_reviews(filenames[i])
+                    textanalysis.show_reviews(filenames[i],tab4)
                     word_cloud_path = textanalysis.show_wordcloud(filenames[i])
                     Keyword_context = textanalysis.show_kwic(filenames[i])
                     textanalysis.concordance(filenames[i])

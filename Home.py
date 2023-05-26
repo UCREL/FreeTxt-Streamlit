@@ -77,7 +77,7 @@ EXAMPLES_DIR = 'example_texts_pub'
 
 
 # reading example and uploaded files
-@st.cache(suppress_st_warning=True)
+@st.cache_data
 def read_file(fname, file_source):
     file_name = fname if file_source=='example' else fname.name
     if file_name.endswith('.txt'):
@@ -175,7 +175,7 @@ def preprocess_text(text):
     return text
 
 # define function to analyze sentiment using Polyglot for Welsh language
-@st.cache(allow_output_mutation=True)
+@st.cache_data
 def analyze_sentiment_welsh_polyglot(input_text):
     # preprocess input text and split into reviews
     reviews = input_text.split("\n")
@@ -209,7 +209,7 @@ def analyze_sentiment_welsh_polyglot(input_text):
 
 from textblob import TextBlob
 # define function to analyze sentiment using TextBlob for Welsh language
-@st.cache(allow_output_mutation=True)
+@st.cache_data
 def analyze_sentiment_welsh(input_text):
     # preprocess input text and split into reviews
     reviews = input_text.split("\n")
@@ -256,7 +256,7 @@ def preprocess_text(text):
 
 
 
-@st.cache(allow_output_mutation=True)
+@st.cache_resource
 def analyze_sentiment(input_text,num_classes, max_seq_len=512):
     # load tokenizer and model
     tokenizer = AutoTokenizer.from_pretrained("nlptown/bert-base-multilingual-uncased-sentiment")

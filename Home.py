@@ -693,7 +693,7 @@ unsafe_allow_html=True)
                             plot_sentiment(dfanalysis)
                        
     with tab2:
-	if dfanalysis is not empty:
+          if dfanalysis is not empty:
                          #### interactive dataframe
                          gb = GridOptionsBuilder.from_dataframe(dfanalysis)
                          gb.configure_pagination(paginationAutoPageSize=True) #Add pagination

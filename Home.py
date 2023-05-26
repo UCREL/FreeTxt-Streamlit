@@ -64,7 +64,6 @@ from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Table, TableStyle, Image as ReportLabImage, Spacer, BaseDocTemplate, Frame, PageTemplate
 from reportlab.lib.units import inch
 
-from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 
 ##Multilinguial 
 import gettext
@@ -728,7 +727,11 @@ unsafe_allow_html=True)
     elif option == MESSAGES[lang][2]: input_data = get_data(file_source='uploaded')
     else: pass
     status, data = input_data
-    dfanalysis = pd.DataFrame()      
+    dfanalysis = pd.DataFrame()
+    # Define the styles for summarisation
+    styles = getSampleStyleSheet()
+    styles.add(ParagraphStyle(name='InputText', fontSize=12, textColor=colors.black))
+    styles.add(ParagraphStyle(name='SummarizedText', fontSize=12, textColor=colors.black))
     if status:
         filenames = list(data.keys())
 	
@@ -819,10 +822,7 @@ unsafe_allow_html=True)
                          print(source_code)
                          components.html(source_code,height = 1500,width = 800)
                     with tab3:
-                       # Define the styles for summarisation
-                       styles = getSampleStyleSheet()
-                       styles.add(ParagraphStyle(name='InputText', fontSize=12, textColor=colors.black))
-                       styles.add(ParagraphStyle(name='SummarizedText', fontSize=12, textColor=colors.black))
+
                        st.write('This tool, adapted from the Welsh Summarization project, produces a basic extractive summary of the review text from the selected columns.')
                        summarized_text =run_summarizer(input_text[:2000],i)
 

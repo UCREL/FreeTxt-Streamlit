@@ -522,7 +522,7 @@ class Analysis:
         self.reviews = reviews
 
     def show_reviews(self, fname):
-        with tab1:
+        with tab4:
             st.markdown(f'''📄 Viewing data: `{fname}`''')
             #df = pd.DataFrame(self.reviews)
             data = self.reviews 
@@ -644,15 +644,7 @@ def Pymsas_tags(text):
         merged_df = merged_df[~merged_df['USAS Tags'].str.contains('|'.join(tags_to_remove))]
 
     return(merged_df['USAS Tags'])
-css = '''
-<style>
-    .stTabs [data-baseweb="tab-list"] button [data-testid="stMarkdownContainer"] p {
-    font-size:1.2rem;
-    }
-</style>
-'''
 
-st.markdown(css, unsafe_allow_html=True)  
 
     
 ###to upload image
@@ -1079,6 +1071,7 @@ css = '''
 '''
 
 st.markdown(css, unsafe_allow_html=True)   
+
 ###########################################Demo page#######################################################################
 def demo_page():
     # Demo page content and layout

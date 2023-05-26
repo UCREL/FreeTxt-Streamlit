@@ -577,7 +577,7 @@ class txtanalysis:
         return image_path
     
     def show_kwic(self, fname):
-        context = plot_kwic(self.reviews, fname)
+        context = plot_kwic(self.reviews, fname,tab6)
         return context
     def concordance(self, fname):
         with tab8:

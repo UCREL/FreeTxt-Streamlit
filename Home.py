@@ -1362,11 +1362,11 @@ unsafe_allow_html=True)
                        summarized_text =run_summarizer(input_text[:2000],i)
 	       ##show review
                     tab4.dataframe(df ,use_container_width=True)
-                    
-                    txtanalysis.show_reviews(filenames[0])
-                    word_cloud_path = txtanalysis.show_wordcloud(filenames[0])
-                    Keyword_context = txtanalysis.show_kwic(filenames[0])
-                    txtanalysis.concordance(filenames[0])
+                    textanalysis = txtanalysis(df)
+                    textanalysis.show_reviews(filenames[i])
+                    word_cloud_path = textanalysis.show_wordcloud(filenames[i])
+                    Keyword_context = textanalysis.show_kwic(filenames[i])
+                    textanalysis.concordance(filenames[i])
         ###show word cloud
         
                     tab5.markdown('''    

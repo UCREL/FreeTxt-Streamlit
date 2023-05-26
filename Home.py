@@ -1247,8 +1247,10 @@ def demo_page():
     with bt1:
             if st.button('Home'):
                 st.experimental_set_query_params(page=None)
+    with bt2:
             if st.button('Analysis'):
                 st.experimental_set_query_params(page="analysis")
+    with bt3:
             if st.button('About'):
                 st.experimental_set_query_params(page="about")
 
@@ -1707,7 +1709,7 @@ def about_page():
     with col1:
         st.image("img/FreeTxt_logo.png", width=300) 
     with col2:
-        st.markdown("<h1 style='text-align: center; margin-top: 0px;'>Welcome to FreeTxt</h1>", unsafe_allow_html=True)
+        st.markdown("<h1 style='text-align: center; margin-top: 0px;'>About</h1>", unsafe_allow_html=True)
     with col3:
         st.image("img/FreeTxt_logo.png", width=300) 
     st.write("---")

@@ -842,7 +842,7 @@ unsafe_allow_html=True)
                                elements.append(Spacer(1, 20))
                            else:
                               st.error("Sentiment Bar Graph image not found")
-			if generate_pdf_checkbox:
+                        if generate_pdf_checkbox:
 
         
                                 # Build PDF

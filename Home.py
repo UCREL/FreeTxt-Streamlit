@@ -700,8 +700,7 @@ unsafe_allow_html=True)
                          	gb.configure_side_bar() #Add a sidebar
                          	gb.configure_selection('multiple', use_checkbox=True, groupSelectsChildren="Group checkbox select children") #Enable multi-row selection
                          	gridOptions = gb.build()
-
-                                grid_response = AgGrid(
+				grid_response = AgGrid(
                               dfanalysis,
                               gridOptions=gridOptions,
                                data_return_mode='AS_INPUT', 

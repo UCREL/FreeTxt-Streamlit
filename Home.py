@@ -753,7 +753,7 @@ unsafe_allow_html=True)
     with tab3:
                     try:
                      # Check if the DataFrame exists
-                       if dfanalysis is not None:
+                       if not dfanalysis.empty :
 			#####pdf_generator
                         data_list_checkbox = st.checkbox("Include Data List as a Table")
                         sentiment_pie_checkbox = st.checkbox("Include Sentiment Pie Graph")
@@ -842,31 +842,7 @@ unsafe_allow_html=True)
                                elements.append(Spacer(1, 20))
                            else:
                               st.error("Sentiment Bar Graph image not found")
-
-                        #if scatter_text_checkbox:
-                         # Add the scatter text
-                               ###convert the html to image
-
-                           #     scattertext_html_path = "scattertext_visualization.html"
-                            #    scattertext_image_path = "scattertext_visualization.png"
-
-
-                           #     html_to_image_weasyprint(scattertext_html_path, scattertext_image_path)
-
-
-                               
-                                
-                                
-                            #    scatter_text = ReportLabImage(scattertext_image_path, width=800, height=800)
-                             #   elements.append(scatter_text)
-                             #   elements.append(Spacer(1, 20))
-
-                       else:
-                           st.error("DataFrame not found")
-
-                    except Exception as e:
-                            st.error(f"An error occurred: {str(e)}")
-                    if generate_pdf_checkbox:
+			if generate_pdf_checkbox:
 
         
                                 # Build PDF
@@ -876,8 +852,16 @@ unsafe_allow_html=True)
                             generated_pdf_data = buffer.read()
 
    # Display the download button only after generating the report
-                    if generated_pdf_data:
+                    	if generated_pdf_data:
                               st.download_button("Download PDF", generated_pdf_data, "report_positiveandnegative.pdf", "application/pdf")
+
+
+                       else:
+                           st.error("DataFrame not found")
+
+                    except Exception as e:
+                            st.error(f"An error occurred: {str(e)}")
+                    
 ###########################################Home page#######################################################################
 def main():
     

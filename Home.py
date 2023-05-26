@@ -826,10 +826,14 @@ unsafe_allow_html=True)
                      # Check if the DataFrame exists
                        if not dfanalysis.empty :
 			#####pdf_generator
+			##############Sentiment analysis
                         data_list_checkbox = st.checkbox("Include Data List as a Table")
                         sentiment_pie_checkbox = st.checkbox("Include Sentiment Pie Graph")
                         sentiment_bar_checkbox = st.checkbox("Include Sentiment Bar Graph")
                        # scatter_text_checkbox = st.checkbox("Include Scatter Text")
+		       ##############summarisation,
+			download_text = st.checkbox("Include original text")
+                        download_summary = st.checkbox("Include summarized text")
                         generate_pdf_checkbox = st.checkbox("Generate PDF report")
 			
                         # Create the PDF
@@ -913,6 +917,18 @@ unsafe_allow_html=True)
                                elements.append(Spacer(1, 20))
                            else:
                               st.error("Sentiment Bar Graph image not found")
+                        if download_text:
+                                 # Add the input text
+                                        input_text_paragraph = Paragraph(f"Input Text:\n{input_text}", styles['InputText'])
+                                        elements.append(input_text_paragraph)
+
+                                        elements.append(Spacer(1, 20))
+
+                        if download_summary:
+                                   # Add the summarized text
+                                           
+                                           summarized_text_paragraph = Paragraph(f"Summarized Text:\n{summarized_text}", styles['SummarizedText'])
+                                           elements.append(summarized_text_paragraph)
                         if generate_pdf_checkbox:
 
         

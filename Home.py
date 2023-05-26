@@ -579,10 +579,10 @@ def demo_page():
             if st.button('Home'):
                 st.experimental_set_query_params(page=None)
             if st.button('Analysis'):
-                st.experimental_set_query_params(page="textanalysis")
+                st.experimental_set_query_params(page="analysis")
         
 ###########################################Analysis page#######################################################################
-def textanalysis_page():
+def analysis_page():
     
     col1, col2, col3 = st.columns([1, 2, 1])
     with col1:
@@ -914,7 +914,7 @@ any sector in Wales and beyond to use it.
     with button_col1:
         if st.button("Start Analysis", key="analysis_button", help="Redirects to the Analysis page"):
 
-            st.experimental_set_query_params(page="textanalysis")
+            st.experimental_set_query_params(page="analysis")
 
     with button_col2:
         if st.button("Watch a Demo", key="demo_button", help="Redirects to the Demo page"):
@@ -1059,9 +1059,9 @@ def app():
     if page == "demo":
         st.experimental_set_query_params(page="demo")
         demo_page()
-    elif page == "textanalysis":
-        st.experimental_set_query_params(page="textanalysis")
-        textanalysis_page()
+    elif page == "analysis":
+        st.experimental_set_query_params(page="analysis")
+        analysis_page()
     else:
         main()
 

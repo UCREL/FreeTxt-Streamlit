@@ -562,6 +562,7 @@ st.markdown(css, unsafe_allow_html=True)
 def demo_page():
     # Demo page content and layout
     # ...
+	
     st.markdown("""
     <style>
         .stButton>button {
@@ -586,7 +587,7 @@ def demo_page():
         }
     </style>
     """, unsafe_allow_html=True)
-
+    st.write("---")
     col1, col2, col3 = st.columns([1, 2, 1])
     with col1:
         st.image("img/FreeTxt_logo.png", width=300) 
@@ -594,10 +595,8 @@ def demo_page():
         st.markdown("<h1 style='text-align: center; margin-top: 0px;'>Demo</h1>", unsafe_allow_html=True)
     with col3:
         st.image("img/FreeTxt_logo.png", width=300)
-     
-    coll1, coll2, coll3 = st.columns([2, 2, 2])
-    with coll1:
-        bt1,bt2,bt3 = st.columns([2,2,1])
+    st.write("---") 
+    bt1,bt2,bt3,bt4,bt5,bt6,bt7,bt8,bt9,bt10,bt11,bt12 = st.columns([2,2,2,2,2,2,2,2,2,2,2,2])
         with bt1:
             if st.button('Home'):
                 st.experimental_set_query_params(page=None)
@@ -606,7 +605,7 @@ def demo_page():
         
 ###########################################Analysis page#######################################################################
 def analysis_page():
-    
+    st.write("---")
     col1, col2, col3 = st.columns([1, 2, 1])
     with col1:
          

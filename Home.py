@@ -692,14 +692,14 @@ unsafe_allow_html=True)
                             plot_sentiment_pie(dfanalysis)
                             plot_sentiment(dfanalysis)
                        
-    with tab2:
-         if dfanalysis is not None:
+    			with tab2:
+        
                          #### interactive dataframe
-                         gb = GridOptionsBuilder.from_dataframe(dfanalysis)
-                         gb.configure_pagination(paginationAutoPageSize=True) #Add pagination
-                         gb.configure_side_bar() #Add a sidebar
-                         gb.configure_selection('multiple', use_checkbox=True, groupSelectsChildren="Group checkbox select children") #Enable multi-row selection
-                         gridOptions = gb.build()
+                         	gb = GridOptionsBuilder.from_dataframe(dfanalysis)
+                         	gb.configure_pagination(paginationAutoPageSize=True) #Add pagination
+                         	gb.configure_side_bar() #Add a sidebar
+                         	gb.configure_selection('multiple', use_checkbox=True, groupSelectsChildren="Group checkbox select children") #Enable multi-row selection
+                         	gridOptions = gb.build()
 
                          grid_response = AgGrid(
                               dfanalysis,
@@ -713,41 +713,41 @@ unsafe_allow_html=True)
                               width='100%',
                               reload_data=True
                                                 )
-                         data = grid_response['data']
-                         selected = grid_response['selected_rows'] 
-                         df = pd.DataFrame(selected) #Pass the selected rows to a new dataframe df
+                         	data = grid_response['data']
+                         	selected = grid_response['selected_rows'] 
+                         	df = pd.DataFrame(selected) #Pass the selected rows to a new dataframe df
                          # Add a button to download the DataFrame as a CSV file
-                         if st.button('Download CSV'):
+                         	if st.button('Download CSV'):
                                     st.markdown(download_csv(dfanalysis), unsafe_allow_html=True)
 
 			
 			
 			###scattertext
-                         st.header('Scatter Text')
+                         	st.header('Scatter Text')
                                                   # Copy the scattertext_visualization.html to a temporary file
-                         st.write('For better reprentation we recommend selecting 3 sentiment classes')
-                         st.write('The 2,000 most sentiment-associated uni grams are displayed as points in the scatter plot. Their x- and y- axes are the dense ranks of their usage in positive vs negative and neutral respectively.')
-                         generate_scattertext_visualization(dfanalysis)
-                         scattertext_html_path='scattertext_visualization.html'
-                         tmp_scattertext_path = "tmp_scattertext_visualization.html"
-                         shutil.copyfile(scattertext_html_path, tmp_scattertext_path)
+                         	st.write('For better reprentation we recommend selecting 3 sentiment classes')
+                         	st.write('The 2,000 most sentiment-associated uni grams are displayed as points in the scatter plot. Their x- and y- axes are the dense ranks of their usage in positive vs negative and neutral respectively.')
+                         	generate_scattertext_visualization(dfanalysis)
+                         	scattertext_html_path='scattertext_visualization.html'
+                         	tmp_scattertext_path = "tmp_scattertext_visualization.html"
+                         	shutil.copyfile(scattertext_html_path, tmp_scattertext_path)
 
                          # Add a download button for the Scattertext HTML file
-                         with open(tmp_scattertext_path, "rb") as file:
+                        	 with open(tmp_scattertext_path, "rb") as file:
                                     scattertext_html_data = file.read()
 
-                         st.download_button(
-                             label="Download Scattertext Visualization HTML",
-                             data=scattertext_html_data,
-                          file_name="scattertext_visualization.html",
-                            mime="text/html",
-                                )
+                         	st.download_button(
+                             	label="Download Scattertext Visualization HTML",
+                            	 data=scattertext_html_data,
+                       	   file_name="scattertext_visualization.html",
+                        	    mime="text/html",
+                        	        )
                          
                          
-                         HtmlFile = open("scattertext_visualization.html", 'r', encoding='utf-8')
-                         source_code = HtmlFile.read() 
-                         print(source_code)
-                         components.html(source_code,height = 1500,width = 800)
+                         	HtmlFile = open("scattertext_visualization.html", 'r', encoding='utf-8')
+                         	source_code = HtmlFile.read() 
+                         	print(source_code)
+                         	components.html(source_code,height = 1500,width = 800)
 			 
 
                          

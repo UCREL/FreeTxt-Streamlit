@@ -1748,7 +1748,12 @@ any sector in Wales and beyond to use it.
 
    
     with button_col1:
-        st.markdown("[Start Analysis](https://nouran-khallaf-free-txt-home-gdoog2.streamlit.app/?page=analysis),target="_self"")
+        st.markdown("""
+    <a href="https://nouran-khallaf-free-txt-home-gdoog2.streamlit.app/?page=analysis" target = "_self"> 
+        Page 2 
+    </a>
+""", unsafe_allow_html=True)
+	
         if st.button("Start Analysis", key="analysis_button", help="Redirects to the Analysis page"):
 
             st.experimental_set_query_params(page="analysis")

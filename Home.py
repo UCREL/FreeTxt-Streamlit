@@ -1751,12 +1751,12 @@ any sector in Wales and beyond to use it.
         if st.button("Start Analysis", key="analysis_button", help="Redirects to the Analysis page"):
 
             st.experimental_set_query_params(page="analysis")
-	    st.markdown("[Start Analysis](<https://nouran-khallaf-free-txt-home-gdoog2.streamlit.app/>?page=analysis)", unsafe_allow_html=True)
+            st.markdown("[Start Analysis](<https://nouran-khallaf-free-txt-home-gdoog2.streamlit.app/>?page=analysis)", unsafe_allow_html=True)
 
     with button_col2:
         if st.button("Watch a Demo", key="demo_button", help="Redirects to the Demo page"):
             st.experimental_set_query_params(page="demo")
-	    st.markdown("[Start Analysis](<https://nouran-khallaf-free-txt-home-gdoog2.streamlit.app/>?page=demo)", unsafe_allow_html=True)
+            st.markdown("[Start Analysis](<https://nouran-khallaf-free-txt-home-gdoog2.streamlit.app/>?page=demo)", unsafe_allow_html=True)
     
     st.write("---")
    

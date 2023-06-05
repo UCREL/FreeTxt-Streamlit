@@ -1770,17 +1770,7 @@ unsafe_allow_html=True)
 
                       except Exception as e:
                             st.error(f"An error occurred: {str(e)}")
-############################################ about Page ###############################
-def about_page():
-    st.write("---")
-    col1, col2, col3 = st.columns([1, 2, 1])
-    with col1:
-        st.image("img/FreeTxt_logo.png", width=300) 
-    with col2:
-        st.markdown("<h1 style='text-align: center; margin-top: 0px;'>About</h1>", unsafe_allow_html=True)
-    with col3:
-        st.image("img/FreeTxt_logo.png", width=300) 
-    st.write("---")
+
 	
 ###########################################Home page#######################################################################
 def main():
@@ -1990,8 +1980,9 @@ FreeTxt was developed as part of an AHRC funded collaborative FreeTxt supporting
         <img class="logo" src="data:image/png;base64,{get_image_as_base64('img/Amgueddfa_Cymru_logo.svg.png')}" />
         <img class="logo" src="data:image/png;base64,{get_image_as_base64('img/Cadw.png')}" />
         <img class="logo" src="data:image/png;base64,{get_image_as_base64('img/NCLW.jpg')}" />
-        <img class="logo" src="data:image/png;base64,{get_image_as_base64('img/WJEC_CBAC_logo.svg.png')}" />
 	<img class="logo" src="data:image/png;base64,{get_image_as_base64('img/ukri-ahrc-square-logo.png')}"/>
+        <img class="logo" src="data:image/png;base64,{get_image_as_base64('img/WJEC_CBAC_logo.svg.png')}" />
+	
     </div>
     """,
     unsafe_allow_html=True

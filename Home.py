@@ -2039,16 +2039,8 @@ unsafe_allow_html=True
 
 def app():
     if 'selected3' not in st.session_state:
-        st.session_state['selected3'] = option_menu(None, ["Home", "Analysis",  "Demo"], 
-            icons=['house', 'sliders2',  'gear'], 
-            menu_icon="cast", default_index=0, orientation="horizontal",
-            styles={
-                "container": {"padding": "0!important", "background-color": "#fafafa"},
-                "icon": {"color": "orange", "font-size": "25px"}, 
-                "nav-link": {"font-size": "25px", "text-align": "left", "margin":"0px", "--hover-color": "#eee"},
-                "nav-link-selected": {"background-color": "green"},
-            }
-        )
+        st.experimental_set_query_params(page="home")
+            main()
 
     query_params = st.experimental_get_query_params()
     page = query_params.get("page", [None])[0]

@@ -2044,7 +2044,7 @@ def app():
         elif page == "analysis":
           st.experimental_set_query_params(page="analysis")
           analysis_page()
-        elif page == 'None':
+        elif page == None:
           st.experimental_set_query_params(page="home")
           about_page()
     

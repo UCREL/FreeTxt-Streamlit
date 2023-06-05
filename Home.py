@@ -1789,7 +1789,7 @@ def analysis_page():
 ###########################################Home page#######################################################################
 def main():
     
-    st.write("---")
+    #st.write("---")
     col1,  col3 = st.columns([1,  2])
     with col1:
         st.image("img/FreeTxt_logo_R.png", width=300) 

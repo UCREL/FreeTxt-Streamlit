@@ -1810,7 +1810,7 @@ def main():
     Welcome to FreeTxt
     </h1>""", 
     unsafe_allow_html=True)
-    st.write("---")
+    
     selected3 = option_menu(None, ["Home", "Upload",  "Tasks", 'Settings'], 
     		icons=['house', 'cloud-upload', "list-task", 'gear'], 
     		menu_icon="cast", default_index=0, orientation="horizontal",
@@ -1821,6 +1821,7 @@ def main():
      		   "nav-link-selected": {"background-color": "green"},
    		 }
 		)
+    st.write("---")
     with open('style.css') as f:
         st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html =True)
     st.markdown(

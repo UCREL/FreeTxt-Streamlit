@@ -1761,27 +1761,34 @@ any sector in Wales and beyond to use it.
 
    
     with button_col1:
-       st.markdown("""
+         st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Tangerine&display=swap');
+
+    .fancy-link {
+        font-size: 30px; 
+        font-family: 'Tangerine', cursive; 
+        color: #4a4a4a; 
+        background-color: #ddd; 
+        padding: 10px 20px; 
+        border-radius: 5px; 
+        text-decoration: none;
+        transition: background-color 0.3s ease, font-size 0.3s ease;
+    }
+
+    .fancy-link:hover {
+        background-color: #bbb;
+        font-size: 35px;
+    }
     </style>
+
     <a href="https://nouran-khallaf-free-txt-home-gdoog2.streamlit.app/?page=analysis" 
        target = "_self"
-       style = "
-          font-size: 30px; 
-          font-family: 'Tangerine', cursive; 
-          color: #4a4a4a; 
-          background-color: #ddd; 
-          padding: 10px 20px; 
-          border-radius: 5px; 
-          text-decoration: none;
-          transition: background-color 0.3s ease;
-       "
-       onmouseover = "this.style.backgroundColor='#bbb';" 
-       onmouseout = "this.style.backgroundColor='#ddd';">
+       class = "fancy-link">
         Start Analysis
     </a>
 """, unsafe_allow_html=True)
+
 
             
     with button_col2:
@@ -1807,10 +1814,10 @@ any sector in Wales and beyond to use it.
     }
     </style>
 
-    <a href="https://nouran-khallaf-free-txt-home-gdoog2.streamlit.app/?page=analysis" 
+    <a href="https://nouran-khallaf-free-txt-home-gdoog2.streamlit.app/?page=demo" 
        target = "_self"
        class = "fancy-link">
-        Start Analysis
+        Start A Demo
     </a>
 """, unsafe_allow_html=True)
 

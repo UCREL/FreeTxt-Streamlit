@@ -1729,7 +1729,7 @@ def main():
     </style>
     <h1 style='text-align: center; 
                margin-top: 0px; 
-               font-size: 60px; 
+               font-size: 80px; 
                color: #4a4a4a; 
                font-family: Tangerine, cursive; 
                text-shadow: 2px 2px #aaa;'>

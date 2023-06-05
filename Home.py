@@ -1392,23 +1392,25 @@ class html:
 def analysis_page():
     state = get_state()
     st.write("---")
-    col1, col2, col3 = st.columns([1, 2, 1])
+    col1,  col3 = st.columns([1, 2])
     with col1:
          
         st.image("img/FreeTxt_logo.png", width=300) 
         
-    with col2:
-        st.markdown("""
-<h1 style='text-align: center; 
-            margin-top: 20px; 
-            color: #4a4a4a; 
-            font-family: Arial, sans-serif; 
-            font-weight: 300; 
-            letter-spacing: 2px;'>
-    Text Analysis
-</h1>""", 
-unsafe_allow_html=True)
+
     with col3:
+	st.markdown("""
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Tangerine&display=swap');
+    </style>
+    <h1 style='text-align: center; 
+               margin-top: 0px; 
+               font-size: 80px; 
+               color: #4a4a4a; 
+               font-family: Tangerine, cursive; 
+               text-shadow: 2px 2px #aaa;'>
+    Demo
+    </h1>""",  unsafe_allow_html=True)
         st.markdown("""
 <style>
     .stButton>button {
@@ -1434,7 +1436,7 @@ unsafe_allow_html=True)
 </style>
 """, unsafe_allow_html=True)
        
-        st.image("img/FreeTxt_logo.png", width=300) 
+        
     # Analysis page content and layout
     st.write("---")
     bt1,bt2,bt3,bt4,bt5,bt6,bt7,bt8,bt9,bt10,bt11,bt12 = st.columns([2,2,2,2,2,2,2,2,2,2,2,2])

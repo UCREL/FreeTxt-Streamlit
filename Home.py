@@ -1789,24 +1789,31 @@ any sector in Wales and beyond to use it.
         st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Tangerine&display=swap');
+
+    .fancy-link {
+        font-size: 30px; 
+        font-family: 'Tangerine', cursive; 
+        color: #4a4a4a; 
+        background-color: #ddd; 
+        padding: 10px 20px; 
+        border-radius: 5px; 
+        text-decoration: none;
+        transition: background-color 0.3s ease, font-size 0.3s ease;
+    }
+
+    .fancy-link:hover {
+        background-color: #bbb;
+        font-size: 50px;
+    }
     </style>
-    <a href="https://nouran-khallaf-free-txt-home-gdoog2.streamlit.app/?page=demo" 
+
+    <a href="https://nouran-khallaf-free-txt-home-gdoog2.streamlit.app/?page=analysis" 
        target = "_self"
-       style = "
-          font-size: 40px; 
-          font-family: 'Tangerine', cursive; 
-          color: #4a4a4a; 
-          background-color: #ddd; 
-          padding: 10px 20px; 
-          border-radius: 5px; 
-          text-decoration: none;
-          transition: background-color 0.3s ease;
-       "
-       onmouseover = "this.style.backgroundColor='#bbb';" 
-       onmouseout = "this.style.backgroundColor='#ddd';">
-        Start by Demo
+       class = "fancy-link">
+        Start Analysis
     </a>
 """, unsafe_allow_html=True)
+
 
             
     st.write("---")

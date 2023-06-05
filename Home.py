@@ -1955,29 +1955,27 @@ FreeTxt was developed as part of an AHRC funded collaborative FreeTxt supporting
 
     st.markdown("<br></br>", unsafe_allow_html=True) # Creates some space before logos
 
-
     st.markdown(
-    f"""
-    <style>
-        .logo-container {{
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-	    border: 2px solid grey;  
-        border-radius: 5px;  
+f"""
+<style>
+    .logo-container {{
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        border: 2px solid grey;  /* Add border property here */
+        border-radius: 5px;  /* Optional: Add a border radius if you want the border to be rounded */
     }}
-        }}
-        .logo {{
-            width: 100px;
-            height: 100px;
-            margin: 10px;
-            object-fit: contain;
-            flex-grow: 1;
-        }}
-    </style>
-    """,
-    unsafe_allow_html=True
-     )
+    .logo {{
+        width: 100px;
+        height: 100px;
+        margin: 10px;
+        object-fit: contain;
+        flex-grow: 1;
+    }}
+</style>
+""",
+unsafe_allow_html=True
+)
     st.markdown(
     f"""
     <div class="logo-container">

@@ -1821,12 +1821,12 @@ def main():
      		   "nav-link-selected": {"background-color": "green"},
    		 }
 		)
-    
+    #24px;border: 2px solid grey;
     with open('style.css') as f:
         st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html =True)
     st.markdown(
       """
-<div style='background-color: white; padding: 10px; border-radius: 5px; color: black; font-size: 24px;border: 2px solid grey;'>
+<div style='background-color: white; padding: 10px; border-radius: 5px; color: black; font-size: '>
 A free online text analysis and visualisation tool for English and Welsh. 
 FreeTxt allows you to upload free-text feedback data from surveys, questionnaires etc., 
 and to carry out quick and detailed analysis of the responses. FreeTxt will reveal 

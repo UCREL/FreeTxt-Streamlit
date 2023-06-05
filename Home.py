@@ -2048,19 +2048,20 @@ def app():
           st.experimental_set_query_params(page="about")
           about_page()
     
-    if page == "None":
+    
        
-       if st.session_state['selected3'] == 'Demo':
+    elif st.session_state['selected3'] == 'Demo':
             st.experimental_set_query_params(page="demo")
             demo_page()
-       elif st.session_state['selected3'] == 'Analysis':
+    elif st.session_state['selected3'] == 'Analysis':
             st.experimental_set_query_params(page="analysis")
             analysis_page()
-       elif st.session_state['selected3'] == 'Home':
+       
+     elif st.session_state['selected3'] == 'Home':
             st.experimental_set_query_params(page="home")
             main()
 
-    else:
+     else:
         main()
 
 

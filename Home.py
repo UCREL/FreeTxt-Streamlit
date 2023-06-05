@@ -1807,7 +1807,7 @@ def analysis_page():
 	
 ###########################################Home page#######################################################################
 def main():
-    st.session_state['selected3'] = 'Home'
+    
     #st.write("---")
     col1,  col3 = st.columns([1,  2])
     with col1:

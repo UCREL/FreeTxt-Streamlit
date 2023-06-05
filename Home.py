@@ -2057,7 +2057,7 @@ def app():
             st.experimental_set_query_params(page="analysis")
             analysis_page()
        
-     elif st.session_state['selected3'] == 'Home':
+    elif st.session_state['selected3'] == 'Home':
             st.experimental_set_query_params(page="home")
             main()
 

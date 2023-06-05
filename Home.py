@@ -1399,7 +1399,7 @@ def analysis_page():
         
 
     with col3:
-	st.markdown("""
+        st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Tangerine&display=swap');
     </style>

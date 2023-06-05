@@ -178,6 +178,23 @@ def detect_language(df):
 @st.cache_resource()
 def get_state():
     return {}
+
+#######################session state
+class SessionState(object):
+    def __init__(self, **kwargs):
+        for key, val in kwargs.items():
+            setattr(self, key, val)
+
+
+def get_session_state(**kwargs):
+    # Get the session object from Streamlit.
+    session_id = str(hash(st.session_state))
+    
+    # Get your SessionState object, or create it if it doesn't exist.
+    if session_id not in st.session_state:
+        st.session_state[session_id] = SessionState(**kwargs)
+
+    return st.session_state[session_id]
 ###############################################Sentiment analysis###########################################
 # --------------------Sentiments----------------------
 
@@ -2021,7 +2038,7 @@ unsafe_allow_html=True
 
 
 def app():
-
+    state = get_session_state(selected3=None)
     query_params = st.experimental_get_query_params()
     page = query_params.get("page", [None])[0]
 
@@ -2032,13 +2049,13 @@ def app():
         st.experimental_set_query_params(page="analysis")
         analysis_page()
    
-    elif selected3 == 'Demo':
+    elif state.selected3 == 'Demo':
             st.experimental_set_query_params(page="demo")
             demo_page()
-    elif selected3 == 'Analysis':
+    elif state.selected3 == 'Analysis':
             st.experimental_set_query_params(page="analysis")
             analysis_page()
-    elif selected3 == 'Home':
+    elif state.selected3 == 'Home':
             st.experimental_set_query_params(page="home")
             main()
     else:

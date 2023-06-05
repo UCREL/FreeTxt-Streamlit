@@ -2040,7 +2040,7 @@ unsafe_allow_html=True
 def app():
     query_params = st.experimental_get_query_params()
     page = query_params.get("page", [None])[0]
-    
+    st.session_state['selected3'] = 'None'
     if page == "demo":
         st.experimental_set_query_params(page="demo")
         demo_page()

@@ -1778,7 +1778,7 @@ any sector in Wales and beyond to use it.
 
     .fancy-link:hover {
         background-color: #bbb;
-        font-size: 70px;
+        font-size: 60px;
     }
     </style>
 
@@ -1810,7 +1810,7 @@ any sector in Wales and beyond to use it.
 
     .fancy-link:hover {
         background-color: #bbb;
-        font-size: 70px;
+        font-size: 60px;
     }
     </style>
 

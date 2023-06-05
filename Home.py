@@ -1722,7 +1722,8 @@ def main():
     #with col2:
         #st.markdown("<h1 style='text-align: center; margin-top: 0px;'>Welcome to FreeTxt</h1>", unsafe_allow_html=True)
     with col3:
-        st.markdown("<h1 style='text-align: center; margin-top: 0px;'>Welcome to FreeTxt</h1>", unsafe_allow_html=True)
+        
+	st.markdown("<h1 style='text-align: center; margin-top: 0px;'>Welcome to FreeTxt</h1>", unsafe_allow_html=True)
         #st.image("img/FreeTxt_logo.png", width=300) 
     st.write("---")
     with open('style.css') as f:

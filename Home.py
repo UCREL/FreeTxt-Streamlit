@@ -2038,10 +2038,10 @@ unsafe_allow_html=True
 
 
 def app():
-    if 'selected3' not in st.session_state:
-        pass
+  #  if 'selected3' not in st.session_state:
+   #     pass
    
-    elif st.session_state['selected3'] == 'Demo':
+    if st.session_state['selected3'] == 'Demo':
             st.experimental_set_query_params(page="demo")
             demo_page()
     elif st.session_state['selected3'] == 'Analysis':

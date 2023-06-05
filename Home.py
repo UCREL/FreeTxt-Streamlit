@@ -1405,6 +1405,7 @@ class html:
 ###########################################Analysis page#######################################################################
 def analysis_page():
     state = get_state()
+    page = 'analysis'
     st.session_state['selected3'] = 'Analysis'
     st.write("---")
     col1,  col3 = st.columns([1, 2])

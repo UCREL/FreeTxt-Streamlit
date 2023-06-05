@@ -1723,7 +1723,8 @@ def main():
         #st.markdown("<h1 style='text-align: center; margin-top: 0px;'>Welcome to FreeTxt</h1>", unsafe_allow_html=True)
     with col3:
         st.markdown("<h1 style='text-align: center; margin-top: 0px;'>Welcome to FreeTxt</h1>", unsafe_allow_html=True)
-        #st.image("img/FreeTxt_logo.png", width=300) 
+        st.markdown("<h1 style='text-align: center; margin-top: 0px; font-size: 30px; font-family: Arial, sans-serif;'>Welcome to FreeTxt</h1>", unsafe_allow_html=True)
+
     st.write("---")
     with open('style.css') as f:
         st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html =True)

@@ -1409,7 +1409,7 @@ def analysis_page():
                color: #4a4a4a; 
                font-family: Tangerine, cursive; 
                text-shadow: 2px 2px #aaa;'>
-    Demo
+    Text Analysis
     </h1>""",  unsafe_allow_html=True)
         st.markdown("""
 <style>

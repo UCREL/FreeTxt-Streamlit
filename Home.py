@@ -1723,8 +1723,19 @@ def main():
         #st.markdown("<h1 style='text-align: center; margin-top: 0px;'>Welcome to FreeTxt</h1>", unsafe_allow_html=True)
     with col3:
         st.markdown("<h1 style='text-align: center; margin-top: 0px;'>Welcome to FreeTxt</h1>", unsafe_allow_html=True)
-        st.markdown("<h1 style='text-align: center; margin-top: 0px; font-size: 30px; font-family: Arial, sans-serif;'>Welcome to FreeTxt</h1>", unsafe_allow_html=True)
-
+        st.markdown("""
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Tangerine&display=swap');
+    </style>
+    <h1 style='text-align: center; 
+               margin-top: 0px; 
+               font-size: 60px; 
+               color: #4a4a4a; 
+               font-family: Tangerine, cursive; 
+               text-shadow: 2px 2px #aaa;'>
+    Welcome to FreeTxt
+    </h1>""", 
+    unsafe_allow_html=True)
     st.write("---")
     with open('style.css') as f:
         st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html =True)

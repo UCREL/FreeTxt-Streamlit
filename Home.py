@@ -1953,7 +1953,7 @@ FreeTxt was developed as part of an AHRC funded collaborative FreeTxt supporting
     )     
     
 
-    st.markdown("<br></br>", unsafe_allow_html=True) # Creates some space before logos
+    #st.markdown("<br></br>", unsafe_allow_html=True) # Creates some space before logos
 
     st.markdown(
 f"""

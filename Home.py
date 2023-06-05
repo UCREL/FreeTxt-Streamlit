@@ -1959,7 +1959,7 @@ FreeTxt was developed as part of an AHRC funded collaborative FreeTxt supporting
 
 </div>
 """,
-    unsafe_allow_html=True,
+    unsafe_allow_html=True
     )     
     
 
@@ -1991,10 +1991,10 @@ FreeTxt was developed as part of an AHRC funded collaborative FreeTxt supporting
         <img class="logo" src="data:image/png;base64,{get_image_as_base64('img/Cadw.png')}" />
         <img class="logo" src="data:image/png;base64,{get_image_as_base64('img/NCLW.jpg')}" />
         <img class="logo" src="data:image/png;base64,{get_image_as_base64('img/WJEC_CBAC_logo.svg.png')}" />
-	<img class="logo" src="data:image/png;base64,{get_image_as_base64('img/ukri-ahrc-square-logo.png')}" />
+	<img class="logo" src="data:image/png;base64,{get_image_as_base64('img/ukri-ahrc-square-logo.png')}"/>
     </div>
     """,
-    unsafe_allow_html=True,
+    unsafe_allow_html=True
      )
 
 

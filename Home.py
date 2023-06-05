@@ -1891,7 +1891,50 @@ any sector in Wales and beyond to use it.
     </a>
 """, unsafe_allow_html=True)
 
-
+    st.markdown(
+    f"""
+    <style>
+    .content-container {{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        gap: 10px;
+        justify-items: center;
+        align-items: center;
+        padding: 10px;
+        border-radius: 5px;
+        background-color: white;
+        color: white;
+        text-align: center;
+    }}
+    
+    .content-container > :nth-child(5) {{
+        grid-column: 1 / -1;
+    }}
+    .a-image {{
+        border-radius: 5px;
+        transition: transform .2s;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 1px rgba(0, 0, 0, 0.24);
+        position: relative;
+    }}
+    .a-image:hover {{
+        transform: scale(1.1);
+        box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+    }}
+    .a-image:hover::after {{
+        content: attr(title);
+        position: absolute;
+        top: -30px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: rgba(0, 0, 0, 0.8);
+        padding: 5px 10px;
+        border-radius: 3px;
+        font-size: 14px;
+        color: white;
+    }}
+    </style>
+    """, unsafe_allow_html=True)
             
  
 

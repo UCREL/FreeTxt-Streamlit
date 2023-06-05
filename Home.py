@@ -1783,10 +1783,6 @@ any sector in Wales and beyond to use it.
     </a>
 """, unsafe_allow_html=True)
 
-	
-        #if st.button("Start Analysis", key="analysis_button", help="Redirects to the Analysis page"):
-
-          #  st.experimental_set_query_params(page="analysis")
             
     with button_col2:
        
@@ -1797,7 +1793,7 @@ any sector in Wales and beyond to use it.
     <a href="https://nouran-khallaf-free-txt-home-gdoog2.streamlit.app/?page=demo" 
        target = "_self"
        style = "
-          font-size: 30px; 
+          font-size: 40px; 
           font-family: 'Tangerine', cursive; 
           color: #4a4a4a; 
           background-color: #ddd; 
@@ -1812,8 +1808,6 @@ any sector in Wales and beyond to use it.
     </a>
 """, unsafe_allow_html=True)
 
-        if st.button("Watch a Demo", key="demo_button", help="Redirects to the Demo page"):
-            st.experimental_set_query_params(page="demo")
             
     st.write("---")
    

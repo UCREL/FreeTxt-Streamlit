@@ -1962,8 +1962,8 @@ f"""
         display: flex;
         justify-content: center;
         flex-wrap: wrap;
-        border: 2px solid grey;  /* Add border property here */
-        border-radius: 5px;  /* Optional: Add a border radius if you want the border to be rounded */
+        border: 2px solid grey; 
+        border-radius: 5px;  
     }}
     .logo {{
         width: 100px;

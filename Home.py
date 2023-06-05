@@ -1736,7 +1736,7 @@ def main():
     Welcome to FreeTxt
     </h1>""", 
     unsafe_allow_html=True)
-    #st.write("---")
+    st.write("---")
     with open('style.css') as f:
         st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html =True)
     st.markdown(

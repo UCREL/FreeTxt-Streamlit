@@ -2036,23 +2036,8 @@ unsafe_allow_html=True
     unsafe_allow_html=True,
      )
 
-
+st.session_state['selected3'] == 'Demo'
 def app():
-  #  if 'selected3' not in st.session_state:
-   #     pass
-   
-    if st.session_state['selected3'] == 'Demo':
-            st.experimental_set_query_params(page="demo")
-            demo_page()
-    elif st.session_state['selected3'] == 'Analysis':
-            st.experimental_set_query_params(page="analysis")
-            analysis_page()
-    elif st.session_state['selected3'] == 'Home':
-            st.experimental_set_query_params(page="home")
-            main()
-    else:
-            st.warning('Invalid option selected, returning to Home')
-            main()
     query_params = st.experimental_get_query_params()
     page = query_params.get("page", [None])[0]
 
@@ -2065,9 +2050,22 @@ def app():
     elif page == 'about':
         st.experimental_set_query_params(page="about")
         about_page()
-    
+    elif page is None:  # If there are no query parameters, use the menu.
+        if st.session_state['selected3'] == 'Demo':
+            st.experimental_set_query_params(page="demo")
+            demo_page()
+        elif st.session_state['selected3'] == 'Analysis':
+            st.experimental_set_query_params(page="analysis")
+            analysis_page()
+        elif st.session_state['selected3'] == 'Home':
+            st.experimental_set_query_params(page="home")
+            main()
+        else:
+            st.warning('Invalid option selected, returning to Home')
+            main()
     else:
         main()
+
 
 if __name__ == "__main__":
     app()

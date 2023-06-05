@@ -1972,7 +1972,11 @@ FreeTxt was developed as part of an AHRC funded collaborative FreeTxt supporting
             flex-grow: 1;
         }}
     </style>
-
+    """,
+    unsafe_allow_html=True
+     )
+    st.markdown(
+    f"""
     <div class="logo-container">
         <img class="logo" src="data:image/png;base64,{get_image_as_base64('img/cardiff.png')}" />
         <img class="logo" src="data:image/png;base64,{get_image_as_base64('img/Lancaster.png')}" />

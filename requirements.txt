@@ -37,3 +37,4 @@ tabulate
 kaleido
 empath
 fpdf
+streamlit-option-menu

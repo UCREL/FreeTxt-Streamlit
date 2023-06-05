@@ -2038,10 +2038,8 @@ unsafe_allow_html=True
 
 
 def app():
-    state = get_session_state(selected3=None)
-    
-    if state.selected3 is None:
-        state.selected3 = option_menu(None, ["Home", "Analysis",  "Demo"], 
+    if 'selected3' not in st.session_state:
+        st.session_state['selected3'] = option_menu(None, ["Home", "Analysis",  "Demo"], 
             icons=['house', 'sliders2',  'gear'], 
             menu_icon="cast", default_index=0, orientation="horizontal",
             styles={
@@ -2065,13 +2063,13 @@ def app():
         st.experimental_set_query_params(page="about")
         about_page()
     elif page is None:  # If there are no query parameters, use the menu.
-        if state.selected3 == 'Demo':
+        if st.session_state['selected3'] == 'Demo':
             st.experimental_set_query_params(page="demo")
             demo_page()
-        elif state.selected3 == 'Analysis':
+        elif st.session_state['selected3'] == 'Analysis':
             st.experimental_set_query_params(page="analysis")
             analysis_page()
-        elif state.selected3 == 'Home':
+        elif st.session_state['selected3'] == 'Home':
             st.experimental_set_query_params(page="home")
             main()
         else:
@@ -2079,6 +2077,7 @@ def app():
             main()
     else:
         main()
+
 
     
 

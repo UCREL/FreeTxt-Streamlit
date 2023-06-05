@@ -1224,7 +1224,7 @@ st.markdown(css, unsafe_allow_html=True)
 def demo_page():
     # Demo page content and layout
     # ...
-    st.session_state['selected3'] = 'Demo'
+    
     st.markdown("""
     <style>
         .stButton>button {
@@ -1249,7 +1249,6 @@ def demo_page():
         }
     </style>
     """, unsafe_allow_html=True)
-    st.write("---")
     col1,  col3 = st.columns([1, 2])
     with col1:
         st.image("img/FreeTxt_logo_R.png", width=300) 
@@ -1271,7 +1270,7 @@ def demo_page():
     unsafe_allow_html=True)
     selected3 = option_menu(None, ["Home", "Analysis",  "Demo"], 
         icons=['house', 'sliders2',  'gear'], 
-        menu_icon="cast", default_index=0, orientation="horizontal",
+        menu_icon="cast", default_index=2, orientation="horizontal",
         styles={
             "container": {"padding": "0!important", "background-color": "#fafafa"},
             "icon": {"color": "orange", "font-size": "25px"}, 
@@ -1453,7 +1452,7 @@ def analysis_page():
 """, unsafe_allow_html=True)
     selected3 = option_menu(None, ["Home", "Analysis",  "Demo"], 
         icons=['house', 'sliders2',  'gear'], 
-        menu_icon="cast", default_index=0, orientation="horizontal",
+        menu_icon="cast", default_index=1, orientation="horizontal",
         styles={
             "container": {"padding": "0!important", "background-color": "#fafafa"},
             "icon": {"color": "orange", "font-size": "25px"}, 
@@ -1811,10 +1810,8 @@ def main():
     col1,  col3 = st.columns([1,  2])
     with col1:
         st.image("img/FreeTxt_logo_R.png", width=300) 
-    #with col2:
-        #st.markdown("<h1 style='text-align: center; margin-top: 0px;'>Welcome to FreeTxt</h1>", unsafe_allow_html=True)
+    
     with col3:
-        
         st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Tangerine&display=swap');

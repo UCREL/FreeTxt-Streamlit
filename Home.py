@@ -2040,7 +2040,7 @@ unsafe_allow_html=True
 def app():
     if 'selected3' not in st.session_state:
         st.experimental_set_query_params(page="home")
-            main()
+        main()
    
     elif st.session_state['selected3'] == 'Demo':
             st.experimental_set_query_params(page="demo")
@@ -2069,11 +2069,6 @@ def app():
     
     else:
         main()
-
-
-    
-
-
 
 if __name__ == "__main__":
     app()

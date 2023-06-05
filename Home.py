@@ -1716,13 +1716,14 @@ def about_page():
 def main():
     
     st.write("---")
-    col1, col2, col3 = st.columns([1, 2, 1])
+    col1, col2, col3 = st.columns([1, 1, 2])
     with col1:
         st.image("img/FreeTxt_logo.png", width=300) 
     with col2:
         st.markdown("<h1 style='text-align: center; margin-top: 0px;'>Welcome to FreeTxt</h1>", unsafe_allow_html=True)
     with col3:
-        st.image("img/FreeTxt_logo.png", width=300) 
+	st.markdown("<h1 style='text-align: center; margin-top: 0px;'>Welcome to FreeTxt</h1>", unsafe_allow_html=True)
+        #st.image("img/FreeTxt_logo.png", width=300) 
     st.write("---")
     with open('style.css') as f:
         st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html =True)

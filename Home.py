@@ -1278,6 +1278,14 @@ def demo_page():
             "nav-link-selected": {"background-color": "green"},
         }
     )
+    st.session_state["selected3"] = selected3
+
+    if st.session_state["selected3"] == "Home":
+        st.experimental_set_query_params(page="home")
+    elif st.session_state["selected3"] == "Analysis":
+       st.experimental_set_query_params(page="analysis")
+    elif st.session_state["selected3"] == "Demo":
+       st.experimental_set_query_params(page="demo")
     st.markdown(
     f"""
     <style>
@@ -1460,6 +1468,14 @@ def analysis_page():
             "nav-link-selected": {"background-color": "green"},
         }
     )
+    st.session_state["selected3"] = selected3
+
+    if st.session_state["selected3"] == "Home":
+        st.experimental_set_query_params(page="home")
+    elif st.session_state["selected3"] == "Analysis":
+       st.experimental_set_query_params(page="analysis")
+    elif st.session_state["selected3"] == "Demo":
+       st.experimental_set_query_params(page="demo")
         
     # Analysis page content and layout
 
@@ -1835,6 +1851,14 @@ def main():
             "nav-link-selected": {"background-color": "green"},
         }
     )
+    st.session_state["selected3"] = selected3
+
+    if st.session_state["selected3"] == "Home":
+        st.experimental_set_query_params(page="home")
+    elif st.session_state["selected3"] == "Analysis":
+       st.experimental_set_query_params(page="analysis")
+    elif st.session_state["selected3"] == "Demo":
+       st.experimental_set_query_params(page="demo")
 
     #24px;border: 2px solid grey;
     with open('style.css') as f:
@@ -2047,19 +2071,7 @@ def app():
         elif page == None:
           st.experimental_set_query_params(page=None)
           main()
-    
-    
-       
-    elif st.session_state['selected3'] == 'Demo':
-            st.experimental_set_query_params(page="demo")
-            demo_page()
-    elif st.session_state['selected3'] == 'Analysis':
-            st.experimental_set_query_params(page="analysis")
-            analysis_page()
-       
-    elif st.session_state['selected3'] == 'Home':
-            st.experimental_set_query_params(page=None)
-            main()
+
 
     else:
         main()

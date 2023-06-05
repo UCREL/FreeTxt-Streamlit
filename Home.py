@@ -1435,17 +1435,19 @@ def analysis_page():
     }
 </style>
 """, unsafe_allow_html=True)
-       
+   selected3 = option_menu(None, ["Home", "Analysis",  "Demo"], 
+        icons=['house', 'sliders2',  'gear'], 
+        menu_icon="cast", default_index=0, orientation="horizontal",
+        styles={
+            "container": {"padding": "0!important", "background-color": "#fafafa"},
+            "icon": {"color": "orange", "font-size": "25px"}, 
+            "nav-link": {"font-size": "25px", "text-align": "left", "margin":"0px", "--hover-color": "#eee"},
+            "nav-link-selected": {"background-color": "green"},
+        }
+    )
         
     # Analysis page content and layout
-    st.write("---")
-    bt1,bt2,bt3,bt4,bt5,bt6,bt7,bt8,bt9,bt10,bt11,bt12 = st.columns([2,2,2,2,2,2,2,2,2,2,2,2])
-    with bt1:
-            if st.button('Home'):
-                st.experimental_set_query_params(page=None)
-    with bt2:
-            if st.button('Demo'):
-                st.experimental_set_query_params(page="demo")
+
     
     st.header("Start analysing your text")
     
@@ -1810,7 +1812,16 @@ def main():
     Welcome to FreeTxt
     </h1>""", 
     unsafe_allow_html=True)
-    
+    selected3 = option_menu(None, ["Home", "Analysis",  "Demo"], 
+        icons=['house', 'sliders2',  'gear'], 
+        menu_icon="cast", default_index=0, orientation="horizontal",
+        styles={
+            "container": {"padding": "0!important", "background-color": "#fafafa"},
+            "icon": {"color": "orange", "font-size": "25px"}, 
+            "nav-link": {"font-size": "25px", "text-align": "left", "margin":"0px", "--hover-color": "#eee"},
+            "nav-link-selected": {"background-color": "green"},
+        }
+    )
 
     #24px;border: 2px solid grey;
     with open('style.css') as f:
@@ -2010,16 +2021,6 @@ unsafe_allow_html=True
 
 
 def app():
-    selected3 = option_menu(None, ["Home", "Analysis",  "Demo"], 
-        icons=['house', 'sliders2',  'gear'], 
-        menu_icon="cast", default_index=0, orientation="horizontal",
-        styles={
-            "container": {"padding": "0!important", "background-color": "#fafafa"},
-            "icon": {"color": "orange", "font-size": "25px"}, 
-            "nav-link": {"font-size": "25px", "text-align": "left", "margin":"0px", "--hover-color": "#eee"},
-            "nav-link-selected": {"background-color": "green"},
-        }
-    )
 
     query_params = st.experimental_get_query_params()
     page = query_params.get("page", [None])[0]

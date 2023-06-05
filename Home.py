@@ -2033,21 +2033,20 @@ def app():
     elif page == 'about':
         st.experimental_set_query_params(page="about")
         about_page()
-    elif page is None:  # If there are no query parameters, use the menu.
-        if selected3 == 'Demo':
+   
+    elif selected3 == 'Demo':
             st.experimental_set_query_params(page="demo")
             demo_page()
-        elif selected3 == 'Analysis':
+    elif selected3 == 'Analysis':
             st.experimental_set_query_params(page="analysis")
             analysis_page()
-        elif selected3 == 'Home':
+    elif selected3 == 'Home':
             st.experimental_set_query_params(page="home")
             main()
-        else:
+    else:
             st.warning('Invalid option selected, returning to Home')
             main()
-    else:
-        main()
+    
 
 
 

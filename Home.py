@@ -1766,7 +1766,7 @@ any sector in Wales and beyond to use it.
     @import url('https://fonts.googleapis.com/css2?family=Tangerine&display=swap');
 
     .fancy-link {
-        font-size: 30px; 
+        font-size: 40px; 
         font-family: 'Tangerine', cursive; 
         color: #4a4a4a; 
         background-color: #ddd; 
@@ -1778,7 +1778,7 @@ any sector in Wales and beyond to use it.
 
     .fancy-link:hover {
         background-color: #bbb;
-        font-size: 35px;
+        font-size: 50px;
     }
     </style>
 
@@ -1798,7 +1798,7 @@ any sector in Wales and beyond to use it.
     @import url('https://fonts.googleapis.com/css2?family=Tangerine&display=swap');
 
     .fancy-link {
-        font-size: 30px; 
+        font-size: 40px; 
         font-family: 'Tangerine', cursive; 
         color: #4a4a4a; 
         background-color: #ddd; 

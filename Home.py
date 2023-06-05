@@ -1224,7 +1224,7 @@ st.markdown(css, unsafe_allow_html=True)
 def demo_page():
     # Demo page content and layout
     # ...
-	
+    st.session_state['selected3'] = 'Demo'
     st.markdown("""
     <style>
         .stButton>button {
@@ -1269,19 +1269,16 @@ def demo_page():
     Demo
     </h1>""", 
     unsafe_allow_html=True)
-    st.write("---")
-    bt1,bt2,bt3,bt4,bt5,bt6,bt7,bt8,bt9,bt10,bt11,bt12 = st.columns([2,2,2,2,2,2,2,2,2,2,2,2])
-    with bt1:
-            if st.button('Home'):
-                st.experimental_set_query_params(page=None)
-    with bt2:
-            if st.button('Analysis'):
-                st.experimental_set_query_params(page="analysis")
-    with bt3:
-            if st.button('About'):
-                st.experimental_set_query_params(page="about")
-    st.write("---")
-   
+    selected3 = option_menu(None, ["Home", "Analysis",  "Demo"], 
+        icons=['house', 'sliders2',  'gear'], 
+        menu_icon="cast", default_index=0, orientation="horizontal",
+        styles={
+            "container": {"padding": "0!important", "background-color": "#fafafa"},
+            "icon": {"color": "orange", "font-size": "25px"}, 
+            "nav-link": {"font-size": "25px", "text-align": "left", "margin":"0px", "--hover-color": "#eee"},
+            "nav-link-selected": {"background-color": "green"},
+        }
+    )
     st.markdown(
     f"""
     <style>
@@ -1408,6 +1405,7 @@ class html:
 ###########################################Analysis page#######################################################################
 def analysis_page():
     state = get_state()
+    st.session_state['selected3'] = 'Analysis'
     st.write("---")
     col1,  col3 = st.columns([1, 2])
     with col1:
@@ -1807,7 +1805,7 @@ def analysis_page():
 	
 ###########################################Home page#######################################################################
 def main():
-    
+    st.session_state['selected3'] = 'Home'
     #st.write("---")
     col1,  col3 = st.columns([1,  2])
     with col1:

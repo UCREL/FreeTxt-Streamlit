@@ -33,7 +33,7 @@ from typing import List
 import networkx as nx
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 import plotly.express as px #### pip install plotly.express
-
+from streamlit_option_menu import option_menu
 import plotly.io as pio
 from pyvis.network import Network
 import streamlit.components.v1 as components
@@ -1811,6 +1811,16 @@ def main():
     </h1>""", 
     unsafe_allow_html=True)
     st.write("---")
+    selected3 = option_menu(None, ["Home", "Upload",  "Tasks", 'Settings'], 
+    		icons=['house', 'cloud-upload', "list-task", 'gear'], 
+    		menu_icon="cast", default_index=0, orientation="horizontal",
+   		 styles={
+    		    "container": {"padding": "0!important", "background-color": "#fafafa"},
+   		     "icon": {"color": "orange", "font-size": "25px"}, 
+  		      "nav-link": {"font-size": "25px", "text-align": "left", "margin":"0px", "--hover-color": "#eee"},
+     		   "nav-link-selected": {"background-color": "green"},
+   		 }
+		)
     with open('style.css') as f:
         st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html =True)
     st.markdown(

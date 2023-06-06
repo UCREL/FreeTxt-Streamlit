@@ -1864,12 +1864,7 @@ def main():
             </svg> Demo
         </a>
     </div>
-    <style>
-        a:hover {
-            color: green;
-            background-color: lightgrey;
-        }
-    </style>
+  
     """
     , 
     unsafe_allow_html=True)

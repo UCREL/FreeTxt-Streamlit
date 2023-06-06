@@ -1704,7 +1704,7 @@ def analysis_page():
                     with tab8:
                      column1, column2 = st.columns([1, 2])
                      try:
-                       with column1:
+                      with column1:
                      # Check if the DataFrame exists
                        if not dfanalysis.empty :
 			#####pdf_generator

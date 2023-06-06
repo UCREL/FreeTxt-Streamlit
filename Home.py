@@ -1748,10 +1748,7 @@ def analysis_page():
                             
                             cell_style_normal = ParagraphStyle(name='cell_style_normal', parent=styles['Normal'], alignment=1)
                             cell_style_header = ParagraphStyle(name='cell_style_header', parent=styles['Normal'], alignment=1, textColor=colors.whitesmoke, backColor=colors.grey, fontName='Helvetica-Bold', fontSize=14, spaceAfter=12)
-                                # Define the styles for summarisation
-  
-                            styles.add(ParagraphStyle(name='InputText', fontSize=12, textColor=colors.black))
-                            styles.add(ParagraphStyle(name='SummarizedText', fontSize=12, textColor=colors.black))
+
                             wrapped_data = []
                             for row in table_data:
                                   wrapped_cells = []
@@ -1811,10 +1808,14 @@ def analysis_page():
                                         elements.append(Spacer(1, 20))
 
                         if download_summary:
+		            # Define the styles for summarisation
+  
+                            styles.add(ParagraphStyle(name='InputText', fontSize=12, textColor=colors.black))
+                            styles.add(ParagraphStyle(name='SummarizedText', fontSize=12, textColor=colors.black))
                                    # Add the summarized text
                                            
-                                           summarized_text_paragraph = Paragraph(f"Summarized Text:\n{summarized_text}", styles['SummarizedText'])
-                                           elements.append(summarized_text_paragraph)
+                            summarized_text_paragraph = Paragraph(f"Summarized Text:\n{summarized_text}", styles['SummarizedText'])
+                            elements.append(summarized_text_paragraph)
                        else:
                           st.error("DataFrame not found")
                       except Exception as e:

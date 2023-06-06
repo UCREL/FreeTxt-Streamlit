@@ -1843,7 +1843,8 @@ def main():
                font-family: Tangerine, cursive; 
                text-shadow: 2px 2px #aaa;'>
     Welcome to FreeTxt
-    </h1>""", 
+    </h1>""",  
+    unsafe_allow_html=True)
     st.markdown(f"""
     <div style="overflow: hidden; padding: 10px;">
         <a href="https://nouran-khallaf-free-txt-home-gdoog2.streamlit.app/?page=home" target="_self" style="float: left; color: orange; text-align: center; padding: 14px 16px; text-decoration: none; font-size: 25px; margin: 0px; transition: 0.3s;">

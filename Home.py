@@ -1415,7 +1415,6 @@ class html:
 ###########################################Analysis page#######################################################################
 def analysis_page():
     state = get_state()
-    st.write("---")
     col1,  col3 = st.columns([1, 2])
     with col1:
          

@@ -1848,13 +1848,7 @@ def main():
     st.write("---")
     st.markdown(
 	    f"""
-    <style>
-        ahover {
-            color: lightblue;
-            background-color: lightgrey;
-        }
-    </style>
-        
+   
     <div style="overflow: hidden; padding: 10px;">
         <a href="https://nouran-khallaf-free-txt-home-gdoog2.streamlit.app/?page=home" target="_self" style="float: left; color: blue; text-align: center; padding: 14px 16px; text-decoration: none; font-size: 25px; margin: 0px; transition: 0.3s;">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="height: 25px;">

@@ -1834,7 +1834,7 @@ def analysis_page():
                        else:
                            st.error("DataFrame not found")
 
-                      except Exception as e:
+                     except Exception as e:
                             st.error(f"An error occurred: {str(e)}")
 
 	

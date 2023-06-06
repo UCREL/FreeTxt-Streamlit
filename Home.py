@@ -1847,9 +1847,9 @@ def main():
     unsafe_allow_html=True)
     st.markdown(f"""
     <div style="overflow: hidden; background-color: #fafafa; padding: 10px;">
-        <a href="https://nouran-khallaf-free-txt-home-gdoog2.streamlit.app/?page=home" style="float: left; color: orange; text-align: center; padding: 14px 16px; text-decoration: none; font-size: 25px; margin: 0px;">Home</a>
-        <a href="https://nouran-khallaf-free-txt-home-gdoog2.streamlit.app/?page=analysis" style="float: left; color: orange; text-align: center; padding: 14px 16px; text-decoration: none; font-size: 25px; margin: 0px;">Analysis</a>
-        <a href="https://nouran-khallaf-free-txt-home-gdoog2.streamlit.app/?page=demo" style="float: left; color: orange; text-align: center; padding: 14px 16px; text-decoration: none; font-size: 25px; margin: 0px;">Demo</a>
+        <a href="https://nouran-khallaf-free-txt-home-gdoog2.streamlit.app/?page=home" target = "_self" style="float: left; color: orange; text-align: center; padding: 14px 16px; text-decoration: none; font-size: 25px; margin: 0px;target = "_self"">Home</a>
+        <a href="https://nouran-khallaf-free-txt-home-gdoog2.streamlit.app/?page=analysis" target = "_self" style="float: left; color: orange; text-align: center; padding: 14px 16px; text-decoration: none; font-size: 25px; margin: 0px;">Analysis</a>
+        <a href="https://nouran-khallaf-free-txt-home-gdoog2.streamlit.app/?page=demo" target = "_self" style="float: left; color: orange; text-align: center; padding: 14px 16px; text-decoration: none; font-size: 25px; margin: 0px;">Demo</a>
     </div>
      """
 		, 

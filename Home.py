@@ -1834,7 +1834,9 @@ def analysis_page():
                           # Display the download button only after generating the report
                           if generated_pdf_data:
                                   st.download_button("Download PDF", generated_pdf_data, "report_positiveandnegative.pdf", "application/pdf")
-
+                                  b64 = base64.b64encode(generated_pdf_data).decode()  # some strings <-> bytes conversions necessary here
+                                  href = f'<a href="data:application/pdf;base64,{b64}" download="report_positiveandnegative.pdf">Download PDF</a>'
+                                  st.markdown(href, unsafe_allow_html=True)
                              
 
 

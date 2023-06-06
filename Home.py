@@ -1847,13 +1847,20 @@ def main():
     unsafe_allow_html=True)
     st.markdown(f"""
     <div style="overflow: hidden; background-color: #fafafa; padding: 10px;">
-        <a href="https://nouran-khallaf-free-txt-home-gdoog2.streamlit.app/?page=home" target = "_self" style="float: left; color: orange; text-align: center; padding: 14px 16px; text-decoration: none; font-size: 25px; margin: 0px;target = "_self"">Home</a>
-        <a href="https://nouran-khallaf-free-txt-home-gdoog2.streamlit.app/?page=analysis" target = "_self" style="float: left; color: orange; text-align: center; padding: 14px 16px; text-decoration: none; font-size: 25px; margin: 0px;">Analysis</a>
-        <a href="https://nouran-khallaf-free-txt-home-gdoog2.streamlit.app/?page=demo" target = "_self" style="float: left; color: orange; text-align: center; padding: 14px 16px; text-decoration: none; font-size: 25px; margin: 0px;">Demo</a>
+        <a href="https://nouran-khallaf-free-txt-home-gdoog2.streamlit.app/?page=home" target="_self" style="float: left; color: orange; text-align: center; padding: 14px 16px; text-decoration: none; font-size: 25px; margin: 0px; transition: 0.3s;">Home</a>
+        <a href="https://nouran-khallaf-free-txt-home-gdoog2.streamlit.app/?page=analysis" target="_self" style="float: left; color: orange; text-align: center; padding: 14px 16px; text-decoration: none; font-size: 25px; margin: 0px; transition: 0.3s;">Analysis</a>
+        <a href="https://nouran-khallaf-free-txt-home-gdoog2.streamlit.app/?page=demo" target="_self" style="float: left; color: orange; text-align: center; padding: 14px 16px; text-decoration: none; font-size: 25px; margin: 0px; transition: 0.3s;">Demo</a>
     </div>
-     """
-		, 
+    <style>
+        a:hover {
+            color: green;
+            background-color: lightgrey;
+        }
+    </style>
+    """
+    , 
     unsafe_allow_html=True)
+
  
     #24px;border: 2px solid grey;
     with open('style.css') as f:

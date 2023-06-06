@@ -1473,7 +1473,7 @@ def analysis_page():
 
     if st.session_state["selected3"] == "Home":
         st.experimental_set_query_params(page="home")
-        main()
+        
     elif st.session_state["selected3"] == "Analysis":
        st.experimental_set_query_params(page="analysis")
        analysis_page()
@@ -1859,7 +1859,7 @@ def main():
 
     if st.session_state["selected3"] == "Home":
         st.experimental_set_query_params(page="home")
-        main()
+        
     elif st.session_state["selected3"] == "Analysis":
        st.experimental_set_query_params(page="analysis")
        analysis_page()

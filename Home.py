@@ -1707,7 +1707,9 @@ def analysis_page():
 
                          
                     with tab8:
-                      try:
+		     column1, column2 = st.columns([1, 2])
+                     try:
+                      with column1:
                      # Check if the DataFrame exists
                        if not dfanalysis.empty :
 			#####pdf_generator
@@ -1719,7 +1721,7 @@ def analysis_page():
 		       ##############summarisation,
                         download_text = st.checkbox("Include original text")
                         download_summary = st.checkbox("Include summarized text")
-                        generate_pdf_checkbox = st.checkbox("Generate PDF report")
+                        
 			
                         # Create the PDF
                             
@@ -1817,19 +1819,22 @@ def analysis_page():
                                            
                                            summarized_text_paragraph = Paragraph(f"Summarized Text:\n{summarized_text}", styles['SummarizedText'])
                                            elements.append(summarized_text_paragraph)
-                        if generate_pdf_checkbox:
+                        
 
-        
-                                # Build PDF
-	
-                            doc.build(elements)
-                            buffer.seek(0)
-                            generated_pdf_data = buffer.read()
+                      with column2:
+			
+                       generate_pdf_button = st.button("Generate PDF")
+                       if generate_pdf_button:
+                          # Build PDF
+                          doc.build(elements)
+                          buffer.seek(0)
+                          generated_pdf_data = buffer.read()
 
-   # Display the download button only after generating the report
-                            if generated_pdf_data:
+                          # Display the download button only after generating the report
+                          if generated_pdf_data:
                                   st.download_button("Download PDF", generated_pdf_data, "report_positiveandnegative.pdf", "application/pdf")
 
+                             
 
                        else:
                            st.error("DataFrame not found")
@@ -1837,43 +1842,7 @@ def analysis_page():
                       except Exception as e:
                             st.error(f"An error occurred: {str(e)}")
 
-
-    st.markdown(
-f"""
-<style>
-    .logo-container {{
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        border: 2px solid grey; 
-        border-radius: 5px;  
-    }}
-    .logo {{
-        width: 100px;
-        height: 100px;
-        margin: 10px;
-        object-fit: contain;
-        flex-grow: 1;
-    }}
-</style>
-""",
-unsafe_allow_html=True
-)
-    st.markdown(
-    f"""
-    <div class="logo-container">
-        <img class="logo" src="data:image/png;base64,{get_image_as_base64('img/cardiff.png')}" />
-        <img class="logo" src="data:image/png;base64,{get_image_as_base64('img/Lancaster.png')}" />
-        <img class="logo" src="data:image/png;base64,{get_image_as_base64('img/NTW.JPG')}" />
-        <img class="logo" src="data:image/png;base64,{get_image_as_base64('img/Amgueddfa_Cymru_logo.svg.png')}" />
-        <img class="logo" src="data:image/png;base64,{get_image_as_base64('img/Cadw.png')}" />
-        <img class="logo" src="data:image/png;base64,{get_image_as_base64('img/NCLW.jpg')}" />
-	<img class="logo" src="data:image/png;base64,{get_image_as_base64('img/WJEC_CBAC_logo.svg.png')}" />
-	<img class="logo" src="data:image/png;base64,{get_image_as_base64('img/ukri-ahrc-square-logo.png')}" />
-    </div>
-    """,
-    unsafe_allow_html=True,
-     )	
+	
 ###########################################Home page#######################################################################
 def main():
     state = get_state()

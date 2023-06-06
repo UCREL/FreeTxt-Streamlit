@@ -1857,7 +1857,7 @@ def main():
     )
     if "selected3" not in st.session_state or st.session_state["selected3"] != selected3:
    
-    st.session_state["selected3"] = selected3
+    	st.session_state["selected3"] = selected3
 
     if st.session_state["selected3"] == "Home":
         st.experimental_set_query_params(page="home")

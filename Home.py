@@ -1815,7 +1815,7 @@ def analysis_page():
                                            
                                            summarized_text_paragraph = Paragraph(f"Summarized Text:\n{summarized_text}", styles['SummarizedText'])
                                            elements.append(summarized_text_paragraph)
-		       else:
+		        else:
                           st.error("DataFrame not found")
 		      except Exception as e:
                             st.error(f"An error occurred: {str(e)}")

@@ -1851,12 +1851,7 @@ def main():
         <a href="https://nouran-khallaf-free-txt-home-gdoog2.streamlit.app/?page=analysis" target="_self" style="float: left; color: orange; text-align: center; padding: 14px 16px; text-decoration: none; font-size: 25px; margin: 0px; transition: 0.3s;">Analysis</a>
         <a href="https://nouran-khallaf-free-txt-home-gdoog2.streamlit.app/?page=demo" target="_self" style="float: left; color: orange; text-align: center; padding: 14px 16px; text-decoration: none; font-size: 25px; margin: 0px; transition: 0.3s;">Demo</a>
     </div>
-    <style>
-        a:hover {
-            color: green;
-            background-color: lightgrey;
-        }
-    </style>
+    
     """
     , 
     unsafe_allow_html=True)

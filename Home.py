@@ -1266,7 +1266,7 @@ def demo_page():
                font-family: Tangerine, cursive; 
                text-shadow: 2px 2px #aaa;'>
     Demo
-    </h1>""", 
+    </h1>""", unsafe_allow_html=True)
 
       
     st.markdown(

@@ -481,6 +481,8 @@ def generate_scattertext_visualization(dfanalysis):
     html = tt.produce_scattertext_explorer(
      corpus,
     category="Positive",
+	   
+    not_category_name='Negative_and_Neutral',
     not_categories=df["Sentiment Label"].unique().tolist(),
     minimum_term_frequency=5,
     pmi_threshold_coefficient=5,

@@ -1846,10 +1846,11 @@ def main():
     </h1>""",  
     unsafe_allow_html=True)
     st.write("---")
-    st.markdown(f"""
+    st.markdown(
+	    f"""
     <style>
-        a:hover {
-            color: green;
+        ahover {
+            color: lightblue;
             background-color: lightgrey;
         }
     </style>

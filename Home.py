@@ -1845,28 +1845,15 @@ def main():
     Welcome to FreeTxt
     </h1>""", 
     unsafe_allow_html=True)
-    selected3 = option_menu(None, ["Home", "Analysis",  "Demo"], 
-        icons=['house', 'sliders2',  'gear'], 
-        menu_icon="cast", default_index=0, orientation="horizontal",
-        styles={
-            "container": {"padding": "0!important", "background-color": "#fafafa"},
-            "icon": {"color": "orange", "font-size": "25px"}, 
-            "nav-link": {"font-size": "25px", "text-align": "left", "margin":"0px", "--hover-color": "#eee"},
-            "nav-link-selected": {"background-color": "green"},
-        }
-    )
-    if "selected3" not in st.session_state or st.session_state["selected3"] != selected3:
-   
-    	st.session_state["selected3"] = selected3
-
-    if st.session_state["selected3"] == "Home":
-        st.experimental_set_query_params(page="home")
-        
-    elif st.session_state["selected3"] == "Analysis":
-       st.experimental_set_query_params(page="analysis")
-      
-    elif st.session_state["selected3"] == "Demo":
-       st.experimental_set_query_params(page="demo")
+    st.markdown(f"""
+    <div style="overflow: hidden; background-color: #fafafa; padding: 10px;">
+        <a href="https://nouran-khallaf-free-txt-home-gdoog2.streamlit.app/?page=home" style="float: left; color: orange; text-align: center; padding: 14px 16px; text-decoration: none; font-size: 25px; margin: 0px;">Home</a>
+        <a href="https://nouran-khallaf-free-txt-home-gdoog2.streamlit.app/?page=analysis" style="float: left; color: orange; text-align: center; padding: 14px 16px; text-decoration: none; font-size: 25px; margin: 0px;">Analysis</a>
+        <a href="https://nouran-khallaf-free-txt-home-gdoog2.streamlit.app/?page=demo" style="float: left; color: orange; text-align: center; padding: 14px 16px; text-decoration: none; font-size: 25px; margin: 0px;">Demo</a>
+    </div>
+     """
+		, 
+    unsafe_allow_html=True)
  
     #24px;border: 2px solid grey;
     with open('style.css') as f:

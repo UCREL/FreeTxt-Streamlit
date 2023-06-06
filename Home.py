@@ -2066,15 +2066,15 @@ unsafe_allow_html=True
 def app():
     query_params = st.experimental_get_query_params()
     page = query_params.get("page", [None])[0]
-    if "selected3" not in st.session_state:
+    
 	
-        if page == "demo":
+    if page == "demo":
           st.experimental_set_query_params(page="demo")
           demo_page()
-        elif page == "analysis":
+    elif page == "analysis":
           st.experimental_set_query_params(page="analysis")
           analysis_page()
-        elif page == None:
+    elif page == "home":
           st.experimental_set_query_params(page="home")
           main()
 

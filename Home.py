@@ -1700,11 +1700,7 @@ def analysis_page():
                     except ValueError as err:
                         with tab5:
                             st.info(f'Oh oh.. Please ensure that at least one free text column is chosen: {err}', icon="🤨")
-        
-             
-        
-
-                         
+         
                     with tab8:
                      column1, column2 = st.columns([1, 2])
                      try:

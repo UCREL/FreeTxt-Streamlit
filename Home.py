@@ -1282,10 +1282,13 @@ def demo_page():
 
     if st.session_state["selected3"] == "Home":
         st.experimental_set_query_params(page="home")
+	main()
     elif st.session_state["selected3"] == "Analysis":
        st.experimental_set_query_params(page="analysis")
+       analysis_page()
     elif st.session_state["selected3"] == "Demo":
        st.experimental_set_query_params(page="demo")
+       demo_page()
     st.markdown(
     f"""
     <style>
@@ -1470,10 +1473,13 @@ def analysis_page():
 
     if st.session_state["selected3"] == "Home":
         st.experimental_set_query_params(page="home")
+	main()
     elif st.session_state["selected3"] == "Analysis":
        st.experimental_set_query_params(page="analysis")
+       analysis_page()
     elif st.session_state["selected3"] == "Demo":
        st.experimental_set_query_params(page="demo")
+       demo_page()
         
     # Analysis page content and layout
 
@@ -1853,11 +1859,13 @@ def main():
 
     if st.session_state["selected3"] == "Home":
         st.experimental_set_query_params(page="home")
+	main()
     elif st.session_state["selected3"] == "Analysis":
        st.experimental_set_query_params(page="analysis")
+       analysis_page()
     elif st.session_state["selected3"] == "Demo":
        st.experimental_set_query_params(page="demo")
-
+       demo_page()
     #24px;border: 2px solid grey;
     with open('style.css') as f:
         st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html =True)

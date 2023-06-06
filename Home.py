@@ -1824,8 +1824,8 @@ def analysis_page():
 			
          
 	
-                            word_cloud_path = Analysis.show_wordcloud(filenames[i])
-                            Keyword_context = Analysis.show_kwic(filenames[i])
+                            word_cloud_path = textanalysis.show_wordcloud(filenames[i])
+                            
                       # Load the image with PIL for ReportLab
                             img = PilImage.open(word_cloud_path)
                                 # Load the image with PIL for ReportLab

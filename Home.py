@@ -1821,9 +1821,11 @@ def analysis_page():
 			
 			
                         if word_cloud_checkbox:
+			
          
 	
-                        
+                            word_cloud_path = Analysis.show_wordcloud(filenames[i])
+                            Keyword_context = Analysis.show_kwic(filenames[i])
                       # Load the image with PIL for ReportLab
                             img = PilImage.open(word_cloud_path)
                                 # Load the image with PIL for ReportLab

@@ -1717,7 +1717,9 @@ def analysis_page():
 		       ##############summarisation,
                         download_text = st.checkbox("Include original text")
                         download_summary = st.checkbox("Include summarized text")
-                        
+                        #full_data_table_checkbox = st.checkbox("Include Full Data Table")
+                        word_cloud_checkbox = st.checkbox("Include Word Cloud Image")
+                        keyword_context_table_checkbox = st.checkbox("Include Keyword in Context Table")
 			
                         # Create the PDF
                             
@@ -1816,6 +1818,83 @@ def analysis_page():
                                            
                             summarized_text_paragraph = Paragraph(f"Summarized Text:\n{summarized_text}", styles['SummarizedText'])
                             elements.append(summarized_text_paragraph)
+			
+			
+                        if word_cloud_checkbox:
+         
+	
+                        
+                      # Load the image with PIL for ReportLab
+                            img = PilImage.open(word_cloud_path)
+                                # Load the image with PIL for ReportLab
+
+                          # Convert the PIL Image object to binary data (bytes)
+                            img_bytes = BytesIO()
+                            img.save(img_bytes, format='PNG')
+                            img_bytes.seek(0)
+
+                               # Add the Word Cloud image to the PDF
+                            word_cloud_image = ReportLabImage(img_bytes, width=325, height=250)
+                            styles = getSampleStyleSheet()
+                            heading_style = ParagraphStyle(name='heading_style', parent=styles['Normal'], fontSize=18, fontName='Helvetica-Bold', spaceAfter=20)
+                            heading = Paragraph('Word Cloud Image', style=heading_style)
+                            elements.append(heading)
+                            
+                            elements.append(word_cloud_image)
+                            elements.append(Spacer(1, 20))
+
+
+                        if keyword_context_table_checkbox:
+           
+                            columns = ['Left context', 'Keyword', 'Right context']
+                            table_data = [columns] + Keyword_context.values.tolist()
+                            col_widths = [150, 100, 150] 
+                            wrapped_cells = []
+
+                            styles = getSampleStyleSheet()
+                            cell_style_normal = ParagraphStyle(name='cell_style_normal', parent=styles['Normal'], alignment=1)
+                            cell_style_header = ParagraphStyle(name='cell_style_header', parent=styles['Normal'], alignment=1, textColor=colors.whitesmoke, backColor=colors.grey, fontName='Helvetica-Bold', fontSize=14, spaceAfter=12)
+
+                            wrapped_data = []
+                            for row in table_data:
+                                     wrapped_cells = []
+                                     for i, cell in enumerate(row):
+                                           cell_style = cell_style_header if len(wrapped_data) == 0 else cell_style_normal
+                                           wrapped_cell = Paragraph(str(cell), style=cell_style)
+                                           wrapped_cells.append(wrapped_cell)
+                                     wrapped_data.append(wrapped_cells)
+                            table = Table(wrapped_data, colWidths=col_widths)
+
+                            table.setStyle(TableStyle([
+    ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
+    ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+    ('TEXTCOLOR', (1, 1), (1, -1), colors.red),
+
+    ('ALIGN', (0, 1), (0, -1), 'RIGHT'),
+    ('ALIGN', (1, 0), (1, -1), 'CENTER'),
+    ('ALIGN', (2, 1), (2, -1), 'LEFT'),
+
+    ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+    ('FONTSIZE', (0, 0), (-1, 0), 14),
+
+    ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+    ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
+    ('GRID', (0, 0), (-1, -1), 1, colors.black),
+
+    ('VALIGN', (0, 0), (-1, -1), 'TOP'),
+                                            ]))
+                            # Add heading 'Keyword in Context'
+                            heading_style = ParagraphStyle(name='heading_style', parent=styles['Normal'], fontSize=18, fontName='Helvetica-Bold', spaceAfter=12)
+                            heading = Paragraph('Keyword in Context', style=heading_style)
+                            elements.append(heading)
+                            elements.append(Spacer(1, 20))
+                            elements.append(table)
+                            elements.append(Spacer(1, 20))
+			
+			
+			
+			
+			
                        else:
                           st.error("DataFrame not found")
                       except Exception as e:

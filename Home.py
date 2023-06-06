@@ -1461,7 +1461,7 @@ def analysis_page():
        
         
     # Analysis page content and layout
-
+    st.write('----')
     
     st.header("Start analysing your text")
     
@@ -1801,7 +1801,43 @@ def analysis_page():
                       except Exception as e:
                             st.error(f"An error occurred: {str(e)}")
 
-	
+
+    st.markdown(
+f"""
+<style>
+    .logo-container {{
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        border: 2px solid grey; 
+        border-radius: 5px;  
+    }}
+    .logo {{
+        width: 100px;
+        height: 100px;
+        margin: 10px;
+        object-fit: contain;
+        flex-grow: 1;
+    }}
+</style>
+""",
+unsafe_allow_html=True
+)
+    st.markdown(
+    f"""
+    <div class="logo-container">
+        <img class="logo" src="data:image/png;base64,{get_image_as_base64('img/cardiff.png')}" />
+        <img class="logo" src="data:image/png;base64,{get_image_as_base64('img/Lancaster.png')}" />
+        <img class="logo" src="data:image/png;base64,{get_image_as_base64('img/NTW.JPG')}" />
+        <img class="logo" src="data:image/png;base64,{get_image_as_base64('img/Amgueddfa_Cymru_logo.svg.png')}" />
+        <img class="logo" src="data:image/png;base64,{get_image_as_base64('img/Cadw.png')}" />
+        <img class="logo" src="data:image/png;base64,{get_image_as_base64('img/NCLW.jpg')}" />
+	<img class="logo" src="data:image/png;base64,{get_image_as_base64('img/WJEC_CBAC_logo.svg.png')}" />
+	<img class="logo" src="data:image/png;base64,{get_image_as_base64('img/ukri-ahrc-square-logo.png')}" />
+    </div>
+    """,
+    unsafe_allow_html=True,
+     )	
 ###########################################Home page#######################################################################
 def main():
     state = get_state()
@@ -2049,6 +2085,7 @@ def app():
     """
     , 
     unsafe_allow_html=True)
+
     query_params = st.experimental_get_query_params()
     page = query_params.get("page", [None])[0]
     

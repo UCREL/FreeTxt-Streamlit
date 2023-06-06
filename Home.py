@@ -1735,7 +1735,10 @@ def analysis_page():
                         # Add a spacer between header and input text
                         elements.append(Spacer(1, 20))
                         styles = getSampleStyleSheet()
-
+                        # Define the styles for summarisation
+  
+                        styles.add(ParagraphStyle(name='InputText', fontSize=12, textColor=colors.black))
+                        styles.add(ParagraphStyle(name='SummarizedText', fontSize=12, textColor=colors.black))
 			# Add content based on selected checkboxes
                         if data_list_checkbox:
   
@@ -1808,10 +1811,7 @@ def analysis_page():
                                         elements.append(Spacer(1, 20))
 
                         if download_summary:
-		            # Define the styles for summarisation
-  
-                            styles.add(ParagraphStyle(name='InputText', fontSize=12, textColor=colors.black))
-                            styles.add(ParagraphStyle(name='SummarizedText', fontSize=12, textColor=colors.black))
+
                                    # Add the summarized text
                                            
                             summarized_text_paragraph = Paragraph(f"Summarized Text:\n{summarized_text}", styles['SummarizedText'])

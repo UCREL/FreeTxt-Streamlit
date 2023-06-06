@@ -1267,7 +1267,7 @@ def demo_page():
                text-shadow: 2px 2px #aaa;'>
     Demo
     </h1>""", unsafe_allow_html=True)
-
+    st.write("----")
       
     st.markdown(
     f"""
@@ -1338,6 +1338,42 @@ def demo_page():
     unsafe_allow_html=True,
 )
 
+    st.markdown(
+f"""
+<style>
+    .logo-container {{
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        border: 2px solid grey; 
+        border-radius: 5px;  
+    }}
+    .logo {{
+        width: 100px;
+        height: 100px;
+        margin: 10px;
+        object-fit: contain;
+        flex-grow: 1;
+    }}
+</style>
+""",
+unsafe_allow_html=True
+)
+    st.markdown(
+    f"""
+    <div class="logo-container">
+        <img class="logo" src="data:image/png;base64,{get_image_as_base64('img/cardiff.png')}" />
+        <img class="logo" src="data:image/png;base64,{get_image_as_base64('img/Lancaster.png')}" />
+        <img class="logo" src="data:image/png;base64,{get_image_as_base64('img/NTW.JPG')}" />
+        <img class="logo" src="data:image/png;base64,{get_image_as_base64('img/Amgueddfa_Cymru_logo.svg.png')}" />
+        <img class="logo" src="data:image/png;base64,{get_image_as_base64('img/Cadw.png')}" />
+        <img class="logo" src="data:image/png;base64,{get_image_as_base64('img/NCLW.jpg')}" />
+	<img class="logo" src="data:image/png;base64,{get_image_as_base64('img/WJEC_CBAC_logo.svg.png')}" />
+	<img class="logo" src="data:image/png;base64,{get_image_as_base64('img/ukri-ahrc-square-logo.png')}" />
+    </div>
+    """,
+    unsafe_allow_html=True,
+     )
 #######################################################################################################
 ##create the html file for the wordTree
 class html:

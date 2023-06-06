@@ -1438,26 +1438,26 @@ def analysis_page():
     }
 </style>
 """, unsafe_allow_html=True)
-    selected3 = option_menu(None, ["Home", "Analysis",  "Demo"], 
-        icons=['house', 'sliders2',  'gear'], 
-        menu_icon="cast", default_index=1, orientation="horizontal",
-        styles={
-            "container": {"padding": "0!important", "background-color": "#fafafa"},
-            "icon": {"color": "orange", "font-size": "25px"}, 
-            "nav-link": {"font-size": "25px", "text-align": "left", "margin":"0px", "--hover-color": "#eee"},
-            "nav-link-selected": {"background-color": "green"},
-        }
-    )
-    st.session_state["selected3"] = selected3
+    #selected3 = option_menu(None, ["Home", "Analysis",  "Demo"], 
+   #     icons=['house', 'sliders2',  'gear'], 
+    #    menu_icon="cast", default_index=1, orientation="horizontal",
+    ##    styles={
+     #       "container": {"padding": "0!important", "background-color": "#fafafa"},
+    #        "icon": {"color": "orange", "font-size": "25px"}, 
+     #       "nav-link": {"font-size": "25px", "text-align": "left", "margin":"0px", "--hover-color": "#eee"},
+    #        "nav-link-selected": {"background-color": "green"},
+    #    }
+   # )
+    #st.session_state["selected3"] = selected3
 
-    if st.session_state["selected3"] == "Home":
-        st.experimental_set_query_params(page="home")
+    #if st.session_state["selected3"] == "Home":
+     #   st.experimental_set_query_params(page="home")
         
-    elif st.session_state["selected3"] == "Analysis":
-       st.experimental_set_query_params(page="analysis")
+   # elif st.session_state["selected3"] == "Analysis":
+    #   st.experimental_set_query_params(page="analysis")
        
-    elif st.session_state["selected3"] == "Demo":
-       st.experimental_set_query_params(page="demo")
+   # elif st.session_state["selected3"] == "Demo":
+     #  st.experimental_set_query_params(page="demo")
        
         
     # Analysis page content and layout

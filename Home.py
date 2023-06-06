@@ -1703,8 +1703,9 @@ def analysis_page():
          
                     with tab8:
                      column1, column2 = st.columns([1, 2])
-                     try:
-                      with column1:
+                     
+                     with column1:
+                      try:
                      # Check if the DataFrame exists
                        if not dfanalysis.empty :
 			#####pdf_generator
@@ -1733,7 +1734,7 @@ def analysis_page():
                         elements = []
                         # Add a spacer between header and input text
                         elements.append(Spacer(1, 20))
-  
+                        styles = getSampleStyleSheet()
 
 			# Add content based on selected checkboxes
                         if data_list_checkbox:
@@ -1744,7 +1745,7 @@ def analysis_page():
                             col_widths = [200, 100, 100]  # Adjust these values according to your needs
                             wrapped_cells = []
 
-                            styles = getSampleStyleSheet()
+                            
                             cell_style_normal = ParagraphStyle(name='cell_style_normal', parent=styles['Normal'], alignment=1)
                             cell_style_header = ParagraphStyle(name='cell_style_header', parent=styles['Normal'], alignment=1, textColor=colors.whitesmoke, backColor=colors.grey, fontName='Helvetica-Bold', fontSize=14, spaceAfter=12)
                                 # Define the styles for summarisation
@@ -1814,9 +1815,13 @@ def analysis_page():
                                            
                                            summarized_text_paragraph = Paragraph(f"Summarized Text:\n{summarized_text}", styles['SummarizedText'])
                                            elements.append(summarized_text_paragraph)
+		       else:
+                          st.error("DataFrame not found")
+		      except Exception as e:
+                            st.error(f"An error occurred: {str(e)}")
                         
 
-                      with column2:
+                     with column2:
 			
                        generate_pdf_button = st.button("Generate PDF")
                        if generate_pdf_button:
@@ -1831,11 +1836,9 @@ def analysis_page():
 
                              
 
-                       else:
-                           st.error("DataFrame not found")
 
-                     except Exception as e:
-                            st.error(f"An error occurred: {str(e)}")
+
+
 
 	
 ###########################################Home page#######################################################################

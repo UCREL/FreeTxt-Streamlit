@@ -1949,7 +1949,7 @@ any sector in Wales and beyond to use it.
 
     .fancy-link {
         font-size: 50px; 
-        font-family: 'Tangerine', cursive; 
+        font-family: sans-serif; 
         color: #4a4a4a; 
         background-color: #ddd; 
         padding: 10px 20px; 

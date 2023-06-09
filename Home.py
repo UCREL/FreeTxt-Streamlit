@@ -2118,30 +2118,35 @@ def app():
       
     st.markdown(
     f"""
-
+<style>
+a.menu-link:hover {{
+  color: red;
+  
+}}
+</style>
 <div style="overflow: hidden; padding: 10px; background-color: lightblue;">
-<a href="https://nouran-khallaf-free-txt-home-gdoog2.streamlit.app/?page=home" target="_self" style="float: left; color: #4a4a4a; text-align: center; padding: 14px 16px; text-decoration: none; font-size: 18px; margin: 0px; transition: 0.3s;">
+<a class="menu-link" href="https://nouran-khallaf-free-txt-home-gdoog2.streamlit.app/?page=home" target="_self" style="float: left; color: #4a4a4a; text-align: center; padding: 14px 16px; text-decoration: none; font-size: 18px; margin: 0px; transition: 0.3s;">
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="height: 25px;">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
     </svg> Home
 </a>
-<a href="https://nouran-khallaf-free-txt-home-gdoog2.streamlit.app/?page=analysis" target="_self" style="float: left; color: #4a4a4a; text-align: center; padding: 14px 16px; text-decoration: none; font-size: 18px; margin: 0px; transition: 0.3s;">
+<a class="menu-link" href="https://nouran-khallaf-free-txt-home-gdoog2.streamlit.app/?page=analysis" target="_self" style="float: left; color: #4a4a4a; text-align: center; padding: 14px 16px; text-decoration: none; font-size: 18px; margin: 0px; transition: 0.3s;">
     <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="height: 25px;">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 13.5V3.75m0 9.75a1.5 1.5 0 010 3m0-3a1.5 1.5 0 000 3m0 3.75V16.5m12-3V3.75m0 9.75a1.5 1.5 0 010 3m0-3a1.5 1.5 0 000 3m0 3.75V16.5m-6-9V3.75m0 3.75a1.5 1.5 0 010 3m0-3a1.5 1.5 0 000 3m0 9.75V10.5"></path>
     </svg> Analysis
 </a>
-<a href="https://nouran-khallaf-free-txt-home-gdoog2.streamlit.app/?page=userguide" target="_self" style="float: left; color: #4a4a4a; text-align: center; padding: 14px 16px; text-decoration: none; font-size: 18px; margin: 0px; transition: 0.3s;">
+<a class="menu-link" href="https://nouran-khallaf-free-txt-home-gdoog2.streamlit.app/?page=userguide" target="_self" style="float: left; color: #4a4a4a; text-align: center; padding: 14px 16px; text-decoration: none; font-size: 18px; margin: 0px; transition: 0.3s;">
   <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="height: 25px;">
     <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 01-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 011.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 00-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 01-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 00-3.375-3.375h-1.5a1.125 1.125 0 01-1.125-1.125v-1.5a3.375 3.375 0 00-3.375-3.375H9.75"></path>
   </svg>
      User Guide
 </a>
-<a href="https://nouran-khallaf-free-txt-home-gdoog2.streamlit.app/?page=about" target="_self" style="float: left; color: #4a4a4a; text-align: center; padding: 14px 16px; text-decoration: none; font-size: 18px; margin: 0px; transition: 0.3s;">
+<a class="menu-link" href="https://nouran-khallaf-free-txt-home-gdoog2.streamlit.app/?page=about" target="_self" style="float: left; color: #4a4a4a; text-align: center; padding: 14px 16px; text-decoration: none; font-size: 18px; margin: 0px; transition: 0.3s;">
     <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="height: 25px;">
         <path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 01-2.25 2.25M16.5 7.5V18a2.25 2.25 0 002.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 002.25 2.25h13.5M6 7.5h3v3H6v-3z"></path>
     </svg>About
 </a>
-<a href="https://nouran-khallaf-free-txt-home-gdoog2.streamlit.app/?page=contact" target="_self" style="float: left; color: #4a4a4a; text-align: center; padding: 14px 16px; text-decoration: none; font-size: 18px; margin: 0px; transition: 0.3s;">
+<a class="menu-link" href="https://nouran-khallaf-free-txt-home-gdoog2.streamlit.app/?page=contact" target="_self" style="float: left; color: #4a4a4a; text-align: center; padding: 14px 16px; text-decoration: none; font-size: 18px; margin: 0px; transition: 0.3s;">
     <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="height: 25px;">
        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z"></path>
      </svg>

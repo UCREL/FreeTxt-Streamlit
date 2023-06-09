@@ -1908,11 +1908,11 @@ def analysis_page():
 def main():
     state = get_state()
     #st.write("---")
-    col1,  col3 = st.columns([1,  2])
-    with col1:
+    col1,  col3 = st.columns([2,  1])
+    with col3:
         st.image("img/FreeTxt_logo_R.png", width=300) 
     
-    with col3:
+    with col1:
         st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Tangerine&display=swap');

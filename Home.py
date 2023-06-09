@@ -1266,7 +1266,7 @@ def demo_page():
                text-shadow: 2px 2px #aaa;'>
     User Guide
     </h1>""", unsafe_allow_html=True)
-            st.write("----")
+    st.write("----")
 
       
     st.markdown(

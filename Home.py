@@ -2360,7 +2360,7 @@ def app():
     transition: 0.3s;
 }}
 .link-container a.menu-link:hover {{
-    color: lightblue;
+    color: #2EABD0;
     font-weight: bold;
     text-decoration: underline;
 }}

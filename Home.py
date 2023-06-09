@@ -1226,7 +1226,7 @@ st.markdown(css, unsafe_allow_html=True)
 def demo_page():
     # Demo page content and layout
     # ...
-    st.write("---")
+    
     st.markdown("""
     <style>
         .stButton>button {
@@ -1266,7 +1266,11 @@ def demo_page():
                text-shadow: 2px 2px #aaa;'>
     User Guide
     </h1>""", unsafe_allow_html=True)
-    st.write("----")
+        st.markdown(
+    f"""
+    <div style="overflow: hidden; padding: 10px; background-color: lightgrey ;">	
+	</div>"""
+	, unsafe_allow_html=True)
 
       
     st.markdown(
@@ -1431,7 +1435,7 @@ class html:
 ###########################################Analysis page#######################################################################
 def analysis_page():
     state = get_state()
-    st.write("---")
+    
     col1,  col3 = st.columns([2, 1])
     with col3:
          
@@ -1495,7 +1499,11 @@ def analysis_page():
        
         
     # Analysis page content and layout
-    st.write('----')
+    st.markdown(
+    f"""
+    <div style="overflow: hidden; padding: 10px; background-color: lightgrey ;">	
+	</div>"""
+	, unsafe_allow_html=True)
     
     st.header("Start analysing your text")
     

@@ -1432,6 +1432,163 @@ class html:
     
         ''')
         Func.close()
+###########################################about page#######################################################################
+def demo_page():
+    # Demo page content and layout
+    # ...
+    
+    st.markdown("""
+    <style>
+        .stButton>button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 20px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            outline: none;
+            color: #fff;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 9px #999;
+        }
+        .stButton>button:hover {background-color: #3e8e41} /* Add a darker green color when the button is hovered */
+        .stButton>button:active {
+            background-color: #3e8e41;
+            box-shadow: 0 5px #666;
+            transform: translateY(4px);
+        }
+    </style>
+    """, unsafe_allow_html=True)
+    col1,  col3 = st.columns([2, 1])
+    with col3:
+        st.image("img/FreeTxt_logo_R.png", width=300) 
+    #with col2:
+        #st.markdown("<h1 style='text-align: center; margin-top: 0px;'>Demo</h1>", unsafe_allow_html=True)
+    with col1:
+           st.markdown("""
+    <h1 style='text-align: center; 
+               margin-top: 0px; 
+               font-size: 80px; 
+               color: #4a4a4a; 
+               font-family: sans-serif; 
+               text-shadow: 2px 2px #aaa;'>
+    about
+    </h1>""", unsafe_allow_html=True)
+    st.markdown(
+    f"""
+    <div style="overflow: hidden; padding: 10px; background-color: lightgrey ;">	
+	</div>"""
+	, unsafe_allow_html=True)
+
+      
+    st.markdown(
+    f"""
+    <style>
+    .content-container {{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        gap: 10px;
+        justify-items: center;
+        align-items: center;
+        padding: 10px;
+        border-radius: 5px;
+        background-color: white;
+        color: white;
+        text-align: center;
+    }}
+    
+    .content-container > :nth-child(5) {{
+        grid-column: 1 / -1;
+    }}
+    .a-image {{
+        border-radius: 5px;
+        transition: transform .2s;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 1px rgba(0, 0, 0, 0.24);
+        position: relative;
+    }}
+    .a-image:hover {{
+        transform: scale(1.1);
+        box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+    }}
+    .a-image:hover::after {{
+        content: attr(title);
+        position: absolute;
+        top: -30px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: rgba(0, 0, 0, 0.8);
+        padding: 5px 10px;
+        border-radius: 3px;
+        font-size: 14px;
+        color: white;
+    }}
+    </style>
+    <div class="content-container">
+        <div>
+            <h3>Word Collocation</h3>
+            <iframe class="a-image" src="data:text/html;base64,{get_html_as_base64('img/analysis/network_output.html')}" width="550" height="350" title="Network Output"></iframe>
+        </div>
+        <div>
+            <h3>Word Context</h3>
+            <img class="a-image" src="data:image/png;base64,{get_image_as_base64('img/analysis/Keyword.png')}" alt="Keyword in Context" width="500" title="Keyword in Context">
+        </div>
+        <div>
+            <h3>Positive and Negative Ratio<h3>
+            <iframe class="a-image" src="data:text/html;base64,{get_html_as_base64('img/analysis/Sentiment_analysis_pie.html')}" width="500" height="400" title="Sentiment Analysis Pie"></iframe>
+        </div>
+        <div>
+            <h3>Word Cloud</h3>
+            <img class="a-image" src="data:image/png;base64,{get_image_as_base64('img/analysis/word_cloud.png')}" alt="Wordcloud" width="500" title="Wordcloud">
+        </div>
+        <div>
+            <h3>Text Visualisation</h3>
+            <iframe class="a-image" src="data:text/html;base64,{get_html_as_base64('img/analysis/scattertext_visualization.html')}" width="900" height="500" title="Scattertext Visualization"></iframe>
+        </div>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
+
+    st.markdown(
+f"""
+<style>
+    .logo-container {{
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        border: 2px solid grey; 
+        border-radius: 5px;  
+    }}
+    .logo {{
+        width: 100px;
+        height: 100px;
+        margin: 10px;
+        object-fit: contain;
+        flex-grow: 1;
+    }}
+</style>
+""",
+unsafe_allow_html=True
+)
+    st.markdown(
+    f"""
+    <div class="logo-container">
+        <img class="logo" src="data:image/png;base64,{get_image_as_base64('img/cardiff.png')}" />
+        <img class="logo" src="data:image/png;base64,{get_image_as_base64('img/Lancaster.png')}" />
+        <img class="logo" src="data:image/png;base64,{get_image_as_base64('img/NTW.JPG')}" />
+        <img class="logo" src="data:image/png;base64,{get_image_as_base64('img/Amgueddfa_Cymru_logo.svg.png')}" />
+        <img class="logo" src="data:image/png;base64,{get_image_as_base64('img/Cadw.png')}" />
+        <img class="logo" src="data:image/png;base64,{get_image_as_base64('img/NCLW.jpg')}" />
+	<img class="logo" src="data:image/png;base64,{get_image_as_base64('img/WJEC_CBAC_logo.svg.png')}" />
+	<img class="logo" src="data:image/png;base64,{get_image_as_base64('img/ukri-ahrc-square-logo.png')}" />
+    </div>
+    """,
+    unsafe_allow_html=True,
+     )
+#######################################################################################################
 ###########################################Analysis page#######################################################################
 def analysis_page():
     state = get_state()

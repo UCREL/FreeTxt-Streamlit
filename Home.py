@@ -1536,6 +1536,102 @@ unsafe_allow_html=True
     """,
     unsafe_allow_html=True,
      )
+###########################################contact us  page#######################################################################
+def contact_page():
+    # contact page content and layout
+    # ...
+    
+    st.markdown("""
+    <style>
+        .stButton>button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 20px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            outline: none;
+            color: #fff;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 9px #999;
+        }
+        .stButton>button:hover {background-color: #3e8e41} /* Add a darker green color when the button is hovered */
+        .stButton>button:active {
+            background-color: #3e8e41;
+            box-shadow: 0 5px #666;
+            transform: translateY(4px);
+        }
+    </style>
+    """, unsafe_allow_html=True)
+    col1,  col3 = st.columns([2, 1])
+    with col3:
+        st.image("img/FreeTxt_logo_R.png", width=300) 
+    #with col2:
+        #st.markdown("<h1 style='text-align: center; margin-top: 0px;'>Demo</h1>", unsafe_allow_html=True)
+    with col1:
+           st.markdown("""
+    <h1 style='text-align: center; 
+               margin-top: 0px; 
+               font-size: 80px; 
+               color: #4a4a4a; 
+               font-family: sans-serif; 
+               text-shadow: 2px 2px #aaa;'>
+    Contact us
+    </h1>""", unsafe_allow_html=True)
+    st.markdown(
+    f"""
+    <div style="overflow: hidden; padding: 10px; background-color: lightgrey ;">	
+	</div>"""
+	, unsafe_allow_html=True)
+
+      #style="background-color: lightblue;
+    st.markdown(
+    """
+<div  padding: 10px;">
+    
+</div>
+""",
+    unsafe_allow_html=True
+)
+
+
+    st.markdown(
+f"""
+<style>
+    .logo-container {{
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        
+    }}
+    .logo {{
+        width: 100px;
+        height: 100px;
+        margin: 10px;
+        object-fit: contain;
+        flex-grow: 1;
+    }}
+</style>
+""",
+unsafe_allow_html=True
+)
+    st.markdown(
+    f"""
+    <div class="logo-container">
+        <img class="logo" src="data:image/png;base64,{get_image_as_base64('img/cardiff.png')}" />
+        <img class="logo" src="data:image/png;base64,{get_image_as_base64('img/Lancaster.png')}" />
+        <img class="logo" src="data:image/png;base64,{get_image_as_base64('img/NTW.JPG')}" />
+        <img class="logo" src="data:image/png;base64,{get_image_as_base64('img/Amgueddfa_Cymru_logo.svg.png')}" />
+        <img class="logo" src="data:image/png;base64,{get_image_as_base64('img/Cadw.png')}" />
+        <img class="logo" src="data:image/png;base64,{get_image_as_base64('img/NCLW.jpg')}" />
+	<img class="logo" src="data:image/png;base64,{get_image_as_base64('img/WJEC_CBAC_logo.svg.png')}" />
+	<img class="logo" src="data:image/png;base64,{get_image_as_base64('img/ukri-ahrc-square-logo.png')}" />
+    </div>
+    """,
+    unsafe_allow_html=True,
+     )
 #######################################################################################################
 ###########################################Analysis page#######################################################################
 def analysis_page():

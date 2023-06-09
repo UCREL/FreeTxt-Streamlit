@@ -2126,7 +2126,7 @@ unsafe_allow_html=True
 
 
 def app():
-st.markdown(
+    st.markdown(
     f"""
 
 <div style="overflow: hidden; padding: 10px;">

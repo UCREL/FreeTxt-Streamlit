@@ -2118,13 +2118,14 @@ def app():
     st.markdown(
     """
     <style>
-    .toolbar {
-        background-color: lightblue;
+    .stApp {
+        background-color: #EAF6F9;
     }
     </style>
     """,
     unsafe_allow_html=True
 )
+
 
     st.markdown(
     f"""

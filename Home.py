@@ -2070,7 +2070,7 @@ any sector in Wales and beyond to use it.
 
     
 
-    st.write("---")
+    #st.write("---")
     #st.header("The FreeTxt way-in")
     
    

@@ -1445,7 +1445,7 @@ def analysis_page():
                color: #4a4a4a; 
                font-family: sans-serif; 
                text-shadow: 2px 2px #aaa;'>
-    User Guide
+    Text Analysis
     </h1>""", unsafe_allow_html=True)
         st.markdown("""
 <style>
@@ -1915,7 +1915,7 @@ def main():
                color: #4a4a4a; 
                font-family: sans-serif; 
                text-shadow: 2px 2px #aaa;'>
-    User Guide
+    Welcome to Freetxt
     </h1>""", unsafe_allow_html=True)
  
     #24px;border: 2px solid grey;

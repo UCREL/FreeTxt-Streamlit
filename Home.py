@@ -2119,7 +2119,7 @@ def app():
     """
     <style>
     .stApp {
-        background-color: #EAF6F9;
+        background-color: #D3D6D6;
     }
     </style>
     """,

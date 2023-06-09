@@ -2346,7 +2346,7 @@ def app():
 #)
 
 
-st.markdown(
+    st.markdown(
     f"""
 <style>
 .link-container a.menu-link {{

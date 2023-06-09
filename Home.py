@@ -1226,7 +1226,7 @@ st.markdown(css, unsafe_allow_html=True)
 def demo_page():
     # Demo page content and layout
     # ...
-    
+    st.write("---")
     st.markdown("""
     <style>
         .stButton>button {
@@ -1431,6 +1431,7 @@ class html:
 ###########################################Analysis page#######################################################################
 def analysis_page():
     state = get_state()
+    st.write("---")
     col1,  col3 = st.columns([2, 1])
     with col3:
          
@@ -1902,7 +1903,7 @@ def analysis_page():
 ###########################################Home page#######################################################################
 def main():
     state = get_state()
-    #st.write("---")
+    st.write("---")
     col1,  col3 = st.columns([2,  1])
     with col3:
         st.image("img/FreeTxt_logo_R.png", width=300) 

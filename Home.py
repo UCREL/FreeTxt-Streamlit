@@ -2360,7 +2360,7 @@ a.menu-link {{
     transition: 0.3s;
 }}
 a.menu-link:hover {{
-    color: red;
+    color: lightblue;
     font-weight: bold;
     text-decoration: underline;
 }}

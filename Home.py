@@ -1947,7 +1947,7 @@ any sector in Wales and beyond to use it.
     <style>
 
     .fancy-link {
-        font-size: 40px; 
+        font-size: 35px; 
         font-family: Arial, sans-serif; 
         color: #4a4a4a; 
         background-color: #ddd; 
@@ -1959,7 +1959,7 @@ any sector in Wales and beyond to use it.
 
     .fancy-link:hover {
         background-color: #bbb;
-        font-size: 50px;
+        font-size: 45px;
     }
     </style>
 
@@ -1977,7 +1977,7 @@ any sector in Wales and beyond to use it.
           st.markdown("""
     <style>
     .fancy-link {
-        font-size: 40px; 
+        font-size: 35px; 
         font-family: sans-serif; 
         color: #4a4a4a; 
         background-color: #ddd; 
@@ -1989,7 +1989,7 @@ any sector in Wales and beyond to use it.
 
     .fancy-link:hover {
         background-color: #bbb;
-        font-size: 50px;
+        font-size: 45px;
     }
     </style>
 

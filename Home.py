@@ -2141,9 +2141,18 @@ def app():
     st.markdown(
     f"""
 <style>
-a.menu-link:hover {{
+.menu-link {{
+  color: #4a4a4a;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 18px;
+  margin: 0px;
+  transition: 0.3s;
+}}
+
+.menu-link:hover {{
   color: red;
-  
 }}
 </style>
 <div style="overflow: hidden; padding: 10px; background-color: lightgrey ;">

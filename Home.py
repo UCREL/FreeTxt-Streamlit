@@ -1902,7 +1902,7 @@ def analysis_page():
 ###########################################Home page#######################################################################
 def main():
     state = get_state()
-    st.write("---")
+    #st.write("---")
     col1,  col3 = st.columns([2,  1])
     with col3:
         st.image("img/FreeTxt_logo_R.png", width=300) 

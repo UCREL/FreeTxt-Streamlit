@@ -2115,16 +2115,16 @@ unsafe_allow_html=True
 
 
 def app():
-    st.markdown(
-    """
-    <style>
-    .stApp {
-        background-color: #D3D6D6;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
+ #   st.markdown(
+  #  """
+   # <style>
+   # .stApp {
+   #     background-color: #D3D6D6;
+   # }
+   # </style>
+   # """,
+   # unsafe_allow_html=True
+#)
 
 
     st.markdown(

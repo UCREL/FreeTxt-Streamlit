@@ -2080,7 +2080,6 @@ any sector in Wales and beyond to use it.
  FreeTxt was developed as part of an AHRC funded collaborative FreeTxt supporting bilingual free-text 
  survey and questionnaire data analysis research project involving colleagues from Cardiff University and 
  Lancaster University (Grant Number AH/W004844/1).
- 
  The team included 
  PI - Dawn Knight; CIs - Paul Rayson, Mo El-Haj; 
  RAs - Ignatius Ezeani, Nouran Khallaf and Steve Morris.

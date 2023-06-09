@@ -1252,24 +1252,22 @@ def demo_page():
     </style>
     """, unsafe_allow_html=True)
     col1,  col3 = st.columns([1, 2])
-    with col1:
+    with col3:
         st.image("img/FreeTxt_logo_R.png", width=300) 
     #with col2:
         #st.markdown("<h1 style='text-align: center; margin-top: 0px;'>Demo</h1>", unsafe_allow_html=True)
-    with col3:
-         st.markdown("""
-    <style>
-    @import url('https://fonts.googleapis.com/css2?family=Tangerine&display=swap');
-    </style>
+    with col1:
+           st.markdown("""
     <h1 style='text-align: center; 
                margin-top: 0px; 
                font-size: 80px; 
                color: #4a4a4a; 
-               font-family: Tangerine, cursive; 
+               font-family: sans-serif; 
                text-shadow: 2px 2px #aaa;'>
-    Demo
+    User Guide
     </h1>""", unsafe_allow_html=True)
-    st.write("----")
+            st.write("----")
+
       
     st.markdown(
     f"""
@@ -1433,25 +1431,22 @@ class html:
 ###########################################Analysis page#######################################################################
 def analysis_page():
     state = get_state()
-    col1,  col3 = st.columns([1, 2])
-    with col1:
+    col1,  col3 = st.columns([2, 1])
+    with col3:
          
         st.image("img/FreeTxt_logo_R.png", width=300) 
         
 
-    with col3:
+    with col1:
         st.markdown("""
-    <style>
-    @import url('https://fonts.googleapis.com/css2?family=Tangerine&display=swap');
-    </style>
     <h1 style='text-align: center; 
                margin-top: 0px; 
                font-size: 80px; 
                color: #4a4a4a; 
-               font-family: Tangerine, cursive; 
+               font-family: sans-serif; 
                text-shadow: 2px 2px #aaa;'>
-    Text Analysis
-    </h1>""",  unsafe_allow_html=True)
+    User Guide
+    </h1>""", unsafe_allow_html=True)
         st.markdown("""
 <style>
     .stButton>button {
@@ -1913,20 +1908,15 @@ def main():
         st.image("img/FreeTxt_logo_R.png", width=300) 
     
     with col1:
-        st.markdown("""
-    <style>
-    @import url('https://fonts.googleapis.com/css2?family=Tangerine&display=swap');
-    </style>
+       st.markdown("""
     <h1 style='text-align: center; 
                margin-top: 0px; 
                font-size: 80px; 
                color: #4a4a4a; 
-               font-family: Tangerine, cursive; 
+               font-family: sans-serif; 
                text-shadow: 2px 2px #aaa;'>
-    Welcome to FreeTxt
-    </h1>""",  
-    unsafe_allow_html=True)
-    st.write("---")
+    User Guide
+    </h1>""", unsafe_allow_html=True)
  
     #24px;border: 2px solid grey;
     with open('style.css') as f:

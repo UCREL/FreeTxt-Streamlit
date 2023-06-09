@@ -2125,7 +2125,7 @@ def app():
     """,
     unsafe_allow_html=True
 )
-)
+
     st.markdown(
     f"""
 <style>

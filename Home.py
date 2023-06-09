@@ -1945,11 +1945,10 @@ any sector in Wales and beyond to use it.
     with button_col1:
          st.markdown("""
     <style>
-  
 
     .fancy-link {
         font-size: 50px; 
-        font-family: sans-serif; 
+        font-family: Arial, sans-serif; 
         color: #4a4a4a; 
         background-color: #ddd; 
         padding: 10px 20px; 

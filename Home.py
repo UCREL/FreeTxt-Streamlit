@@ -2349,7 +2349,7 @@ def app():
     st.markdown(
     f"""
     <style>
-.menu-link {{
+a.menu-link {{
     float: left;
     color: #4a4a4a;
     text-align: center;
@@ -2359,7 +2359,7 @@ def app():
     margin: 0px;
     transition: 0.3s;
 }}
-.menu-link:hover {{
+a.menu-link:hover {{
     color: red;
     font-weight: bold;
     text-decoration: underline;

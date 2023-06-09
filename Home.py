@@ -1918,7 +1918,12 @@ def main():
                text-shadow: 2px 2px #aaa;'>
     Welcome to Freetxt
     </h1>""", unsafe_allow_html=True)
-    st.write('----')
+    
+    st.markdown(
+    f"""
+    <div style="overflow: hidden; padding: 10px; background-color: lightgrey ;">	
+	</div>"""
+	, unsafe_allow_html=True)
     #24px;border: 2px solid grey;
     with open('style.css') as f:
         st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html =True)

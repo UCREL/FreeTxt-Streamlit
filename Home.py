@@ -2130,7 +2130,7 @@ a.menu-link:hover {{
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
     </svg> Home
 </a>
-<a class="menu-link" href="https://nouran-khallaf-free-txt-home-gdoog2.streamlit.app/?page=analysis" target="_self" style="float: left; color: #4a4a4a; text-align: center; padding: 14px 16px; text-decoration: none; font-size: 18px; margin: 0px; transition: 0.3s;">
+<a class="menu-link" href="https://nouran-khallaf-free-txt-home-gdoog2.streamlit.app/?page=analysis" target="_self" style="float: left; color: #4a4a4a; text-align: center; padding: 14px 16px; text-decoration: none; font-size: 18px; margin: 0px; transition: 0.3s;onmouseover="this.style.color='#008CBA'" onmouseout="this.style.color='#4a4a4a'">
     <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="height: 25px;">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 13.5V3.75m0 9.75a1.5 1.5 0 010 3m0-3a1.5 1.5 0 000 3m0 3.75V16.5m12-3V3.75m0 9.75a1.5 1.5 0 010 3m0-3a1.5 1.5 0 000 3m0 3.75V16.5m-6-9V3.75m0 3.75a1.5 1.5 0 010 3m0-3a1.5 1.5 0 000 3m0 9.75V10.5"></path>
     </svg> Analysis

@@ -1433,7 +1433,7 @@ class html:
         ''')
         Func.close()
 ###########################################about page#######################################################################
-def demo_page():
+def about_page():
     # Demo page content and layout
     # ...
     
@@ -1474,7 +1474,7 @@ def demo_page():
                color: #4a4a4a; 
                font-family: sans-serif; 
                text-shadow: 2px 2px #aaa;'>
-    about
+    About
     </h1>""", unsafe_allow_html=True)
     st.markdown(
     f"""

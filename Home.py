@@ -2399,6 +2399,9 @@ def app():
     elif page == "about":
           st.experimental_set_query_params(page="about")
           about_page()
+    elif page == "contact":
+          st.experimental_set_query_params(page="contact")
+          contact_page()
     elif page == "home":
           st.experimental_set_query_params(page="home")
           main()

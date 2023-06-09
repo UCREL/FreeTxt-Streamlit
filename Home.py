@@ -1959,7 +1959,7 @@ any sector in Wales and beyond to use it.
 
     .fancy-link:hover {
         background-color: #bbb;
-        font-size: 45px;
+        font-size: 42px;
     }
     </style>
 
@@ -1989,7 +1989,7 @@ any sector in Wales and beyond to use it.
 
     .fancy-link:hover {
         background-color: #bbb;
-        font-size: 45px;
+        font-size: 42px;
     }
     </style>
 

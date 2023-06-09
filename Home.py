@@ -2081,11 +2081,11 @@ FreeTxt was developed as part of an AHRC funded collaborative FreeTxt supporting
     survey and questionnaire data analysis research project involving colleagues from Cardiff University and 
     Lancaster University (Grant Number AH/W004844/1).
 
-    The team included 
-        PI - Dawn Knight; CIs - Paul Rayson, Mo El-Haj; 
-        RAs - Ignatius Ezeani, Nouran Khallaf and Steve Morris.
-    The Project Advisory Group included representatives from:
-        National Trust Wales, Cadw, National Museum Wales, CBAC | WJEC and National Centre for Learning Welsh.
+ The team included 
+ PI - Dawn Knight; CIs - Paul Rayson, Mo El-Haj; 
+ RAs - Ignatius Ezeani, Nouran Khallaf and Steve Morris.
+ The Project Advisory Group included representatives from:
+ National Trust Wales, Cadw, National Museum Wales, CBAC | WJEC and National Centre for Learning Welsh.
 
 </div>
 """,

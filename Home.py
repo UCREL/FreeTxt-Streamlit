@@ -2138,8 +2138,8 @@ def app():
     </a>
     <a href="https://nouran-khallaf-free-txt-home-gdoog2.streamlit.app/?page=analysis" target="_self" style="float: left; color: #4a4a4a; text-align: center; padding: 14px 16px; text-decoration: none; font-size: 25px; margin: 0px; transition: 0.3s;">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="height: 25px;">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 21V5a2 2 0 012-2h6a2 2 0 012 2v16"></path>
-        </svg> Adjustments Vertical
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 6l-4-4m0 0L6 6m8 0v12"></path>
+        </svg> Analysis
     </a>
     <a href="https://nouran-khallaf-free-txt-home-gdoog2.streamlit.app/?page=userguide" target="_self" style="float: left; color: #4a4a4a; text-align: center; padding: 14px 16px; text-decoration: none; font-size: 25px; margin: 0px; transition: 0.3s;">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="height: 25px;">
@@ -2149,18 +2149,30 @@ def app():
     </a>
     <a href="https://nouran-khallaf-free-txt-home-gdoog2.streamlit.app/?page=about" target="_self" style="float: left; color: #4a4a4a; text-align: center; padding: 14px 16px; text-decoration: none; font-size: 25px; margin: 0px; transition: 0.3s;">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="height: 25px;">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0v5m-9-5v5m18 0v5m0-13V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v3m-4 10v1m0-16H4a1 1 0 00-1 1v16a1 1 0 001 1h16a1 1 0 001-1V4a1 1 0 00-1-1h-4z"></path>
-        </svg> Newspaper
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0v5m-9-5v5m18 0v5m0-13V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v3m-4 10v1m0-16H4a1 1 0 00-1 1v16a1 1 0 001 1h16a1 1 0 001-1V4a1 1 0 00-1-1h-4z"></path>
+        </svg> About
     </a>
     <a href="https://nouran-khallaf-free-txt-home-gdoog2.streamlit.app/?page=contact" target="_self" style="float: left; color: #4a4a4a; text-align: center; padding: 14px 16px; text-decoration: none; font-size: 25px; margin: 0px; transition: 0.3s;">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="height: 25px;">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 10c0-7-9-7-9-7s-9 0-9 7c0 4.386 3.667 9.584 9 11.93C17.333 19.584 21 14.386 21 10z"></path>
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 19v-6m0-6v2m0 0a2 2 0 110-4 2 2 0 010 4z"></path>
-        </svg> User Location
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M20 13V8a1 1 0 00-1-1h-4a1 1 0 000 2h3v4a1 1 0 002 0zM12 7v4a1 1 0 002 0V7a1 1 0 10-2 0zm-2 3V9a1 1 0 011-1h3a1 1 0 010 2h-3a1 1 0 01-1 1zm10 6a1 1 0 00-1 1v3h-3a1 1 0 100 2h4a1 1 0 001-1v-4a1 1 0 00-1-1z"></path>
+        </svg> Analysis
+    </a>
+    <a href="https://nouran-khallaf-free-txt-home-gdoog2.streamlit.app/?page=about" target="_self" style="float: left; color: #4a4a4a; text-align: center; padding: 14px 16px; text-decoration: none; font-size: 25px; margin: 0px; transition: 0.3s;">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="height: 25px;">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6.75A2.25 2.25 0 016.25 4.5h11.5A2.25 2.25 0 0120 6.75v14.5A2.25 2.25 0 0117.75 24H6.25A2.25 2.25 0 014 21.25V6.75zM9.75 16.038l-2.698-1.35A.75.75 0 016 14.44v-3.18a.75.75 0 011.186-.622l2.814 1.41a.75.75 0 00.75 0l2.814-1.41A.75.75 0 0115 11.26v3.18a.75.75 0 01-1.052.67l-2.698-1.35a.75.75 0 00-.75 0z"></path>
+        </svg> About
+    </a>
+    <a href="https://nouran-khallaf-free-txt-home-gdoog2.streamlit.app/?page=contact" target="_self" style="float: left; color: #4a4a4a; text-align: center; padding: 14px 16px; text-decoration: none; font-size: 25px; margin: 0px; transition: 0.3s;">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="height: 25px;">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 9a3 3 0 11-6 0 3 3 0 016 0zm7 0a3 3 0 11-6 0 3 3 0 016 0zm7 0a3 3 0 11-6 0 3 3 0 016 0z"></path>
+        </svg> Contact Us
     </a>
 </div>
 
-    """, unsafe_allow_html=True)
+    """,
+    unsafe_allow_html=True,
+)
+
 
 
     query_params = st.experimental_get_query_params()

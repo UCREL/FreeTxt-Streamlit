@@ -1974,13 +1974,11 @@ any sector in Wales and beyond to use it.
             
     with button_col2:
        
-        st.markdown("""
+          st.markdown("""
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Tangerine&display=swap');
-
     .fancy-link {
         font-size: 50px; 
-        font-family: 'Tangerine', cursive; 
+        font-family: sans-serif; 
         color: #4a4a4a; 
         background-color: #ddd; 
         padding: 10px 20px; 
@@ -2001,6 +1999,7 @@ any sector in Wales and beyond to use it.
         Start A Demo
     </a>
 """, unsafe_allow_html=True)
+
 
     st.markdown(
     f"""

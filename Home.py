@@ -1482,10 +1482,10 @@ def about_page():
 	</div>"""
 	, unsafe_allow_html=True)
 
-      
+      #style="background-color: lightblue;
     st.markdown(
     """
-<div style="background-color: lightblue; padding: 10px;">
+<div  padding: 10px;">
     <h2>The FreeTxt/TestunRhydd tool</h2>
     <p>FreeTxt was developed as part of an AHRC funded collaborative research project involving colleagues from Cardiff University and Lancaster University (Grant Number AH/W004844/1).</p>
     <p>The team included:</p>

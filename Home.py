@@ -2094,7 +2094,8 @@ FreeTxt was developed as part of an AHRC funded collaborative FreeTxt supporting
     
 
     #st.markdown("<br></br>", unsafe_allow_html=True) # Creates some space before logos
-
+#border: 2px solid grey; 
+ #       border-radius: 5px;  
     st.markdown(
 f"""
 <style>
@@ -2102,8 +2103,7 @@ f"""
         display: flex;
         justify-content: center;
         flex-wrap: wrap;
-        border: 2px solid grey; 
-        border-radius: 5px;  
+        
     }}
     .logo {{
         width: 100px;

@@ -1922,7 +1922,15 @@ def main():
     #24px;border: 2px solid grey;
     with open('style.css') as f:
         st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html =True)
-    st.markdown(
+
+    
+   
+
+    col1 ,col2= st.columns([2, 1])
+
+   
+    with col1:
+	    st.markdown(
       """
 <div style='background-color: white; padding: 10px; border-radius: 5px; color: black; font-size:20px; '>
 A free online text analysis and visualisation tool for English and Welsh. 
@@ -1937,14 +1945,12 @@ any sector in Wales and beyond to use it.
 """,
     unsafe_allow_html=True,
     )  
-    
-    st.write("")
 
-    col1, button_col1, button_col2,col2= st.columns([1,1,1, 1])
 
-   
-    with button_col1:
-         st.markdown("""
+
+            
+    with col2:
+          st.markdown("""
     <style>
 
     .fancy-link {
@@ -1970,11 +1976,6 @@ any sector in Wales and beyond to use it.
         Start Analysis
     </a>
 """, unsafe_allow_html=True)
-
-
-            
-    with button_col2:
-       
           st.markdown("""
     <style>
     .fancy-link {

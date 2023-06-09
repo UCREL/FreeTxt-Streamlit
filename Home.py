@@ -2127,7 +2127,6 @@ unsafe_allow_html=True
 
 def app():
       
-
     st.markdown(
     f"""
 
@@ -2137,10 +2136,10 @@ def app():
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
         </svg> Home
     </a>
-    <a href="https://nouran-khallaf-free-txt-home-gdoog2.streamlit.app/?page=adjustmentsvertical" target="_self" style="float: left; color: #4a4a4a; text-align: center; padding: 14px 16px; text-decoration: none; font-size: 25px; margin: 0px; transition: 0.3s;">
+    <a href="https://nouran-khallaf-free-txt-home-gdoog2.streamlit.app/?page=analysis" target="_self" style="float: left; color: #4a4a4a; text-align: center; padding: 14px 16px; text-decoration: none; font-size: 25px; margin: 0px; transition: 0.3s;">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="height: 25px;">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 17l-4 4m0 0l-4-4m4 4V3"></path>
-        </svg> AdjustmentsVertical
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 21V5a2 2 0 012-2h6a2 2 0 012 2v16"></path>
+        </svg> Adjustments Vertical
     </a>
     <a href="https://nouran-khallaf-free-txt-home-gdoog2.streamlit.app/?page=userguide" target="_self" style="float: left; color: #4a4a4a; text-align: center; padding: 14px 16px; text-decoration: none; font-size: 25px; margin: 0px; transition: 0.3s;">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="height: 25px;">
@@ -2148,23 +2147,20 @@ def app():
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
         </svg> User Guide
     </a>
-    <a href="https://nouran-khallaf-free-txt-home-gdoog2.streamlit.app/?page=newspaper" target="_self" style="float: left; color: #4a4a4a; text-align: center; padding: 14px 16px; text-decoration: none; font-size: 25px; margin: 0px; transition: 0.3s;">
+    <a href="https://nouran-khallaf-free-txt-home-gdoog2.streamlit.app/?page=about" target="_self" style="float: left; color: #4a4a4a; text-align: center; padding: 14px 16px; text-decoration: none; font-size: 25px; margin: 0px; transition: 0.3s;">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="height: 25px;">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0v5m-9-5v5m18 0v5m0-13V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v3m-4 10v1m0-16H4a1 1 0 00-1 1v16a1 1 0 001 1h16a1 1 0 001-1V4a1 1 0 00-1-1h-4z"></path>
         </svg> Newspaper
     </a>
-    <a href="https://nouran-khallaf-free-txt-home-gdoog2.streamlit.app/?page=users" target="_self" style="float: left; color: #4a4a4a; text-align: center; padding: 14px 16px; text-decoration: none; font-size: 25px; margin: 0px; transition: 0.3s;">
+    <a href="https://nouran-khallaf-free-txt-home-gdoog2.streamlit.app/?page=contact" target="_self" style="float: left; color: #4a4a4a; text-align: center; padding: 14px 16px; text-decoration: none; font-size: 25px; margin: 0px; transition: 0.3s;">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="height: 25px;">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 13.255A23.931 23.931 0 0012 15c-1.602 0-3.169-.185-4.746-.524L3.582 22.568A.61.61 0 014 23a.994.994 0 01.502-.136 1 1 0 01.355.066l4.257-1.938A21.422 21.422 0 0012 19c3.042 0 5.948-.935 8.493-2.679l1.882 1.823A1 1 0 0122 18v-5.918a1 1 0 01-.153-.403A15.874 15.874 0 0021 13.255z"></path>
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3.27 6.96A1 1 0 012 6V1a1 1 0 011-1h16a1 1 0 011 1v5a1 1 0 01-.689.931"></path>
-        </svg> Users
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 10c0-7-9-7-9-7s-9 0-9 7c0 4.386 3.667 9.584 9 11.93C17.333 19.584 21 14.386 21 10z"></path>
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 19v-6m0-6v2m0 0a2 2 0 110-4 2 2 0 010 4z"></path>
+        </svg> User Location
     </a>
 </div>
 
-"""
-, 
-unsafe_allow_html=True)
-
+    """, unsafe_allow_html=True)
 
 
     query_params = st.experimental_get_query_params()

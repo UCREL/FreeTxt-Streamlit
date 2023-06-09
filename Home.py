@@ -2115,7 +2115,16 @@ unsafe_allow_html=True
 
 
 def app():
-      
+    st.markdown(
+    """
+    <style>
+    .stApp {
+        background-color: lightblue;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
     st.markdown(
     f"""
 <style>

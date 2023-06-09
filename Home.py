@@ -1945,7 +1945,7 @@ any sector in Wales and beyond to use it.
     with button_col1:
          st.markdown("""
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Tangerine&display=swap');
+  
 
     .fancy-link {
         font-size: 50px; 

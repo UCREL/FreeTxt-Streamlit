@@ -1483,6 +1483,22 @@ def about_page():
 	, unsafe_allow_html=True)
 
       
+    st.markdown(
+    """
+<div style="background-color: lightblue; padding: 10px;">
+    <h2>The FreeTxt/TestunRhydd tool</h2>
+    <p>FreeTxt was developed as part of an AHRC funded collaborative research project involving colleagues from Cardiff University and Lancaster University (Grant Number AH/W004844/1).</p>
+    <p>The team included:</p>
+    <ul>
+        <li>PI - Dawn Knight</li>
+        <li>CIs - Paul Rayson, Mo El-Haj</li>
+        <li>RAs - Ignatius Ezeani, Nouran Khallaf and Steve Morris</li>
+    </ul>
+    <p>The Project Advisory Group included representatives from National Trust Wales, Cadw, National Museum Wales, CBAC | WJEC, and National Centre for Learning Welsh.</p>
+</div>
+""",
+    unsafe_allow_html=True
+)
 
 
     st.markdown(

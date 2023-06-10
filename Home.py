@@ -597,7 +597,7 @@ class txtanalysis:
 
     def show_reviews(self, fname,tab):
         with tab:
-            st.markdown(f'''📄 Viewing data: `{fname}`''')
+            #####st.markdown(f'''📄 Viewing data: `{fname}`''')
             df = pd.DataFrame(self.reviews)
             data = self.reviews 
             #### interactive dataframe

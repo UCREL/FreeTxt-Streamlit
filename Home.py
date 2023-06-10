@@ -140,10 +140,11 @@ def handle_language_detection(data):
             st.info('Please upload each file separately for further processing.')
 # reading example and uploaded files
 @st.cache_data(experimental_allow_widgets=True)
+@st.cache_data()
 def read_file(fname, file_source):
     file_name = fname if file_source=='example' else fname.name
     if file_name.endswith('.txt'):
-        data = open(fname, 'r', errors='ignore').read().split(r'[.\n]+') if file_source=='example' else fname.read().decode('utf8', errors='ignore').split('\n')
+        data = open(fname, 'r', encoding='cp1252').read().split('\n') if file_source=='example' else fname.read().decode('utf8').split('\n')
         data = pd.DataFrame.from_dict({i+1: data[i] for i in range(len(data))}, orient='index', columns = ['Reviews'])
         
     elif file_name.endswith(('.xls','.xlsx')):
@@ -153,33 +154,37 @@ def read_file(fname, file_source):
         data = pd.read_csv(fname, sep='\t', encoding='cp1252') if file_source=='example' else pd.read_csv(fname, sep='\t', encoding='cp1252')
     else:
         return False, st.error(f"""**FileFormatError:** Unrecognised file format. Please ensure your file name has the extension `.txt`, `.xlsx`, `.xls`, `.tsv`.""", icon="🚨")
-    st.write(data)
-    handle_language_detection(data)
-    return True, data
-   
+    column_list = ['date','Date','Dateandtime']
+    for col in column_list:
+    	if col in data.columns:
+             data['Date'] = data[col].apply(lambda x: pd.to_datetime(x).strftime('%d/%m/%Y'))
 
+
+    return True, data
 
 def get_data(file_source='example'):
     try:
         if file_source=='example':
             example_files = sorted([f for f in os.listdir(EXAMPLES_DIR) if f.startswith('Reviews')])
-            fnames = st.multiselect('Select example data file(s)', example_files, example_files[0])
+		# .selectbox to chang to multi selction and add the files together
+            fnames = st.sidebar.multiselect('Select example data file(s)', example_files, example_files[0])
             if fnames:
+			#
                 return True, {fname:read_file(os.path.join(EXAMPLES_DIR, fname), file_source) for fname in fnames}
             else:
                 return False, st.info('''**NoFileSelected:** Please select at least one file from the sidebar list.''', icon="ℹ️")
         
         elif file_source=='uploaded': # Todo: Consider a maximum number of files for memory management. 
-            uploaded_files = st.file_uploader("Upload your data file(s)", accept_multiple_files=True, type=['txt','tsv','xlsx', 'xls'])
+            uploaded_files = st.sidebar.file_uploader("Upload your data file(s)", accept_multiple_files=True, type=['txt','tsv','xlsx', 'xls'])
             if uploaded_files:
                 return True, {uploaded_file.name:read_file(uploaded_file, file_source) for uploaded_file in uploaded_files}
-
             else:
                 return False, st.info('''**NoFileUploaded:** Please upload files with the upload button or by dragging the file into the upload area. Acceptable file formats include `.txt`, `.xlsx`, `.xls`, `.tsv`.''', icon="ℹ️")
         else:
             return False, st.error(f'''**UnexpectedFileError:** Some or all of your files may be empty or invalid. Acceptable file formats include `.txt`, `.xlsx`, `.xls`, `.tsv`.''', icon="🚨")
     except Exception as err:
         return False, st.error(f'''**UnexpectedFileError:** {err} Some or all of your files may be empty or invalid. Acceptable file formats include `.txt`, `.xlsx`, `.xls`, `.tsv`.''', icon="🚨")
+
 def select_columns(data, key):
     layout = st.columns([7, 0.2, 2, 0.2, 2, 0.2, 3, 0.2, 3])
     selected_columns = layout[0].multiselect('Select column(s) below to analyse', data.columns, help='Select columns you are interested in with this selection box', key= f"{key}_cols_multiselect")

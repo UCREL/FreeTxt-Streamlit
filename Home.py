@@ -95,9 +95,7 @@ EXAMPLES_DIR = 'example_texts_pub'
 nlp = spacy.load('en_core_web_sm-3.2.0')
  
 # reading example and uploaded files
-@st.cache_data
-from langdetect import detect
-import streamlit as st
+
 
 @st.cache_data
 def read_file(fname, file_source):

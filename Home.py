@@ -153,9 +153,7 @@ def read_file(fname, file_source):
     else:
         return False, st.error(f"""**FileFormatError:** Unrecognised file format. Please ensure your file name has the extension `.txt`, `.xlsx`, `.xls`, `.tsv`.""", icon="🚨")
    
-    check_language = st.checkbox('Check file language')
-    if check_language:
-          handle_language_detection(data)
+
     return True, data
    
 
@@ -174,6 +172,9 @@ def get_data(file_source='example'):
             uploaded_files = st.file_uploader("Upload your data file(s)", accept_multiple_files=True, type=['txt','tsv','xlsx', 'xls'])
             if uploaded_files:
                 return True, {uploaded_file.name:read_file(uploaded_file, file_source) for uploaded_file in uploaded_files}
+	        check_language = st.checkbox('Check file language')
+                if check_language:
+                         handle_language_detection(read_file(uploaded_file, file_source) for uploaded_file in uploaded_files)
             else:
                 return False, st.info('''**NoFileUploaded:** Please upload files with the upload button or by dragging the file into the upload area. Acceptable file formats include `.txt`, `.xlsx`, `.xls`, `.tsv`.''', icon="ℹ️")
         else:

@@ -153,9 +153,7 @@ def read_file(fname, file_source):
         data = pd.read_csv(fname, sep='\t', encoding='cp1252') if file_source=='example' else pd.read_csv(fname, sep='\t', encoding='cp1252')
     else:
         return False, st.error(f"""**FileFormatError:** Unrecognised file format. Please ensure your file name has the extension `.txt`, `.xlsx`, `.xls`, `.tsv`.""", icon="🚨")
-    check_language = st.checkbox('Check file language')
-    if check_language:
-         handle_language_detection(data)
+
 
     return True, data
    
@@ -1772,6 +1770,9 @@ def analysis_page():
         for i in range(len(filenames)):
           
                 _, df = data[filenames[i]]
+               check_language = st.checkbox('Check file language')
+               if check_language:
+                      handle_language_detection(df)
                 df = select_columns(df, key=i).astype(str)
                 if df.empty:
                     st.info('''**NoColumnSelected 🤨**: Please select one or more columns to analyse.''', icon="ℹ️")

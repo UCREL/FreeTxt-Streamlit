@@ -187,7 +187,7 @@ def get_data(file_source='example'):
         else:
             return False, st.error(f'''**UnexpectedFileError:** Some or all of your files may be empty or invalid. Acceptable file formats include `.txt`, `.xlsx`, `.xls`, `.tsv`.''', icon="🚨")
     except Exception as err:
-        return False, st.error(f'''**UnexpectedFileError:** {
+        return False, st.error(f'''**UnexpectedFileError:** {err} Some or all of your files may be empty or invalid. Acceptable file formats include `.txt`, `.xlsx`, `.xls`, `.tsv`.''', icon="🚨")
 
 def select_columns(data, key):
     layout = st.columns([7, 0.2, 2, 0.2, 2, 0.2, 3, 0.2, 3])
@@ -597,7 +597,7 @@ class txtanalysis:
 
     def show_reviews(self, fname,tab):
         with tab:
-            #####st.markdown(f'''📄 Viewing data: `{fname}`''')
+            st.markdown(f'''📄 Viewing data: `{fname}`''')
             df = pd.DataFrame(self.reviews)
             data = self.reviews 
             #### interactive dataframe

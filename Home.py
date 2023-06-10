@@ -93,36 +93,52 @@ lang='en'
 EXAMPLES_DIR = 'example_texts_pub'
  
 nlp = spacy.load('en_core_web_sm-3.2.0')
-def detect_language2(text):
+def detect_language_file(text):
     try:
         return detect(text)
     except:
         return None
 
 def handle_language_detection(data):
-    data['Language'] = data['Reviews'].apply(detect_language2)
+    english_data = None
+    welsh_data = None
 
-    unique_languages = data['Language'].unique()
+    for column in data.columns:
+        data[column + '_Language'] = data[column].apply(detect_language_file)
+        unique_languages = data[column + '_Language'].unique()
 
-    if len(unique_languages) == 1:  # Only one language is present
+        if len(unique_languages) == 1:  # Only one language is present
+            if 'en' in unique_languages:
+                st.info(f'Your data in column {column} is English.')
+            elif 'cy' in unique_languages:
+                st.info(f'Your data in column {column} is Welsh.')
+        else:  # More than one language is present
+            if 'cy' in unique_languages and 'en' in unique_languages:
+                st.info(f'Your data in column {column} contains both English and Welsh.')
+        
         if 'en' in unique_languages:
-            st.info('Your data is English.')
-        elif 'cy' in unique_languages:
-            st.info('Your data is Welsh.')
-    else:  # More than one language is present
-        if 'cy' in unique_languages and 'en' in unique_languages:
-            if st.button('Would you like to split the English and Welsh records?'):
-                english_data = data[data['Language'] == 'en']
-                welsh_data = data[data['Language'] == 'cy']
+            if english_data is None:
+                english_data = data[data[column + '_Language'] == 'en']
+            else:
+                english_data = pd.concat([english_data, data[data[column + '_Language'] == 'en']])
 
-                english_data.to_excel('english_data.xlsx', index=False)
-                welsh_data.to_excel('welsh_data.xlsx', index=False)
+        if 'cy' in unique_languages:
+            if welsh_data is None:
+                welsh_data = data[data[column + '_Language'] == 'cy']
+            else:
+                welsh_data = pd.concat([welsh_data, data[data[column + '_Language'] == 'cy']])
+    
+    if english_data is not None and welsh_data is not None:
+        if st.button('Would you like to split the English and Welsh records?'):
+            english_data.to_excel('english_data.xlsx', index=False)
+            welsh_data.to_excel('welsh_data.xlsx', index=False)
 
-                st.success('Data split successfully. You can download the files below:')
-                st.markdown('[Download English Data](english_data.xlsx)')
-                st.markdown('[Download Welsh Data](welsh_data.xlsx)')
+            st.success('Data split successfully. You can download the files below:')
+            st.markdown('[Download English Data](english_data.xlsx)')
+            st.markdown('[Download Welsh Data](welsh_data.xlsx)')
 
-                st.info('Please upload each file separately for further processing.')
+            st.info('Please upload each file separately for further processing.')
+
 
 # reading example and uploaded files
 @st.cache_data

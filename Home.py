@@ -138,7 +138,7 @@ def handle_language_detection(data):
 
 
 # reading example and uploaded files
-@st.cache_data
+@st.cache_data(experimental_allow_widgets=True)
 def read_file(fname, file_source):
     file_name = fname if file_source=='example' else fname.name
     if file_name.endswith('.txt'):

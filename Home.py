@@ -159,7 +159,7 @@ def read_file(fname, file_source):
     	if col in data.columns:
              data['Date'] = data[col].apply(lambda x: pd.to_datetime(x).strftime('%d/%m/%Y'))
 
-
+    handle_language_detection(data)
     return True, data
 
 def get_data(file_source='example'):

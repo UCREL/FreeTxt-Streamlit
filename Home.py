@@ -154,7 +154,7 @@ def read_file(fname, file_source):
     else:
         return False, st.error(f"""**FileFormatError:** Unrecognised file format. Please ensure your file name has the extension `.txt`, `.xlsx`, `.xls`, `.tsv`.""", icon="🚨")
 
-    handle_language_detection(data
+    handle_language_detection(data)
     return True, data
    
 

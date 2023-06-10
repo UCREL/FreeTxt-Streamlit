@@ -96,20 +96,58 @@ nlp = spacy.load('en_core_web_sm-3.2.0')
  
 # reading example and uploaded files
 @st.cache_data
+from langdetect import detect
+import streamlit as st
+
+@st.cache_data
 def read_file(fname, file_source):
     file_name = fname if file_source=='example' else fname.name
     if file_name.endswith('.txt'):
         data = open(fname, 'r', errors='ignore').read().split(r'[.\n]+') if file_source=='example' else fname.read().decode('utf8', errors='ignore').split('\n')
         data = pd.DataFrame.from_dict({i+1: data[i] for i in range(len(data))}, orient='index', columns = ['Reviews'])
-        
+
     elif file_name.endswith(('.xls','.xlsx')):
         data = pd.read_excel(pd.ExcelFile(fname)) if file_source=='example' else pd.read_excel(fname)
 
     elif file_name.endswith('.tsv'):
         data = pd.read_csv(fname, sep='\t', encoding='cp1252') if file_source=='example' else pd.read_csv(fname, sep='\t', encoding='cp1252')
+
     else:
         return False, st.error(f"""**FileFormatError:** Unrecognised file format. Please ensure your file name has the extension `.txt`, `.xlsx`, `.xls`, `.tsv`.""", icon="🚨")
+
+    # Adding language detection
+    def detect_language(text):
+        try:
+            return detect(text)
+        except:
+            return None
+
+    data['Language'] = data['Reviews'].apply(detect_language)
+
+    unique_languages = data['Language'].unique()
+
+    if len(unique_languages) == 1:  # Only one language is present
+        if 'en' in unique_languages:
+            st.info('Your data is English.')
+        elif 'cy' in unique_languages:
+            st.info('Your data is Welsh.')
+    else:  # More than one language is present
+        if 'cy' in unique_languages and 'en' in unique_languages:
+            if st.button('Would you like to split the English and Welsh records?'):
+                english_data = data[data['Language'] == 'en']
+                welsh_data = data[data['Language'] == 'cy']
+
+                english_data.to_excel('english_data.xlsx', index=False)
+                welsh_data.to_excel('welsh_data.xlsx', index=False)
+
+                st.success('Data split successfully. You can download the files below:')
+                st.markdown('[Download English Data](english_data.xlsx)')
+                st.markdown('[Download Welsh Data](welsh_data.xlsx)')
+
+                st.info('Please upload each file separately for further processing.')
+
     return True, data
+
 
 def get_data(file_source='example'):
     try:

@@ -109,6 +109,38 @@ def read_file(fname, file_source):
         data = pd.read_csv(fname, sep='\t', encoding='cp1252') if file_source=='example' else pd.read_csv(fname, sep='\t', encoding='cp1252')
     else:
         return False, st.error(f"""**FileFormatError:** Unrecognised file format. Please ensure your file name has the extension `.txt`, `.xlsx`, `.xls`, `.tsv`.""", icon="🚨")
+    # Adding language detection
+    def detect_language(text):
+        try:
+            return detect(text)
+        except:
+            return None
+
+    data['Language'] = data['Reviews'].apply(detect_language)
+
+    unique_languages = data['Language'].unique()
+
+    if len(unique_languages) == 1:  # Only one language is present
+        if 'en' in unique_languages:
+            st.info('Your data is English.')
+        elif 'cy' in unique_languages:
+            st.info('Your data is Welsh.')
+    else:  # More than one language is present
+        if 'cy' in unique_languages and 'en' in unique_languages:
+            if st.button('Would you like to split the English and Welsh records?'):
+                english_data = data[data['Language'] == 'en']
+                welsh_data = data[data['Language'] == 'cy']
+
+                english_data.to_excel('english_data.xlsx', index=False)
+                welsh_data.to_excel('welsh_data.xlsx', index=False)
+
+                st.success('Data split successfully. You can download the files below:')
+                st.markdown('[Download English Data](english_data.xlsx)')
+                st.markdown('[Download Welsh Data](welsh_data.xlsx)')
+
+                st.info('Please upload each file separately for further processing.')
+
+    return True, data
     return True, data
 
 @st.cache_data

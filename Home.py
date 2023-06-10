@@ -137,51 +137,45 @@ def handle_language_detection(data):
             break
 
 
+
+# reading example and uploaded files
 @st.cache_data(experimental_allow_widgets=True)
 def read_file(fname, file_source):
-    try:
-        file_name = fname if file_source=='example' else fname.name
-        if file_name.endswith('.txt'):
-            data = open(fname, 'r', errors='ignore').read().split(r'[.\n]+') if file_source=='example' else fname.read().decode('utf8', errors='ignore').split('\n')
-            data = pd.DataFrame.from_dict({i+1: data[i] for i in range(len(data))}, orient='index', columns = ['Reviews'])
-            
-        elif file_name.endswith(('.xls','.xlsx')):
-            data = pd.read_excel(pd.ExcelFile(fname)) if file_source=='example' else pd.read_excel(fname)
+    file_name = fname if file_source=='example' else fname.name
+    if file_name.endswith('.txt'):
+        data = open(fname, 'r', errors='ignore').read().split(r'[.\n]+') if file_source=='example' else fname.read().decode('utf8', errors='ignore').split('\n')
+        data = pd.DataFrame.from_dict({i+1: data[i] for i in range(len(data))}, orient='index', columns = ['Reviews'])
+        
+    elif file_name.endswith(('.xls','.xlsx')):
+        data = pd.read_excel(pd.ExcelFile(fname)) if file_source=='example' else pd.read_excel(fname)
 
-        elif file_name.endswith('.tsv'):
-            data = pd.read_csv(fname, sep='\t', encoding='cp1252') if file_source=='example' else pd.read_csv(fname, sep='\t', encoding='cp1252')
-        else:
-            st.error(f"""**FileFormatError:** Unrecognised file format. Please ensure your file name has the extension `.txt`, `.xlsx`, `.xls`, `.tsv`.""", icon="🚨")
-            return None
-        return data
+    elif file_name.endswith('.tsv'):
+        data = pd.read_csv(fname, sep='\t', encoding='cp1252') if file_source=='example' else pd.read_csv(fname, sep='\t', encoding='cp1252')
+    else:
+        return False, st.error(f"""**FileFormatError:** Unrecognised file format. Please ensure your file name has the extension `.txt`, `.xlsx`, `.xls`, `.tsv`.""", icon="🚨")
+    check_language = st.checkbox('Check file language')
+    if check_language:
+         handle_language_detection(data)
 
-    except Exception as e:
-        st.error(f"**File Read Error:** {str(e)}", icon="🚨")
-        return None
+    return True, data
+   
+
 
 def get_data(file_source='example'):
     try:
-        check_language = st.checkbox('Check file language')
         if file_source=='example':
             example_files = sorted([f for f in os.listdir(EXAMPLES_DIR) if f.startswith('Reviews')])
             fnames = st.multiselect('Select example data file(s)', example_files, example_files[0])
             if fnames:
-                data = {fname:read_file(os.path.join(EXAMPLES_DIR, fname), file_source) for fname in fnames}
-                if check_language:
-                    for key in data.keys():
-                        handle_language_detection(data[key])
-                return True, data
+                return True, {fname:read_file(os.path.join(EXAMPLES_DIR, fname), file_source) for fname in fnames}
             else:
                 return False, st.info('''**NoFileSelected:** Please select at least one file from the sidebar list.''', icon="ℹ️")
         
-        elif file_source=='uploaded':
+        elif file_source=='uploaded': # Todo: Consider a maximum number of files for memory management. 
             uploaded_files = st.file_uploader("Upload your data file(s)", accept_multiple_files=True, type=['txt','tsv','xlsx', 'xls'])
             if uploaded_files:
-                data = {uploaded_file.name:read_file(uploaded_file, file_source) for uploaded_file in uploaded_files}
-                if check_language:
-                    for key in data.keys():
-                        handle_language_detection(data[key])
-                return True, data
+                return True, {uploaded_file.name:read_file(uploaded_file, file_source) for uploaded_file in uploaded_files}
+
             else:
                 return False, st.info('''**NoFileUploaded:** Please upload files with the upload button or by dragging the file into the upload area. Acceptable file formats include `.txt`, `.xlsx`, `.xls`, `.tsv`.''', icon="ℹ️")
         else:
@@ -189,20 +183,6 @@ def get_data(file_source='example'):
     except Exception as err:
         return False, st.error(f'''**UnexpectedFileError:** {err} Some or all of your files may be empty or invalid. Acceptable file formats include `.txt`, `.xlsx`, `.xls`, `.tsv`.''', icon="🚨")
 
-def select_columns(data, key):
-    layout = st.columns([7, 0.2, 2, 0.2, 2, 0.2, 3, 0.2, 3])
-    selected_columns = layout[0].multiselect('Select column(s) below to analyse', data.columns, help='Select columns you are interested in with this selection box', key= f"{key}_cols_multiselect")
-    start_row=0
-    if selected_columns: start_row = layout[2].number_input('Choose start row:', value=0, min_value=0, max_value=5)
-    
-    if len(selected_columns)>=2 and layout[4].checkbox('Filter rows?'):
-        filter_column = layout[6].selectbox('Select filter column', selected_columns)
-        if filter_column: 
-            filter_key = layout[8].selectbox('Select filter key', set(data[filter_column]))
-            data = data[selected_columns][start_row:].dropna(how='all')
-            return data.loc[data[filter_column] == filter_key].drop_duplicates()
-    else:
-        return data[selected_columns][start_row:].dropna(how='all').drop_duplicates()
 
 def detect_language(df):
     detected_languages = []

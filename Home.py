@@ -99,7 +99,7 @@ nlp = spacy.load('en_core_web_sm-3.2.0')
 
 @st.cache_data
 def read_file(fname, file_source):
-    def read_file(fname, file_source):
+   
     file_name = fname if file_source=='example' else fname.name
     if file_name.endswith('.txt'):
         data = open(fname, 'r', errors='ignore').read().split(r'[.\n]+') if file_source=='example' else fname.read().decode('utf8', errors='ignore').split('\n')

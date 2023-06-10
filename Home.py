@@ -154,7 +154,7 @@ def read_file(fname, file_source):
     else:
         return False, st.error(f"""**FileFormatError:** Unrecognised file format. Please ensure your file name has the extension `.txt`, `.xlsx`, `.xls`, `.tsv`.""", icon="🚨")
 
-
+    handle_language_detection(data
     return True, data
    
 
@@ -1762,9 +1762,7 @@ def analysis_page():
     else: pass
     status, data = input_data
     dfanalysis = pd.DataFrame()
-    check_language = st.checkbox('Check file language')
-    if check_language:
-            handle_language_detection(data[filenames[0]])
+
     if status:
         filenames = list(data.keys())
 	

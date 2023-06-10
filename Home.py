@@ -1770,8 +1770,8 @@ def analysis_page():
         for i in range(len(filenames)):
           
                 _, df = data[filenames[i]]
-               check_language = st.checkbox('Check file language')
-               if check_language:
+                check_language = st.checkbox('Check file language')
+                if check_language:
                       handle_language_detection(df)
                 df = select_columns(df, key=i).astype(str)
                 if df.empty:

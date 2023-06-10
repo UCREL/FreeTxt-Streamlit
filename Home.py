@@ -598,7 +598,7 @@ class txtanalysis:
     def show_reviews(self, fname,tab):
         with tab:
             st.markdown(f'''📄 Viewing data: `{fname}`''')
-            #df = pd.DataFrame(self.reviews)
+            df = pd.DataFrame(self.reviews)
             data = self.reviews 
             #### interactive dataframe
             gb = GridOptionsBuilder.from_dataframe(data)

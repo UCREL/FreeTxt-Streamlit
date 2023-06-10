@@ -172,7 +172,7 @@ def get_data(file_source='example'):
             uploaded_files = st.file_uploader("Upload your data file(s)", accept_multiple_files=True, type=['txt','tsv','xlsx', 'xls'])
             if uploaded_files:
                 return True, {uploaded_file.name:read_file(uploaded_file, file_source) for uploaded_file in uploaded_files}
-	        check_language = st.checkbox('Check file language')
+                check_language = st.checkbox('Check file language')
                 if check_language:
                          handle_language_detection(read_file(uploaded_file, file_source) for uploaded_file in uploaded_files)
             else:

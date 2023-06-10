@@ -138,10 +138,6 @@ def handle_language_detection(data):
             st.markdown('[Download Welsh Data](welsh_data.xlsx)')
 
             st.info('Please upload each file separately for further processing.')
-
-
-
-
 # reading example and uploaded files
 @st.cache_data(experimental_allow_widgets=True)
 def read_file(fname, file_source):
@@ -157,8 +153,9 @@ def read_file(fname, file_source):
         data = pd.read_csv(fname, sep='\t', encoding='cp1252') if file_source=='example' else pd.read_csv(fname, sep='\t', encoding='cp1252')
     else:
         return False, st.error(f"""**FileFormatError:** Unrecognised file format. Please ensure your file name has the extension `.txt`, `.xlsx`, `.xls`, `.tsv`.""", icon="🚨")
-
+  
     handle_language_detection(data)
+
     return True, data
    
 

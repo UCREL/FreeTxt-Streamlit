@@ -130,12 +130,12 @@ def handle_language_detection(data):
     
     if english_data is not None and welsh_data is not None:
         if st.button('Would you like to split the English and Welsh records?'):
-            english_data.to_excel('english_data.xlsx', index=False)
-            welsh_data.to_excel('welsh_data.xlsx', index=False)
+            english_data.to_excel('/tmp/english_data.xlsx', index=False)
+            welsh_data.to_excel('/tmp/welsh_data.xlsx', index=False)
 
             st.success('Data split successfully. You can download the files below:')
-            st.markdown('[Download English Data](english_data.xlsx)')
-            st.markdown('[Download Welsh Data](welsh_data.xlsx)')
+            st.markdown('[Download English Data](/tmp/english_data.xlsx)')
+            st.markdown('[Download Welsh Data](/tmp/welsh_data.xlsx)')
 
             st.info('Please upload each file separately for further processing.')
 # reading example and uploaded files

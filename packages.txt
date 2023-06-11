@@ -1,4 +1,1 @@
-pkg-config
-libcairo2-dev
-libffi-dev
-python3-dev
+

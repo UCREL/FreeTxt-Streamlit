@@ -136,14 +136,14 @@ def handle_language_detection(data):
                     )
 
                     st.info('Please upload each file separately for further processing.')
-                break
+                
 
         if 'cy' in unique_languages:
             if welsh_data is None:
                 welsh_data = data[data[column + '_Language'] == 'cy']
             else:
                 welsh_data = pd.concat([welsh_data, data[data[column + '_Language'] == 'cy']])
-            break
+            
 
 # reading example and uploaded files
 @st.cache_data(experimental_allow_widgets=True)

@@ -1808,7 +1808,8 @@ def analysis_page():
           
                 _, df = data[filenames[i]]
                 
-                df ,selected_columns= select_columns(df, key=i).astype(str)
+                df, selected_columns = select_columns(df, key=i)
+                df = df.astype(str)
                 st.write(selected_columns)
                 check_language = st.checkbox('Check file language')
                 if check_language:

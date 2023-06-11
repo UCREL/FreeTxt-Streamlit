@@ -184,7 +184,7 @@ def get_data(file_source='example'):
                 return False, st.info('''**NoFileSelected:** Please select at least one file from the sidebar list.''', icon="ℹ️")
         
         elif file_source=='uploaded': # Todo: Consider a maximum number of files for memory management. 
-            uploaded_files = st.file_uploader("Upload your data file(s)", accept_multiple_files=True, type=['txt','tsv','xlsx', 'xls'])
+            uploaded_files = st.file_uploader("Upload your data file(s)", accept_multiple_files=False, type=['txt','tsv','xlsx', 'xls'])
             if uploaded_files:
                 return True, {uploaded_file.name:read_file(uploaded_file, file_source) for uploaded_file in uploaded_files}
 
@@ -1615,20 +1615,24 @@ def contact_page():
             text-align: center;
             text-decoration: none;
             outline: none;
-            color: #fff;
-            background-color: #4CAF50;
+            color: #000; /* Black text */
+            background-color: #A9A9A9; /* Grey background */
             border: none;
             border-radius: 15px;
             box-shadow: 0 9px #999;
         }
-        .stButton>button:hover {background-color: #3e8e41} /* Add a darker green color when the button is hovered */
+        .stButton>button:hover {
+            color: #ADD8E6; /* Light blue text when hovered */
+            background-color: #808080; /* Darker grey background when hovered */
+        }
         .stButton>button:active {
-            background-color: #3e8e41;
+            background-color: #808080; /* Even darker grey background when clicked */
             box-shadow: 0 5px #666;
             transform: translateY(4px);
         }
     </style>
     """, unsafe_allow_html=True)
+
     col1,  col3 = st.columns([2, 1])
     with col3:
         st.image("img/FreeTxt_logo_R.png", width=300) 

@@ -118,13 +118,22 @@ def handle_language_detection(data):
                 if st.button(f'Would you like to split the English and Welsh records in column {column}?'):
                     english_data = data[data[column + '_Language'] == 'en']
                     welsh_data = data[data[column + '_Language'] == 'cy']
-
-                    english_data.to_excel('english_data.xlsx', index=False)
-                    welsh_data.to_excel('welsh_data.xlsx', index=False)
-
                     st.success('Data split successfully. You can download the files below:')
-                    st.markdown('[Download English Data](english_data.xlsx)')
-                    st.markdown('[Download Welsh Data](welsh_data.xlsx)')
+                    english_data_file = english_data.to_csv(index=False)
+                    welsh_data_file = welsh_data.to_csv(index=False)
+
+                    st.download_button(
+                        "Download English data", 
+                        english_data_file, 
+                        file_name='english_data.csv', 
+                        mime='text/csv'
+                    )
+                    st.download_button(
+                        "Download Welsh data", 
+                        welsh_data_file, 
+                        file_name='welsh_data.csv', 
+                        mime='text/csv'
+                    )
 
                     st.info('Please upload each file separately for further processing.')
                 break

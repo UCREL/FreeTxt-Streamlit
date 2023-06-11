@@ -100,10 +100,10 @@ def detect_language_file(text):
         return None
 
 def handle_language_detection(data):
-    english_data = None
-    welsh_data = None
+         english_data = None
+         welsh_data = None
 
-    for column in data.columns:
+    #for column in data.columns:
         data[column + '_Language'] = data[column].apply(detect_language_file)
         unique_languages = data[column + '_Language'].unique()
 

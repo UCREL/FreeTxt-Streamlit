@@ -1810,10 +1810,10 @@ def analysis_page():
                 
                 df, selected_columns = select_columns(df, key=i)
                 df = df.astype(str)
-                st.write(selected_columns)
+                st.write(selected_columns[0])
                 check_language = st.checkbox('Check file language')
                 if check_language:
-                       handle_language_detection(data,selected_columns)
+                       handle_language_detection(data,selected_columns[0])
                 if df.empty:
                     st.info('''**NoColumnSelected 🤨**: Please select one or more columns to analyse.''', icon="ℹ️")
                 else:

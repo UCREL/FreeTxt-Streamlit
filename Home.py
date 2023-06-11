@@ -143,14 +143,7 @@ def handle_language_detection(data, column):
         else:
             welsh_data = pd.concat([welsh_data, data[data[column + '_Language'] == 'cy']])
 
-        welsh_data_file = welsh_data.to_csv(index=False)
-
-        st.download_button(
-            "Download Welsh data", 
-            welsh_data_file, 
-            file_name='welsh_data.csv', 
-            mime='text/csv'
-        )
+      
 
         st.info('Please upload each file separately for further processing.')
 

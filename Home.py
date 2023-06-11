@@ -104,7 +104,7 @@ def handle_language_detection(data):
     welsh_data = None
 
     for column in data.columns:
-        data[column + '_Language'] = data[column].apply(detect_language)
+        data[column + '_Language'] = data[column].apply(detect_language_file)
         unique_languages = data[column + '_Language'].unique()
 
         if len(unique_languages) == 1:  # Only one language is present

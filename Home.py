@@ -1301,20 +1301,24 @@ def demo_page():
             text-align: center;
             text-decoration: none;
             outline: none;
-            color: #fff;
-            background-color: #4CAF50;
+            color: #000; /* Black text */
+            background-color: #A9A9A9; /* Grey background */
             border: none;
             border-radius: 15px;
             box-shadow: 0 9px #999;
         }
-        .stButton>button:hover {background-color: #3e8e41} /* Add a darker green color when the button is hovered */
+        .stButton>button:hover {
+            color: #ADD8E6; /* Light blue text when hovered */
+            background-color: #808080; /* Darker grey background when hovered */
+        }
         .stButton>button:active {
-            background-color: #3e8e41;
+            background-color: #808080; /* Even darker grey background when clicked */
             box-shadow: 0 5px #666;
             transform: translateY(4px);
         }
     </style>
     """, unsafe_allow_html=True)
+
     col1,  col3 = st.columns([2, 1])
     with col3:
         st.image("img/FreeTxt_logo_R.png", width=300) 
@@ -1511,20 +1515,24 @@ def about_page():
             text-align: center;
             text-decoration: none;
             outline: none;
-            color: #fff;
-            background-color: #4CAF50;
+            color: #000; /* Black text */
+            background-color: #A9A9A9; /* Grey background */
             border: none;
             border-radius: 15px;
             box-shadow: 0 9px #999;
         }
-        .stButton>button:hover {background-color: #3e8e41} /* Add a darker green color when the button is hovered */
+        .stButton>button:hover {
+            color: #ADD8E6; /* Light blue text when hovered */
+            background-color: #808080; /* Darker grey background when hovered */
+        }
         .stButton>button:active {
-            background-color: #3e8e41;
+            background-color: #808080; /* Even darker grey background when clicked */
             box-shadow: 0 5px #666;
             transform: translateY(4px);
         }
     </style>
     """, unsafe_allow_html=True)
+
     col1,  col3 = st.columns([2, 1])
     with col3:
         st.image("img/FreeTxt_logo_R.png", width=300) 
@@ -1722,29 +1730,33 @@ def analysis_page():
     Text Analysis
     </h1>""", unsafe_allow_html=True)
         st.markdown("""
-<style>
-    .stButton>button {
-        display: inline-block;
-        padding: 10px 20px;
-        font-size: 20px;
-        cursor: pointer;
-        text-align: center;
-        text-decoration: none;
-        outline: none;
-        color: #fff;
-        background-color: #4CAF50;
-        border: none;
-        border-radius: 15px;
-        box-shadow: 0 9px #999;
-    }
-    .stButton>button:hover {background-color: #3e8e41} /* Add a darker green color when the button is hovered */
-    .stButton>button:active {
-        background-color: #3e8e41;
-        box-shadow: 0 5px #666;
-        transform: translateY(4px);
-    }
-</style>
-""", unsafe_allow_html=True)
+    <style>
+        .stButton>button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 20px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            outline: none;
+            color: #000; /* Black text */
+            background-color: #A9A9A9; /* Grey background */
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 9px #999;
+        }
+        .stButton>button:hover {
+            color: #ADD8E6; /* Light blue text when hovered */
+            background-color: #808080; /* Darker grey background when hovered */
+        }
+        .stButton>button:active {
+            background-color: #808080; /* Even darker grey background when clicked */
+            box-shadow: 0 5px #666;
+            transform: translateY(4px);
+        }
+    </style>
+    """, unsafe_allow_html=True)
+
     #selected3 = option_menu(None, ["Home", "Analysis",  "Demo"], 
    #     icons=['house', 'sliders2',  'gear'], 
     #    menu_icon="cast", default_index=1, orientation="horizontal",

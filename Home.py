@@ -1797,6 +1797,9 @@ def analysis_page():
                 _, df = data[filenames[i]]
                 handle_language_detection(df)
                 df = select_columns(df, key=i).astype(str)
+		if check_language:
+                    for key in data.keys():
+                        handle_language_detection(data[key])
                 if df.empty:
                     st.info('''**NoColumnSelected 🤨**: Please select one or more columns to analyse.''', icon="ℹ️")
                 else:

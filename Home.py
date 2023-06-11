@@ -214,9 +214,10 @@ def select_columns(data, key):
         if filter_column: 
             filter_key = layout[8].selectbox('Select filter key', set(data[filter_column]))
             data = data[selected_columns][start_row:].dropna(how='all')
-            return data.loc[data[filter_column] == filter_key].drop_duplicates()
+            return data.loc[data[filter_column] == filter_key].drop_duplicates(), selected_columns
     else:
-        return data[selected_columns][start_row:].dropna(how='all').drop_duplicates(),selected_columns
+        return data[selected_columns][start_row:].dropna(how='all').drop_duplicates(), selected_columns
+
 
 def detect_language(df):
     detected_languages = []

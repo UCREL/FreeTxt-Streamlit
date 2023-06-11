@@ -1795,8 +1795,9 @@ def analysis_page():
         for i in range(len(filenames)):
           
                 _, df = data[filenames[i]]
-                handle_language_detection(df)
+                
                 df = select_columns(df, key=i).astype(str)
+		check_language = st.checkbox('Check file language')
                 if check_language:
                     for key in data.keys():
                         handle_language_detection(data[key])

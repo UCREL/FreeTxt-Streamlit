@@ -216,7 +216,7 @@ def select_columns(data, key):
             data = data[selected_columns][start_row:].dropna(how='all')
             return data.loc[data[filter_column] == filter_key].drop_duplicates()
     else:
-        return data[selected_columns][start_row:].dropna(how='all').drop_duplicates(),selected_columns
+        return data[selected_columns][start_row:].dropna(how='all').drop_duplicates()
 
 def detect_language(df):
     detected_languages = []

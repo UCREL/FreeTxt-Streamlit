@@ -1810,6 +1810,7 @@ def analysis_page():
                 
                 df, selected_columns = select_columns(df, key=i)
                 df = df.astype(str)
+		st.write(df)
                 st.write(selected_columns[0])
                 check_language = st.checkbox('Check file language')
                 if check_language:

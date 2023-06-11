@@ -216,7 +216,7 @@ def select_columns(data, key):
             data = data[selected_columns][start_row:].dropna(how='all')
             return data.loc[data[filter_column] == filter_key].drop_duplicates()
     else:
-        return data[selected_columns][start_row:].dropna(how='all').drop_duplicates()
+        return data[selected_columns][start_row:].dropna(how='all').drop_duplicates(),selected_columns
 
 def detect_language(df):
     detected_languages = []
@@ -1807,8 +1807,8 @@ def analysis_page():
           
                 _, df = data[filenames[i]]
                 
-                df = select_columns(df, key=i).astype(str)
-                st.write('select_columns')
+                df,selected_columns = select_columns(df, key=i).astype(str)
+                st.write(selected_columns)
                 check_language = st.checkbox('Check file language')
                 if check_language:
                        handle_language_detection(data,selected_columns)

@@ -99,50 +99,61 @@ def detect_language_file(text):
     except:
         return None
 
-def handle_language_detection(data):
-        english_data = None
-        welsh_data = None
+def handle_language_detection(data, column):
+    english_data = None
+    welsh_data = None
 
-    #for column in data.columns:
-        data[column + '_Language'] = data[column].apply(detect_language_file)
-        unique_languages = data[column + '_Language'].unique()
+    data[column + '_Language'] = data[column].apply(detect_language_file)
+    unique_languages = data[column + '_Language'].unique()
 
-        if len(unique_languages) == 1:  # Only one language is present
-            if 'en' in unique_languages:
-                st.info(f'Your data in column {column} is English.')
-            elif 'cy' in unique_languages:
-                st.info(f'Your data in column {column} is Welsh.')
-        else:  # More than one language is present
-            if 'cy' in unique_languages and 'en' in unique_languages:
-                st.info(f'Your data in column {column} contains both English and Welsh.')
-                if st.button(f'Would you like to split the English and Welsh records in column {column}?'):
-                    english_data = data[data[column + '_Language'] == 'en']
-                    welsh_data = data[data[column + '_Language'] == 'cy']
-                    st.success('Data split successfully. You can download the files below:')
-                    english_data_file = english_data.to_csv(index=False)
-                    welsh_data_file = welsh_data.to_csv(index=False)
-
-                    st.download_button(
-                        "Download English data", 
-                        english_data_file, 
-                        file_name='english_data.csv', 
-                        mime='text/csv'
-                    )
-                    st.download_button(
-                        "Download Welsh data", 
-                        welsh_data_file, 
-                        file_name='welsh_data.csv', 
-                        mime='text/csv'
-                    )
-
-                    st.info('Please upload each file separately for further processing.')
-                
-
-        if 'cy' in unique_languages:
-            if welsh_data is None:
+    if len(unique_languages) == 1:  # Only one language is present
+        if 'en' in unique_languages:
+            st.info(f'Your data in column {column} is English.')
+        elif 'cy' in unique_languages:
+            st.info(f'Your data in column {column} is Welsh.')
+    else:  # More than one language is present
+        if 'cy' in unique_languages and 'en' in unique_languages:
+            st.info(f'Your data in column {column} contains both English and Welsh.')
+            if st.button(f'Would you like to split the English and Welsh records in column {column}?'):
+                english_data = data[data[column + '_Language'] == 'en']
                 welsh_data = data[data[column + '_Language'] == 'cy']
-            else:
-                welsh_data = pd.concat([welsh_data, data[data[column + '_Language'] == 'cy']])
+
+                english_data_file = english_data.to_csv(index=False)
+                welsh_data_file = welsh_data.to_csv(index=False)
+
+                st.download_button(
+                    "Download English data", 
+                    english_data_file, 
+                    file_name='english_data.csv', 
+                    mime='text/csv'
+                )
+                st.download_button(
+                    "Download Welsh data", 
+                    welsh_data_file, 
+                    file_name='welsh_data.csv', 
+                    mime='text/csv'
+                )
+
+                st.info('Please upload each file separately for further processing.')
+                return
+
+    if 'cy' in unique_languages:
+        if welsh_data is None:
+            welsh_data = data[data[column + '_Language'] == 'cy']
+        else:
+            welsh_data = pd.concat([welsh_data, data[data[column + '_Language'] == 'cy']])
+
+        welsh_data_file = welsh_data.to_csv(index=False)
+
+        st.download_button(
+            "Download Welsh data", 
+            welsh_data_file, 
+            file_name='welsh_data.csv', 
+            mime='text/csv'
+        )
+
+        st.info('Please upload each file separately for further processing.')
+
             
 
 # reading example and uploaded files
@@ -1799,8 +1810,7 @@ def analysis_page():
                 df = select_columns(df, key=i).astype(str)
                 check_language = st.checkbox('Check file language')
                 if check_language:
-                    for key in data.keys():
-                        handle_language_detection(data[key])
+                       handle_language_detection(data,selected_columns)
                 if df.empty:
                     st.info('''**NoColumnSelected 🤨**: Please select one or more columns to analyse.''', icon="ℹ️")
                 else:

@@ -1812,7 +1812,7 @@ def analysis_page():
     dfanalysis = pd.DataFrame()
     check_language = st.checkbox('Check file language')
     if check_language:
-          handle_language_detection(data,'Review')
+          handle_language_detection(data,['Review'])
 
     if status:
         filenames = list(data.keys())

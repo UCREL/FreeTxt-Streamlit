@@ -1779,7 +1779,7 @@ def analysis_page():
     else:
            text = st.text_area("Paste your text here")
 
-           uploaded_file = st.file_uploader("Or upload a document", type=['txt', 'doc', 'docx', 'pdf'])
+           #uploaded_file = st.file_uploader("Or upload a document", type=['txt', 'doc', 'docx', 'pdf'])
 
            if text and not uploaded_file:
                   st.session_state.uploaded_text = text

@@ -1566,7 +1566,7 @@ def about_page():
     # ...
     st.markdown(
     f"""
-    <div style="overflow: hidden; padding: 10px; background-color: lightgrey ;">	
+    <div style="overflow: hidden; padding: 30px; background-color: lightgrey ;">	
 	</div>"""
 	, unsafe_allow_html=True)
     st.markdown("""
@@ -1729,7 +1729,7 @@ def contact_page():
     # ...
     st.markdown(
     f"""
-    <div style="overflow: hidden; padding: 10px; background-color: lightgrey ;">	
+    <div style="overflow: hidden; padding: 30px; background-color: lightgrey ;">	
 	</div>"""
 	, unsafe_allow_html=True)
     st.markdown("""
@@ -1884,7 +1884,7 @@ def analysis_page():
     state = get_state()
     st.markdown(
     f"""
-    <div style="overflow: hidden; padding: 10px; background-color: lightgrey ;">	
+    <div style="overflow: hidden; padding: 30px; background-color: lightgrey ;">	
 	</div>"""
 	, unsafe_allow_html=True)
     col1,  col3 = st.columns([2, 1])
@@ -2427,7 +2427,7 @@ def main():
     state = get_state()
     st.markdown(
     f"""
-    <div style="overflow: hidden; padding: 10px; background-color: lightgrey ;">	
+    <div style="overflow: hidden; padding: 30px; background-color: lightgrey ;">	
 	</div>"""
 	, unsafe_allow_html=True)
     col1,  col3 = st.columns([2,  1])

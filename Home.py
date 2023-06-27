@@ -1597,7 +1597,7 @@ def about_page():
     </style>
     """, unsafe_allow_html=True)
 
-    col1,  col3 = st.columns([2, 1])
+    col1, col2, col3 = st.columns([2, 1, 1])
     with col3:
         st.image("img/FreeTxt_logo_R.png", width=300) 
     #with col2:

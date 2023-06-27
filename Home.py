@@ -2430,7 +2430,7 @@ def main():
     <div style="overflow: hidden; padding: 30px; background-color: lightgrey ;">	
 	</div>"""
 	, unsafe_allow_html=True)
-    col1, col2, col3 = st.columns([2, 0.5, 1])
+    col1, col3 = st.columns([3, 1])
     with col3:
         st.image("img/FreeTxt_logo_R.png", width=300) 
     

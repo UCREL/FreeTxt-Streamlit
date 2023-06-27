@@ -1285,35 +1285,6 @@ css = '''
 '''
 
 st.markdown(css, unsafe_allow_html=True) 
-st.markdown(
-f"""
-<style>
-.link-container a.menu-link {{
-    float: left;
-    color: #4a4a4a;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    font-size: 18px;
-    margin: 0px;
-    transition: 0.3s;
-}}
-.link-container a.menu-link:hover {{
-    color: #2281EF;
-    font-weight: bold;
-    text-decoration: underline;
-}}
-.link-container a.menu-link:active,
-.link-container a.menu-link:visited {{
-    color: #2281EF;
-    font-weight: bold;
-    text-decoration: underline;
-}}
-</style>
-
-
-""",
-unsafe_allow_html=True)
 
 
 

@@ -1323,7 +1323,7 @@ def demo_page():
     """, unsafe_allow_html=True)
     st.markdown(
     f"""
-    <div style="overflow: hidden; padding: 20px; background-color: lightgrey ;">	
+    <div style="overflow: hidden; padding: 30px; background-color: lightgrey ;">	
 	</div>"""
 	, unsafe_allow_html=True)
     col1,  col3 = st.columns([2, 1])
@@ -1562,7 +1562,7 @@ class html:
         Func.close()
 ###########################################about page#######################################################################
 def about_page():
-    # Demo page content and layout
+    # About page content and layout
     # ...
     st.markdown(
     f"""

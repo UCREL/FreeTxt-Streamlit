@@ -1297,19 +1297,25 @@ f"""
     font-size: 18px;
     margin: 0px;
     transition: 0.3s;
-    border-bottom: 1px solid #4a4a4a;  /* This adds a line */
 }}
 .link-container a.menu-link:hover {{
     color: #2281EF;
     font-weight: bold;
     text-decoration: underline;
-    border-bottom: 1px solid #2281EF;  /* This changes the line color on hover */
+}}
+.link-container a.menu-link:active,
+.link-container a.menu-link:visited {{
+    color: #2281EF;
+    font-weight: bold;
+    text-decoration: underline;
 }}
 </style>
 
 ...rest of your code...
 """,
 unsafe_allow_html=True)
+
+
 
 
 ###########################################Demo page#######################################################################

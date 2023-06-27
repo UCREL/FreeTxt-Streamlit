@@ -2444,10 +2444,16 @@ def main():
     font-weight: bold;
     text-decoration: underline;
 }}
+#home-link {{
+    color: #2281EF; // This is the hyperlink color
+    font-weight: bold;
+    text-decoration: underline;
+}}
+</style>
 </style>
 
 <div class="link-container" style="overflow: hidden; padding: 10px; background-color: lightgrey;">
-    <a class="menu-link" href="https://nouran-khallaf-free-txt-home-c88nm3.streamlit.app/?page=home" target="_self">
+    <a id="home-link" class="menu-link" href="https://nouran-khallaf-free-txt-home-c88nm3.streamlit.app/?page=home" target="_self">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="height: 25px;">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
         </svg> Home

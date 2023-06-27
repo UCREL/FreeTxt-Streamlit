@@ -1311,7 +1311,7 @@ f"""
 }}
 </style>
 
-...rest of your code...
+
 """,
 unsafe_allow_html=True)
 

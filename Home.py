@@ -975,8 +975,7 @@ def plot_coll_14(keyword, collocs, expander, tab, output_file='network.html'):
     for source, target, freq in top_collocs_df[['source', 'word', 'freq']].values:
         if source in net.get_nodes() and target in net.get_nodes():
             net.add_edge(source, target, value=freq)
-    st.write('The search word is placed in the middle, and the green circle represnts the most frequent word that appeared next to the search word, the darker blue the circle is the more frequent the word is, also the frequency represnted by the length and thickness of the lines attaching the words')
-    # Save the visualization to an HTML file
+     # Save the visualization to an HTML file
     net.save_graph(output_file)
 #----------- plot collocation ------------------------
 def plot_collocation(keyword, collocs):
@@ -1072,7 +1071,10 @@ def plot_kwic_txt(input_text,tab):
                 collocs = get_collocs(kwic_instances) #TODO: Modify to accept 'topn'               
                 colloc_str = ', '.join([f"{w}[{c}]" for w, c in collocs])
                 st.write(f"Collocations for '{keyword}':\n{colloc_str}")
+		st.write('The search word is placed in the middle, and the green circle represnts the most frequent word that appeared next to the search word, the darker blue the circle is the more frequent the word is, also the frequency represnted by the length and thickness of the lines attaching the words')
+   
                 plot_coll_14(keyword, collocs,expander,tab)
+		
                 #plot_coll(keyword, collocs,expander,tab)
     except ValueError as err:
         with tab:

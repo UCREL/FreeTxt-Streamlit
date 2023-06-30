@@ -2539,59 +2539,9 @@ any sector in Wales and beyond to use it.
           st.write("")
           st.write("")
           st.markdown("""
-    <style>
 
-    .fancy-link {
-        font-size: 35px; 
-        font-family: Arial, sans-serif; 
-        color: #4a4a4a; 
-        background-color: #ddd; 
-        padding: 10px 20px; 
-        border-radius: 5px; 
-        text-decoration: none;
-        transition: background-color 0.3s ease, font-size 0.3s ease;
-    }
 
-    .fancy-link:hover {
-        background-color: #bbb;
-        font-size: 42px;
-    }
-    </style>
-
-    <a href="https://nouran-khallaf-free-txt-home-c88nm3.streamlit.app/?page=analysis" 
-       target = "_self"
-       class = "fancy-link">
-        Start Analysis
-    </a>
-""", unsafe_allow_html=True)
-          st.write("")
-          st.write("")
-          st.write("")
-          st.markdown("""
-    <style>
-    .fancy-link {
-        font-size: 35px; 
-        font-family: sans-serif; 
-        color: #4a4a4a; 
-        background-color: #ddd; 
-        padding: 10px 20px; 
-        border-radius: 5px; 
-        text-decoration: none;
-        transition: background-color 0.3s ease, font-size 0.3s ease;
-    }
-
-    .fancy-link:hover {
-        background-color: #bbb;
-        font-size: 42px;
-    }
-    </style>
-
-    <a href="https://nouran-khallaf-free-txt-home-c88nm3.streamlit.app/?page=demo" 
-       target = "_self"
-       class = "fancy-link">
-        Start A Demo
-    </a>
-""", unsafe_allow_html=True)
+   
 
 
     st.markdown(

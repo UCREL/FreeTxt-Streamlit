@@ -2509,14 +2509,11 @@ def main():
     with open('style.css') as f:
         st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html =True)
 
-    
-   
-
-    col1 ,col2= st.columns([2, 1])
+ 
 
    
-    with col1:
-	    st.markdown(
+  
+    st.markdown(
       """
 <div style='background-color: white; padding: 10px; border-radius: 5px; color: black; font-size:20px; '>
 A free online text analysis and visualisation tool for English and Welsh. 
@@ -2535,9 +2532,7 @@ any sector in Wales and beyond to use it.
 
 
             
-    with col2:
-          st.write("")
-          st.write("")
+
           
 
 

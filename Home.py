@@ -2455,7 +2455,8 @@ def main():
               font-family: sans-serif; 
               text-shadow: 2px 2px #aaa;
               font-weight: normal;'>
-    Text Analysis
+    Welcome to Freetxt
+    
     </p>""", unsafe_allow_html=True)
 
     

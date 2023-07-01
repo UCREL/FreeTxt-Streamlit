@@ -1,4 +1,4 @@
-import streamlit as st
+iAs you scroll over dots on the plane you will see a pop up with statistics. The statistics include the word frequency per 25,000 words for both classes. It also features a**Scaled F-Score**. The word frequency metric is really easy to discern. That metric is what Scattertext uses as the coordinates for each point. You can see that metric represented below with 195:71 per 25k words.mport streamlit as st
 import base64
 import os
 import re
@@ -562,6 +562,26 @@ def generate_scattertext_visualization(dfanalysis):
     are most shared among the two classes. In this case as you go toward the top-right 
     of the chart you will find the most frequent of the most-shared terms and the bottom-left 
     is where you will find the least frequent of the most-shared terms.''')
+    st.write('''
+The score is on a scale of -1 to 1. Scores that are near zero have word frequencies 
+that are similar for both classes (these are the yellow and orange dots). Scores that are near 1 
+will have word frequencies dominated by the positive class (in blue). Scores that are near -1 
+will have word frequencies dominated by the negative class (in red). 
+The darker the color of red or blue indicates the closer the score is to -1 or 1.
+''')
+
+    st.write(''' As you scroll over dots on the plane you will see a pop up with statistics. 
+    The statistics include the word frequency per 25,000 words for both classes. It also features a**Scaled F-Score**. 
+    The word frequency metric is really easy to discern. That metric is what Scattertext uses as 
+    the coordinates for each point. You can see that metric represented below with 195:71 per 25k words.
+''')
+
+    st.write('''
+    . When you use the query box or click on the word dot you are given metrics regarding 
+    frequency broken down by per-word-frequency (as seen in the pop-up),
+    AND you can also see frequency per-1,000-docs (doc in this case is a reddit post).
+
+''')
     # Save the visualization as an HTML file
     with open("scattertext_visualization.html", "w") as f:
         f.write(html)

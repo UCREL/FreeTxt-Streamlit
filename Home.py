@@ -2437,18 +2437,13 @@ def main():
         st.image("img/FreeTxt_logo_R.png", width=300) 
     
     with col1:
-       st.markdown("""
-    <h1 style='text-align: center; 
-               margin-top: 0px; 
-               font-size: 80px; 
-               color: #4a4a4a; 
-               font-family: sans-serif; 
-               text-shadow: 2px 2px #aaa;'>
+       st.title("""
+
     Welcome to FreeTxt
-    </h1>""", unsafe_allow_html=True)
+                 """)
     
 
-    #24px;border: 2px solid grey;
+
     st.markdown(
     f"""
 <style>

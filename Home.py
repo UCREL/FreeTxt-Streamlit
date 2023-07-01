@@ -684,7 +684,7 @@ class txtanalysis:
                       st.write('Filter Data based on Date range')
 
     def show_wordcloud(self, fname):
-        # st.info('Word cloud ran into a technical hitch and we are fixing it...Thanks for you patience', icon='😎')
+        ## st.info('Word cloud ran into a technical hitch and we are fixing it...Thanks for you patience', icon='😎')
         image_path=get_wordcloud(self.reviews, fname)
         return image_path
     

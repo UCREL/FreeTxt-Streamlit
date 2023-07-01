@@ -554,7 +554,14 @@ def generate_scattertext_visualization(dfanalysis):
     metadata=df["Sentiment Label"],
     term_scorer=term_scorer
        ) 
-
+    st.write('''
+    The blue color representing Positive words and the red color representing
+    Negatives  provides an easy to discern visual that allows the viewer to 
+    quickly identify where differences exist in the text. The yellow 
+    and orangish colors on the plot are an easy way to identify terms that 
+    are most shared among the two classes. In this case as you go toward the top-right 
+    of the chart you will find the most frequent of the most-shared terms and the bottom-left 
+    is where you will find the least frequent of the most-shared terms.''')
     # Save the visualization as an HTML file
     with open("scattertext_visualization.html", "w") as f:
         f.write(html)

@@ -1896,8 +1896,8 @@ def analysis_page():
         
 
     with col1:
-        st.markdown("""
-    <p style='text-align: center; 
+         st.markdown("""
+    <p style='text-align: left; 
               margin-top: 0px; 
               font-size: 80px; 
               color: #4a4a4a; 
@@ -1906,6 +1906,7 @@ def analysis_page():
               font-weight: normal;'>
     Text Analysis
     </p>""", unsafe_allow_html=True)
+
 
         st.markdown("""
     <style>

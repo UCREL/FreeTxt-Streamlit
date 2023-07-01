@@ -633,6 +633,7 @@ class txtanalysis:
     def show_reviews(self, fname,tab):
         with tab:
             st.markdown(f'''📄 Viewing data: `{fname}`''')
+            st.header('View and Filter all Data')
             df = pd.DataFrame(self.reviews)
             data = self.reviews 
             #### interactive dataframe
@@ -656,7 +657,7 @@ class txtanalysis:
         )
             data = grid_response['data']
             selected = grid_response['selected_rows'] 
-            st.write('View and Filter all Data')
+            
             df = pd.DataFrame(selected) #Pass the selected rows to a new dataframe df
 
 		
@@ -665,6 +666,7 @@ class txtanalysis:
             column_list = ['date','Date','Dateandtime']
             for col in column_list:
                  if col in data.columns:
+                      st.header('Filter Data based on Date range')
                       data['Date_sort'] = pd.to_datetime(data['Date'], format='%d/%m/%Y')
                       data= data.sort_values('Date_sort')
                       start_date = data['Date'].min()
@@ -681,8 +683,7 @@ class txtanalysis:
                       filterdf = data.loc[mask]
                       st._legacy_dataframe(filterdf)
                       st.write('filtered  number of reviews: ', len(filterdf))
-                      st.write('Filter Data based on Date range')
-
+                      
     def show_wordcloud(self, fname):
         ## st.info('Word cloud ran into a technical hitch and we are fixing it...Thanks for you patience', icon='😎')
         image_path=get_wordcloud(self.reviews, fname)

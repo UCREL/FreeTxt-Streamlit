@@ -2180,6 +2180,7 @@ def analysis_page():
                        st.write('This tool, adapted from the Welsh Summarization project, produces a basic extractive summary of the review text from the selected columns.')
                        summarized_text =run_summarizer(input_text[:2000],i)
 	       ##show review
+                    st.header('View all Data')
                     tab4.dataframe(df ,use_container_width=True)
                     textanalysis = txtanalysis(df)
                     textanalysis.show_reviews(filenames[i],tab4)

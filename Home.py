@@ -1896,7 +1896,7 @@ def analysis_page():
         
 
     with col1:
-         st.markdown("""
+        st.markdown("""
     <p style='text-align: left; 
               margin-top: 0px; 
               font-size: 80px; 

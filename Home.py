@@ -1334,15 +1334,18 @@ def demo_page():
     #with col2:
         #st.markdown("<h1 style='text-align: center; margin-top: 0px;'>Demo</h1>", unsafe_allow_html=True)
     with col1:
-           st.markdown("""
-    <h1 style='text-align: center; 
-               margin-top: 0px; 
-               font-size: 80px; 
-               color: #4a4a4a; 
-               font-family: sans-serif; 
-               text-shadow: 2px 2px #aaa;'>
+        st.markdown("""
+    <p style='text-align: left; 
+              margin-top: 0px; 
+              font-size: 80px; 
+              color: #4a4a4a; 
+              font-family: sans-serif; 
+              text-shadow: 2px 2px #aaa;
+              font-weight: normal;'>
     User Guide
-    </h1>""", unsafe_allow_html=True)
+    </p>""", unsafe_allow_html=True)
+
+
 
     st.markdown(
     f"""
@@ -1606,14 +1609,16 @@ def about_page():
         #st.markdown("<h1 style='text-align: center; margin-top: 0px;'>Demo</h1>", unsafe_allow_html=True)
     with col1:
            st.markdown("""
-    <h1 style='text-align: center; 
-               margin-top: 0px; 
-               font-size: 80px; 
-               color: #4a4a4a; 
-               font-family: sans-serif; 
-               text-shadow: 2px 2px #aaa;'>
+    <p style='text-align: left; 
+              margin-top: 0px; 
+              font-size: 80px; 
+              color: #4a4a4a; 
+              font-family: sans-serif; 
+              text-shadow: 2px 2px #aaa;
+              font-weight: normal;'>
     About
-    </h1>""", unsafe_allow_html=True)
+    </p>""", unsafe_allow_html=True)
+
 
     st.markdown(
     f"""
@@ -1768,15 +1773,17 @@ def contact_page():
     #with col2:
         #st.markdown("<h1 style='text-align: center; margin-top: 0px;'>Demo</h1>", unsafe_allow_html=True)
     with col1:
-           st.markdown("""
-    <h1 style='text-align: center; 
-               margin-top: 0px; 
-               font-size: 80px; 
-               color: #4a4a4a; 
-               font-family: sans-serif; 
-               text-shadow: 2px 2px #aaa;'>
+           sst.markdown("""
+    <p style='text-align: left; 
+              margin-top: 0px; 
+              font-size: 80px; 
+              color: #4a4a4a; 
+              font-family: sans-serif; 
+              text-shadow: 2px 2px #aaa;
+              font-weight: normal;'>
     Contact us
-    </h1>""", unsafe_allow_html=True)
+    </p>""", unsafe_allow_html=True)
+
 
 
     st.markdown(
@@ -2440,10 +2447,17 @@ def main():
         st.image("img/FreeTxt_logo_R.png", width=300) 
     
     with col1:
-       st.title("""
+       st.markdown("""
+    <p style='text-align: left; 
+              margin-top: 0px; 
+              font-size: 80px; 
+              color: #4a4a4a; 
+              font-family: sans-serif; 
+              text-shadow: 2px 2px #aaa;
+              font-weight: normal;'>
+    Text Analysis
+    </p>""", unsafe_allow_html=True)
 
-    Welcome to FreeTxt
-                 """)
     
 
 

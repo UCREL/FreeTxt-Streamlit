@@ -587,7 +587,7 @@ The darker the color of red or blue indicates the closer the score is to -1 or 1
         f.write(html)
 #----------------------------------------------------------summarisation----------------------------------------------------#	
 summary=''
-# text_rank
+#####text_rank
 def text_rank_summarize(article, ratio):
   return summa_summarizer(article, ratio=ratio)
 

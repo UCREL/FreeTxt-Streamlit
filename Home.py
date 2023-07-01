@@ -1897,14 +1897,16 @@ def analysis_page():
 
     with col1:
         st.markdown("""
-    <h1 style='text-align: center; 
-               margin-top: 0px; 
-               font-size: 80px; 
-               color: #4a4a4a; 
-               font-family: sans-serif; 
-               text-shadow: 2px 2px #aaa;'>
+    <p style='text-align: center; 
+              margin-top: 0px; 
+              font-size: 80px; 
+              color: #4a4a4a; 
+              font-family: sans-serif; 
+              text-shadow: 2px 2px #aaa;
+              font-weight: normal;'>
     Text Analysis
-    </h1>""", unsafe_allow_html=True)
+    </p>""", unsafe_allow_html=True)
+
         st.markdown("""
     <style>
         .stButton>button {

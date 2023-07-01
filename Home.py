@@ -656,6 +656,7 @@ class txtanalysis:
         )
             data = grid_response['data']
             selected = grid_response['selected_rows'] 
+            st.write('View and Filter all Data')
             df = pd.DataFrame(selected) #Pass the selected rows to a new dataframe df
 
 		
@@ -679,7 +680,8 @@ class txtanalysis:
                       mask = (data['Date_sort'] >= start_d) & (data['Date_sort'] <= end_d)
                       filterdf = data.loc[mask]
                       st._legacy_dataframe(filterdf)
-                      st.write('filtered  number of reviews: ', len(filterdf))  
+                      st.write('filtered  number of reviews: ', len(filterdf))
+                      st.write('Filter Data based on Date range')
 
     def show_wordcloud(self, fname):
         # st.info('Word cloud ran into a technical hitch and we are fixing it...Thanks for you patience', icon='😎')

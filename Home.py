@@ -1146,6 +1146,8 @@ def plot_kwic(data, key,tab):
                 collocs = get_collocs(kwic_instances)
                 colloc_str = ', '.join([f"{w} [{c}]" for w, c in collocs])
                 words = nlp(colloc_str)
+		st.write('The search word is placed in the middle, and the green circle represnts the most frequent word that appeared next to the search word, the darker blue the circle is the more frequent the word is, also the frequency represnted by the length and thickness of the lines attaching the words')
+   
                 if Word_type == 'All words':
                        st.write(f"Collocations for '{keyword}':\n{colloc_str}")
                     

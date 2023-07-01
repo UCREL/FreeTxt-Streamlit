@@ -1,4 +1,4 @@
-iAs you scroll over dots on the plane you will see a pop up with statistics. The statistics include the word frequency per 25,000 words for both classes. It also features a**Scaled F-Score**. The word frequency metric is really easy to discern. That metric is what Scattertext uses as the coordinates for each point. You can see that metric represented below with 195:71 per 25k words.mport streamlit as st
+import streamlit as st
 import base64
 import os
 import re

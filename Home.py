@@ -2128,7 +2128,7 @@ def textbox_analysis_page():
 
     with colm1:
      st.header("Start analysing your text")
-     text = st.text_area('Please paste your text here', '',height=250)
+     text = st.text_area('Please paste your text here', '')
 
     with middle_colm:
       st.write('')

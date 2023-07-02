@@ -1108,22 +1108,22 @@ def gen_ngram(text, _ngrams=2, topn=10):
     return [(f"{' '.join(ng):27s}", f"{c:10d}", f"{c/sum_ngram_counts:.2f}%")
             for ng, c in ngram_counts]
 
-def plot_kwic_txt(input_text,tab):
+def plot_kwic_txt(df,tab):
     tab.markdown('''💬 Word location in text''')
-    input_data = input_text
+    input_data = ' '.join([str(t) for t in df[0].split(' ') if t not in STOPWORDS])
     
-    #for c in PUNCS: input_data = input_data.lower().replace(c,'')
+    for c in PUNCS: input_data = input_data.lower().replace(c,'')
     
     try:
-        with tab:
+        with tab6:
             topwords = [f"{w} ({c})" for w, c in getTopNWords(input_data, removeStops=True)]
             keyword = st.selectbox('Select a keyword:', topwords).split('(',1)[0].strip()
             window_size = st.slider('Select the window size:', 1, 10, 5)
-            maxInsts = st.slider('Maximum number of instances to view:', 5, 50, 15, 5, key="slider2_key")
+            maxInsts = st.slider('Maximum number of instances :', 5, 50, 15, 5, key="slider2_key")
         # col2_lcase = st.checkbox("Lowercase?", key='col2_checkbox')
             kwic_instances = get_kwic(input_data, keyword, window_size, maxInsts, True)
         
-        #keyword_analysis = tab.radio('Analysis:', ('Keyword in context', 'Collocation'))
+        #keyword_analysis = tab6.radio('Analysis:', ('Keyword in context', 'Collocation'))
         #if keyword_analysis == 'Keyword in context':
             with st.expander('Keyword in Context'):
                 kwic_instances_df = pd.DataFrame(kwic_instances,
@@ -1167,11 +1167,8 @@ def plot_kwic_txt(input_text,tab):
                 collocs = get_collocs(kwic_instances) #TODO: Modify to accept 'topn'               
                 colloc_str = ', '.join([f"{w}[{c}]" for w, c in collocs])
                 st.write(f"Collocations for '{keyword}':\n{colloc_str}")
-                st.write('The search word is placed in the middle, and the green circle represnts the most frequent word that appeared next to the search word, the darker blue the circle is the more frequent the word is, also the frequency represnted by the length and thickness of the lines attaching the words')
-                st.write('The number represnts the number of occurances for each collocate word')
-                plot_coll_14(keyword, collocs,expander,tab)
-		
-                #plot_coll(keyword, collocs,expander,tab)
+                plot_collocation(keyword, collocs,expander,tab6)
+                plot_coll(keyword, collocs,expander,tab6)
     except ValueError as err:
         with tab:
                 st.info(f'Please ensure that at least one free text column is chosen: {err}', icon="🤨")

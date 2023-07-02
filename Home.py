@@ -2183,10 +2183,10 @@ def textbox_analysis_page():
                     tab4.header('View all Data')
                     tab4.dataframe(df ,use_container_width=True)
                     textanalysis = txtanalysis(df)
-                    textanalysis.show_reviews(filenames[i],tab4)
-                    #word_cloud_path = textanalysis.show_wordcloud(filenames[i],tab5)
-                    Keyword_context = textanalysis.show_kwic(filenames[i],tab6)
-                    textanalysis.concordance(filenames[i],tab7)
+                    textanalysis.show_reviews(df,tab4)
+                    #word_cloud_path = textanalysis.show_wordcloud(df,tab5)
+                    Keyword_context = textanalysis.show_kwic(df,tab6)
+                    textanalysis.concordance(df,tab7)
 ###show word cloud
         
                     tab5.markdown('''    

@@ -2268,7 +2268,7 @@ def textbox_analysis_page():
         
             with tab6:
                 plot_kwic_txt(df,tab6)
-            with tab10:
+            with tab8:
                         checkbox = st.checkbox("Generate PDF report")
                         if checkbox:
 

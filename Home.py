@@ -1299,7 +1299,7 @@ def header(canvas, doc):
     logo_width, logo_height = logo.size
     aspect_ratio = float(logo_height) / float(logo_width)
     logo = ReportLabImage(logo_path, width=100, height=int(100 * aspect_ratio))
-    title_text = "Sentiment Analysis Report"
+    title_text = "FreeTxt Analysis Report"
     title_style = ParagraphStyle("Title", fontSize=18, alignment=TA_LEFT)
     title = Paragraph(title_text, title_style)
     header_data = [[logo, title]]
@@ -2451,7 +2451,7 @@ def analysis_page():
 
                         if word_cloud_checkbox:
                            
-                           if os.path.exists(bar_graph_path):
+                           if os.path.exists(word_cloud_path):
                                word_cloud_graph = ReportLabImage(word_cloud_path, width= 325, height =250)
                                elements.append(word_cloud_graph)
                                elements.append(Spacer(1, 20))

@@ -1003,7 +1003,8 @@ def plot_coll_14(keyword, collocs, expander, tab, output_file='network.png'):
 
     nx.draw(G, with_labels=True, node_color=color_map, font_weight='bold')
     plt.savefig(output_file)
-
+        # Display the plot with streamlit
+    st.pyplot(plt)
 def plot_coll_15(keyword, collocs, expander, tab, output_file='network.html'):
     words, counts = zip(*collocs)
     top_collocs_df = pd.DataFrame(collocs, columns=['word', 'freq'])

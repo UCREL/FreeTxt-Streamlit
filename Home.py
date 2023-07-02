@@ -702,6 +702,13 @@ class txtanalysis:
             source_code = HtmlFile.read() 
             print(source_code)
             components.html(source_code,height = 800)
+            # Create a download button for the HTML file
+            st.download_button(
+            "Download HTML file",
+            data=source_code,
+            file_name="GFG-1.html",
+            mime="text/html",
+        )
 
 #create function to get a color dictionary
 def get_colordict(palette,number,start):

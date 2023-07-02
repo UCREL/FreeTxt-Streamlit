@@ -2322,6 +2322,24 @@ def analysis_page():
                         with tab5:
                             st.set_option('deprecation.showPyplotGlobalUse', False)
                             st.pyplot()
+			               
+                        with tempfile.NamedTemporaryFile(delete=False, suffix=".png") as tmpfile:
+                        wordcloud_img.to_file(tmpfile.name)
+                        word_cloud_path = tmpfile.name
+
+                        img = PilImage.open(tmpfile.name)
+                        img_bytes = BytesIO()
+                        img.save(img_bytes, format='PNG')
+                        img_bytes = img_bytes.getvalue()
+  
+
+                        # Add a download button in Streamlit to download the temporary image file
+                        st.download_button(
+                          label="Download Word Cloud Image",
+                            data=img_bytes,
+                           file_name="word_cloud.png",
+                                mime="image/png",
+                                 )
                     except ValueError as err:
                         with tab5:
                             st.info(f'Oh oh.. Please ensure that at least one free text column is chosen: {err}', icon="🤨")

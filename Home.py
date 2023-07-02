@@ -2147,6 +2147,8 @@ def analysis_page():
                 
                 df, selected_columns = select_columns(df, key=i)
                 df = df.astype(str)
+                # Convert all string values in the DataFrame to lowercase
+                df = df.applymap(lambda s: s.lower())
                 check_language = st.checkbox('Check file language')
                 if check_language:
                       handle_language_detection(df,selected_columns[0])

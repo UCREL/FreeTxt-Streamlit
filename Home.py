@@ -986,8 +986,31 @@ def plot_coll_14(keyword, collocs, expander, tab, output_file='network.html'):
     # Find the most frequent word
     most_frequent_word = max(collocs, key=lambda x: x[1])[0]
 
+    
+   # Create a network plot
     # Create a network plot
-    net = Network(notebook=True, height='750px', width='100%')
+    options = {
+        'nodes': {
+            'shape': 'circle',
+            'font': {
+                'size': 14,  # Set as desired
+                'face': 'Arial',
+                'color': 'black',
+            },
+            'color': {
+                'border': 'black',
+                'background': 'white',
+                'highlight': {
+                    'border': 'black',
+                    'background': 'gray'
+                }
+            },
+        }
+    }
+
+    net = Network(notebook=True, height='750px', width='100%', options=options)
+
+    #net = Network(notebook=True, height='750px', width='100%')
 
     # Adjust gravity based on frequency
     gravity = -200 * n / sum(counts)

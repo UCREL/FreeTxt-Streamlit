@@ -979,33 +979,8 @@ import matplotlib.pyplot as plt
 import networkx as nx
 import pandas as pd
 
-def plot_coll_14(keyword, collocs, expander, tab, output_file='network.png'):
-    words, counts = zip(*collocs)
-    top_collocs_df = pd.DataFrame(collocs, columns=['word', 'freq'])
-    top_collocs_df.insert(1, 'source', keyword)
-    top_collocs_df = top_collocs_df[top_collocs_df['word'] != keyword]  # remove row where keyword == word
 
-    G = nx.from_pandas_edgelist(top_collocs_df, source='source', target='word', edge_attr='freq')
-
-    # Find the most frequent word
-    most_frequent_word = max(collocs, key=lambda x: x[1])[0]
-
-    color_map = []
-    for node in G:
-        if node == most_frequent_word:
-            color_map.append('green')
-        elif node == keyword:
-            color_map.append('gray')
-        else: 
-            color_map.append('blue')  
-
-    plt.figure(figsize=(8, 6))
-
-    nx.draw(G, with_labels=True, node_color=color_map, font_weight='bold')
-    plt.savefig(output_file)
-        # Display the plot with streamlit
-    st.pyplot(plt)
-def plot_coll_15(keyword, collocs, expander, tab, output_file='network.html'):
+def plot_coll_14(keyword, collocs, expander, tab, output_file='network.html'):
     words, counts = zip(*collocs)
     top_collocs_df = pd.DataFrame(collocs, columns=['word', 'freq'])
     top_collocs_df.insert(1, 'source', keyword)
@@ -1018,29 +993,10 @@ def plot_coll_15(keyword, collocs, expander, tab, output_file='network.html'):
 
     
    # Create a network plot
-    # Create a network plot
-    options = {
-        'nodes': {
-            'shape': 'circle',
-            'font': {
-                'size': 14,  # Set as desired
-                'face': 'Arial',
-                'color': 'black',
-            },
-            'color': {
-                'border': 'black',
-                'background': 'white',
-                'highlight': {
-                    'border': 'black',
-                    'background': 'gray'
-                }
-            },
-        }
-    }
+    
+    
 
-    net = Network(notebook=True, height='750px', width='100%', options=options)
-
-    #net = Network(notebook=True, height='750px', width='100%')
+    net = Network(notebook=True, height='750px', width='100%')
 
     # Adjust gravity based on frequency
     gravity = -200 * n / sum(counts)

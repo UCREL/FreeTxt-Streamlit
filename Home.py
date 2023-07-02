@@ -2153,7 +2153,7 @@ def textbox_analysis_page():
     <a href="https://nouran-khallaf-free-txt-home-c88nm3.streamlit.app/?page=analysis" 
        target = "_self"
        class = "fancy-link">
-        Or Upload your own File
+        Upload your own File
     </a>
 """, unsafe_allow_html=True)
        
@@ -3164,8 +3164,8 @@ def app():
     if page == "demo":
           st.experimental_set_query_params(page="demo")
           demo_page()
-    elif page == "analysis":
-          st.experimental_set_query_params(page="analysis")
+    elif page == "txtanalysis":
+          st.experimental_set_query_params(page="txtanalysis")
           textbox_analysis_page()
     elif page == "about":
           st.experimental_set_query_params(page="about")

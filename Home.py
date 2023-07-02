@@ -2114,14 +2114,11 @@ def textbox_analysis_page():
 """,
     unsafe_allow_html=True)
     st.header("Start analysing your text")
+    text = st.text_area('Please paste your text here', '')
     
-    
-    text = st.text_area("Your text", value=st.session_state.uploaded_text)
+    #text = st.text_area("Your text", value=st.session_state.uploaded_text)
 
-    if text:
-            st.session_state.uploaded_text = text
-
-
+ 
 
     dfanalysis = pd.DataFrame()
 

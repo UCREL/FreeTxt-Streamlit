@@ -2154,18 +2154,18 @@ def textbox_analysis_page():
                               
                     input_data = ' '.join([str(t) for t in df[0].split(' ') if t not in STOPWORDS])
                      
-                    tab1, tab2,tab3,tab4,tab5,tab6,tab7,tab8= st.tabs(["📈 Meaning analysis",'💬 Keyword scatter','📝 Summarisation',"📈 Data View", "☁️ Keyword Cloud",'💬 Keyword in Context & Collocation', "🌳 Word Tree",'📥 Download pdf'])
-                    with tab1:
+                     tab3,tab4,tab5,tab6,tab7,tab8= st.tabs(['📝 Summarisation',"📈 Data View", "☁️ Keyword Cloud",'💬 Keyword in Context & Collocation', "🌳 Word Tree",'📥 Download pdf'])
+                   # with tab1:
                       
                         num_classes = st.radio('How do you want to categorize the sentiments?', ('3 Class Sentiments (Positive, Neutral, Negative)', '5 Class Sentiments (Very Positive, Positive, Neutral, Negative, Very Negative)'))
                         num_classes = 3 if num_classes.startswith("3") else 5
                         st.write(df)
                         #language = detect_language(df)  
                         #if language == 'en':
-                        sentiments = analyze_sentiment(input_text,num_classes)
-                        dfanalysis = pd.DataFrame(sentiments, columns=['Review', 'Sentiment Label', 'Sentiment Score'])
-                        plot_sentiment_pie(dfanalysis)
-                        plot_sentiment(dfanalysis)
+                        #sentiments = analyze_sentiment(input_text,num_classes)
+                        #dfanalysis = pd.DataFrame(sentiments, columns=['Review', 'Sentiment Label', 'Sentiment Score'])
+                        #plot_sentiment_pie(dfanalysis)
+                        #plot_sentiment(dfanalysis)
                       
                         #elif language == 'cy':
                             #sentiments = analyze_sentiment_welsh(input_text)
@@ -2174,62 +2174,7 @@ def textbox_analysis_page():
                          #   plot_sentiment_pie(dfanalysis)
                         #    plot_sentiment(dfanalysis)
                        
-                    with tab2:
-                      if not dfanalysis.empty:
-                         #### interactive dataframe
-                         gb = GridOptionsBuilder.from_dataframe(dfanalysis)
-                         gb.configure_pagination(paginationAutoPageSize=True) #Add pagination
-                         gb.configure_side_bar() #Add a sidebar
-                         #gb.configure_selection('multiple', use_checkbox=True, groupSelectsChildren="Group checkbox select children") #Enable multi-row selection
-                         gridOptions = gb.build()
-
-                         grid_response = AgGrid(
-                              dfanalysis,
-                              gridOptions=gridOptions,
-                               data_return_mode='AS_INPUT', 
-                            update_mode='MODEL_CHANGED', 
-                             fit_columns_on_grid_load=False,
-    
-                                  enable_enterprise_modules=True,
-                             height=350, 
-                              width='100%',
-                              reload_data=True
-                                                )
-                         data = grid_response['data']
-                         selected = grid_response['selected_rows'] 
-                         dd = pd.DataFrame(selected) #Pass the selected rows to a new dataframe df
-                         # Add a button to download the DataFrame as a CSV file
-                         if st.button('Download CSV'):
-                                    st.markdown(download_csv(dfanalysis), unsafe_allow_html=True)
-
-			
-			
-			###scattertext
-                         st.header('Scatter Text')
-                                                  # Copy the scattertext_visualization.html to a temporary file
-                         st.write('For better reprentation we recommend selecting 3 sentiment classes')
-                         st.write('The 2,000 most sentiment-associated uni grams are displayed as points in the scatter plot. Their x- and y- axes are the dense ranks of their usage in positive vs negative and neutral respectively.')
-                         generate_scattertext_visualization(dfanalysis)
-                         scattertext_html_path='scattertext_visualization.html'
-                         tmp_scattertext_path = "tmp_scattertext_visualization.html"
-                         shutil.copyfile(scattertext_html_path, tmp_scattertext_path)
-
-                         # Add a download button for the Scattertext HTML file
-                         with open(tmp_scattertext_path, "rb") as file:
-                                    scattertext_html_data = file.read()
-
-                         st.download_button(
-                             label="Download Scattertext Visualization HTML",
-                             data=scattertext_html_data,
-                          file_name="scattertext_visualization.html",
-                            mime="text/html",
-                                )
-                         
-                         
-                         HtmlFile = open("scattertext_visualization.html", 'r', encoding='utf-8')
-                         source_code = HtmlFile.read() 
-                         print(source_code)
-                         components.html(source_code,height = 1500,width = 800)
+       
                     with tab3:
 
                        st.write('This tool, adapted from the Welsh Summarization project, produces a basic extractive summary of the review text from the selected columns.')
@@ -2349,8 +2294,8 @@ def textbox_analysis_page():
 			#####pdf_generator
 			##############Sentiment analysis
                         data_list_checkbox = st.checkbox("Include Data List as a Table")
-                        sentiment_pie_checkbox = st.checkbox("Include Sentiment Pie Graph")
-                        sentiment_bar_checkbox = st.checkbox("Include Sentiment Bar Graph")
+                        #sentiment_pie_checkbox = st.checkbox("Include Sentiment Pie Graph")
+                        #sentiment_bar_checkbox = st.checkbox("Include Sentiment Bar Graph")
                         #Wordtree_checkbox = st.checkbox("Include Word Tree")
 		       ##############summarisation,
                         download_text = st.checkbox("Include original text")
@@ -2422,27 +2367,7 @@ def textbox_analysis_page():
                             elements.append(Spacer(1, 20))
 
 
-                        if sentiment_pie_checkbox:
-                        # Add the sentiment pie graph
                         
-                           pie_graph_path = "Pie_fig.png"
-                           if os.path.exists(pie_graph_path):                
-                              pie_graph = ReportLabImage(pie_graph_path, width= 325, height =250)
-                              elements.append(pie_graph)
-                              elements.append(Spacer(1, 20))
-                           else:
-                             st.error("Sentiment Pie Graph image not found")
-
-                        if sentiment_bar_checkbox:
-                         # Add the sentiment bar graph
-                           
-                           bar_graph_path = "Bar_fig.png"
-                           if os.path.exists(bar_graph_path):
-                               bar_graph = ReportLabImage(bar_graph_path, width= 325, height =250)
-                               elements.append(bar_graph)
-                               elements.append(Spacer(1, 20))
-                           else:
-                              st.error("Sentiment Bar Graph image not found")
 
                         if word_cloud_checkbox:
                            

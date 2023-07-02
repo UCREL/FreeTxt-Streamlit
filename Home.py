@@ -974,8 +974,37 @@ def get_collocs(kwic_insts,topn=10):
     return Counter(all_words).most_common(topn)
 
 #----------- plot collocation ------------------------
-from pyvis.network import Network	
-def plot_coll_14(keyword, collocs, expander, tab, output_file='network.html'):
+from pyvis.network import Network
+import matplotlib.pyplot as plt
+import networkx as nx
+import pandas as pd
+
+def plot_coll_14(keyword, collocs, expander, tab, output_file='network.png'):
+    words, counts = zip(*collocs)
+    top_collocs_df = pd.DataFrame(collocs, columns=['word', 'freq'])
+    top_collocs_df.insert(1, 'source', keyword)
+    top_collocs_df = top_collocs_df[top_collocs_df['word'] != keyword]  # remove row where keyword == word
+
+    G = nx.from_pandas_edgelist(top_collocs_df, source='source', target='word', edge_attr='freq')
+
+    # Find the most frequent word
+    most_frequent_word = max(collocs, key=lambda x: x[1])[0]
+
+    color_map = []
+    for node in G:
+        if node == most_frequent_word:
+            color_map.append('green')
+        elif node == keyword:
+            color_map.append('gray')
+        else: 
+            color_map.append('blue')  
+
+    plt.figure(figsize=(8, 6))
+
+    nx.draw(G, with_labels=True, node_color=color_map, font_weight='bold')
+    plt.savefig(output_file)
+
+def plot_coll_15(keyword, collocs, expander, tab, output_file='network.html'):
     words, counts = zip(*collocs)
     top_collocs_df = pd.DataFrame(collocs, columns=['word', 'freq'])
     top_collocs_df.insert(1, 'source', keyword)

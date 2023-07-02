@@ -2361,7 +2361,7 @@ def analysis_page():
                         download_text = st.checkbox("Include original text")
                         download_summary = st.checkbox("Include summarized text")
                         #full_data_table_checkbox = st.checkbox("Include Full Data Table")
-                        #word_cloud_checkbox = st.checkbox("Include Word Cloud Image")
+                        word_cloud_checkbox = st.checkbox("Include Word Cloud Image")
                         keyword_context_table_checkbox = st.checkbox("Include Keyword in Context Table")
 			
                         # Create the PDF
@@ -2448,6 +2448,16 @@ def analysis_page():
                                elements.append(Spacer(1, 20))
                            else:
                               st.error("Sentiment Bar Graph image not found")
+
+                        if word_cloud_checkbox:
+                           
+                           if os.path.exists(bar_graph_path):
+                               word_cloud_graph = ReportLabImage(word_cloud_path, width= 325, height =250)
+                               elements.append(word_cloud_graph)
+                               elements.append(Spacer(1, 20))
+                           else:
+                              st.error("WordCloud image not found")
+				
                         if download_text:
                                  # Add the input text
                                         input_text_paragraph = Paragraph(f"Input Text:\n{input_text}", styles['InputText'])

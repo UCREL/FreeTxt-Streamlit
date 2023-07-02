@@ -2145,7 +2145,7 @@ def textbox_analysis_page():
         else:
                area.append(text)    
                df = pd.DataFrame(area)
-               df.columns =['Review']
+               df.columns =['reviews']
                df = df['Review'].dropna(how='all').drop_duplicates()
                #df = df.applymap(lambda s: s.lower())
                if df.empty:

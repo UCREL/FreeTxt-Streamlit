@@ -1112,7 +1112,7 @@ def plot_kwic_txt(input_text,tab):
     tab.markdown('''💬 Word location in text''')
     input_data = input_text
     
-    for c in PUNCS: input_data = input_data.lower().replace(c,'')
+    #for c in PUNCS: input_data = input_data.lower().replace(c,'')
     
     try:
         with tab:

@@ -1167,7 +1167,7 @@ def plot_kwic_txt(df,tab):
                 collocs = get_collocs(kwic_instances) #TODO: Modify to accept 'topn'               
                 colloc_str = ', '.join([f"{w}[{c}]" for w, c in collocs])
                 st.write(f"Collocations for '{keyword}':\n{colloc_str}")
-                plot_coll_14(keyword, collocs,expander,tab6)
+                plot_coll_14(keyword, collocs,expander,tab)
                 #plot_coll(keyword, collocs,expander,tab6)
     except ValueError as err:
         with tab:

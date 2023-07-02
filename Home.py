@@ -701,15 +701,16 @@ class txtanalysis:
             st.write('The graph below represents the searched word in the middle and the right and the left context for the word, the bigger the font size the more frequent the word is')
             st.write('The word frequency is represented by the weight in the tool tip')
             # Create a download button for the HTML file
+            
+            html.create_html(self, fname,search_word)
+            HtmlFile = open("GFG-1.html", 'r')
+            source_code = HtmlFile.read()
             st.download_button(
             "Download WordTree",
             data=source_code,
             file_name="GFG-1.html",
             mime="text/html",
         )
-            html.create_html(self, fname,search_word)
-            HtmlFile = open("GFG-1.html", 'r')
-            source_code = HtmlFile.read() 
             print(source_code)
             components.html(source_code,height = 800)
             

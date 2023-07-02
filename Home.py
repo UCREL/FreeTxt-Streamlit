@@ -2334,7 +2334,7 @@ def analysis_page():
   
 
                         # Add a download button in Streamlit to download the temporary image file
-                        st.download_button(
+                        tab5.download_button(
                             label="Download Word Cloud Image",
                             data=img_bytes,
                            file_name="word_cloud.png",

@@ -544,7 +544,7 @@ def generate_scattertext_visualization(dfanalysis):
     # Get the DataFrame with sentiment analysis results
     df = dfanalysis
     # Parse the text using spaCy
-    df['ParsedReview'] = df['Review'].apply(nlp)
+    df['ParsedReview'] = df['reviews'].apply(nlp)
 
     # Create a Scattertext Corpus
     corpus = tt.CorpusFromParsedDocuments(

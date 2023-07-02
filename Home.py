@@ -1127,7 +1127,7 @@ def plot_kwic(data, key,tab):
         with tab:
             topwords = [f"{w} ({c})" for w, c in getTopNWords(input_data, removeStops=True)]
             keyword = st.selectbox('Select keyword:', topwords).split('(',1)[0].strip()
-	    st.write('The number with the word represents how many time this word appeared in the data')
+            st.write('The number with the word represents how many time this word appeared in the data')
             window_size = st.slider('Select window size:', 1, 10, 5)
             maxInsts = st.slider('Maximum number of instances:', 5, 50, 15, 5,  key="slider1_key")
         

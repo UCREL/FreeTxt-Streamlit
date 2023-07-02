@@ -1115,7 +1115,7 @@ def plot_kwic_txt(df,tab):
     for c in PUNCS: input_data = input_data.lower().replace(c,'')
     
     try:
-        with tab6:
+        with tab:
             topwords = [f"{w} ({c})" for w, c in getTopNWords(input_data, removeStops=True)]
             keyword = st.selectbox('Select a keyword:', topwords).split('(',1)[0].strip()
             window_size = st.slider('Select the window size:', 1, 10, 5)

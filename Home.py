@@ -3167,6 +3167,9 @@ def app():
     elif page == "txtanalysis":
           st.experimental_set_query_params(page="txtanalysis")
           textbox_analysis_page()
+    elif page == "analysis":
+          st.experimental_set_query_params(page="analysis")
+          analysis_page()
     elif page == "about":
           st.experimental_set_query_params(page="about")
           about_page()

@@ -697,8 +697,9 @@ class txtanalysis:
         with tab:
        	    st.header('Search Word')
             st.write('Please write a search word')
-            st.write('The graph below represents the searched word in the middle and the right and the left context for the word, the bigger the font size the more frequent the word is')
             search_word = st.text_input('', 'the')
+            st.write('The graph below represents the searched word in the middle and the right and the left context for the word, the bigger the font size the more frequent the word is')
+            
             html.create_html(self, fname,search_word)
             HtmlFile = open("GFG-1.html", 'r')
             source_code = HtmlFile.read() 

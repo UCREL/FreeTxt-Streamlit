@@ -649,7 +649,8 @@ class txtanalysis:
             st.markdown(f'''📄 Viewing data: `{fname}`''')
             st.header('View and Filter all Data')
             df = pd.DataFrame(self.reviews)
-            data = self.reviews 
+            data = self.reviews
+            st.write(data)
             #### interactive dataframe
             gb = GridOptionsBuilder.from_dataframe(data)
             gb.configure_pagination(paginationAutoPageSize=True) #Add pagination

@@ -2178,7 +2178,7 @@ def textbox_analysis_page():
                     with tab3:
 
                        st.write('This tool, adapted from the Welsh Summarization project, produces a basic extractive summary of the review text from the selected columns.')
-                       summarized_text =run_summarizer(input_text,i)
+                       summarized_text =run_summarizer(input_text[0],i)
 	       ##show review
                     tab4.header('View all Data')
                     tab4.dataframe(df ,use_container_width=True)

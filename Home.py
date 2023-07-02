@@ -1145,7 +1145,7 @@ def plot_kwic_txt(input_text,tab):
                 colloc_str = ', '.join([f"{w}[{c}]" for w, c in collocs])
                 st.write(f"Collocations for '{keyword}':\n{colloc_str}")
                 st.write('The search word is placed in the middle, and the green circle represnts the most frequent word that appeared next to the search word, the darker blue the circle is the more frequent the word is, also the frequency represnted by the length and thickness of the lines attaching the words')
-   
+                st.write('The number represnts the number of occurances for each collocate word')
                 plot_coll_14(keyword, collocs,expander,tab)
 		
                 #plot_coll(keyword, collocs,expander,tab)

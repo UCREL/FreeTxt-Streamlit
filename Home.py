@@ -704,7 +704,7 @@ class txtanalysis:
             components.html(source_code,height = 800)
             # Create a download button for the HTML file
             st.download_button(
-            "Download HTML file",
+            "Download WordTree",
             data=source_code,
             file_name="GFG-1.html",
             mime="text/html",
@@ -2541,7 +2541,7 @@ def main():
               font-family: sans-serif; 
               text-shadow: 2px 2px #aaa;
               font-weight: normal;'>
-    Welcome to Freetxt
+    Welcome to FreeTxt
     
     </p>""", unsafe_allow_html=True)
 

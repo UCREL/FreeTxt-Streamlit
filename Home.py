@@ -2674,12 +2674,12 @@ def analysis_page():
       #  st.text_area("Your text", value=st.session_state.uploaded_text)
     if 'uploaded_file' in st.session_state:
         st.write(f"You've uploaded {st.session_state.uploaded_file.name}")
-    elif 'uploaded_text' not in st.session_state:
-        text = st.text_area("Paste your text here")
+    #elif 'uploaded_text' not in st.session_state:
+        #text = st.text_area("Paste your text here")
         #uploaded_file = st.file_uploader("Or upload a document", type=['txt', 'doc', 'docx', 'pdf'])
 
-        if text:
-            st.session_state.uploaded_text = text
+        #if text:
+          #  st.session_state.uploaded_text = text
 
 
         #elif uploaded_file:

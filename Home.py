@@ -978,7 +978,7 @@ from pyvis.network import Network
 import matplotlib.pyplot as plt
 import networkx as nx
 import pandas as pd
-def plot_coll_14(keyword, collocs, expander, tab, output_file='network.html'):
+def plot_coll_15(keyword, collocs, expander, tab, output_file='network.html'):
     words, counts = zip(*collocs)
     top_collocs_df = pd.DataFrame(collocs, columns=['word', 'freq'])
     top_collocs_df.insert(1, 'source', keyword)
@@ -1013,7 +1013,7 @@ def plot_coll_14(keyword, collocs, expander, tab, output_file='network.html'):
     net.save_graph(output_file)
 
 
-def plot_coll_15(keyword, collocs, expander, tab, output_file='network.html'):
+def plot_coll_14(keyword, collocs, expander, tab, output_file='network.html'):
     words, counts = zip(*collocs)
     top_collocs_df = pd.DataFrame(collocs, columns=['word', 'freq'])
     top_collocs_df.insert(1, 'source', keyword)
@@ -1026,9 +1026,6 @@ def plot_coll_15(keyword, collocs, expander, tab, output_file='network.html'):
 
     
    # Create a network plot
-    
-    
-
     net = Network(notebook=True, height='750px', width='100%')
 
     # Adjust gravity based on frequency
@@ -1223,6 +1220,10 @@ def plot_kwic(data, key,tab):
                 words = nlp(colloc_str)
                 st.write('The search word is placed in the middle, and the green circle represnts the most frequent word that appeared next to the search word, the darker blue the circle is the more frequent the word is, also the frequency represnted by the length and thickness of the lines attaching the words')
                 st.write('The number represents the number of occurrences for each collocated word.')
+                reset_button = st.button('Reset Graph')
+
+                if reset_button:
+                         plot_coll_14(keyword, collocs, expander, tab, output_file)
                 if Word_type == 'All words':
                        st.write(f"Collocations for '{keyword}':\n{colloc_str}")
                     

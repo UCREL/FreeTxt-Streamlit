@@ -2124,38 +2124,46 @@ def textbox_analysis_page():
 </div>
 """,
     unsafe_allow_html=True)
-    colm1, colm2 = st.columns([2, 2])
+    colm1, middle_colm, colm2 = st.columns([2, 1, 2])
+
     with colm1:
-       st.header("Start analysing your text")
-       text = st.text_area('Please paste your text here', '')
+     st.header("Start analysing your text")
+     text = st.text_area('Please paste your text here', '')
+
+    with middle_colm:
+      st.write('')
+      st.write('')
+      st.write('')
+      st.write('')
+      st.markdown("<h2 style='text-align: center; color: black;'>OR</h2>", unsafe_allow_html=True)
+
     with colm2:
-          st.write("")
-          st.write("")
-          st.markdown("""
-    <style>
+      st.write("<br>"*8, unsafe_allow_html=True)
+      st.markdown("""
+<style>
+.fancy-link {
+    font-size: 35px; 
+    font-family: Arial, sans-serif; 
+    color: #4a4a4a; 
+    background-color: #ddd; 
+    padding: 10px 20px; 
+    border-radius: 5px; 
+    text-decoration: none;
+    transition: background-color 0.3s ease, font-size 0.3s ease;
+}
+.fancy-link:hover {
+    background-color: #bbb;
+    font-size: 42px;
+}
+</style>
 
-    .fancy-link {
-        font-size: 35px; 
-        font-family: Arial, sans-serif; 
-        color: #4a4a4a; 
-        background-color: #ddd; 
-        padding: 10px 20px; 
-        border-radius: 5px; 
-        text-decoration: none;
-        transition: background-color 0.3s ease, font-size 0.3s ease;
-    }
-     .fancy-link:hover {
-        background-color: #bbb;
-        font-size: 42px;
-    }
-    </style>
-
-    <a href="https://nouran-khallaf-free-txt-home-c88nm3.streamlit.app/?page=analysis" 
-       target = "_self"
-       class = "fancy-link">
-        Upload your own File
-    </a>
+<a href="https://nouran-khallaf-free-txt-home-c88nm3.streamlit.app/?page=analysis" 
+   target = "_self"
+   class = "fancy-link">
+    Upload your own File
+</a>
 """, unsafe_allow_html=True)
+
        
 	    
     #text = st.text_area("Your text", value=st.session_state.uploaded_text)

@@ -2135,6 +2135,7 @@ def textbox_analysis_page():
       st.write('')
       st.write('')
       st.write('')
+      st.write('')
       st.markdown("<h2 style='text-align: center; color: black;'>OR</h2>", unsafe_allow_html=True)
 
     with colm2:

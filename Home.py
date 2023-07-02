@@ -544,7 +544,7 @@ def generate_scattertext_visualization(dfanalysis):
     # Get the DataFrame with sentiment analysis results
     df = dfanalysis
     # Parse the text using spaCy
-    df['ParsedReview'] = df['reviews'].apply(nlp)
+    df['ParsedReview'] = df['Review'].apply(nlp)
 
     # Create a Scattertext Corpus
     corpus = tt.CorpusFromParsedDocuments(
@@ -2146,7 +2146,7 @@ def textbox_analysis_page():
                area.append(text)    
                df = pd.DataFrame(area)
                df.columns =['reviews']
-               df = df['Review'].dropna(how='all').drop_duplicates()
+               df = df['reviews'].dropna(how='all').drop_duplicates()
                #df = df.applymap(lambda s: s.lower())
                if df.empty:
                     st.info('''** 🤨**: Please paste text to analyse.''', icon="ℹ️")

@@ -978,9 +978,42 @@ from pyvis.network import Network
 import matplotlib.pyplot as plt
 import networkx as nx
 import pandas as pd
-
-
 def plot_coll_14(keyword, collocs, expander, tab, output_file='network.html'):
+    words, counts = zip(*collocs)
+    top_collocs_df = pd.DataFrame(collocs, columns=['word', 'freq'])
+    top_collocs_df.insert(1, 'source', keyword)
+    top_collocs_df = top_collocs_df[top_collocs_df['word'] != keyword]  # remove row where keyword == word
+    G = nx.from_pandas_edgelist(top_collocs_df, source='source', target='word', edge_attr='freq')
+    n = max(counts)
+
+    # Find the most frequent word
+    most_frequent_word = max(collocs, key=lambda x: x[1])[0]
+
+    # Create a network plot
+    net = Network(notebook=True, height='750px', width='100%')
+
+    # Adjust gravity based on frequency
+    gravity = -200 * n / sum(counts)
+
+    net.barnes_hut(gravity=gravity*30)  # Adjust gravity to control the spread and increase repulsion force
+
+    # Add nodes
+    for node, count in zip(G.nodes(), counts):
+        node_color = 'green' if node == most_frequent_word else 'gray' if node == keyword else 'blue'
+        node_size = 100 * count / n
+        font_size = max(10, int(node_size / 2))  # Adjust font size based on node size, minimum size is 10
+        net.add_node(node, label=node, color=node_color, size=node_size, font={'size': font_size, 'face': 'Arial'})
+
+    # Add edges
+    for source, target, freq in top_collocs_df[['source', 'word', 'freq']].values:
+        if source in net.get_nodes() and target in net.get_nodes():
+            net.add_edge(source, target, value=freq)
+
+    # Save the visualization to an HTML file
+    net.save_graph(output_file)
+
+
+def plot_coll_15(keyword, collocs, expander, tab, output_file='network.html'):
     words, counts = zip(*collocs)
     top_collocs_df = pd.DataFrame(collocs, columns=['word', 'freq'])
     top_collocs_df.insert(1, 'source', keyword)

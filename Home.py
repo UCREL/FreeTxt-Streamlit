@@ -2143,15 +2143,15 @@ def textbox_analysis_page():
         if len(text) < 10:
             st.write("Please enter your text in the above textbox")
         else:
-               area.append(text)    
-               df = pd.DataFrame(area)
-               df.columns =['reviews']
-               df = df['reviews'].dropna(how='all').drop_duplicates()
+            area.append(text)    
+            df = pd.DataFrame(area)
+            df.columns =['reviews']
+            df = df['reviews'].dropna(how='all').drop_duplicates()
                #df = df.applymap(lambda s: s.lower())
-               if df.empty:
+            if df.empty:
                     st.info('''** 🤨**: Please paste text to analyse.''', icon="ℹ️")
           
-               else:
+            else:
                               
                     input_data = ' '.join([str(t) for t in df[0].split(' ') if t not in STOPWORDS])
                      
@@ -2181,295 +2181,130 @@ def textbox_analysis_page():
                        st.write('This tool, adapted from the Welsh Summarization project, produces a basic extractive summary of the review text from the selected columns.')
                        summarized_text =run_summarizertxt(text)
 	       ##show review
-                    tab4.header('View all Data')
-                    tab4.dataframe(df ,use_container_width=True)
-                    textanalysis = txtanalysis(df)
-                    fname = 'datatext'
-                    textanalysis.show_reviews(fname,tab4)
-                    #word_cloud_path = textanalysis.show_wordcloud(fname,tab5)
-                    Keyword_context = textanalysis.show_kwic(fname,tab6)
-                    textanalysis.concordance(fname,tab7)
-###show word cloud
+                    ##show review
+            tab4.dataframe(df ,use_container_width=True)
+        ###show word cloud
         
-                    tab5.markdown('''    
+            tab5.markdown('''    
              ☁️ Word Cloud
             ''')
     
-                    layout = tab5.columns([7, 1, 4])
-                    #input_data = ' '.join([str(t) for t in df[0].split(' ') if t not in STOPWORDS])
-                    input_data= input_text
-                    for c in PUNCS: input_data = input_data.lower().replace(c,'')
+            layout = tab5.columns([7, 1, 4])
+            input_data = ' '.join([str(t) for t in df[0].split(' ') if t not in STOPWORDS])
+        
+            for c in PUNCS: input_data = input_data.lower().replace(c,'')
     
-                    input_bigrams  = [' '.join(g) for g in nltk.ngrams(input_data.split(),2)]
-                    input_trigrams = [' '.join(g) for g in nltk.ngrams(input_data.split(),3)]
-                    input_4grams   = [' '.join(g) for g in nltk.ngrams(input_data.split(),4)]
+            input_bigrams  = [' '.join(g) for g in nltk.ngrams(input_data.split(),2)]
+            input_trigrams = [' '.join(g) for g in nltk.ngrams(input_data.split(),3)]
+            input_4grams   = [' '.join(g) for g in nltk.ngrams(input_data.split(),4)]
     
-                    image_mask_2 = {'Welsh Flag': 'img/welsh_flag.png', 'Sherlock Holmes': 'img/holmes_silhouette.png', 'national-trust':'img/national-trust-logo-black-on-white-silhouette.webp','Cadw':'img/cadw-clip.jpeg','Rectangle': None,'cloud':'img/cloud.png','Circle':'img/circle.png','Tweet':'img/tweet.png','Cadw2':'img/CadwLogo.png'}
-                    maskfile = image_mask_2[tab5.selectbox('Select cloud shape:', image_mask_2.keys(), help='Select the shape of the word cloud')]
-                    color =['grey','yellow','white','black','green','blue','red']
-                    outline = tab5.selectbox('Select cloud outline color:', color, help='Select outline color word cloud')
+            image_mask_2 = {'Welsh Flag': 'img/welsh_flag.png', 'Sherlock Holmes': 'img/holmes_silhouette.png', 'national-trust':'img/national-trust-logo-black-on-white-silhouette.webp','Cadw':'img/cadw-clip.jpeg','Rectangle': None,'cloud':'img/cloud.png','Circle':'img/circle.png','Tweet':'img/tweet.png','Cadw2':'img/CadwLogo.png'}
     
-                    doc = nlp(input_data)
-              
-       
-                    mask = np.array(PilImage.open(maskfile)) if maskfile else maskfile
-
-
-                    try:
-            #creating wordcloud
-                        wc = WordCloud(
-            # max_words=maxWords,
-                        stopwords=STOPWORDS,
-                      width=2000, height=1000,
-                       relative_scaling = 0,
-	         	contour_color=outline, contour_width =1,
-                     mask=mask,
-                     background_color="white",
-                    font_path='font/Ubuntu-B.ttf'
-                      ).generate(input_data)
+    
         
             
-                        cloud_type = tab5.selectbox('Choose cloud category:',
+            maskfile = image_mask_2[tab5.selectbox('Select cloud shape:', image_mask_2.keys(), help='Select the shape of the word cloud')]
+            color =['grey','yellow','white','black','green','blue','red']
+            outline = tab5.selectbox('Select cloud outline color:', color, help='Select outline color word cloud')
+    
+       
+              
+       
+            mask = np.array(PilImage.open(maskfile)) if maskfile else maskfile
+ 
+            nlp = spacy.load('en_core_web_sm-3.2.0')
+            doc = nlp(input_data)
+
+            try:
+            #creating wordcloud
+               wc = WordCloud(
+            # max_words=maxWords,
+                stopwords=STOPWORDS,
+                width=2000, height=1000,
+                relative_scaling = 0,
+		contour_color=outline, contour_width =1,
+                mask=mask,
+                background_color="white",
+                font_path='font/Ubuntu-B.ttf'
+                ).generate(input_data)
+        
+        #, key= f"{key}_cloud_select"
+            
+               cloud_type = tab5.selectbox('Choose cloud category:',
                             ['All words', 'Bigrams', 'Trigrams', '4-grams', 'Nouns', 'Proper nouns', 'Verbs', 'Adjectives', 'Adverbs', 'Numbers'])
-                        if cloud_type == 'All words':
-                            wordcloud = wc.generate(input_data)        
-                        elif cloud_type == 'Bigrams':
-                            wordcloud = wc.generate_from_frequencies(Counter(input_bigrams))        
-                        elif cloud_type == 'Trigrams':
-                            wordcloud = wc.generate_from_frequencies(Counter(input_trigrams))        
-                        elif cloud_type == '4-grams':
-                            wordcloud = wc.generate_from_frequencies(Counter(input_4grams))        
-                        elif cloud_type == 'Nouns':
-                           wordcloud = wc.generate_from_frequencies(Counter([token.text for token in doc if token.pos_ == "NOUN"]))        
-                        elif cloud_type == 'Proper nouns':
-                            wordcloud = wc.generate_from_frequencies(Counter([token.text for token in doc if token.pos_ == "PROPN"]))        
-                        elif cloud_type == 'Verbs':
-                             wordcloud = wc.generate_from_frequencies(Counter([token.text for token in doc if token.pos_ == "VERB"]))
-                        elif cloud_type == 'Adjectives':
-                            wordcloud = wc.generate_from_frequencies(Counter([token.text for token in doc if token.pos_ == "ADJ"]))
-                        elif cloud_type == 'Adverbs':
-                            wordcloud = wc.generate_from_frequencies(Counter([token.text for token in doc if token.pos_ == "ADV"]))
-                        elif cloud_type == 'Numbers':
-                             wordcloud = wc.generate_from_frequencies(Counter([token.text for token in doc if token.pos_ == "NUM"]))
-                        else: 
-                             pass
+               if cloud_type == 'All words':
+                  wordcloud = wc.generate(input_data)        
+               elif cloud_type == 'Bigrams':
+                  wordcloud = wc.generate_from_frequencies(Counter(input_bigrams))        
+               elif cloud_type == 'Trigrams':
+                  wordcloud = wc.generate_from_frequencies(Counter(input_trigrams))        
+               elif cloud_type == '4-grams':
+                  wordcloud = wc.generate_from_frequencies(Counter(input_4grams))        
+               elif cloud_type == 'Nouns':
+                  wordcloud = wc.generate_from_frequencies(Counter([token.text for token in doc if token.pos_ == "NOUN"]))        
+               elif cloud_type == 'Proper nouns':
+                  wordcloud = wc.generate_from_frequencies(Counter([token.text for token in doc if token.pos_ == "PROPN"]))        
+               elif cloud_type == 'Verbs':
+                  wordcloud = wc.generate_from_frequencies(Counter([token.text for token in doc if token.pos_ == "VERB"]))
+               elif cloud_type == 'Adjectives':
+                  wordcloud = wc.generate_from_frequencies(Counter([token.text for token in doc if token.pos_ == "ADJ"]))
+               elif cloud_type == 'Adverbs':
+                  wordcloud = wc.generate_from_frequencies(Counter([token.text for token in doc if token.pos_ == "ADV"]))
+               elif cloud_type == 'Numbers':
+                  wordcloud = wc.generate_from_frequencies(Counter([token.text for token in doc if token.pos_ == "NUM"]))
+               else: 
+                  pass
             #, key=f"{key}_cloud_radio"
             
-                        color = tab5.radio('switch image colour:', ('Color', 'Black'))
-                        img_cols = ImageColorGenerator(mask) if color == 'Black' else None
-                        plt.figure(figsize=[20,15])
-                        wordcloud_img = wordcloud.recolor(color_func=img_cols)
-                        plt.imshow(wordcloud.recolor(color_func=img_cols), interpolation="bilinear")
-                        plt.axis("off")
-                        with tab5:
-                            st.set_option('deprecation.showPyplotGlobalUse', False)
-                            st.pyplot()
-			               
-                        with tempfile.NamedTemporaryFile(delete=False, suffix=".png") as tmpfile:
-                           wordcloud_img.to_file(tmpfile.name)
-                           word_cloud_path = tmpfile.name
+               color = tab5.radio('switch image colour:', ('Color', 'Black'))
+               img_cols = ImageColorGenerator(mask) if color == 'Black' else None
+               plt.figure(figsize=[20,15])
+            
+               plt.imshow(wordcloud.recolor(color_func=img_cols), interpolation="bilinear")
+               plt.axis("off")
+               with tab5:
+                  st.set_option('deprecation.showPyplotGlobalUse', False)
+                  st.pyplot()
+            except ValueError as err:
+               with tab5:
+                  st.info(f'Oh oh.. Please ensure that at least one free text column is chosen: {err}', icon="🤨")
+        
+            with tab6:
+                plot_kwic_txt(df,tab6)
+            with tab10:
+                        checkbox = st.checkbox("Generate PDF report")
+                        if checkbox:
 
-                        img = PilImage.open(tmpfile.name)
-                        img_bytes = BytesIO()
-                        img.save(img_bytes, format='PNG')
-                        img_bytes = img_bytes.getvalue()
-  
-
-                        # Add a download button in Streamlit to download the temporary image file
-                        tab5.download_button(
-                            label="Download Word Cloud Image",
-                            data=img_bytes,
-                           file_name="word_cloud.png",
-                                mime="image/png",
-                                 )
-                    except ValueError as err:
-                        with tab5:
-                            st.info(f'Oh oh.. Please ensure that at least one free text column is chosen: {err}', icon="🤨")
-         
-                    with tab8:
-                     column1, column2 = st.columns([1, 2])
-                     
-                     with column1:
-                      try:
-                     # Check if the DataFrame exists
-                       if not dfanalysis.empty :
-			#####pdf_generator
-			##############Sentiment analysis
-                        data_list_checkbox = st.checkbox("Include Data List as a Table")
-                        #sentiment_pie_checkbox = st.checkbox("Include Sentiment Pie Graph")
-                        #sentiment_bar_checkbox = st.checkbox("Include Sentiment Bar Graph")
-                        #Wordtree_checkbox = st.checkbox("Include Word Tree")
-		       ##############summarisation,
-                        download_text = st.checkbox("Include original text")
-                        download_summary = st.checkbox("Include summarized text")
-                        #full_data_table_checkbox = st.checkbox("Include Full Data Table")
-                        word_cloud_checkbox = st.checkbox("Include Word Cloud Image")
-                        keyword_context_table_checkbox = st.checkbox("Include Keyword in Context Table")
-			
                         # Create the PDF
-                            
-                        buffer = BytesIO()
-                        doc = BaseDocTemplate(buffer, pagesize=A4,topMargin=1.5 * inch, showBoundary=0)
+                            buffer = BytesIO()
+                            doc = BaseDocTemplate(buffer, pagesize=A4,topMargin=1.5 * inch, showBoundary=0)
 
-                        # Create the frame for the content
-                        frame = Frame(doc.leftMargin, doc.bottomMargin, doc.width, doc.height, id='normal')
+    # Create the frame for the content
+                            frame = Frame(doc.leftMargin, doc.bottomMargin, doc.width, doc.height, id='normal')
 
     
-                        # Create a PageTemplate with the header
-                        template = PageTemplate(id='header_template', frames=frame, onPage=header)
-                        doc.addPageTemplates([template])
-                        elements = []
-                        # Add a spacer between header and input text
-                        elements.append(Spacer(1, 20))
-                        styles = getSampleStyleSheet()
-                        # Define the styles for summarisation
-  
-                        styles.add(ParagraphStyle(name='InputText', fontSize=12, textColor=colors.black))
-                        styles.add(ParagraphStyle(name='SummarizedText', fontSize=12, textColor=colors.black))
-			# Add content based on selected checkboxes
-                        if data_list_checkbox:
-  
+    # Create a PageTemplate with the header
+                            template = PageTemplate(id='header_template', frames=frame, onPage=header)
+                            doc.addPageTemplates([template])
+                            elements = []
 
-                            column_names = ['Review', 'Sentiment Label', 'Sentiment Score']
-                            table_data = [column_names] + dfanalysis[column_names].values.tolist()
-                            col_widths = [200, 100, 100]  # Adjust these values according to your needs
-                            wrapped_cells = []
-
-                            
-                            cell_style_normal = ParagraphStyle(name='cell_style_normal', parent=styles['Normal'], alignment=1)
-                            cell_style_header = ParagraphStyle(name='cell_style_header', parent=styles['Normal'], alignment=1, textColor=colors.whitesmoke, backColor=colors.grey, fontName='Helvetica-Bold', fontSize=14, spaceAfter=12)
-
-                            wrapped_data = []
-                            for row in table_data:
-                                  wrapped_cells = []
-                                  for i, cell in enumerate(row):
-                                       cell_style = cell_style_header if len(wrapped_data) == 0 else cell_style_normal
-                                       wrapped_cell = Paragraph(str(cell), style=cell_style)
-                                       wrapped_cells.append(wrapped_cell)
-                                  wrapped_data.append(wrapped_cells)
-                            table = Table(wrapped_data, colWidths=col_widths)
-
-                            table.setStyle(TableStyle([
-                                  ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
-                              ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
-
-                             ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
-
-                                  ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
-                                  ('FONTSIZE', (0, 0), (-1, 0), 14),
-
-                                   ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
-                                           ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
-                                  ('GRID', (0, 0), (-1, -1), 1, colors.black),
+    
        
-                                 ('VALIGN', (0, 0), (-1, -1), 'TOP'),
+        
 
-                                         ]))
-                            elements.append(table)
+    # Add a spacer between header and input text
                             elements.append(Spacer(1, 20))
+        # Build PDF
+	
+	
+                            doc.build(elements)
+                            buffer.seek(0)
+                            generated_pdf_data = buffer.read()
 
+   # Display the download button only after generating the report
+                        if generated_pdf_data:
+                              st.download_button("Download PDF", generated_pdf_data, "report_TextAnalysis.pdf", "application/pdf")
 
-                        
-
-                        if word_cloud_checkbox:
-                           
-                           if os.path.exists(word_cloud_path):
-                               word_cloud_graph = ReportLabImage(word_cloud_path, width= 325, height =250)
-                               elements.append(word_cloud_graph)
-                               elements.append(Spacer(1, 20))
-                           else:
-                              st.error("WordCloud image not found")
-				
-                        if download_text:
-                                 # Add the input text
-                                        input_text_paragraph = Paragraph(f"Input Text:\n{input_text}", styles['InputText'])
-                                        elements.append(input_text_paragraph)
-
-                                        elements.append(Spacer(1, 20))
-
-                        if download_summary:
-
-                                   # Add the summarized text
-                                           
-                            summarized_text_paragraph = Paragraph(f"Summarized Text:\n{summarized_text}", styles['SummarizedText'])
-                            elements.append(summarized_text_paragraph)
-			
-			
-                        
-
-
-                        if keyword_context_table_checkbox:
-           
-                            columns = ['Left context', 'Keyword', 'Right context']
-                            table_data = [columns] + Keyword_context.values.tolist()
-                            col_widths = [150, 100, 150] 
-                            wrapped_cells = []
-
-                            styles = getSampleStyleSheet()
-                            cell_style_normal = ParagraphStyle(name='cell_style_normal', parent=styles['Normal'], alignment=1)
-                            cell_style_header = ParagraphStyle(name='cell_style_header', parent=styles['Normal'], alignment=1, textColor=colors.whitesmoke, backColor=colors.grey, fontName='Helvetica-Bold', fontSize=14, spaceAfter=12)
-
-                            wrapped_data = []
-                            for row in table_data:
-                                     wrapped_cells = []
-                                     for i, cell in enumerate(row):
-                                           cell_style = cell_style_header if len(wrapped_data) == 0 else cell_style_normal
-                                           wrapped_cell = Paragraph(str(cell), style=cell_style)
-                                           wrapped_cells.append(wrapped_cell)
-                                     wrapped_data.append(wrapped_cells)
-                            table = Table(wrapped_data, colWidths=col_widths)
-
-                            table.setStyle(TableStyle([
-    ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
-    ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
-    ('TEXTCOLOR', (1, 1), (1, -1), colors.red),
-
-    ('ALIGN', (0, 1), (0, -1), 'RIGHT'),
-    ('ALIGN', (1, 0), (1, -1), 'CENTER'),
-    ('ALIGN', (2, 1), (2, -1), 'LEFT'),
-
-    ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
-    ('FONTSIZE', (0, 0), (-1, 0), 14),
-
-    ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
-    ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
-    ('GRID', (0, 0), (-1, -1), 1, colors.black),
-
-    ('VALIGN', (0, 0), (-1, -1), 'TOP'),
-                                            ]))
-                            # Add heading 'Keyword in Context'
-                            heading_style = ParagraphStyle(name='heading_style', parent=styles['Normal'], fontSize=18, fontName='Helvetica-Bold', spaceAfter=12)
-                            heading = Paragraph('Keyword in Context', style=heading_style)
-                            elements.append(heading)
-                            elements.append(Spacer(1, 20))
-                            elements.append(table)
-                            elements.append(Spacer(1, 20))
-			
-			
-			
-			
-			
-                       else:
-                          st.error("DataFrame not found")
-                      except Exception as e:
-                            st.error(f"An error occurred: {str(e)}")
-                        
-
-                     with column2:
-			
-                       generate_pdf_button = st.button("Generate PDF")
-                       if generate_pdf_button:
-                          # Build PDF
-                          doc.build(elements)
-                          buffer.seek(0)
-                          generated_pdf_data = buffer.read()
-
-                          # Display the download button only after generating the report
-                          if generated_pdf_data:
-                                  #st.download_button("Download PDF", generated_pdf_data, "report_positiveandnegative.pdf", "application/pdf")
-                                  b64 = base64.b64encode(generated_pdf_data).decode()  # some strings <-> bytes conversions necessary here
-                                  href = f'<a href="data:application/pdf;base64,{b64}" download="report_positiveandnegative.pdf">Download PDF</a>'
-                                  st.markdown(href, unsafe_allow_html=True)
                              
 
 ###########################################Analysis page#######################################################################

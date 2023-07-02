@@ -2668,7 +2668,7 @@ def analysis_page():
 </div>
 """,
     unsafe_allow_html=True)
-    st.header("Start analysing your text")
+    #st.header("Start analysing your text")
     
     #if 'uploaded_text' in st.session_state:
       #  st.text_area("Your text", value=st.session_state.uploaded_text)

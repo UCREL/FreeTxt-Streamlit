@@ -1978,8 +1978,8 @@ unsafe_allow_html=True
     unsafe_allow_html=True,
      )
 #######################################################################################################
-###########################################Analysis page#######################################################################
-def analysis_page():
+###########################################textbox_analysis_page#######################################################################
+def textbox_analysis_page():
     state = get_state()
     st.markdown(
     f"""
@@ -2117,7 +2117,562 @@ def analysis_page():
     
     if 'uploaded_text' in st.session_state:
         st.text_area("Your text", value=st.session_state.uploaded_text)
-    elif 'uploaded_file' in st.session_state:
+
+        if text:
+            st.session_state.uploaded_text = text
+
+
+
+    dfanalysis = pd.DataFrame()
+
+
+    if status:
+        area =[]
+        if len(text) < 10:
+        st.write("Please enter your text in the above textbox")
+    else:
+               area.append(text)    
+               df = pd.DataFrame(area)
+               df.columns =['Review']
+               df = df['Review'].dropna(how='all').drop_duplicates()
+               df = df.applymap(lambda s: s.lower())
+               if df.empty:
+                    st.info('''** 🤨**: Please paste text to analyse.''', icon="ℹ️")
+          
+                else:
+                        
+                    input_text = '\n'.join(['\n'.join([str(t) for t in list(df[col]) if str(t) not in STOPWORDS and str(t) not in PUNCS]) for col in df])
+                     
+                    tab1, tab2,tab3,tab4,tab5,tab6,tab7,tab8= st.tabs(["📈 Meaning analysis",'💬 Keyword scatter','📝 Summarisation',"📈 Data View", "☁️ Keyword Cloud",'💬 Keyword in Context & Collocation', "🌳 Word Tree",'📥 Download pdf'])
+                    with tab1:
+                      if status:
+                        num_classes = st.radio('How do you want to categorize the sentiments?', ('3 Class Sentiments (Positive, Neutral, Negative)', '5 Class Sentiments (Very Positive, Positive, Neutral, Negative, Very Negative)'))
+                        num_classes = 3 if num_classes.startswith("3") else 5
+                        language = detect_language(df)  
+                        if language == 'en':
+                            sentiments = analyze_sentiment(input_text,num_classes)
+                            dfanalysis = pd.DataFrame(sentiments, columns=['Review', 'Sentiment Label', 'Sentiment Score'])
+                            plot_sentiment_pie(dfanalysis)
+                            plot_sentiment(dfanalysis)
+                      
+                        elif language == 'cy':
+                            #sentiments = analyze_sentiment_welsh(input_text)
+                            sentiments = analyze_sentiment(input_text,num_classes)
+                            dfanalysis = pd.DataFrame(sentiments, columns=['Review', 'Sentiment Label', 'Sentiment Score'])
+                            plot_sentiment_pie(dfanalysis)
+                            plot_sentiment(dfanalysis)
+                       
+                    with tab2:
+                      if not dfanalysis.empty:
+                         #### interactive dataframe
+                         gb = GridOptionsBuilder.from_dataframe(dfanalysis)
+                         gb.configure_pagination(paginationAutoPageSize=True) #Add pagination
+                         gb.configure_side_bar() #Add a sidebar
+                         #gb.configure_selection('multiple', use_checkbox=True, groupSelectsChildren="Group checkbox select children") #Enable multi-row selection
+                         gridOptions = gb.build()
+
+                         grid_response = AgGrid(
+                              dfanalysis,
+                              gridOptions=gridOptions,
+                               data_return_mode='AS_INPUT', 
+                            update_mode='MODEL_CHANGED', 
+                             fit_columns_on_grid_load=False,
+    
+                                  enable_enterprise_modules=True,
+                             height=350, 
+                              width='100%',
+                              reload_data=True
+                                                )
+                         data = grid_response['data']
+                         selected = grid_response['selected_rows'] 
+                         dd = pd.DataFrame(selected) #Pass the selected rows to a new dataframe df
+                         # Add a button to download the DataFrame as a CSV file
+                         if st.button('Download CSV'):
+                                    st.markdown(download_csv(dfanalysis), unsafe_allow_html=True)
+
+			
+			
+			###scattertext
+                         st.header('Scatter Text')
+                                                  # Copy the scattertext_visualization.html to a temporary file
+                         st.write('For better reprentation we recommend selecting 3 sentiment classes')
+                         st.write('The 2,000 most sentiment-associated uni grams are displayed as points in the scatter plot. Their x- and y- axes are the dense ranks of their usage in positive vs negative and neutral respectively.')
+                         generate_scattertext_visualization(dfanalysis)
+                         scattertext_html_path='scattertext_visualization.html'
+                         tmp_scattertext_path = "tmp_scattertext_visualization.html"
+                         shutil.copyfile(scattertext_html_path, tmp_scattertext_path)
+
+                         # Add a download button for the Scattertext HTML file
+                         with open(tmp_scattertext_path, "rb") as file:
+                                    scattertext_html_data = file.read()
+
+                         st.download_button(
+                             label="Download Scattertext Visualization HTML",
+                             data=scattertext_html_data,
+                          file_name="scattertext_visualization.html",
+                            mime="text/html",
+                                )
+                         
+                         
+                         HtmlFile = open("scattertext_visualization.html", 'r', encoding='utf-8')
+                         source_code = HtmlFile.read() 
+                         print(source_code)
+                         components.html(source_code,height = 1500,width = 800)
+                    with tab3:
+
+                       st.write('This tool, adapted from the Welsh Summarization project, produces a basic extractive summary of the review text from the selected columns.')
+                       summarized_text =run_summarizer(input_text[:2000],i)
+	       ##show review
+                    tab4.header('View all Data')
+                    tab4.dataframe(df ,use_container_width=True)
+                    textanalysis = txtanalysis(df)
+                    textanalysis.show_reviews(filenames[i],tab4)
+                    #word_cloud_path = textanalysis.show_wordcloud(filenames[i],tab5)
+                    Keyword_context = textanalysis.show_kwic(filenames[i],tab6)
+                    textanalysis.concordance(filenames[i],tab7)
+###show word cloud
+        
+                    tab5.markdown('''    
+             ☁️ Word Cloud
+            ''')
+    
+                    layout = tab5.columns([7, 1, 4])
+                    #input_data = ' '.join([str(t) for t in df[0].split(' ') if t not in STOPWORDS])
+                    input_data= input_text
+                    for c in PUNCS: input_data = input_data.lower().replace(c,'')
+    
+                    input_bigrams  = [' '.join(g) for g in nltk.ngrams(input_data.split(),2)]
+                    input_trigrams = [' '.join(g) for g in nltk.ngrams(input_data.split(),3)]
+                    input_4grams   = [' '.join(g) for g in nltk.ngrams(input_data.split(),4)]
+    
+                    image_mask_2 = {'Welsh Flag': 'img/welsh_flag.png', 'Sherlock Holmes': 'img/holmes_silhouette.png', 'national-trust':'img/national-trust-logo-black-on-white-silhouette.webp','Cadw':'img/cadw-clip.jpeg','Rectangle': None,'cloud':'img/cloud.png','Circle':'img/circle.png','Tweet':'img/tweet.png','Cadw2':'img/CadwLogo.png'}
+                    maskfile = image_mask_2[tab5.selectbox('Select cloud shape:', image_mask_2.keys(), help='Select the shape of the word cloud')]
+                    color =['grey','yellow','white','black','green','blue','red']
+                    outline = tab5.selectbox('Select cloud outline color:', color, help='Select outline color word cloud')
+    
+                    doc = nlp(input_data)
+              
+       
+                    mask = np.array(PilImage.open(maskfile)) if maskfile else maskfile
+
+
+                    try:
+            #creating wordcloud
+                        wc = WordCloud(
+            # max_words=maxWords,
+                        stopwords=STOPWORDS,
+                      width=2000, height=1000,
+                       relative_scaling = 0,
+	         	contour_color=outline, contour_width =1,
+                     mask=mask,
+                     background_color="white",
+                    font_path='font/Ubuntu-B.ttf'
+                      ).generate(input_data)
+        
+            
+                        cloud_type = tab5.selectbox('Choose cloud category:',
+                            ['All words', 'Bigrams', 'Trigrams', '4-grams', 'Nouns', 'Proper nouns', 'Verbs', 'Adjectives', 'Adverbs', 'Numbers'])
+                        if cloud_type == 'All words':
+                            wordcloud = wc.generate(input_data)        
+                        elif cloud_type == 'Bigrams':
+                            wordcloud = wc.generate_from_frequencies(Counter(input_bigrams))        
+                        elif cloud_type == 'Trigrams':
+                            wordcloud = wc.generate_from_frequencies(Counter(input_trigrams))        
+                        elif cloud_type == '4-grams':
+                            wordcloud = wc.generate_from_frequencies(Counter(input_4grams))        
+                        elif cloud_type == 'Nouns':
+                           wordcloud = wc.generate_from_frequencies(Counter([token.text for token in doc if token.pos_ == "NOUN"]))        
+                        elif cloud_type == 'Proper nouns':
+                            wordcloud = wc.generate_from_frequencies(Counter([token.text for token in doc if token.pos_ == "PROPN"]))        
+                        elif cloud_type == 'Verbs':
+                             wordcloud = wc.generate_from_frequencies(Counter([token.text for token in doc if token.pos_ == "VERB"]))
+                        elif cloud_type == 'Adjectives':
+                            wordcloud = wc.generate_from_frequencies(Counter([token.text for token in doc if token.pos_ == "ADJ"]))
+                        elif cloud_type == 'Adverbs':
+                            wordcloud = wc.generate_from_frequencies(Counter([token.text for token in doc if token.pos_ == "ADV"]))
+                        elif cloud_type == 'Numbers':
+                             wordcloud = wc.generate_from_frequencies(Counter([token.text for token in doc if token.pos_ == "NUM"]))
+                        else: 
+                             pass
+            #, key=f"{key}_cloud_radio"
+            
+                        color = tab5.radio('switch image colour:', ('Color', 'Black'))
+                        img_cols = ImageColorGenerator(mask) if color == 'Black' else None
+                        plt.figure(figsize=[20,15])
+                        wordcloud_img = wordcloud.recolor(color_func=img_cols)
+                        plt.imshow(wordcloud.recolor(color_func=img_cols), interpolation="bilinear")
+                        plt.axis("off")
+                        with tab5:
+                            st.set_option('deprecation.showPyplotGlobalUse', False)
+                            st.pyplot()
+			               
+                        with tempfile.NamedTemporaryFile(delete=False, suffix=".png") as tmpfile:
+                           wordcloud_img.to_file(tmpfile.name)
+                           word_cloud_path = tmpfile.name
+
+                        img = PilImage.open(tmpfile.name)
+                        img_bytes = BytesIO()
+                        img.save(img_bytes, format='PNG')
+                        img_bytes = img_bytes.getvalue()
+  
+
+                        # Add a download button in Streamlit to download the temporary image file
+                        tab5.download_button(
+                            label="Download Word Cloud Image",
+                            data=img_bytes,
+                           file_name="word_cloud.png",
+                                mime="image/png",
+                                 )
+                    except ValueError as err:
+                        with tab5:
+                            st.info(f'Oh oh.. Please ensure that at least one free text column is chosen: {err}', icon="🤨")
+         
+                    with tab8:
+                     column1, column2 = st.columns([1, 2])
+                     
+                     with column1:
+                      try:
+                     # Check if the DataFrame exists
+                       if not dfanalysis.empty :
+			#####pdf_generator
+			##############Sentiment analysis
+                        data_list_checkbox = st.checkbox("Include Data List as a Table")
+                        sentiment_pie_checkbox = st.checkbox("Include Sentiment Pie Graph")
+                        sentiment_bar_checkbox = st.checkbox("Include Sentiment Bar Graph")
+                        #Wordtree_checkbox = st.checkbox("Include Word Tree")
+		       ##############summarisation,
+                        download_text = st.checkbox("Include original text")
+                        download_summary = st.checkbox("Include summarized text")
+                        #full_data_table_checkbox = st.checkbox("Include Full Data Table")
+                        word_cloud_checkbox = st.checkbox("Include Word Cloud Image")
+                        keyword_context_table_checkbox = st.checkbox("Include Keyword in Context Table")
+			
+                        # Create the PDF
+                            
+                        buffer = BytesIO()
+                        doc = BaseDocTemplate(buffer, pagesize=A4,topMargin=1.5 * inch, showBoundary=0)
+
+                        # Create the frame for the content
+                        frame = Frame(doc.leftMargin, doc.bottomMargin, doc.width, doc.height, id='normal')
+
+    
+                        # Create a PageTemplate with the header
+                        template = PageTemplate(id='header_template', frames=frame, onPage=header)
+                        doc.addPageTemplates([template])
+                        elements = []
+                        # Add a spacer between header and input text
+                        elements.append(Spacer(1, 20))
+                        styles = getSampleStyleSheet()
+                        # Define the styles for summarisation
+  
+                        styles.add(ParagraphStyle(name='InputText', fontSize=12, textColor=colors.black))
+                        styles.add(ParagraphStyle(name='SummarizedText', fontSize=12, textColor=colors.black))
+			# Add content based on selected checkboxes
+                        if data_list_checkbox:
+  
+
+                            column_names = ['Review', 'Sentiment Label', 'Sentiment Score']
+                            table_data = [column_names] + dfanalysis[column_names].values.tolist()
+                            col_widths = [200, 100, 100]  # Adjust these values according to your needs
+                            wrapped_cells = []
+
+                            
+                            cell_style_normal = ParagraphStyle(name='cell_style_normal', parent=styles['Normal'], alignment=1)
+                            cell_style_header = ParagraphStyle(name='cell_style_header', parent=styles['Normal'], alignment=1, textColor=colors.whitesmoke, backColor=colors.grey, fontName='Helvetica-Bold', fontSize=14, spaceAfter=12)
+
+                            wrapped_data = []
+                            for row in table_data:
+                                  wrapped_cells = []
+                                  for i, cell in enumerate(row):
+                                       cell_style = cell_style_header if len(wrapped_data) == 0 else cell_style_normal
+                                       wrapped_cell = Paragraph(str(cell), style=cell_style)
+                                       wrapped_cells.append(wrapped_cell)
+                                  wrapped_data.append(wrapped_cells)
+                            table = Table(wrapped_data, colWidths=col_widths)
+
+                            table.setStyle(TableStyle([
+                                  ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
+                              ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+
+                             ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+
+                                  ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+                                  ('FONTSIZE', (0, 0), (-1, 0), 14),
+
+                                   ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+                                           ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
+                                  ('GRID', (0, 0), (-1, -1), 1, colors.black),
+       
+                                 ('VALIGN', (0, 0), (-1, -1), 'TOP'),
+
+                                         ]))
+                            elements.append(table)
+                            elements.append(Spacer(1, 20))
+
+
+                        if sentiment_pie_checkbox:
+                        # Add the sentiment pie graph
+                        
+                           pie_graph_path = "Pie_fig.png"
+                           if os.path.exists(pie_graph_path):                
+                              pie_graph = ReportLabImage(pie_graph_path, width= 325, height =250)
+                              elements.append(pie_graph)
+                              elements.append(Spacer(1, 20))
+                           else:
+                             st.error("Sentiment Pie Graph image not found")
+
+                        if sentiment_bar_checkbox:
+                         # Add the sentiment bar graph
+                           
+                           bar_graph_path = "Bar_fig.png"
+                           if os.path.exists(bar_graph_path):
+                               bar_graph = ReportLabImage(bar_graph_path, width= 325, height =250)
+                               elements.append(bar_graph)
+                               elements.append(Spacer(1, 20))
+                           else:
+                              st.error("Sentiment Bar Graph image not found")
+
+                        if word_cloud_checkbox:
+                           
+                           if os.path.exists(word_cloud_path):
+                               word_cloud_graph = ReportLabImage(word_cloud_path, width= 325, height =250)
+                               elements.append(word_cloud_graph)
+                               elements.append(Spacer(1, 20))
+                           else:
+                              st.error("WordCloud image not found")
+				
+                        if download_text:
+                                 # Add the input text
+                                        input_text_paragraph = Paragraph(f"Input Text:\n{input_text}", styles['InputText'])
+                                        elements.append(input_text_paragraph)
+
+                                        elements.append(Spacer(1, 20))
+
+                        if download_summary:
+
+                                   # Add the summarized text
+                                           
+                            summarized_text_paragraph = Paragraph(f"Summarized Text:\n{summarized_text}", styles['SummarizedText'])
+                            elements.append(summarized_text_paragraph)
+			
+			
+                        
+
+
+                        if keyword_context_table_checkbox:
+           
+                            columns = ['Left context', 'Keyword', 'Right context']
+                            table_data = [columns] + Keyword_context.values.tolist()
+                            col_widths = [150, 100, 150] 
+                            wrapped_cells = []
+
+                            styles = getSampleStyleSheet()
+                            cell_style_normal = ParagraphStyle(name='cell_style_normal', parent=styles['Normal'], alignment=1)
+                            cell_style_header = ParagraphStyle(name='cell_style_header', parent=styles['Normal'], alignment=1, textColor=colors.whitesmoke, backColor=colors.grey, fontName='Helvetica-Bold', fontSize=14, spaceAfter=12)
+
+                            wrapped_data = []
+                            for row in table_data:
+                                     wrapped_cells = []
+                                     for i, cell in enumerate(row):
+                                           cell_style = cell_style_header if len(wrapped_data) == 0 else cell_style_normal
+                                           wrapped_cell = Paragraph(str(cell), style=cell_style)
+                                           wrapped_cells.append(wrapped_cell)
+                                     wrapped_data.append(wrapped_cells)
+                            table = Table(wrapped_data, colWidths=col_widths)
+
+                            table.setStyle(TableStyle([
+    ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
+    ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+    ('TEXTCOLOR', (1, 1), (1, -1), colors.red),
+
+    ('ALIGN', (0, 1), (0, -1), 'RIGHT'),
+    ('ALIGN', (1, 0), (1, -1), 'CENTER'),
+    ('ALIGN', (2, 1), (2, -1), 'LEFT'),
+
+    ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+    ('FONTSIZE', (0, 0), (-1, 0), 14),
+
+    ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+    ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
+    ('GRID', (0, 0), (-1, -1), 1, colors.black),
+
+    ('VALIGN', (0, 0), (-1, -1), 'TOP'),
+                                            ]))
+                            # Add heading 'Keyword in Context'
+                            heading_style = ParagraphStyle(name='heading_style', parent=styles['Normal'], fontSize=18, fontName='Helvetica-Bold', spaceAfter=12)
+                            heading = Paragraph('Keyword in Context', style=heading_style)
+                            elements.append(heading)
+                            elements.append(Spacer(1, 20))
+                            elements.append(table)
+                            elements.append(Spacer(1, 20))
+			
+			
+			
+			
+			
+                       else:
+                          st.error("DataFrame not found")
+                      except Exception as e:
+                            st.error(f"An error occurred: {str(e)}")
+                        
+
+                     with column2:
+			
+                       generate_pdf_button = st.button("Generate PDF")
+                       if generate_pdf_button:
+                          # Build PDF
+                          doc.build(elements)
+                          buffer.seek(0)
+                          generated_pdf_data = buffer.read()
+
+                          # Display the download button only after generating the report
+                          if generated_pdf_data:
+                                  #st.download_button("Download PDF", generated_pdf_data, "report_positiveandnegative.pdf", "application/pdf")
+                                  b64 = base64.b64encode(generated_pdf_data).decode()  # some strings <-> bytes conversions necessary here
+                                  href = f'<a href="data:application/pdf;base64,{b64}" download="report_positiveandnegative.pdf">Download PDF</a>'
+                                  st.markdown(href, unsafe_allow_html=True)
+                             
+
+###########################################Analysis page#######################################################################
+def analysis_page():
+    state = get_state()
+    st.markdown(
+    f"""
+    <div style="overflow: hidden; padding: 30px; background-color: lightgrey ;">	
+	</div>"""
+	, unsafe_allow_html=True)
+    col1, col2, col3 = st.columns([2, 1, 1])
+    with col3:
+         
+        st.image("img/FreeTxt_logo_R.png", width=300) 
+        
+
+    with col1:
+        st.markdown("""
+    <p style='text-align: left; 
+              margin-top: 0px; 
+              font-size: 80px; 
+              color: #4a4a4a; 
+              font-family: sans-serif; 
+              text-shadow: 2px 2px #aaa;
+              font-weight: normal;'>
+    Text Analysis
+    </p>""", unsafe_allow_html=True)
+
+
+        st.markdown("""
+    <style>
+        .stButton>button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 20px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            outline: none;
+            color: #000; /* Black text */
+            background-color: #A9A9A9; /* Grey background */
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 9px #999;
+        }
+        .stButton>button:hover {
+            color: #ADD8E6; /* Light blue text when hovered */
+            background-color: #808080; /* Darker grey background when hovered */
+        }
+        .stButton>button:active {
+            background-color: #808080; /* Even darker grey background when clicked */
+            box-shadow: 0 5px #666;
+            transform: translateY(4px);
+        }
+    </style>
+    """, unsafe_allow_html=True)
+
+    #selected3 = option_menu(None, ["Home", "Analysis",  "Demo"], 
+   #     icons=['house', 'sliders2',  'gear'], 
+    #    menu_icon="cast", default_index=1, orientation="horizontal",
+    ##    styles={
+     #       "container": {"padding": "0!important", "background-color": "#fafafa"},
+    #        "icon": {"color": "orange", "font-size": "25px"}, 
+     #       "nav-link": {"font-size": "25px", "text-align": "left", "margin":"0px", "--hover-color": "#eee"},
+    #        "nav-link-selected": {"background-color": "green"},
+    #    }
+   # )
+    #st.session_state["selected3"] = selected3
+
+    #if st.session_state["selected3"] == "Home":
+     #   st.experimental_set_query_params(page="home")
+        
+   # elif st.session_state["selected3"] == "Analysis":
+    #   st.experimental_set_query_params(page="analysis")
+       
+   # elif st.session_state["selected3"] == "Demo":
+     #  st.experimental_set_query_params(page="demo")
+       
+        
+    # Analysis page content and layout
+
+    st.markdown(
+    f"""
+<style>
+.link-container a.menu-link {{
+    float: left;
+    color: #4a4a4a;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 18px;
+    margin: 0px;
+    transition: 0.3s;
+}}
+.link-container a.menu-link:hover {{
+    color: #2281EF;
+    font-weight: bold;
+    text-decoration: underline;
+}}
+#analysis-link {{
+    color: #2281EF; // This is the hyperlink color
+    font-weight: bold;
+    text-decoration: underline;
+}}
+</style>
+
+<div class="link-container" style="overflow: hidden; padding: 10px; background-color: lightgrey;">
+    <a class="menu-link" href="https://nouran-khallaf-free-txt-home-c88nm3.streamlit.app/?page=home" target="_self">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="height: 25px;">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+        </svg> Home
+    </a>
+    <a id = "analysis-link" class="menu-link" href="https://nouran-khallaf-free-txt-home-c88nm3.streamlit.app/?page=analysis" target="_self">
+        <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="height: 25px;">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 13.5V3.75m0 9.75a1.5 1.5 0 010 3m0-3a1.5 1.5 0 000 3m0 3.75V16.5m12-3V3.75m0 9.75a1.5 1.5 0 010 3m0-3a1.5 1.5 0 000 3m0 3.75V16.5m-6-9V3.75m0 3.75a1.5 1.5 0 010 3m0-3a1.5 1.5 0 000 3m0 9.75V10.5"></path>
+        </svg> Analysis
+    </a>
+    <a class="menu-link" href="https://nouran-khallaf-free-txt-home-c88nm3.streamlit.app/?page=demo" target="_self">
+        <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="height: 25px;">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 01-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 011.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 00-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 01-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 00-3.375-3.375h-1.5a1.125 1.125 0 01-1.125-1.125v-1.5a3.375 3.375 0 00-3.375-3.375H9.75"></path>
+        </svg>
+        User Guide
+    </a>
+    <a class="menu-link" href="https://nouran-khallaf-free-txt-home-c88nm3.streamlit.app/?page=about" target="_self">
+        <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="height: 25px;">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 01-2.25 2.25M16.5 7.5V18a2.25 2.25 0 002.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 002.25 2.25h13.5M6 7.5h3v3H6v-3z"></path>
+        </svg>About
+    </a>
+    <a class="menu-link" href="https://nouran-khallaf-free-txt-home-c88nm3.streamlit.app/?page=contact" target="_self">
+        <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="height: 25px;">
+           <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z"></path>
+        </svg>
+        Contact Us
+    </a>
+</div>
+""",
+    unsafe_allow_html=True)
+    st.header("Start analysing your text")
+    
+    #if 'uploaded_text' in st.session_state:
+      #  st.text_area("Your text", value=st.session_state.uploaded_text)
+    if 'uploaded_file' in st.session_state:
         st.write(f"You've uploaded {st.session_state.uploaded_file.name}")
     elif 'uploaded_text' not in st.session_state:
         text = st.text_area("Paste your text here")
@@ -2548,9 +3103,7 @@ def analysis_page():
                                   b64 = base64.b64encode(generated_pdf_data).decode()  # some strings <-> bytes conversions necessary here
                                   href = f'<a href="data:application/pdf;base64,{b64}" download="report_positiveandnegative.pdf">Download PDF</a>'
                                   st.markdown(href, unsafe_allow_html=True)
-                             
-
-
+        
 
 
 

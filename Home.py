@@ -2126,7 +2126,8 @@ def textbox_analysis_page():
     dfanalysis = pd.DataFrame()
 
 
-    if status:
+    if st.button('Analysis') or st.session_state.load_state:
+        st.session_state.load_state = True
         area =[]
         if len(text) < 10:
             st.write("Please enter your text in the above textbox")

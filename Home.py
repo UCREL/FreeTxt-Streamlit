@@ -2128,7 +2128,7 @@ def textbox_analysis_page():
         area =[]
         if len(text) < 10:
             st.write("Please enter your text in the above textbox")
-    else:
+        else:
                area.append(text)    
                df = pd.DataFrame(area)
                df.columns =['Review']

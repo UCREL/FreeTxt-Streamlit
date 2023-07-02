@@ -2316,7 +2316,7 @@ def analysis_page():
                         color = tab5.radio('switch image colour:', ('Color', 'Black'))
                         img_cols = ImageColorGenerator(mask) if color == 'Black' else None
                         plt.figure(figsize=[20,15])
-            
+                        wordcloud_img = wordcloud.recolor(color_func=img_cols)
                         plt.imshow(wordcloud.recolor(color_func=img_cols), interpolation="bilinear")
                         plt.axis("off")
                         with tab5:
@@ -2327,14 +2327,14 @@ def analysis_page():
                            wordcloud_img.to_file(tmpfile.name)
                            word_cloud_path = tmpfile.name
 
-                           img = PilImage.open(tmpfile.name)
-                           img_bytes = BytesIO()
-                           img.save(img_bytes, format='PNG')
-                           img_bytes = img_bytes.getvalue()
+                        img = PilImage.open(tmpfile.name)
+                        img_bytes = BytesIO()
+                        img.save(img_bytes, format='PNG')
+                        img_bytes = img_bytes.getvalue()
   
 
                         # Add a download button in Streamlit to download the temporary image file
-                           st.download_button(
+                        st.download_button(
                             label="Download Word Cloud Image",
                             data=img_bytes,
                            file_name="word_cloud.png",

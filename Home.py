@@ -2150,7 +2150,7 @@ def textbox_analysis_page():
     }
     </style>
 
-    <a href="https://nouran-khallaf-free-txt-home-c88nm3.streamlit.app/?page=txtanalysis" 
+    <a href="https://nouran-khallaf-free-txt-home-c88nm3.streamlit.app/?page=analysis" 
        target = "_self"
        class = "fancy-link">
         Upload your own File

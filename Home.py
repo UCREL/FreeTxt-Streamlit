@@ -2336,7 +2336,7 @@ def analysis_page():
                         data_list_checkbox = st.checkbox("Include Data List as a Table")
                         sentiment_pie_checkbox = st.checkbox("Include Sentiment Pie Graph")
                         sentiment_bar_checkbox = st.checkbox("Include Sentiment Bar Graph")
-                       # scatter_text_checkbox = st.checkbox("Include Scatter Text")
+                        #Wordtree_checkbox = st.checkbox("Include Word Tree")
 		       ##############summarisation,
                         download_text = st.checkbox("Include original text")
                         download_summary = st.checkbox("Include summarized text")

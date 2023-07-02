@@ -211,14 +211,26 @@ def select_columns(data, key):
     else:
         return data[selected_columns][start_row:].dropna(how='all').drop_duplicates(), selected_columns
 
-
 def detect_language(df):
+    if df.empty:
+        print("DataFrame is empty.")
+        return None
+
     detected_languages = []
 
     # Loop through all columns in the DataFrame
     for col in df.columns:
+        # Check if the column data type is string or object
+        if df[col].dtype not in ['string', 'object']:
+            print(f"Skipping column {col} as it is not of type 'string' or 'object'.")
+            continue
+
         # Loop through all rows in the column
         for text in df[col].fillna(''):
+            # Ensure the text is string type
+            if not isinstance(text, str):
+                continue
+
             # Use langdetect's detect_langs to detect the language of the text
             try:
                 lang_probs =  detect_langs(text)
@@ -238,6 +250,7 @@ def detect_language(df):
         print("No languages detected in the DataFrame.")
 
     return most_common_lang
+
 
 @st.cache_resource()
 def get_state():

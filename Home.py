@@ -1223,7 +1223,7 @@ def plot_kwic(data, key,tab):
                 reset_button = st.button('Reset Graph')
 
                 if reset_button:
-                         plot_coll_14(keyword, collocs, expander, tab, output_file)
+                         plot_coll_14(keyword, collocs, expander, tab)
                 if Word_type == 'All words':
                        st.write(f"Collocations for '{keyword}':\n{colloc_str}")
                     

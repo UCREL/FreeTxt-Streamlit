@@ -2321,7 +2321,7 @@ def textbox_analysis_page():
             
                else: 
                   pass
-               color = tab5.radio('Select image colour:', ('Color', 'Black'), key=f"{key}_cloud_radio")
+               color = tab5.radio('Select image colour:', ('Color', 'Black'))
                img_cols = ImageColorGenerator(mask) if color == 'Black' else None
                plt.figure(figsize=[20,15])
                wordcloud_img = wordcloud.recolor(color_func=img_cols)

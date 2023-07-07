@@ -2225,88 +2225,135 @@ def textbox_analysis_page():
         ###show word cloud
         
             tab5.markdown('''    
-             ☁️ Word Cloud
-            ''')
+    ☁️ Word Cloud
+    ''')
     
             layout = tab5.columns([7, 1, 4])
-            input_data = ' '.join([str(t) for t in df[0].split(' ') if t not in STOPWORDS])
-        
+            cloud_columns = layout[0].multiselect(
+        'Which column do you wish to view the word cloud from?', data.columns, list(data.columns), help='Select free text columns to view the word cloud', key=f"{key}_cloud_multiselect")
+            input_data = ' '.join([' '.join([str(t) for t in list(data[col]) if t not in STOPWORDS]) for col in cloud_columns])
+    # input_data = ' '.join([' '.join([str(t) for t in list(data[col]) if t not in STOPWORDS]) for col in data])
             for c in PUNCS: input_data = input_data.lower().replace(c,'')
     
             input_bigrams  = [' '.join(g) for g in nltk.ngrams(input_data.split(),2)]
             input_trigrams = [' '.join(g) for g in nltk.ngrams(input_data.split(),3)]
             input_4grams   = [' '.join(g) for g in nltk.ngrams(input_data.split(),4)]
+    #'Welsh Flag': 'img/welsh_flag.png', 'Sherlock Holmes': 'img/holmes_silhouette.png',
     
-            image_mask_2 = {'Welsh Flag': 'img/welsh_flag.png', 'Sherlock Holmes': 'img/holmes_silhouette.png', 'national-trust':'img/national-trust-logo-black-on-white-silhouette.webp','Cadw':'img/cadw-clip.jpeg','Rectangle': None,'cloud':'img/cloud.png','Circle':'img/circle.png','Tweet':'img/tweet.png','Cadw2':'img/CadwLogo.png'}
+            image_mask_2 = {'cloud':'img/cloud.png','Welsh Flag': 'img/welsh_flag.png', 'Sherlock Holmes': 'img/holmes_silhouette.png', 'national-trust':'img/national-trust-logo-black-on-white-silhouette.webp','Cadw':'img/cadw-clip.jpeg','Rectangle': None,'Tweet':'img/tweet.png','circle':'img/circle.png', 'Cadw2':'img/CadwLogo.png'}
     
+   # Calculate the total number of words in the text
+            Bnc_corpus=pd.read_csv('keness/Bnc.csv')
+    #### Get the frequency list of the requested data using NLTK
+            words = nltk.tokenize.word_tokenize(input_data)
+            fdist1 = nltk.FreqDist(words)
+            filtered_word_freq = dict((word, freq) for word, freq in fdist1.items() if not word.isdigit())
+            column1 = list(filtered_word_freq.keys())
+            column2= list(filtered_word_freq.values())
+            word_freq = pd.DataFrame()
+            word_freq['word']= column1
+            word_freq['freq']= column2
+            s = Bnc_corpus.loc[Bnc_corpus['word'].isin(column1)]
+            word_freq = word_freq.merge(s, how='inner', on='word')
+    #tab.write(word_freq)
+            df = word_freq[['word','freq','f_Reference']]
     
-        
-            
-            maskfile = image_mask_2[tab5.selectbox('Select cloud shape:', image_mask_2.keys(), help='Select the shape of the word cloud')]
-            color =['grey','yellow','white','black','green','blue','red']
-            outline = tab5.selectbox('Select cloud outline color:', color, help='Select outline color word cloud')
+    #tab2.subheader("upload mask Image")
+    #image_file = tab5.file_uploader("Upload Images", type=["png","jpg","jpeg"])
+            maskfile_2 = image_mask_2[tab5.selectbox('Select Cloud shape:', image_mask_2.keys(), help='Select the shape of the word cloud')]
+            colors =['grey','yellow','white','black','green','blue','red']
+            outlines = tab5.selectbox('Select cloud outline color ', colors, help='Select outline color word cloud')
+            mask = np.array(PilImage.open(maskfile_2)) if maskfile_2 else maskfile_2
+   
     
-       
-              
-       
-            mask = np.array(PilImage.open(maskfile)) if maskfile else maskfile
- 
-            nlp = spacy.load('en_core_web_sm-3.2.0')
             doc = nlp(input_data)
 
             try:
-            #creating wordcloud
+        #creating wordcloud
                wc = WordCloud(
             # max_words=maxWords,
-                stopwords=STOPWORDS,
-                width=2000, height=1000,
-                relative_scaling = 0,
-		contour_color=outline, contour_width =1,
-                mask=mask,
-                background_color="white",
-                font_path='font/Ubuntu-B.ttf'
-                ).generate(input_data)
+            stopwords=STOPWORDS,
+            width=2000, height=1000,
+		contour_color=outlines, contour_width = 1,
+            relative_scaling = 0,
+            mask=mask,
+		
+            background_color="white",
+            font_path='font/Ubuntu-B.ttf'
+        ).generate_from_text(input_data)
         
-        #, key= f"{key}_cloud_select"
-            
-               cloud_type = tab5.selectbox('Choose cloud category:',
-                            ['All words', 'Bigrams', 'Trigrams', '4-grams', 'Nouns', 'Proper nouns', 'Verbs', 'Adjectives', 'Adverbs', 'Numbers'])
+
+        # Allow the user to select the measure to use
+	#measure = tab2.selectbox("Select a measure:", options=["Frequency","KENESS", "Log-Likelihood"])    
+               cloud_type = tab5.selectbox('Choose Cloud category:',
+            ['All words','Semantic Tags', 'Bigrams', 'Trigrams', '4-grams', 'Nouns', 'Proper nouns', 'Verbs', 'Adjectives', 'Adverbs', 'Numbers'], key= f"{key}_cloud_select")
                if cloud_type == 'All words':
-                  wordcloud = wc.generate(input_data)        
+            #wordcloud = wc.generate(input_data)
+            
+            # Calculate the selected measure for each word
+                  df = calculate_measures(df,'KENESS')
+            
+           
+                  wordcloud = wc.generate_from_frequencies(df.set_index('word')['KENESS'])
+
+      
+
                elif cloud_type == 'Bigrams':
-                  wordcloud = wc.generate_from_frequencies(Counter(input_bigrams))        
+                     wordcloud = wc.generate_from_frequencies(Counter(input_bigrams))        
                elif cloud_type == 'Trigrams':
-                  wordcloud = wc.generate_from_frequencies(Counter(input_trigrams))        
+                     wordcloud = wc.generate_from_frequencies(Counter(input_trigrams))        
                elif cloud_type == '4-grams':
-                  wordcloud = wc.generate_from_frequencies(Counter(input_4grams))        
+                 wordcloud = wc.generate_from_frequencies(Counter(input_4grams))        
                elif cloud_type == 'Nouns':
                   wordcloud = wc.generate_from_frequencies(Counter([token.text for token in doc if token.pos_ == "NOUN"]))        
                elif cloud_type == 'Proper nouns':
-                  wordcloud = wc.generate_from_frequencies(Counter([token.text for token in doc if token.pos_ == "PROPN"]))        
+                   wordcloud = wc.generate_from_frequencies(Counter([token.text for token in doc if token.pos_ == "PROPN"]))        
                elif cloud_type == 'Verbs':
-                  wordcloud = wc.generate_from_frequencies(Counter([token.text for token in doc if token.pos_ == "VERB"]))
+                    wordcloud = wc.generate_from_frequencies(Counter([token.text for token in doc if token.pos_ == "VERB"]))
                elif cloud_type == 'Adjectives':
-                  wordcloud = wc.generate_from_frequencies(Counter([token.text for token in doc if token.pos_ == "ADJ"]))
+                    wordcloud = wc.generate_from_frequencies(Counter([token.text for token in doc if token.pos_ == "ADJ"]))
                elif cloud_type == 'Adverbs':
-                  wordcloud = wc.generate_from_frequencies(Counter([token.text for token in doc if token.pos_ == "ADV"]))
+                    wordcloud = wc.generate_from_frequencies(Counter([token.text for token in doc if token.pos_ == "ADV"]))
                elif cloud_type == 'Numbers':
-                  wordcloud = wc.generate_from_frequencies(Counter([token.text for token in doc if token.pos_ == "NUM"]))
+                   wordcloud = wc.generate_from_frequencies(Counter([token.text for token in doc if token.pos_ == "NUM"]))
+               elif cloud_type == 'Semantic Tags':
+                   tags = Pymsas_tags(input_data)
+                   tags = tags.astype(str)
+                   wordcloud = wc.generate(' '.join(tags))
+
+            
                else: 
                   pass
-            #, key=f"{key}_cloud_radio"
-            
-               color = tab5.radio('switch image colour:', ('Color', 'Black'))
+               color = tab5.radio('Select image colour:', ('Color', 'Black'), key=f"{key}_cloud_radio")
                img_cols = ImageColorGenerator(mask) if color == 'Black' else None
                plt.figure(figsize=[20,15])
-            
-               plt.imshow(wordcloud.recolor(color_func=img_cols), interpolation="bilinear")
+               wordcloud_img = wordcloud.recolor(color_func=img_cols)
+               plt.imshow(wordcloud_img, interpolation="bilinear")
                plt.axis("off")
+
                with tab5:
-                  st.set_option('deprecation.showPyplotGlobalUse', False)
-                  st.pyplot()
+                   st.set_option('deprecation.showPyplotGlobalUse', False)
+                   st.pyplot()
+                   with tempfile.NamedTemporaryFile(delete=False, suffix=".png") as tmpfile:
+                       wordcloud_img.to_file(tmpfile.name)
+                       word_cloud_path = tmpfile.name
+
+                   img = PilImage.open(tmpfile.name)
+                   img_bytes = BytesIO()
+                   img.save(img_bytes, format='PNG')
+                   img_bytes = img_bytes.getvalue()
+  
+
+            # Add a download button in Streamlit to download the temporary image file
+                   st.download_button(
+                label="Download Word Cloud Image",
+                 data=img_bytes,
+                 file_name="word_cloud.png",
+                   mime="image/png",
+                   )
             except ValueError as err:
-               with tab5:
-                  st.info(f'Oh oh.. Please ensure that at least one free text column is chosen: {err}', icon="🤨")
+              with tab5:
+                     st.info(f'Oh oh.. Please ensure that at least one free text column is chosen: {err}', icon="🤨")
         
             with tab6:
                 plot_kwic_txt(df,tab6)

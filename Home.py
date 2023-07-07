@@ -1107,9 +1107,9 @@ def gen_ngram(text, _ngrams=2, topn=10):
     return [(f"{' '.join(ng):27s}", f"{c:10d}", f"{c/sum_ngram_counts:.2f}%")
             for ng, c in ngram_counts]
 
-def plot_kwic_txt(df,tab):
+def plot_kwic_txt(input_data,tab):
     tab.markdown('''💬 Word location in text''')
-    input_data = ' '.join([str(t) for t in df[0].split(' ') if t not in STOPWORDS])
+    #input_data = ' '.join([str(t) for t in df[0].split(' ') if t not in STOPWORDS])
     
     for c in PUNCS: input_data = input_data.lower().replace(c,'')
     
@@ -2353,7 +2353,7 @@ def textbox_analysis_page():
                      st.info(f'Oh oh.. Please ensure that at least one free text column is chosen: {err}', icon="🤨")
         
             with tab6:
-                plot_kwic_txt(df,tab6)
+                plot_kwic_txt(input_data,tab6)
             with tab8:
                         checkbox = st.checkbox("Generate PDF report")
                         if checkbox:

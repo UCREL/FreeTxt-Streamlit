@@ -699,7 +699,7 @@ class txtanalysis:
                       st._legacy_dataframe(filterdf)
                       st.write('filtered  number of reviews: ', len(filterdf))
                       
-    def show_wordcloud(self, fname):
+    def show_wordcloud(self, fname,tab):
         ## st.info('Word cloud ran into a technical hitch and we are fixing it...Thanks for you patience', icon='😎')
         image_path=get_wordcloud(self.reviews, fname,tab)
 	    

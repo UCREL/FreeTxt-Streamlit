@@ -797,7 +797,7 @@ def get_wordcloud (data, key,tab):
     ☁️ Word Cloud
     ''')
     
-    layout = tab2.columns([7, 1, 4])
+    layout = tab.columns([7, 1, 4])
     cloud_columns = layout[0].multiselect(
         'Which column do you wish to view the word cloud from?', data.columns, list(data.columns), help='Select free text columns to view the word cloud', key=f"{key}_cloud_multiselect")
     input_data = ' '.join([' '.join([str(t) for t in list(data[col]) if t not in STOPWORDS]) for col in cloud_columns])
@@ -824,14 +824,14 @@ def get_wordcloud (data, key,tab):
     word_freq['freq']= column2
     s = Bnc_corpus.loc[Bnc_corpus['word'].isin(column1)]
     word_freq = word_freq.merge(s, how='inner', on='word')
-    #tab2.write(word_freq)
+    #tab.write(word_freq)
     df = word_freq[['word','freq','f_Reference']]
     
     #tab2.subheader("upload mask Image")
     #image_file = tab2.file_uploader("Upload Images", type=["png","jpg","jpeg"])
-    maskfile_2 = image_mask_2[tab2.selectbox('Select Cloud shape:', image_mask_2.keys(), help='Select the shape of the word cloud')]
+    maskfile_2 = image_mask_2[tab.selectbox('Select Cloud shape:', image_mask_2.keys(), help='Select the shape of the word cloud')]
     colors =['grey','yellow','white','black','green','blue','red']
-    outlines = tab2.selectbox('Select cloud outline color ', colors, help='Select outline color word cloud')
+    outlines = tab.selectbox('Select cloud outline color ', colors, help='Select outline color word cloud')
     mask = np.array(PilImage.open(maskfile_2)) if maskfile_2 else maskfile_2
    
     
@@ -900,7 +900,7 @@ def get_wordcloud (data, key,tab):
         plt.imshow(wordcloud_img, interpolation="bilinear")
         plt.axis("off")
 
-        with tab2:
+        with tab:
             st.set_option('deprecation.showPyplotGlobalUse', False)
             st.pyplot()
             with tempfile.NamedTemporaryFile(delete=False, suffix=".png") as tmpfile:
@@ -921,7 +921,7 @@ def get_wordcloud (data, key,tab):
                    mime="image/png",
                    )
     except ValueError as err:
-        with tab2:
+        with tab:
             st.info(f'Oh oh.. Please ensure that at least one free text column is chosen: {err}', icon="🤨")
     return word_cloud_path
    ####generate a wordcloud based on Keness

@@ -701,7 +701,8 @@ class txtanalysis:
                       
     def show_wordcloud(self, fname):
         ## st.info('Word cloud ran into a technical hitch and we are fixing it...Thanks for you patience', icon='😎')
-        image_path=get_wordcloud(self.reviews, fname)
+        image_path=get_wordcloud(self.reviews, fname,tab)
+	    
         return image_path
     
     def show_kwic(self, fname,tab):

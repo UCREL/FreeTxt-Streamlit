@@ -854,7 +854,7 @@ def get_wordcloud (data, key,tab):
 
         # Allow the user to select the measure to use
 	#measure = tab2.selectbox("Select a measure:", options=["Frequency","KENESS", "Log-Likelihood"])    
-        cloud_type = tab.selectbox('Choose Cloud category:',['All words','Semantic Tags', 'Bigrams', 'Trigrams', '4-grams', 'Nouns', 'Proper nouns', 'Verbs', 'Adjectives', 'Adverbs', 'Numbers'])
+        cloud_type = tab.selectbox('Choose Cloud category:',['All words','Semantic Tags', 'Bigrams', 'Trigrams', '4-grams', 'Nouns', 'Proper nouns', 'Verbs', 'Adjectives', 'Adverbs', 'Numbers'],key= f"{key}_cloud_select)
         if cloud_type == 'All words':
             #wordcloud = wc.generate(input_data)
             
@@ -2283,8 +2283,7 @@ def textbox_analysis_page():
 
         # Allow the user to select the measure to use
 	#measure = tab2.selectbox("Select a measure:", options=["Frequency","KENESS", "Log-Likelihood"])    
-               cloud_type = tab5.selectbox('Choose Cloud category:',
-            ['All words','Semantic Tags', 'Bigrams', 'Trigrams', '4-grams', 'Nouns', 'Proper nouns', 'Verbs', 'Adjectives', 'Adverbs', 'Numbers'], key= f"{key}_cloud_select")
+               cloud_type = tab5.selectbox('Choose Cloud category:',['All words','Semantic Tags', 'Bigrams', 'Trigrams', '4-grams', 'Nouns', 'Proper nouns', 'Verbs', 'Adjectives', 'Adverbs', 'Numbers']")
                if cloud_type == 'All words':
             #wordcloud = wc.generate(input_data)
             

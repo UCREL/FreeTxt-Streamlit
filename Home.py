@@ -851,7 +851,7 @@ def get_wordcloud (data, key,tab):
             font_path='font/Ubuntu-B.ttf'
         ).generate_from_text(input_data)
         
-        
+
         # Allow the user to select the measure to use
 	#measure = tab2.selectbox("Select a measure:", options=["Frequency","KENESS", "Log-Likelihood"])    
         cloud_type = tab.selectbox('Choose Cloud category:',

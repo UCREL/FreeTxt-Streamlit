@@ -798,7 +798,7 @@ class txtanalysis:
         with tab:
        	    st.header('Search Word')
             st.write('Please write a search word')
-            words = re.findall(r'\b\w+\b', input_data)
+            words = re.findall(r'\b\w+\b', fname)
             random_word = random.choice(words) if words else ''
             search_word = st.text_input('', random_word)
             st.write('The graph below represents the searched word in the middle and the right and the left context for the word, the bigger the font size the more frequent the word is')

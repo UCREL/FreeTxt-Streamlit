@@ -784,9 +784,9 @@ class txtanalysis:
         st.write('The word frequency is represented by the weight in the tool tip')
 
 
-        html.create_html_txt( search_word, input_data)
+        html.create_html_txt(search_word, input_data)
 
-        HtmlFile = open("GFG-1.html", 'r')
+        HtmlFile = open("GFG-2.html", 'r')
         source_code = HtmlFile.read()
         st.download_button(
         "Download WordTree",

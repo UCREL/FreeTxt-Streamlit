@@ -425,8 +425,10 @@ def analyze_sentiment_txt(input_text,num_classes, max_seq_len=512):
             sentiment_label = sentiment_labels[sentiment_index]
 
         sentiment_score = avg_scores[sentiment_index]
+        sentiments.append((review, sentiment_label, sentiment_score))
 
-    return input_text, sentiment_label, sentiment_score
+    return sentiments
+  
 
 
 @st.cache_resource

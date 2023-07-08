@@ -31,7 +31,7 @@ import math
 from pathlib import Path
 from typing import List
 import networkx as nx
-from nltk.sentiment.vader import SentimentIntensityanalyzer
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
 import plotly.express as px #### pip install plotly.express
 from streamlit_option_menu import option_menu
 import plotly.io as pio

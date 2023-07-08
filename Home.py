@@ -2306,7 +2306,7 @@ def textbox_analysis_page():
                       
                     with tab7:
                             input_data = input_data.replace('.', '.\n')
-                            textanalysis.concordance_txt(input_data,tab7)
+                            txtanalysis.concordance_txt(input_data,tab7)
                     with tab2:
                       if not dfanalysis.empty:
                          #### interactive dataframe

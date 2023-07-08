@@ -2271,13 +2271,13 @@ def textbox_analysis_page():
                                   if analysis_type == 'Analyze whole text':
                                       sentiments = analyze_sentiment_txt(input_data,num_classes)
                                   else:
-				      input_data = input_data.replace('.', '.\n')
+                                      input_data = input_data.replace('.', '.\n')
                                       sentiments = analyze_sentiment(input_data,num_classes)
                         elif language == 'cy':
                                   if analysis_type == 'Analyze whole text':
                                        sentiments = analyze_sentiment_txt(input_data,num_classes)
                                   else:
-				       input_data = input_data.replace('.', '.\n')
+                                       input_data = input_data.replace('.', '.\n')
                                        sentiments = analyze_sentiment(input_data,num_classes)
 
                         dfanalysis = pd.DataFrame(sentiments, columns=['Review', 'Sentiment Label', 'Sentiment Score'])

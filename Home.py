@@ -778,10 +778,9 @@ class txtanalysis:
         search_word = st.text_input('', random_word)
         st.write('The graph below represents the searched word in the middle and the right and the left context for the word, the bigger the font size the more frequent the word is')
         st.write('The word frequency is represented by the weight in the tool tip')
-        # Dummy variable for missing argument
-        dummy_arg = "dummy"
 
-        html.create_html(dummy_arg, search_word, input_data)
+
+        html.create_html_txt( search_word, input_data)
         # Use input_data in html.create_html function. 
         # Make sure your create_html function can accept and use this data.
         #html.create_html(search_word, input_data)
@@ -1755,6 +1754,45 @@ class html:
     
         ''')
         Func.close()
+def create_html_txt(search_word, input_data):
+    # Creating an HTML file to pass to google chart
+    Func = open("GFG-1.html","w")
+
+    # Convert input_data to a string and replace single quotes with double quotes
+    sentences = str(input_data).replace("'", '"')
+
+    Func.write(f'''<html>
+    <head>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+        google.charts.load('current', {{"packages":['wordtree']}});
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {{
+            var data = google.visualization.arrayToDataTable(
+            {sentences});
+
+            var options = {{
+            wordtree: {{
+                format: 'implicit',
+                type: 'double',
+                word: "{search_word}",
+                colors: ['red', 'black', 'green']
+            }}
+            }};
+
+            var chart = new google.visualization.WordTree(document.getElementById('wordtree_basic'));
+            chart.draw(data, options);
+        }}
+        </script>
+    </head>
+    <body>
+        <div id="wordtree_basic" style="width: 900px; height: 500px;"></div>
+    </body>
+    </html>''')
+    
+    Func.close()
+
 ###########################################about page#######################################################################
 def about_page():
     # About page content and layout

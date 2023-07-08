@@ -215,7 +215,13 @@ def detect_language(df):
     if df.empty:
         print("DataFrame is empty.")
         return None
-
+    if not isinstance(df, pd.DataFrame):
+        try:
+            df = pd.DataFrame(df)
+        except Exception as e:
+            print("Failed to convert input to pandas DataFrame.")
+            print("Error: ", e)
+            return None
     detected_languages = []
 
     # Loop through all columns in the DataFrame
@@ -2236,7 +2242,7 @@ def textbox_analysis_page():
             df = pd.DataFrame(area)
             df.columns =['Reviews']
             df = df['Reviews'].dropna(how='all').drop_duplicates()
-               #df = df.applymap(lambda s: s.lower())
+            df = df.applymap(lambda s: s.lower())
             if df.empty:
                     st.info('''** 🤨**: Please paste text to analyse.''', icon="ℹ️")
           

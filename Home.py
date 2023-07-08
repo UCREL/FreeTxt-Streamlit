@@ -31,7 +31,7 @@ import math
 from pathlib import Path
 from typing import List
 import networkx as nx
-from nltk.sentiment.vader import SentimentIntensityAnalyzer
+from nltk.sentiment.vader import SentimentIntensityanalyzer
 import plotly.express as px #### pip install plotly.express
 from streamlit_option_menu import option_menu
 import plotly.io as pio
@@ -330,9 +330,9 @@ def analyze_sentiment_welsh_polyglot(input_text):
     return text_sentiment
 
 from textblob import TextBlob
-# define function to analyze sentiment using TextBlob for Welsh language
+# define function to analyse sentiment using TextBlob for Welsh language
 @st.cache_data
-def analyze_sentiment_welsh(input_text):
+def analyse_sentiment_welsh(input_text):
     # preprocess input text and split into reviews
     reviews = input_text.split("\n")
 
@@ -340,7 +340,7 @@ def analyze_sentiment_welsh(input_text):
     for review in reviews:
         review = preprocess_text(review)
         if review:
-            # analyze sentiment using TextBlob
+            # analyse sentiment using TextBlob
             text_blob = TextBlob(review)
 
             # calculate overall sentiment polarity
@@ -377,7 +377,7 @@ def preprocess_text(text):
     return text
 
 @st.cache_resource
-def analyze_sentiment_txt(input_text,num_classes, max_seq_len=512):
+def analyse_sentiment_txt(input_text,num_classes, max_seq_len=512):
     # load tokenizer and model
     tokenizer = AutoTokenizer.from_pretrained("nlptown/bert-base-multilingual-uncased-sentiment")
     model = AutoModelForSequenceClassification.from_pretrained("nlptown/bert-base-multilingual-uncased-sentiment")
@@ -432,7 +432,7 @@ def analyze_sentiment_txt(input_text,num_classes, max_seq_len=512):
 
 
 @st.cache_resource
-def analyze_sentiment(input_text,num_classes, max_seq_len=512):
+def analyse_sentiment(input_text,num_classes, max_seq_len=512):
     # load tokenizer and model
     tokenizer = AutoTokenizer.from_pretrained("nlptown/bert-base-multilingual-uncased-sentiment")
     model = AutoModelForSequenceClassification.from_pretrained("nlptown/bert-base-multilingual-uncased-sentiment")
@@ -2255,8 +2255,8 @@ def textbox_analysis_page():
                     tab1,tab3,tab4,tab5,tab6,tab7,tab8= st.tabs(["📈 Meaning analysis",'📝 Summarisation',"📈 Data View", "☁️ Keyword Cloud",'💬 Keyword in Context & Collocation', "🌳 Word Tree",'📥 Download pdf'])
                     with tab1:
                         analysis_type = st.selectbox(
-                                'How would you like to analyze the text?',
-                                         ('Analyze whole text', 'Analyze sentence by sentence')
+                                'How would you like to analyse the text?',
+                                         ('analyse whole text', 'analyse sentence by sentence')
                                                               )
                         num_classes = st.radio('How do you want to categorize the sentiments?', ('3 Class Sentiments (Positive, Neutral, Negative)', '5 Class Sentiments (Very Positive, Positive, Neutral, Negative, Very Negative)'))
                         num_classes = 3 if num_classes.startswith("3") else 5
@@ -2268,17 +2268,17 @@ def textbox_analysis_page():
                         language = detect_language(df)  
 
                         if language == 'en':
-                                  if analysis_type == 'Analyze whole text':
-                                      sentiments = analyze_sentiment_txt(input_data,num_classes)
+                                  if analysis_type == 'analyse whole text':
+                                      sentiments = analyse_sentiment_txt(input_data,num_classes)
                                   else:
                                       input_data = input_data.replace('.', '.\n')
-                                      sentiments = analyze_sentiment(input_data,num_classes)
+                                      sentiments = analyse_sentiment(input_data,num_classes)
                         elif language == 'cy':
-                                  if analysis_type == 'Analyze whole text':
-                                       sentiments = analyze_sentiment_txt(input_data,num_classes)
+                                  if analysis_type == 'analyse whole text':
+                                       sentiments = analyse_sentiment_txt(input_data,num_classes)
                                   else:
                                        input_data = input_data.replace('.', '.\n')
-                                       sentiments = analyze_sentiment(input_data,num_classes)
+                                       sentiments = analyse_sentiment(input_data,num_classes)
 
                         dfanalysis = pd.DataFrame(sentiments, columns=['Review', 'Sentiment Label', 'Sentiment Score'])
                         plot_sentiment_pie(dfanalysis)
@@ -2289,14 +2289,14 @@ def textbox_analysis_page():
                         #st.write(df)
                         #language = detect_language(df)  
                         #if language == 'en':
-                           #sentiments = analyze_sentiment_txt(input_data,num_classes)
+                           #sentiments = analyse_sentiment_txt(input_data,num_classes)
                           # dfanalysis = pd.DataFrame(sentiments, columns=['Review', 'Sentiment Label', 'Sentiment Score'])
                          #  plot_sentiment_pie(dfanalysis)
                          #  plot_sentiment(dfanalysis)
                       
                         #elif language == 'cy':
-                            #sentiments = analyze_sentiment_welsh(input_data)
-                         #   sentiments = analyze_sentiment_txt(input_text,num_classes)
+                            #sentiments = analyse_sentiment_welsh(input_data)
+                         #   sentiments = analyse_sentiment_txt(input_text,num_classes)
                          #   dfanalysis = pd.DataFrame(sentiments, columns=['Review', 'Sentiment Label', 'Sentiment Score'])
                           #  plot_sentiment_pie(dfanalysis)
                           #  plot_sentiment(dfanalysis)
@@ -2668,14 +2668,14 @@ def analysis_page():
                         num_classes = 3 if num_classes.startswith("3") else 5
                         language = detect_language(df)  
                         if language == 'en':
-                            sentiments = analyze_sentiment(input_text,num_classes)
+                            sentiments = analyse_sentiment(input_text,num_classes)
                             dfanalysis = pd.DataFrame(sentiments, columns=['Review', 'Sentiment Label', 'Sentiment Score'])
                             plot_sentiment_pie(dfanalysis)
                             plot_sentiment(dfanalysis)
                       
                         elif language == 'cy':
-                            #sentiments = analyze_sentiment_welsh(input_text)
-                            sentiments = analyze_sentiment(input_text,num_classes)
+                            #sentiments = analyse_sentiment_welsh(input_text)
+                            sentiments = analyse_sentiment(input_text,num_classes)
                             dfanalysis = pd.DataFrame(sentiments, columns=['Review', 'Sentiment Label', 'Sentiment Score'])
                             plot_sentiment_pie(dfanalysis)
                             plot_sentiment(dfanalysis)

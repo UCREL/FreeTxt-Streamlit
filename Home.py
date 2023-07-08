@@ -2233,8 +2233,8 @@ def textbox_analysis_page():
         else:
             area.append(text)    
             df = pd.DataFrame(area)
-            df.columns =['reviews']
-            df = df['reviews'].dropna(how='all').drop_duplicates()
+            df.columns =['Reviews']
+            df = df['Reviews'].dropna(how='all').drop_duplicates()
                #df = df.applymap(lambda s: s.lower())
             if df.empty:
                     st.info('''** 🤨**: Please paste text to analyse.''', icon="ℹ️")

@@ -2277,7 +2277,7 @@ def textbox_analysis_page():
                      
                     tab1,tab2,tab3,tab4,tab5,tab6,tab7,tab8= st.tabs(["📈 Meaning analysis",'💬 Keyword scatter','📝 Summarisation',"📈 Data View", "☁️ Keyword Cloud",'💬 Keyword in Context & Collocation', "🌳 Word Tree",'📥 Download pdf'])
                     
-		    with tab1:
+                    with tab1:
                         analysis_type = st.selectbox(
                                 'How would you like to analyse the text?',
                                          ('analyse whole text', 'analyse sentence by sentence')

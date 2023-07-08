@@ -2281,7 +2281,7 @@ def textbox_analysis_page():
                         plot_sentiment(dfanalysis)
                       
                   
-                with tab2:
+                    with tab2:
                       if not dfanalysis.empty:
                          #### interactive dataframe
                          gb = GridOptionsBuilder.from_dataframe(dfanalysis)

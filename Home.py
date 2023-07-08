@@ -2351,7 +2351,7 @@ def textbox_analysis_page():
                         plot_sentiment(dfanalysis)
                       
                     with tab7:
-                            input_data = input_data.replace('.', '.\n')
+                            input_data = input_data.replace('. ', '.\n').replace('.', '.\n')
                             txtanalysis.concordance_txt(input_data,tab7)
                     with tab2:
                       if not dfanalysis.empty:

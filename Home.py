@@ -2260,13 +2260,13 @@ def textbox_analysis_page():
                         st.write(df)
                         language = detect_language(df)  
                         if language == 'en':
-                           sentiments = analyze_sentiment_txt(input_text,num_classes)
+                           sentiments = analyze_sentiment_txt(input_data,num_classes)
                            dfanalysis = pd.DataFrame(sentiments, columns=['Review', 'Sentiment Label', 'Sentiment Score'])
                            plot_sentiment_pie(dfanalysis)
                            plot_sentiment(dfanalysis)
                       
                         elif language == 'cy':
-                            #sentiments = analyze_sentiment_welsh(input_text)
+                            #sentiments = analyze_sentiment_welsh(input_data)
                             sentiments = analyze_sentiment_txt(input_text,num_classes)
                             dfanalysis = pd.DataFrame(sentiments, columns=['Review', 'Sentiment Label', 'Sentiment Score'])
                             plot_sentiment_pie(dfanalysis)

@@ -785,9 +785,6 @@ class txtanalysis:
 
 
         html.create_html_txt( search_word, input_data)
-        # Use input_data in html.create_html function. 
-        # Make sure your create_html function can accept and use this data.
-        #html.create_html(search_word, input_data)
 
         HtmlFile = open("GFG-1.html", 'r')
         source_code = HtmlFile.read()

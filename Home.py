@@ -228,14 +228,16 @@ def detect_language(df):
         # Loop through all rows in the column
         for text in df[col].fillna(''):
             # Ensure the text is string type
-            if not isinstance(text, str):
-                continue
+            text = str(text)
 
             # Use langdetect's detect_langs to detect the language of the text
             try:
                 lang_probs =  detect_langs(text)
-                most_probable_lang = max(lang_probs, key=lambda x: x.prob)
-                detected_languages.append(most_probable_lang.lang)
+                if len(lang_probs) > 0:
+                    most_probable_lang = max(lang_probs, key=lambda x: x.prob)
+                    detected_languages.append(most_probable_lang.lang)
+                else:
+                    print(f"No languages detected in the text: {text}")
             except Exception as e:
                 print(f"Error detecting language: {e}")
 
@@ -243,10 +245,9 @@ def detect_language(df):
     lang_counts = pd.Series(detected_languages).value_counts()
 
     # Determine the most common language in the DataFrame
-    if not lang_counts.empty:
-        most_common_lang = lang_counts.index[0]
-    else:
-        most_common_lang = None
+    most_common_lang = lang_counts.index[0] if not lang_counts.empty else None
+
+    if most_common_lang is None:
         print("No languages detected in the DataFrame.")
 
     return most_common_lang

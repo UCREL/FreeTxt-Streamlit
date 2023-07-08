@@ -369,6 +369,57 @@ def preprocess_text(text):
 
     return text
 
+@st.cache_resource
+def analyze_sentiment_txt(input_text,num_classes, max_seq_len=512):
+    # load tokenizer and model
+    tokenizer = AutoTokenizer.from_pretrained("nlptown/bert-base-multilingual-uncased-sentiment")
+    model = AutoModelForSequenceClassification.from_pretrained("nlptown/bert-base-multilingual-uncased-sentiment")
+
+    # preprocess input text
+    input_text = preprocess_text(input_text)
+
+    if input_text:
+        # Tokenize the input text
+        tokens = tokenizer.encode(input_text, add_special_tokens=True, truncation=True)
+
+        # If the token length exceeds the maximum, split into smaller chunks
+        token_chunks = []
+        if len(tokens) > max_seq_len:
+            token_chunks = [tokens[i:i + max_seq_len] for i in range(0, len(tokens), max_seq_len)]
+        else:
+            token_chunks.append(tokens)
+
+        # Process each chunk
+        sentiment_scores = []
+        for token_chunk in token_chunks:
+            input_ids = torch.tensor([token_chunk])
+            attention_mask = torch.tensor([[1] * len(token_chunk)])
+
+            # Run the model
+            outputs = model(input_ids=input_ids, attention_mask=attention_mask)
+            scores = outputs.logits.softmax(dim=1).detach().numpy()[0]
+            sentiment_scores.append(scores)
+
+        # Aggregate the scores
+        avg_scores = np.mean(sentiment_scores, axis=0)
+        sentiment_labels = ['Very negative', 'Negative', 'Neutral', 'Positive', 'Very positive']
+        sentiment_index = avg_scores.argmax()
+
+        if num_classes == 3:
+            sentiment_labels_3 = ['Negative', 'Neutral', 'Positive']
+            if sentiment_index < 2:
+                sentiment_index = 0  # Negative
+            elif sentiment_index > 2:
+                sentiment_index = 2  # Positive
+            else:
+                sentiment_index = 1  # Neutral
+            sentiment_label = sentiment_labels_3[sentiment_index]
+        else:
+            sentiment_label = sentiment_labels[sentiment_index]
+
+        sentiment_score = avg_scores[sentiment_index]
+
+    return input_text, sentiment_label, sentiment_score
 
 
 @st.cache_resource
@@ -2192,25 +2243,25 @@ def textbox_analysis_page():
                               
                     input_data = ' '.join([str(t) for t in df[0].split(' ') if t not in STOPWORDS])
                      
-                    tab3,tab4,tab5,tab6,tab7,tab8= st.tabs(['📝 Summarisation',"📈 Data View", "☁️ Keyword Cloud",'💬 Keyword in Context & Collocation', "🌳 Word Tree",'📥 Download pdf'])
-                   # with tab1:
+                    tab1,tab3,tab4,tab5,tab6,tab7,tab8= st.tabs(["📈 Meaning analysis",'📝 Summarisation',"📈 Data View", "☁️ Keyword Cloud",'💬 Keyword in Context & Collocation', "🌳 Word Tree",'📥 Download pdf'])
+                    with tab1:
                       
-                        #num_classes = st.radio('How do you want to categorize the sentiments?', ('3 Class Sentiments (Positive, Neutral, Negative)', '5 Class Sentiments (Very Positive, Positive, Neutral, Negative, Very Negative)'))
-                        #num_classes = 3 if num_classes.startswith("3") else 5
-                        #st.write(df)
-                        #language = detect_language(df)  
-                        #if language == 'en':
-                        #sentiments = analyze_sentiment(input_text,num_classes)
-                        #dfanalysis = pd.DataFrame(sentiments, columns=['Review', 'Sentiment Label', 'Sentiment Score'])
-                        #plot_sentiment_pie(dfanalysis)
-                        #plot_sentiment(dfanalysis)
+                        num_classes = st.radio('How do you want to categorize the sentiments?', ('3 Class Sentiments (Positive, Neutral, Negative)', '5 Class Sentiments (Very Positive, Positive, Neutral, Negative, Very Negative)'))
+                        num_classes = 3 if num_classes.startswith("3") else 5
+                        st.write(df)
+                        language = detect_language(df)  
+                        if language == 'en':
+                           sentiments = analyze_sentiment_txt(input_text,num_classes)
+                           dfanalysis = pd.DataFrame(sentiments, columns=['Review', 'Sentiment Label', 'Sentiment Score'])
+                           plot_sentiment_pie(dfanalysis)
+                           plot_sentiment(dfanalysis)
                       
-                        #elif language == 'cy':
+                        elif language == 'cy':
                             #sentiments = analyze_sentiment_welsh(input_text)
-                          #  sentiments = analyze_sentiment(input_text,num_classes)
-                       #     dfanalysis = pd.DataFrame(sentiments, columns=['Review', 'Sentiment Label', 'Sentiment Score'])
-                         #   plot_sentiment_pie(dfanalysis)
-                        #    plot_sentiment(dfanalysis)
+                            sentiments = analyze_sentiment_txt(input_text,num_classes)
+                            dfanalysis = pd.DataFrame(sentiments, columns=['Review', 'Sentiment Label', 'Sentiment Score'])
+                            plot_sentiment_pie(dfanalysis)
+                            plot_sentiment(dfanalysis)
                        
        
                     with tab3:

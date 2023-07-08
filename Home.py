@@ -1754,14 +1754,14 @@ class html:
     
         ''')
         Func.close()
-def create_html_txt(search_word, input_data):
+    def create_html_txt(search_word, input_data):
     # Creating an HTML file to pass to google chart
-    Func = open("GFG-1.html","w")
+      Func = open("GFG-1.html","w")
 
     # Convert input_data to a string and replace single quotes with double quotes
-    sentences = str(input_data).replace("'", '"')
+      sentences = str(input_data).replace("'", '"')
 
-    Func.write(f'''<html>
+      Func.write(f'''<html>
     <head>
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
         <script type="text/javascript">
@@ -1791,7 +1791,7 @@ def create_html_txt(search_word, input_data):
     </body>
     </html>''')
     
-    Func.close()
+      Func.close()
 
 ###########################################about page#######################################################################
 def about_page():

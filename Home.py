@@ -768,6 +768,29 @@ class txtanalysis:
     def show_kwic(self, fname,tab):
         context = plot_kwic(self.reviews, fname,tab)
         return context
+    def concordance_txt(input_data, tab ):
+      with tab:
+        st.header('Search Word')
+        st.write('Please write a search word')
+        search_word = st.text_input('', 'the')
+        st.write('The graph below represents the searched word in the middle and the right and the left context for the word, the bigger the font size the more frequent the word is')
+        st.write('The word frequency is represented by the weight in the tool tip')
+
+        # Use input_data in html.create_html function. 
+        # Make sure your create_html function can accept and use this data.
+        html.create_html(search_word, input_data)
+
+        HtmlFile = open("GFG-1.html", 'r')
+        source_code = HtmlFile.read()
+        st.download_button(
+        "Download WordTree",
+        data=source_code,
+        file_name="GFG-1.html",
+        mime="text/html",
+        )
+        print(source_code)
+        components.html(source_code,height = 800)
+
     def concordance(self, fname,tab):
         with tab:
        	    st.header('Search Word')
@@ -2253,7 +2276,8 @@ def textbox_analysis_page():
                     input_data = ' '.join([str(t) for t in df[0].split(' ') if t not in STOPWORDS])
                      
                     tab1,tab2,tab3,tab4,tab5,tab6,tab7,tab8= st.tabs(["📈 Meaning analysis",'💬 Keyword scatter','📝 Summarisation',"📈 Data View", "☁️ Keyword Cloud",'💬 Keyword in Context & Collocation', "🌳 Word Tree",'📥 Download pdf'])
-                    with tab1:
+                    
+		    with tab1:
                         analysis_type = st.selectbox(
                                 'How would you like to analyse the text?',
                                          ('analyse whole text', 'analyse sentence by sentence')
@@ -2280,7 +2304,9 @@ def textbox_analysis_page():
                         plot_sentiment_pie(dfanalysis)
                         plot_sentiment(dfanalysis)
                       
-                  
+                    with tab7:
+                            input_data = input_data.replace('.', '.\n')
+			    textanalysis.concordance_txt(input_data,tab7)
                     with tab2:
                       if not dfanalysis.empty:
                          #### interactive dataframe

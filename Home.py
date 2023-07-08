@@ -2254,23 +2254,49 @@ def textbox_analysis_page():
                      
                     tab1,tab3,tab4,tab5,tab6,tab7,tab8= st.tabs(["📈 Meaning analysis",'📝 Summarisation',"📈 Data View", "☁️ Keyword Cloud",'💬 Keyword in Context & Collocation', "🌳 Word Tree",'📥 Download pdf'])
                     with tab1:
-                      
-                        num_classes = st.radio('How do you want to categorize the sentiments?', ('3 Class Sentiments (Positive, Neutral, Negative)', '5 Class Sentiments (Very Positive, Positive, Neutral, Negative, Very Negative)'))
+			num_classes = st.radio('How do you want to categorize the sentiments?', ('3 Class Sentiments (Positive, Neutral, Negative)', '5 Class Sentiments (Very Positive, Positive, Neutral, Negative, Very Negative)'))
                         num_classes = 3 if num_classes.startswith("3") else 5
+
+                        analysis_type = st.selectbox(
+                                'How would you like to analyze the text?',
+                                         ('Analyze whole text', 'Analyze sentence by sentence')
+                                                              )
+
                         st.write(df)
+
                         language = detect_language(df)  
+
                         if language == 'en':
-                           sentiments = analyze_sentiment_txt(input_data,num_classes)
-                           dfanalysis = pd.DataFrame(sentiments, columns=['Review', 'Sentiment Label', 'Sentiment Score'])
-                           plot_sentiment_pie(dfanalysis)
-                           plot_sentiment(dfanalysis)
-                      
+                                  if analysis_type == 'Analyze whole text':
+                                      sentiments = analyze_sentiment_txt(input_data,num_classes)
+                                  else:
+                                      sentiments = analyze_sentiment(input_data,num_classes)
                         elif language == 'cy':
+                                  if analysis_type == 'Analyze whole text':
+                                       sentiments = analyze_sentiment_txt(input_data,num_classes)
+                                  else:
+                                       sentiments = analyze_sentiment(input_data,num_classes)
+
+                        dfanalysis = pd.DataFrame(sentiments, columns=['Review', 'Sentiment Label', 'Sentiment Score'])
+                        plot_sentiment_pie(dfanalysis)
+                        plot_sentiment(dfanalysis)
+                      
+                        #num_classes = st.radio('How do you want to categorize the sentiments?', ('3 Class Sentiments (Positive, Neutral, Negative)', '5 Class Sentiments (Very Positive, Positive, Neutral, Negative, Very Negative)'))
+                        #num_classes = 3 if num_classes.startswith("3") else 5
+                        #st.write(df)
+                        #language = detect_language(df)  
+                        #if language == 'en':
+                           #sentiments = analyze_sentiment_txt(input_data,num_classes)
+                          # dfanalysis = pd.DataFrame(sentiments, columns=['Review', 'Sentiment Label', 'Sentiment Score'])
+                         #  plot_sentiment_pie(dfanalysis)
+                         #  plot_sentiment(dfanalysis)
+                      
+                        #elif language == 'cy':
                             #sentiments = analyze_sentiment_welsh(input_data)
-                            sentiments = analyze_sentiment_txt(input_text,num_classes)
-                            dfanalysis = pd.DataFrame(sentiments, columns=['Review', 'Sentiment Label', 'Sentiment Score'])
-                            plot_sentiment_pie(dfanalysis)
-                            plot_sentiment(dfanalysis)
+                         #   sentiments = analyze_sentiment_txt(input_text,num_classes)
+                         #   dfanalysis = pd.DataFrame(sentiments, columns=['Review', 'Sentiment Label', 'Sentiment Score'])
+                          #  plot_sentiment_pie(dfanalysis)
+                          #  plot_sentiment(dfanalysis)
                        
        
                     with tab3:

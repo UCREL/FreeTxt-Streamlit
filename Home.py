@@ -411,7 +411,7 @@ def analyze_sentiment_txt(input_text,num_classes, max_seq_len=512):
         avg_scores = np.mean(sentiment_scores, axis=0)
         sentiment_labels = ['Very negative', 'Negative', 'Neutral', 'Positive', 'Very positive']
         sentiment_index = avg_scores.argmax()
-
+        sentiments =[]
         if num_classes == 3:
             sentiment_labels_3 = ['Negative', 'Neutral', 'Positive']
             if sentiment_index < 2:

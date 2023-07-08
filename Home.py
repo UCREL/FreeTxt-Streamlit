@@ -778,10 +778,13 @@ class txtanalysis:
         search_word = st.text_input('', random_word)
         st.write('The graph below represents the searched word in the middle and the right and the left context for the word, the bigger the font size the more frequent the word is')
         st.write('The word frequency is represented by the weight in the tool tip')
+        # Dummy variable for missing argument
+        dummy_arg = "dummy"
 
+        html.create_html(dummy_arg, search_word, input_data)
         # Use input_data in html.create_html function. 
         # Make sure your create_html function can accept and use this data.
-        html.create_html(search_word, input_data)
+        #html.create_html(search_word, input_data)
 
         HtmlFile = open("GFG-1.html", 'r')
         source_code = HtmlFile.read()

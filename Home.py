@@ -774,8 +774,12 @@ class txtanalysis:
         st.write('Please write a search word')
         
         words = re.findall(r'\b\w+\b', input_data)
-        random_word = random.choice(words) if words else ''
-        search_word = st.text_input('', random_word)
+
+# Select the fifth word from the list if it exists
+        fifth_word = words[4] if len(words) > 4 else ''
+
+        search_word = st.text_input('', fifth_word)
+        
         st.write('The graph below represents the searched word in the middle and the right and the left context for the word, the bigger the font size the more frequent the word is')
         st.write('The word frequency is represented by the weight in the tool tip')
 

@@ -1756,7 +1756,7 @@ class html:
         Func.close()
     def create_html_txt(search_word, input_data):
     # Creating an HTML file to pass to google chart
-      Func = open("GFG-1.html","w")
+      Func = open("GFG-2.html","w")
 
     # Convert input_data to a string and replace single quotes with double quotes
       sentences = str(input_data).replace("'", '"')

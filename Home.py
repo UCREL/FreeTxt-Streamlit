@@ -1758,7 +1758,9 @@ class html:
     def create_html_txt(search_word, input_data):
     # Creating an HTML file to pass to google chart
       Func = open("GFG-2.html","w")
-      input_data = pd.DataFrame(input_data, columns=['reviews'])
+      lines = input_data.split('\n')
+
+      input_data = pd.DataFrame(lines, columns=['reviews'])
       sentences = ''.join(str(input_data.reviews.values.tolist()))
 
       Func.write(f'''<html>

@@ -1760,10 +1760,15 @@ class html:
     # Creating an HTML file to pass to google chart
       Func = open("GFG-2.html","w")
       lines = input_data.split('\n')
-
+      
       input_data = pd.DataFrame(lines, columns=['reviews'])
-      input_data = ''.join(str(input_data.reviews.values.tolist()))
-      sentences = input_data.tolist()
+      input_data_list = input_data['reviews'].values.tolist()
+      sentences = [[i] for i in input_data_list]
+
+# Print the resulting list of lists
+      print(input_data_list)
+      #input_data = ''.join(str(input_data.reviews.values.tolist()))
+      #sentences = input_data.tolist()
       st.write(sentences)
       Func.write(f'''<html>
     <head>

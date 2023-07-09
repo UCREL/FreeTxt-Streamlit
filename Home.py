@@ -1711,6 +1711,7 @@ class html:
     # Creating an HTML file to pass to google chart
         Func = open("GFG-1.html","w")
         sentences = ''.join(str(self.reviews.values.tolist()))
+        st.write(sentences)
         Func.write('''<html>
   <head>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -1762,7 +1763,7 @@ class html:
 
       input_data = pd.DataFrame(lines, columns=['reviews'])
       sentences = ''.join(str(input_data.reviews.values.tolist()))
-
+      st.write(sentences)
       Func.write(f'''<html>
     <head>
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>

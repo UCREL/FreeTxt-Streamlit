@@ -1758,9 +1758,8 @@ class html:
     def create_html_txt(search_word, input_data):
     # Creating an HTML file to pass to google chart
       Func = open("GFG-2.html","w")
-
-    # Convert input_data to a string and replace single quotes with double quotes
-      sentences = ''.join(str(input_data.tolist()))
+      input_data = pd.DataFrame(input_data, columns=['reviews'])
+      sentences = ''.join(str(input_data.reviews.values.tolist()))
 
       Func.write(f'''<html>
     <head>

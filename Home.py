@@ -1762,10 +1762,13 @@ class html:
       lines = input_data.split('\n')
       
       input_data = pd.DataFrame(lines, columns=['reviews'])
-      input_data_list = input_data['reviews'].values.tolist()
-      sentences = [[i] for i in input_data_list]
+      input_data = input_data['reviews'].values.tolist()
+      # Convert to list of lists
+      sentences = [[sentence] for sentence in input_data]
+      #sentences = [[i] for i in input_data_list]
       # Convert list of lists to string
-      sentences = '\n'.join([''.join(sublist) for sublist in sentences])
+      
+	    
 
 
 # Print the resulting list of lists

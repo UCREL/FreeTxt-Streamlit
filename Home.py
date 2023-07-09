@@ -1764,9 +1764,12 @@ class html:
       input_data = pd.DataFrame(lines, columns=['reviews'])
       input_data_list = input_data['reviews'].values.tolist()
       sentences = [[i] for i in input_data_list]
+      # Convert list of lists to string
+      sentences = '\n'.join([''.join(sublist) for sublist in sentences])
+
 
 # Print the resulting list of lists
-      print(input_data_list)
+      print(sentences)
       #input_data = ''.join(str(input_data.reviews.values.tolist()))
       #sentences = input_data.tolist()
       st.write(sentences)

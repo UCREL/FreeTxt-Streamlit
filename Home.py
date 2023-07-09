@@ -1763,7 +1763,7 @@ class html:
 
       input_data = pd.DataFrame(lines, columns=['reviews'])
       input_data = ''.join(str(input_data.reviews.values.tolist()))
-      sentences = [[sentence] for sentence in input_data]
+      sentences = input_data.tolist()
       st.write(sentences)
       Func.write(f'''<html>
     <head>

@@ -1760,7 +1760,7 @@ class html:
       Func = open("GFG-2.html","w")
 
     # Convert input_data to a string and replace single quotes with double quotes
-      sentences = str(input_data)
+      sentences = ''.join(str(input_data.tolist()))
 
       Func.write(f'''<html>
     <head>

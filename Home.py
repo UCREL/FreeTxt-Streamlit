@@ -791,7 +791,7 @@ class txtanalysis:
         st.download_button(
         "Download WordTree",
         data=source_code,
-        file_name="GFG-1.html",
+        file_name="GFG-2.html",
         mime="text/html",
         )
         print(source_code)

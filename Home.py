@@ -38,7 +38,7 @@ import plotly.io as pio
 from pyvis.network import Network
 import streamlit.components.v1 as components
 from langdetect import detect_langs
-
+import json
 import scattertext as tt
 import spacy
 from pprint import pprint

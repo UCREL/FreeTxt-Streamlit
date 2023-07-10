@@ -1777,8 +1777,13 @@ class html:
         google.charts.setOnLoadCallback(drawChart);
 
         function drawChart() {{
+           
             var data = google.visualization.arrayToDataTable(
-            {sentences});
+          '''+
+           sentences
+             +
+         ''' 
+        );
 
             var options = {{
             wordtree: {{

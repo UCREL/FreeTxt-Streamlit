@@ -1764,42 +1764,50 @@ class html:
       # Convert list of lists to string
       
       st.write(sentences)
-      Func.write(f'''<html>
-    <head>
-        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-        <script type="text/javascript">
-        google.charts.load('current', {{"packages":['wordtree']}});
-        google.charts.setOnLoadCallback(drawChart);
+      Func.write('''<html>
+     <head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {packages:['wordtree']});
+      google.charts.setOnLoadCallback(drawChart);
 
-        function drawChart() {{
-           
-            var data = google.visualization.arrayToDataTable(
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable(
           '''+
            sentences
              +
          ''' 
         );
 
-            var options = {{
-            wordtree: {{
-                format: 'implicit',
-                type: 'double',
-                word: "{search_word}",
-                colors: ['red', 'black', 'green']
-            }}
-            }};
+        var options = {
+          wordtree: {
+            format: 'implicit',
+            type: 'double',
+            word:
+            "'''          
+            +
+            search_word
+            +
+            '''"
+                        
+            ,
+            colors: ['red', 'black', 'green']
+          }
+        };
 
-            var chart = new google.visualization.WordTree(document.getElementById('wordtree_basic'));
-            chart.draw(data, options);
-        }}
-        </script>
-    </head>
-    <body>
-        <div id="wordtree_basic" style="width: 900px; height: 500px;"></div>
-    </body>
-    </html>''')
+        var chart = new google.visualization.WordTree(document.getElementById('wordtree_basic'));
+        chart.draw(data, options);
+      }
+    </script>
+  </head>
+  <body>
+    <div id="wordtree_basic" style="width: 900px; height: 500px;"></div>
+  </body>
+</html>
+
     
-      Func.close()
+        ''')
+        Func.close()
 
 ###########################################about page#######################################################################
 def about_page():

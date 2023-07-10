@@ -1756,10 +1756,10 @@ class html:
       Func = open("GFG-2.html","w")
       lines = input_data.split('\n')
       input_data = pd.DataFrame(lines, columns=['reviews'])
-      sentences = input_data['reviews'].values.tolist()
+      sentences = ''.join(str(input_data['reviews'].values.tolist())
       # Convert to list of lists
      # sentences = ''.join(str([sentence] for sentence in input_data))
-
+  #sentences = ''.join(str(self.reviews.values.tolist()))
       #sentences = [[i] for i in input_data_list]
       # Convert list of lists to string
       

@@ -772,11 +772,6 @@ class txtanalysis:
       with tab:
         st.header('Search Word')
         st.write('Please write a search word')
-        
-        #words = re.findall(r'\b\w+\b', input_data)
-
-# Select the fifth word from the list if it exists
-        #fifth_word = words[4] if len(words) > 4 else ''
 
         search_word = st.text_input('', 'the')
         
@@ -1761,9 +1756,9 @@ class html:
       Func = open("GFG-2.html","w")
       lines = input_data.split('\n')
       input_data = pd.DataFrame(lines, columns=['reviews'])
-      input_data = input_data['reviews'].values.tolist()
+      sentences = input_data['reviews'].values.tolist()
       # Convert to list of lists
-      sentences = ''.join(str([sentence] for sentence in input_data))
+     # sentences = ''.join(str([sentence] for sentence in input_data))
 
       #sentences = [[i] for i in input_data_list]
       # Convert list of lists to string

@@ -1245,13 +1245,72 @@ def plot_kwic_txt(input_data,tab):
                 data = grid_response['data']
                 selected = grid_response['selected_rows'] 
                 df = pd.DataFrame(selected)
-            expander = st.expander('collocation')
+                        expander = st.expander('Collocation')
             with expander: #Could you replace with NLTK concordance later?
             # keyword = st.text_input('Enter a keyword:','staff')
-                collocs = get_collocs(kwic_instances) #TODO: Modify to accept 'topn'               
-                colloc_str = ', '.join([f"{w}[{c}]" for w, c in collocs])
-                st.write(f"Collocations for '{keyword}':\n{colloc_str}")
-                plot_coll_14(keyword, collocs,expander,tab)
+                Word_type = st.selectbox('Choose word type:',
+                 ['All words', 'Nouns', 'Proper nouns', 'Verbs', 'Adjectives', 'Adverbs', 'Numbers'], key= f"{key}_type_select")
+                collocs = get_collocs(kwic_instances)
+                colloc_str = ', '.join([f"{w} [{c}]" for w, c in collocs])
+                words = nlp(colloc_str)
+                st.write('The search word is placed in the middle, and the green circle represnts the most frequent word that appeared next to the search word, the darker blue the circle is the more frequent the word is, also the frequency represnted by the length and thickness of the lines attaching the words')
+                st.write('The number represents the number of occurrences for each collocated word.')
+                reset_button = st.button('Reset Graph')
+
+                if reset_button:
+                         plot_coll_14(keyword, collocs, expander, tab)
+                if Word_type == 'All words':
+                       st.write(f"Collocations for '{keyword}':\n{colloc_str}")
+                    
+                elif Word_type == 'Nouns':
+                       
+                       collocs = [token.text for token in words if token.pos_ == "NOUN"]
+                       st.write(collocs)
+                       st.write(f"Collocations for '{keyword}':\n{colloc_str}")
+                elif Word_type == 'Proper nouns':
+                       collocs = [token.text for token in words if token.pos_ == "PROPN"]
+                       st.write(collocs)
+                       st.write(f"Collocations for '{keyword}':\n{colloc_str}")
+                
+                elif Word_type == 'Verbs':
+                       collocs = [token.text for token in words if token.pos_ == "VERB"]
+                       st.write(collocs)
+                       st.write(f"Collocations for '{keyword}':\n{colloc_str}")
+                elif Word_type == 'Adjectives':
+                       collocs = [token.text for token in words if token.pos_ == "ADJ"]
+                       st.write(collocs)
+                       st.write(f"Collocations for '{keyword}':\n{colloc_str}")
+                elif Word_type == 'Adverbs':
+                       collocs = [token.text for token in words if token.pos_ == "ADV"]
+                       st.write(collocs)
+                       st.write(f"Collocations for '{keyword}':\n{colloc_str}")
+                elif Word_type == 'Numbers':
+                       collocs = [token.text for token in words if token.pos_ == "NUM"]
+                       st.write(collocs)
+                       st.write(f"Collocations for '{keyword}':\n{colloc_str}")
+                else: 
+                      pass
+		
+             
+                plot_coll_14(keyword, collocs, expander, tab,output_file='network_output.html')
+                with open('network_output.html', 'r', encoding='utf-8') as f:
+                         html_string = f.read()
+                components.html(html_string, width=800, height=750, scrolling=True)
+                with open('network_output.html', 'rb') as f:
+                        html_bytes = f.read()
+                st.download_button(
+                  label='Download Collocation Graph',
+                  data=html_bytes,
+                  file_name='network_output.html',
+                   mime='text/html'
+                       )
+	    #expander = st.expander('collocation')
+           # with expander: #Could you replace with NLTK concordance later?
+            # keyword = st.text_input('Enter a keyword:','staff')
+               # collocs = get_collocs(kwic_instances) #TODO: Modify to accept 'topn'               
+               # colloc_str = ', '.join([f"{w}[{c}]" for w, c in collocs])
+               # st.write(f"Collocations for '{keyword}':\n{colloc_str}")
+               # plot_coll_14(keyword, collocs,expander,tab)
                 #plot_coll(keyword, collocs,expander,tab6)
     except ValueError as err:
         with tab:

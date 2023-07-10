@@ -1731,7 +1731,7 @@ class html:
             +
             search_word
             +
-            '''"
+            '''
                         
             ,
             colors: ['red', 'black', 'green']

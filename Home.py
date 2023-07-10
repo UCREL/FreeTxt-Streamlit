@@ -1762,7 +1762,7 @@ class html:
       sentences = [[sentence] for sentence in sentences if sentence.strip()]
 
     # Convert list of lists to string
-      sentences_string = json.dumps(sentences)
+      sentences_string = str(json.dumps(sentences))
 
       st.write(sentences_string)
       Func.write('''<html>

@@ -778,7 +778,7 @@ class txtanalysis:
         st.write('The graph below represents the searched word in the middle and the right and the left context for the word, the bigger the font size the more frequent the word is')
         st.write('The word frequency is represented by the weight in the tool tip')
 
-        st.write(input_data)
+      
         html.create_html_txt(search_word, input_data)
 
         HtmlFile = open("GFG-2.html", 'r')

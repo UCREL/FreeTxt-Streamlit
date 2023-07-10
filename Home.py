@@ -1245,7 +1245,7 @@ def plot_kwic_txt(input_data,tab):
                 data = grid_response['data']
                 selected = grid_response['selected_rows'] 
                 df = pd.DataFrame(selected)
-                        expander = st.expander('Collocation')
+            expander = st.expander('Collocation')
             with expander: #Could you replace with NLTK concordance later?
             # keyword = st.text_input('Enter a keyword:','staff')
                 Word_type = st.selectbox('Choose word type:',

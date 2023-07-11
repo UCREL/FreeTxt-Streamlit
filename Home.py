@@ -2869,7 +2869,7 @@ def analysis_page():
                             selection_mode="multiple",
                             return_mode_value='selected'
                                )
-
+                           st.write(grid_response['data'])
                            selected_indices = [d['Index'] for d in grid_response['data']]
 
                            # User can trigger re-analysis by deselecting some reviews

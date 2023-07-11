@@ -2860,7 +2860,7 @@ def analysis_page():
                            df = pd.DataFrame(sentiments, columns=['Index', 'Review', 'Sentiment Label', 'Sentiment Score'])
                            # Add an index column
                            df.reset_index(level=0, inplace=True)
-	                   gb = GridOptionsBuilder.from_dataframe(dfanalysis)
+                           gb = GridOptionsBuilder.from_dataframe(dfanalysis)
                            gb.configure_pagination(paginationAutoPageSize=True) #Add pagination
                            gb.configure_side_bar() #Add a sidebar
                            gb.configure_selection('multiple', use_checkbox=True, groupSelectsChildren="Group checkbox select children") #Enable multi-row selection

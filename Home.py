@@ -2830,7 +2830,7 @@ def analysis_page():
         for i in range(len(filenames)):
           
                 _, df = data[filenames[i]]
-                
+                import SessionState
                 df, selected_columns = select_columns(df, key=i)
                 df = df.astype(str)
                 # Convert all string values in the DataFrame to lowercase
@@ -2852,7 +2852,7 @@ def analysis_page():
                         language = detect_language(df)  
                         if language == 'en':
 			    # Load SessionState
-                           #state = SessionState.get(sentiments=None, selected_indices=None)
+                           state = SessionState.get(sentiments=None, selected_indices=None)
 
                            if state.sentiments is None:
                                  state.sentiments = analyse_sentiment(input_text, num_classes)

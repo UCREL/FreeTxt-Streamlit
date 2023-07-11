@@ -2852,7 +2852,7 @@ def analysis_page():
                         language = detect_language(df)  
                         if language == 'en':
 			    # Load SessionState
-                           state = SessionState.get(sentiments=None, selected_indices=None)
+                           #state = SessionState.get(sentiments=None, selected_indices=None)
 
                            if state.sentiments is None:
                                  state.sentiments = analyse_sentiment(input_text, num_classes)

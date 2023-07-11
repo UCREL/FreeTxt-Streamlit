@@ -2857,17 +2857,17 @@ def analysis_page():
 
                                # Display reviews with sentiment analysis and checkbox for user to select
                            st.write('you can deselect the unwanted reviwes from the following table')
-                           df = pd.DataFrame(sentiments, columns=['Index', 'Review', 'Sentiment Label', 'Sentiment Score'])
+                           df_sentiment = pd.DataFrame(sentiments, columns=['Index', 'Review', 'Sentiment Label', 'Sentiment Score'])
                            # Add an index column
                            #df.reset_index(level=0, inplace=True)
-                           gb = GridOptionsBuilder.from_dataframe(dfanalysis)
+                           gb = GridOptionsBuilder.from_dataframe(df_sentiment)
                            gb.configure_pagination(paginationAutoPageSize=True) #Add pagination
                            gb.configure_side_bar() #Add a sidebar
                            #gb.configure_selection('multiple', use_checkbox=True, groupSelectsChildren="Group checkbox select children") #Enable multi-row selection
                            gridOptions = gb.build()
 
                            grid_response = AgGrid(
-                            df,
+                            df_sentiment,
                            height=800,
                           width='100%',
                            fit_columns_on_grid_load=True,
@@ -2877,9 +2877,6 @@ def analysis_page():
                                 )
     
                            selected_indices = [d['index'] for d in grid_response['selected_rows']]
-                          
-                          
-                           #selected_indices = grid_response['data'].index.tolist()
 
                           
 
@@ -2890,8 +2887,8 @@ def analysis_page():
 
                             #sentiments = analyse_sentiment(input_text,num_classes)
                            #dfanalysis = pd.DataFrame(sentiments, columns=['Review', 'Sentiment Label', 'Sentiment Score'])
-                           plot_sentiment_pie(df)
-                           plot_sentiment(df)
+                           plot_sentiment_pie(df_sentiment)
+                           plot_sentiment(df_sentiment)
                       
                         elif language == 'cy':
                             #sentiments = analyse_sentiment_welsh(input_text)

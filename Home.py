@@ -43,7 +43,7 @@ import scattertext as tt
 import spacy
 from pprint import pprint
 from st_aggrid import GridOptionsBuilder, AgGrid, GridUpdateMode, DataReturnMode
-from streamlit_aggrid import AgGrid
+
 import shutil
 from dateutil import parser
 import streamlit.components.v1 as components

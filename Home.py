@@ -2880,9 +2880,9 @@ def analysis_page():
                                   sentiments = analyse_sentiment('\n'.join(selected_reviews), num_classes)
 
                             #sentiments = analyse_sentiment(input_text,num_classes)
-                            #dfanalysis = pd.DataFrame(sentiments, columns=['Review', 'Sentiment Label', 'Sentiment Score'])
-                           plot_sentiment_pie(df)
-                           plot_sentiment(df)
+                           dfanalysis = pd.DataFrame(sentiments, columns=['Review', 'Sentiment Label', 'Sentiment Score'])
+                           plot_sentiment_pie(dfanalysis)
+                           plot_sentiment(dfanalysis)
                       
                         elif language == 'cy':
                             #sentiments = analyse_sentiment_welsh(input_text)

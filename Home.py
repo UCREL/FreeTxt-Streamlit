@@ -43,6 +43,7 @@ import scattertext as tt
 import spacy
 from pprint import pprint
 from st_aggrid import GridOptionsBuilder, AgGrid, GridUpdateMode, DataReturnMode
+
 import shutil
 from dateutil import parser
 import streamlit.components.v1 as components
@@ -441,8 +442,7 @@ def analyse_sentiment(input_text,num_classes, max_seq_len=512):
 
     # predict sentiment for each review
     sentiments = []
-    for i, review in enumerate(reviews):
-    #for review in reviews:
+    for review in reviews:
         review = preprocess_text(review)
         if review:
             # Tokenize the review
@@ -484,8 +484,8 @@ def analyse_sentiment(input_text,num_classes, max_seq_len=512):
                 sentiment_label = sentiment_labels[sentiment_index]
 
             sentiment_score = avg_scores[sentiment_index]
-            #sentiments.append((review, sentiment_label, sentiment_score))
-            sentiments.append((i, review, sentiment_label, sentiment_score)) 
+            sentiments.append((review, sentiment_label, sentiment_score))
+
     return sentiments
 
 #####
@@ -2850,45 +2850,10 @@ def analysis_page():
                         num_classes = 3 if num_classes.startswith("3") else 5
                         language = detect_language(df)  
                         if language == 'en':
-			    
-
-                          
-                           sentiments = analyse_sentiment(input_text, num_classes)
-
-                               # Display reviews with sentiment analysis and checkbox for user to select
-                           st.write('you can deselect the unwanted reviwes from the following table')
-                           df_sentiment = pd.DataFrame(sentiments, columns=['Index', 'Review', 'Sentiment Label', 'Sentiment Score'])
-                           # Add an index column
-                           #df.reset_index(level=0, inplace=True)
-                           gb = GridOptionsBuilder.from_dataframe(df_sentiment)
-                           gb.configure_pagination(paginationAutoPageSize=True) #Add pagination
-                           gb.configure_side_bar() #Add a sidebar
-                           #gb.configure_selection('multiple', use_checkbox=True, groupSelectsChildren="Group checkbox select children") #Enable multi-row selection
-                           gridOptions = gb.build()
-
-                           grid_response = AgGrid(
-                            df_sentiment,
-                           height=800,
-                          width='100%',
-                           fit_columns_on_grid_load=True,
-                          update_mode='value_changed',
-                           selection_mode="multiple",
-                              return_mode_value='selected'
-                                )
-    
-                           selected_indices = [d['index'] for d in grid_response['selected_rows']]
-
-                          
-
-                           # User can trigger re-analysis by deselecting some reviews
-                           if st.button('Re-analyse'):
-                                  selected_reviews = [rev for i, rev in enumerate(reviews) if i in selected_indices]
-                                  sentiments = analyse_sentiment('\n'.join(selected_reviews), num_classes)
-
-                            #sentiments = analyse_sentiment(input_text,num_classes)
-                           #dfanalysis = pd.DataFrame(sentiments, columns=['Review', 'Sentiment Label', 'Sentiment Score'])
-                           plot_sentiment_pie(df_sentiment)
-                           plot_sentiment(df_sentiment)
+                            sentiments = analyse_sentiment(input_text,num_classes)
+                            dfanalysis = pd.DataFrame(sentiments, columns=['Review', 'Sentiment Label', 'Sentiment Score'])
+                            plot_sentiment_pie(dfanalysis)
+                            plot_sentiment(dfanalysis)
                       
                         elif language == 'cy':
                             #sentiments = analyse_sentiment_welsh(input_text)

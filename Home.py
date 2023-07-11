@@ -2859,7 +2859,7 @@ def analysis_page():
                            st.write('you can deselect the unwanted reviwes from the following table')
                            df = pd.DataFrame(sentiments, columns=['Index', 'Review', 'Sentiment Label', 'Sentiment Score'])
                            # Add an index column
-                           df.reset_index(level=0, inplace=True)
+                           #df.reset_index(level=0, inplace=True)
                            gb = GridOptionsBuilder.from_dataframe(dfanalysis)
                            gb.configure_pagination(paginationAutoPageSize=True) #Add pagination
                            gb.configure_side_bar() #Add a sidebar
@@ -2867,14 +2867,14 @@ def analysis_page():
                            gridOptions = gb.build()
 
                            grid_response = AgGrid(
-        df,
-        height=800,
-        width='100%',
-        fit_columns_on_grid_load=True,
-        update_mode='value_changed',
-        selection_mode="multiple",
-        return_mode_value='selected'
-    )
+                            df,
+                           height=800,
+                          width='100%',
+                           fit_columns_on_grid_load=True,
+                          update_mode='value_changed',
+                           selection_mode="multiple",
+                              return_mode_value='selected'
+                                )
     
                            selected_indices = [d['index'] for d in grid_response['selected_rows']]
                           

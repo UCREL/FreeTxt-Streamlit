@@ -2859,20 +2859,25 @@ def analysis_page():
                                # Display reviews with sentiment analysis and checkbox for user to select
                            st.write('you can deselect the unwanted reviwes from the following table')
                            df = pd.DataFrame(sentiments, columns=['Index', 'Review', 'Sentiment Label', 'Sentiment Score'])
+                           # Add an index column
+                           df.reset_index(level=0, inplace=True)
 
                            grid_response = AgGrid(
-                            df,
-                            height=800,
-                            width='100%',
-                            fit_columns_on_grid_load=True,
-                            update_mode='value_changed',
-                            selection_mode="multiple",
-                            return_mode_value='selected'
-                               )
-                           st.write(grid_response['data'])
-                           selected_indices = grid_response['data'].index.tolist()
+        df,
+        height=800,
+        width='100%',
+        fit_columns_on_grid_load=True,
+        update_mode='value_changed',
+        selection_mode="multiple",
+        return_mode_value='selected'
+    )
+    
+                           selected_indices = [d['index'] for d in grid_response['selected_rows']]
+                          
+                          
+                           #selected_indices = grid_response['data'].index.tolist()
 
-                           #selected_indices = [d['Index'] for d in grid_response['data']]
+                          
 
                            # User can trigger re-analysis by deselecting some reviews
                            if st.button('Re-analyse'):

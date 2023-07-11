@@ -38,4 +38,4 @@ kaleido
 empath
 fpdf
 streamlit-option-menu
-
+streamlit_aggrid

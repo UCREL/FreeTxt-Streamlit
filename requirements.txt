@@ -38,3 +38,4 @@ kaleido
 empath
 fpdf
 streamlit-option-menu
+SessionState

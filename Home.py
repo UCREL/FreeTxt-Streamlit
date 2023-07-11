@@ -442,7 +442,8 @@ def analyse_sentiment(input_text,num_classes, max_seq_len=512):
 
     # predict sentiment for each review
     sentiments = []
-    for review in reviews:
+    for i, review in enumerate(reviews):
+    #for review in reviews:
         review = preprocess_text(review)
         if review:
             # Tokenize the review
@@ -484,8 +485,8 @@ def analyse_sentiment(input_text,num_classes, max_seq_len=512):
                 sentiment_label = sentiment_labels[sentiment_index]
 
             sentiment_score = avg_scores[sentiment_index]
-            sentiments.append((review, sentiment_label, sentiment_score))
-
+            #sentiments.append((review, sentiment_label, sentiment_score))
+            sentiments.append((i, review, sentiment_label, sentiment_score)) 
     return sentiments
 
 #####
@@ -2850,10 +2851,37 @@ def analysis_page():
                         num_classes = 3 if num_classes.startswith("3") else 5
                         language = detect_language(df)  
                         if language == 'en':
-                            sentiments = analyse_sentiment(input_text,num_classes)
-                            dfanalysis = pd.DataFrame(sentiments, columns=['Review', 'Sentiment Label', 'Sentiment Score'])
-                            plot_sentiment_pie(dfanalysis)
-                            plot_sentiment(dfanalysis)
+			    # Load SessionState
+                           state = SessionState.get(sentiments=None, selected_indices=None)
+
+                           if state.sentiments is None:
+                                 state.sentiments = analyse_sentiment(input_text, num_classes)
+
+                               # Display reviews with sentiment analysis and checkbox for user to select
+                           st.write('you can deselect the unwanted reviwes from the following table')
+                           df = pd.DataFrame(state.sentiments, columns=['Index', 'Review', 'Sentiment', 'Score'])
+
+                           grid_response = AgGrid(
+                            df,
+                            height=800,
+                            width='100%',
+                            fit_columns_on_grid_load=True,
+                            update_mode='value_changed',
+                            selection_mode="multiple",
+                            return_mode_value='selected'
+                               )
+
+                           state.selected_indices = [d['Index'] for d in grid_response['data']]
+
+                           # User can trigger re-analysis by deselecting some reviews
+                           if st.button('Re-analyse'):
+                                  selected_reviews = [rev for i, rev in enumerate(reviews) if i in state.selected_indices]
+                                  state.sentiments = analyse_sentiment('\n'.join(selected_reviews), num_classes)
+
+                            #sentiments = analyse_sentiment(input_text,num_classes)
+                            #dfanalysis = pd.DataFrame(sentiments, columns=['Review', 'Sentiment Label', 'Sentiment Score'])
+                            plot_sentiment_pie(df)
+                            plot_sentiment(df)
                       
                         elif language == 'cy':
                             #sentiments = analyse_sentiment_welsh(input_text)

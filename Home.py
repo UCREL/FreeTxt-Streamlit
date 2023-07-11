@@ -2858,7 +2858,7 @@ def analysis_page():
 
                                # Display reviews with sentiment analysis and checkbox for user to select
                            st.write('you can deselect the unwanted reviwes from the following table')
-                           df = pd.DataFrame(sentiments, columns=['Index', 'Review', 'Sentiment', 'Score'])
+                           df = pd.DataFrame(sentiments, columns=['Index', 'Review', 'Sentiment Label', 'Sentiment Score'])
 
                            grid_response = AgGrid(
                             df,
@@ -2880,9 +2880,9 @@ def analysis_page():
                                   sentiments = analyse_sentiment('\n'.join(selected_reviews), num_classes)
 
                             #sentiments = analyse_sentiment(input_text,num_classes)
-                           dfanalysis = pd.DataFrame(sentiments, columns=['Review', 'Sentiment Label', 'Sentiment Score'])
-                           plot_sentiment_pie(dfanalysis)
-                           plot_sentiment(dfanalysis)
+                           #dfanalysis = pd.DataFrame(sentiments, columns=['Review', 'Sentiment Label', 'Sentiment Score'])
+                           plot_sentiment_pie(df)
+                           plot_sentiment(df)
                       
                         elif language == 'cy':
                             #sentiments = analyse_sentiment_welsh(input_text)

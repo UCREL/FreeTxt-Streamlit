@@ -2830,7 +2830,7 @@ def analysis_page():
         for i in range(len(filenames)):
           
                 _, df = data[filenames[i]]
-                import SessionState
+                
                 df, selected_columns = select_columns(df, key=i)
                 df = df.astype(str)
                 # Convert all string values in the DataFrame to lowercase

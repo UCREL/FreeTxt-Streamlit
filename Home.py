@@ -999,6 +999,7 @@ def get_wordcloud (data, key,tab):
                         deselected_words.append(word)
     
          # Exclude deselected words from input_data
+      
         if cloud_type == 'All words':
            df = df[~df['word'].isin(deselected_words)]
            wordcloud = wc.generate_from_frequencies(df.set_index('word')['KENESS'])
@@ -1006,7 +1007,7 @@ def get_wordcloud (data, key,tab):
             words = nltk.tokenize.word_tokenize(input_data)
             words = [word for word in words if word not in deselected_words]
             input_data = ' '.join(words)
-            freqs = Counter(all_words)
+            freqs = Counter(words)
             wordcloud = wc.generate_from_frequencies(freqs)
 
 	    

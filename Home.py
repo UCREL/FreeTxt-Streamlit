@@ -987,7 +987,7 @@ def get_wordcloud (data, key,tab):
         if len(all_words) % n_cols:
              n_rows += 1
 
-       deselected_words = []
+        deselected_words = []
         for i in range(n_rows):
            cols = tab.beta_columns(n_cols)
            for j in range(n_cols):

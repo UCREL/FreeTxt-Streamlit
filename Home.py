@@ -1006,7 +1006,7 @@ def get_wordcloud (data, key,tab):
             words = nltk.tokenize.word_tokenize(input_data)
             words = [word for word in words if word not in deselected_words]
             input_data = ' '.join(words)
-            freqs = Counter(words)
+            freqs = Counter(all_words)
             wordcloud = wc.generate_from_frequencies(freqs)
 
 	    

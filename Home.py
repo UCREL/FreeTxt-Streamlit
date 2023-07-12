@@ -2860,6 +2860,13 @@ def analysis_page():
                             sentiments, sentiment_counts = analyse_sentiment(input_text, num_classes)
                             net_sentiment = sentiment_counts['Positive'] - sentiment_counts['Negative']
                             st.write('Net sentiment: ', net_sentiment)
+                            if net_sentiment > 0:
+                                 st.write(f'The net sentiment score of {net_sentiment} indicates that there are {net_sentiment} more positive sentiments than negative sentiments in the given text. This suggests that the overall sentiment of the text is positive.')
+                            elif net_sentiment < 0:
+                                 st.write(f'The net sentiment score of {net_sentiment} indicates that there are {abs(net_sentiment)} more negative sentiments than positive sentiments in the given text. This suggests that the overall sentiment of the text is negative.')
+                            else:
+                                 st.write('The net sentiment score is zero, which indicates an equal number of positive and negative sentiments. This suggests that the overall sentiment of the text is neutral.')
+
                             dfanalysis = pd.DataFrame(sentiments, columns=['Review', 'Sentiment Label', 'Sentiment Score'])
                             plot_sentiment_pie(dfanalysis)
                             plot_sentiment(dfanalysis)

@@ -2869,7 +2869,7 @@ def analysis_page():
                                """)
 
                             net_sentiment = sentiment_counts['Positive'] - sentiment_counts['Negative']
-                            st.write('Net sentiment: ', net_sentiment)
+                            st.header('Net sentiment: ', net_sentiment)
                             if net_sentiment > 0:
                                  st.write(f'The net sentiment score of {net_sentiment} indicates that there are {net_sentiment} more positive sentiments than negative sentiments in the given text. This suggests that the overall sentiment of the text is positive.')
                             elif net_sentiment < 0:

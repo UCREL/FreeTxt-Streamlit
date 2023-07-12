@@ -440,6 +440,9 @@ def analyse_sentiment(input_text,num_classes, max_seq_len=512):
     # preprocess input text and split into reviews
     reviews = input_text.split("\n")
 
+    # initialize sentiment counters
+    sentiment_counts = {'Negative': 0, 'Neutral': 0, 'Positive': 0}
+
     # predict sentiment for each review
     sentiments = []
     for review in reviews:
@@ -486,7 +489,10 @@ def analyse_sentiment(input_text,num_classes, max_seq_len=512):
             sentiment_score = avg_scores[sentiment_index]
             sentiments.append((review, sentiment_label, sentiment_score))
 
-    return sentiments
+            # increment sentiment counter
+            sentiment_counts[sentiment_label] += 1
+
+    return sentiments, sentiment_counts
 
 #####
 import plotly.graph_objs as go
@@ -2850,7 +2856,10 @@ def analysis_page():
                         num_classes = 3 if num_classes.startswith("3") else 5
                         language = detect_language(df)  
                         if language == 'en':
-                            sentiments = analyse_sentiment(input_text,num_classes)
+                            #sentiments = analyse_sentiment(input_text,num_classes)
+                            sentiments, sentiment_counts = analyse_sentiment(input_text, num_classes)
+                            net_sentiment = sentiment_counts['Positive'] - sentiment_counts['Negative']
+                            st.write('Net sentiment: ', net_sentiment)
                             dfanalysis = pd.DataFrame(sentiments, columns=['Review', 'Sentiment Label', 'Sentiment Score'])
                             plot_sentiment_pie(dfanalysis)
                             plot_sentiment(dfanalysis)

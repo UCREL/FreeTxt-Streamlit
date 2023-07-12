@@ -952,31 +952,21 @@ def get_wordcloud (data, key,tab):
 	#measure = tab2.selectbox("Select a measure:", options=["Frequency","KENESS", "Log-Likelihood"])    
         all_words = []
         cloud_type = tab.selectbox('Choose Cloud category:', ['All words', 'Semantic Tags', 'Bigrams', 'Trigrams', '4-grams', 'Nouns', 'Proper nouns', 'Verbs', 'Adjectives', 'Adverbs', 'Numbers'], key=f"{key}_cloud_select")
+    
         if cloud_type == 'All words':
-            all_words = list(set(nltk.tokenize.word_tokenize(input_data)))
-            df = calculate_measures(df,'KENESS')
-            all_words = df['word'].tolist()  # Update all_words from the DataFrame after calculation
-        elif cloud_type == 'Bigrams':
-            all_words = list(set([' '.join(g) for g in nltk.ngrams(input_data.split(),2)]))
-        elif cloud_type == 'Trigrams':
-            all_words = list(set([' '.join(g) for g in nltk.ngrams(input_data.split(),3)]))
-        elif cloud_type == '4-grams':
-            all_words = list(set([' '.join(g) for g in nltk.ngrams(input_data.split(),4)]))
-        elif cloud_type == 'Nouns':
-            all_words = list(set([token.text for token in doc if token.pos_ == "NOUN"]))
-        elif cloud_type == 'Proper nouns':
-            all_words = list(set([token.text for token in doc if token.pos_ == "PROPN"]))
-        elif cloud_type == 'Verbs':
-            all_words = list(set([token.text for token in doc if token.pos_ == "VERB"]))
-        elif cloud_type == 'Adjectives':
-            all_words = list(set([token.text for token in doc if token.pos_ == "ADJ"]))
-        elif cloud_type == 'Adverbs':
-            all_words = list(set([token.text for token in doc if token.pos_ == "ADV"]))
-        elif cloud_type == 'Numbers':
-            all_words = list(set([token.text for token in doc if token.pos_ == "NUM"]))
+             all_words = nltk.tokenize.word_tokenize(input_data)
+             df = calculate_measures(df,'KENESS')
+             all_words = df['word'].tolist()  # Update all_words from the DataFrame after calculation
+        elif cloud_type in ['Bigrams', 'Trigrams', '4-grams']:
+              n = int(cloud_type.split('-')[0])
+              all_words = nltk.tokenize.word_tokenize(input_data)
+              all_words = [' '.join(g) for g in nltk.ngrams(all_words, n)]
+        elif cloud_type in ['Nouns', 'Proper nouns', 'Verbs', 'Adjectives', 'Adverbs', 'Numbers']:
+              pos_dict = {'Nouns': 'NOUN', 'Proper nouns': 'PROPN', 'Verbs': 'VERB', 'Adjectives': 'ADJ', 'Adverbs': 'ADV', 'Numbers': 'NUM'}
+              all_words = [token.text for token in doc if token.pos_ == pos_dict[cloud_type]]
         elif cloud_type == 'Semantic Tags':
-            tags = Pymsas_tags(input_data)
-            all_words = list(set(tags.astype(str)))
+              tags = Pymsas_tags(input_data)
+              all_words = list(tags.astype(str))
         else: 
             pass
         # Set a fixed number of columns
@@ -1004,11 +994,9 @@ def get_wordcloud (data, key,tab):
            df = df[~df['word'].isin(deselected_words)]
            wordcloud = wc.generate_from_frequencies(df.set_index('word')['KENESS'])
         else:
-            words = nltk.tokenize.word_tokenize(input_data)
-            words = [word for word in words if word not in deselected_words]
-            input_data = ' '.join(words)
-            freqs = Counter(words)
-            wordcloud = wc.generate_from_frequencies(freqs)
+           freqs = Counter(all_words)
+           deselected_freqs = {k: v for k, v in freqs.items() if k not in deselected_words}
+           wordcloud = wc.generate_from_frequencies(deselected_freqs)
 
 	    
         color = tab.radio('Select image colour:', ('Color', 'Black'), key=f"{key}_cloud_radio")

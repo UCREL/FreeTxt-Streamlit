@@ -2428,7 +2428,7 @@ def textbox_analysis_page():
                                       sentiments = analyse_sentiment_txt(input_data,num_classes)
                                   else:
                                     input_data = input_data.replace('.', '.\n')
-                                    sentiments, sentiment_counts = analyse_sentiment(input_text, num_classes)
+                                    sentiments, sentiment_counts = analyse_sentiment(input_data, num_classes)
                                      
 
                                     net_sentiment = sentiment_counts['Positive'] - sentiment_counts['Negative']

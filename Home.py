@@ -1007,7 +1007,7 @@ def get_wordcloud (data, key,tab):
             words = [word for word in words if word not in deselected_words]
             input_data = ' '.join(words)
             freqs = Counter(all_words)
-            wordcloud = wc.generate_from_frequencies(all_words)
+            wordcloud = wc.generate_from_frequencies(freqs)
 
 	    
         color = tab.radio('Select image colour:', ('Color', 'Black'), key=f"{key}_cloud_radio")

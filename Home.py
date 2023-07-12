@@ -1010,7 +1010,7 @@ def get_wordcloud (data, key,tab):
             wordcloud = wc.generate_from_frequencies(freqs)
 
 	    
-	color = tab.radio('Select image colour:', ('Color', 'Black'), key=f"{key}_cloud_radio")
+        color = tab.radio('Select image colour:', ('Color', 'Black'), key=f"{key}_cloud_radio")
         img_cols = ImageColorGenerator(mask) if color == 'Black' else None
         plt.figure(figsize=[20,15])
         wordcloud_img = wordcloud.recolor(color_func=img_cols)

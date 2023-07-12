@@ -2861,8 +2861,13 @@ def analysis_page():
                         num_classes = 3 if num_classes.startswith("3") else 5
                         language = detect_language(df)  
                         if language == 'en':
-                            #sentiments = analyse_sentiment(input_text,num_classes)
                             sentiments, sentiment_counts = analyse_sentiment(input_text, num_classes)
+                            st.write("""
+                           The sentiment analysis is performed using the ["nlptown/bert-base-multilingual-uncased-sentiment"](https://huggingface.co/nlptown/bert-base-multilingual-uncased-sentiment) model from Hugging Face. This model is trained on product reviews in multiple languages and utilizes the BERT architecture.
+
+                          As per the information on the Hugging Face model page, the accuracy of this model for sentiment analysis on English text is approximately 95%.
+                               """)
+
                             net_sentiment = sentiment_counts['Positive'] - sentiment_counts['Negative']
                             st.write('Net sentiment: ', net_sentiment)
                             if net_sentiment > 0:

@@ -994,7 +994,7 @@ def get_wordcloud (data, key,tab):
                idx = i * n_cols + j
                if idx < len(all_words):
                     word = all_words[idx]
-                    checkbox = cols[j].checkbox(f'"{word}"', value=True, key=f"0_word_{word}")
+                    checkbox = cols[j].checkbox(f'"{word}"', value=True, key=f"{key}_word_{word}")
                     if not checkbox:
                         deselected_words.append(word)
     
@@ -2650,7 +2650,7 @@ def textbox_analysis_page():
                               idx = i * n_cols + j
                               if idx < len(all_words):
                                    word = all_words[idx]
-                                   checkbox = cols[j].checkbox(f'"{word}"', value=True, key=f"{key}_word_{word}")
+                                   checkbox = cols[j].checkbox(f'"{word}"', value=True, key=f"0_word_{word}")
                                    if not checkbox:
                                           deselected_words.append(word)
     

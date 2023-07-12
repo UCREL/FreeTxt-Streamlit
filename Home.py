@@ -2419,7 +2419,7 @@ def textbox_analysis_page():
                         language = detect_language(df)  
 
                         if language == 'en':
-				  st.write("""
+                                  st.write("""
                                  The sentiment analysis is performed using the ["nlptown/bert-base-multilingual-uncased-sentiment"](https://huggingface.co/nlptown/bert-base-multilingual-uncased-sentiment) model from Hugging Face. This model is trained on product reviews in multiple languages and utilizes the BERT architecture.
 
                                    As per the information on the Hugging Face model page, the accuracy of this model for sentiment analysis on English text is approximately 95%.

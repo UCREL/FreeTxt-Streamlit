@@ -979,8 +979,24 @@ def get_wordcloud (data, key,tab):
             all_words = list(set(tags.astype(str)))
         else: 
             pass
-        deselected_words = []
+        # Set a fixed number of columns
+        n_cols = 5
 
+        # Calculate number of rows
+        n_rows = len(all_words) // n_cols
+        if len(all_words) % n_cols:
+             n_rows += 1
+
+       deselected_words = []
+        for i in range(n_rows):
+           cols = tab.beta_columns(n_cols)
+           for j in range(n_cols):
+               idx = i * n_cols + j
+               if idx < len(all_words):
+                    word = all_words[idx]
+                    checkbox = cols[j].checkbox(f'Include "{word}"', value=True, key=f"{key}_word_{word}")
+                    if not checkbox:
+                        deselected_words.append(word)
     
          # Exclude deselected words from input_data
         if cloud_type == 'All words':
@@ -996,10 +1012,7 @@ def get_wordcloud (data, key,tab):
         wordcloud_img = wordcloud.recolor(color_func=img_cols)
         plt.imshow(wordcloud_img, interpolation="bilinear")
         plt.axis("off")
-        for word in all_words:
-            checkbox = tab.checkbox(f'Include "{word}"', value=True, key=f"{key}_word_{word}")
-            if not checkbox:
-                deselected_words.append(word) 
+
         
 
 

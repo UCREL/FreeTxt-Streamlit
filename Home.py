@@ -1087,7 +1087,7 @@ def get_kwic(text, keyword, window_size=1, maxInstances=10, lower_case=False):
     return kwic_insts
 
 #---------- get collocation ------------------------
-def get_collocs(kwic_insts,topn=10):
+def get_collocs(kwic_insts,topn=30):
     words=[]
     for l, t, r in kwic_insts:
         words += l.split() + r.split()

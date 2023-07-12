@@ -968,7 +968,7 @@ def get_wordcloud (data, key,tab):
               all_words = list(tags.astype(str))
         else: 
             pass
-	all_words = list(set(all_words))
+        all_words = list(set(all_words))
         # Set a fixed number of columns
         n_cols = 5
 

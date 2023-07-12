@@ -1006,15 +1006,13 @@ def get_wordcloud (data, key,tab):
             words = nltk.tokenize.word_tokenize(input_data)
             words = [word for word in words if word not in deselected_words]
             input_data = ' '.join(words)
+	
         color = tab.radio('Select image colour:', ('Color', 'Black'), key=f"{key}_cloud_radio")
         img_cols = ImageColorGenerator(mask) if color == 'Black' else None
         plt.figure(figsize=[20,15])
         wordcloud_img = wordcloud.recolor(color_func=img_cols)
         plt.imshow(wordcloud_img, interpolation="bilinear")
         plt.axis("off")
-
-        
-
 
         with tab:
             st.set_option('deprecation.showPyplotGlobalUse', False)

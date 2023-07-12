@@ -950,44 +950,51 @@ def get_wordcloud (data, key,tab):
 
         # Allow the user to select the measure to use
 	#measure = tab2.selectbox("Select a measure:", options=["Frequency","KENESS", "Log-Likelihood"])    
-        cloud_type = tab.selectbox('Choose Cloud category:',['All words','Semantic Tags', 'Bigrams', 'Trigrams', '4-grams', 'Nouns', 'Proper nouns', 'Verbs', 'Adjectives', 'Adverbs', 'Numbers'],key= f"{key}_cloud_select")
+        all_words = []
+        cloud_type = tab.selectbox('Choose Cloud category:', ['All words', 'Semantic Tags', 'Bigrams', 'Trigrams', '4-grams', 'Nouns', 'Proper nouns', 'Verbs', 'Adjectives', 'Adverbs', 'Numbers'], key=f"{key}_cloud_select")
         if cloud_type == 'All words':
-            #wordcloud = wc.generate(input_data)
-            
-            # Calculate the selected measure for each word
+            all_words = list(set(nltk.tokenize.word_tokenize(input_data)))
             df = calculate_measures(df,'KENESS')
-            
-           
-            wordcloud = wc.generate_from_frequencies(df.set_index('word')['KENESS'])
-
-      
-
+            all_words = df['word'].tolist()  # Update all_words from the DataFrame after calculation
         elif cloud_type == 'Bigrams':
-            wordcloud = wc.generate_from_frequencies(Counter(input_bigrams))        
+            all_words = list(set([' '.join(g) for g in nltk.ngrams(input_data.split(),2)]))
         elif cloud_type == 'Trigrams':
-            wordcloud = wc.generate_from_frequencies(Counter(input_trigrams))        
+            all_words = list(set([' '.join(g) for g in nltk.ngrams(input_data.split(),3)]))
         elif cloud_type == '4-grams':
-            wordcloud = wc.generate_from_frequencies(Counter(input_4grams))        
+            all_words = list(set([' '.join(g) for g in nltk.ngrams(input_data.split(),4)]))
         elif cloud_type == 'Nouns':
-            wordcloud = wc.generate_from_frequencies(Counter([token.text for token in doc if token.pos_ == "NOUN"]))        
+            all_words = list(set([token.text for token in doc if token.pos_ == "NOUN"]))
         elif cloud_type == 'Proper nouns':
-            wordcloud = wc.generate_from_frequencies(Counter([token.text for token in doc if token.pos_ == "PROPN"]))        
+            all_words = list(set([token.text for token in doc if token.pos_ == "PROPN"]))
         elif cloud_type == 'Verbs':
-            wordcloud = wc.generate_from_frequencies(Counter([token.text for token in doc if token.pos_ == "VERB"]))
+            all_words = list(set([token.text for token in doc if token.pos_ == "VERB"]))
         elif cloud_type == 'Adjectives':
-            wordcloud = wc.generate_from_frequencies(Counter([token.text for token in doc if token.pos_ == "ADJ"]))
+            all_words = list(set([token.text for token in doc if token.pos_ == "ADJ"]))
         elif cloud_type == 'Adverbs':
-            wordcloud = wc.generate_from_frequencies(Counter([token.text for token in doc if token.pos_ == "ADV"]))
+            all_words = list(set([token.text for token in doc if token.pos_ == "ADV"]))
         elif cloud_type == 'Numbers':
-            wordcloud = wc.generate_from_frequencies(Counter([token.text for token in doc if token.pos_ == "NUM"]))
+            all_words = list(set([token.text for token in doc if token.pos_ == "NUM"]))
         elif cloud_type == 'Semantic Tags':
             tags = Pymsas_tags(input_data)
-            tags = tags.astype(str)
-            wordcloud = wc.generate(' '.join(tags))
-
-            
+            all_words = list(set(tags.astype(str)))
         else: 
             pass
+        deselected_words = []
+        for word in all_words:
+            checkbox = tab.checkbox(f'Include "{word}"', value=True, key=f"{key}_word_{word}")
+            if not checkbox:
+                deselected_words.append(word)
+    
+         # Exclude deselected words from input_data
+        if cloud_type == 'All words':
+           df = df[~df['word'].isin(deselected_words)]
+           wordcloud = wc.generate_from_frequencies(df.set_index('word')['KENESS'])
+        else:
+            words = nltk.tokenize.word_tokenize(input_data)
+            words = [word for word in words if word not in deselected_words]
+            input_data = ' '.join(words)
+            
+        
         color = tab.radio('Select image colour:', ('Color', 'Black'), key=f"{key}_cloud_radio")
         img_cols = ImageColorGenerator(mask) if color == 'Black' else None
         plt.figure(figsize=[20,15])

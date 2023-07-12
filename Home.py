@@ -1160,7 +1160,7 @@ def plot_coll_14(keyword, collocs, expander, tab, output_file='network.html'):
         node_color = 'green' if node == most_frequent_word else 'gray' if node == keyword else 'blue'
         node_size = 100 * count / n
         font_size = max(6, int(node_size / 2))  # Adjust font size based on node size, minimum size is 6
-        net.add_node(node, label=node, color=node_color, size=node_size, font={'size': font_size, 'face': 'Arial'})
+        net.add_node(node, label=node,title=node ,color=node_color, size=node_size, font={'size': font_size, 'face': 'Arial'})
 
     # Add edges
     for source, target, freq in top_collocs_df[['source', 'word', 'freq']].values:

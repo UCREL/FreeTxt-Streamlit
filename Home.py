@@ -489,8 +489,13 @@ def analyse_sentiment(input_text,num_classes, max_seq_len=512):
             sentiment_score = avg_scores[sentiment_index]
             sentiments.append((review, sentiment_label, sentiment_score))
 
-            # increment sentiment counter
-            sentiment_counts[sentiment_label] += 1
+            # map 'Very negative' and 'Very positive' to 'Negative' and 'Positive'
+            if sentiment_label in ['Very negative', 'Negative']:
+                sentiment_counts['Negative'] += 1
+            elif sentiment_label in ['Very positive', 'Positive']:
+                sentiment_counts['Positive'] += 1
+            else:
+                sentiment_counts['Neutral'] += 1
 
     return sentiments, sentiment_counts
 

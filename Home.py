@@ -980,10 +980,7 @@ def get_wordcloud (data, key,tab):
         else: 
             pass
         deselected_words = []
-        for word in all_words:
-            checkbox = tab.checkbox(f'Include "{word}"', value=True, key=f"{key}_word_{word}")
-            if not checkbox:
-                deselected_words.append(word)
+
     
          # Exclude deselected words from input_data
         if cloud_type == 'All words':
@@ -993,7 +990,10 @@ def get_wordcloud (data, key,tab):
             words = nltk.tokenize.word_tokenize(input_data)
             words = [word for word in words if word not in deselected_words]
             input_data = ' '.join(words)
-            
+        for word in all_words:
+            checkbox = tab.checkbox(f'Include "{word}"', value=True, key=f"{key}_word_{word}")
+            if not checkbox:
+                deselected_words.append(word) 
         
         color = tab.radio('Select image colour:', ('Color', 'Black'), key=f"{key}_cloud_radio")
         img_cols = ImageColorGenerator(mask) if color == 'Black' else None

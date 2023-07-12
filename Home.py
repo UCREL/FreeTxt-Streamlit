@@ -2648,7 +2648,7 @@ def textbox_analysis_page():
                        cols = tab.columns(n_cols)
                        for j in range(n_cols):
                               idx = i * n_cols + j
-                               if idx < len(all_words):
+                              if idx < len(all_words):
                                    word = all_words[idx]
                                    checkbox = cols[j].checkbox(f'"{word}"', value=True, key=f"{key}_word_{word}")
                                    if not checkbox:

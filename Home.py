@@ -952,7 +952,6 @@ def get_wordcloud (data, key,tab):
 	#measure = tab2.selectbox("Select a measure:", options=["Frequency","KENESS", "Log-Likelihood"])    
         all_words = []
         cloud_type = tab.selectbox('Choose Cloud category:', ['All words', 'Semantic Tags', 'Bigrams', 'Trigrams', '4-grams', 'Nouns', 'Proper nouns', 'Verbs', 'Adjectives', 'Adverbs', 'Numbers'], key=f"{key}_cloud_select")
-    
         if cloud_type == 'All words':
              all_words = nltk.tokenize.word_tokenize(input_data)
              df = calculate_measures(df,'KENESS')

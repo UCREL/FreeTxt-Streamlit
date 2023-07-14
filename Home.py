@@ -446,6 +446,7 @@ def analyse_sentiment(input_text,num_classes, max_seq_len=512):
     # predict sentiment for each review
     sentiments = []
     for review in reviews:
+        original_review = review
         review = preprocess_text(review)
         if review:
             # Tokenize the review
@@ -487,7 +488,7 @@ def analyse_sentiment(input_text,num_classes, max_seq_len=512):
                 sentiment_label = sentiment_labels[sentiment_index]
 
             sentiment_score = avg_scores[sentiment_index]
-            sentiments.append((review, sentiment_label, sentiment_score))
+            sentiments.append((original_review, sentiment_label, sentiment_score))
 
             # map 'Very negative' and 'Very positive' to 'Negative' and 'Positive'
             if sentiment_label in ['Very negative', 'Negative']:

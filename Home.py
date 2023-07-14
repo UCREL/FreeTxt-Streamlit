@@ -957,10 +957,12 @@ def get_wordcloud (data, key,tab):
              all_words = nltk.tokenize.word_tokenize(input_data)
              df = calculate_measures(df,'KENESS')
              all_words = df['word'].tolist()  # Update all_words from the DataFrame after calculation
-        elif cloud_type in ['Bigrams', 'Trigrams', '4-grams']:
-              n = int(cloud_type.split('-')[0])
-              all_words = nltk.tokenize.word_tokenize(input_data)
-              all_words = [' '.join(g) for g in nltk.ngrams(all_words, n)]
+        elif cloud_type == 'Bigrams':
+            all_words = list(set([' '.join(g) for g in nltk.ngrams(input_data.split(),2)]))
+        elif cloud_type == 'Trigrams':
+            all_words = list(set([' '.join(g) for g in nltk.ngrams(input_data.split(),3)]))
+        elif cloud_type == '4-grams':
+            all_words = list(set([' '.join(g) for g in nltk.ngrams(input_data.split(),4)]))
         elif cloud_type in ['Nouns', 'Proper nouns', 'Verbs', 'Adjectives', 'Adverbs', 'Numbers']:
               pos_dict = {'Nouns': 'NOUN', 'Proper nouns': 'PROPN', 'Verbs': 'VERB', 'Adjectives': 'ADJ', 'Adverbs': 'ADV', 'Numbers': 'NUM'}
               all_words = [token.text for token in doc if token.pos_ == pos_dict[cloud_type]]
@@ -2601,7 +2603,7 @@ def textbox_analysis_page():
                if cloud_type == 'All words':
                  all_words = nltk.tokenize.word_tokenize(input_data)
                  df = calculate_measures(df,'KENESS')
-                 all_words = df['word'].tolist()  # Update all_words from the DataFrame after calculation
+                 all_words = df['word'].tolist() 
                elif cloud_type in ['Bigrams', 'Trigrams', '4-grams']:
                   n = int(cloud_type.split('-')[0])
                   all_words = nltk.tokenize.word_tokenize(input_data)

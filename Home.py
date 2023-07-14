@@ -1021,7 +1021,7 @@ def get_wordcloud (data, key,tab):
         wordcloud_img = wordcloud.recolor(color_func=img_cols)
         plt.imshow(wordcloud_img, interpolation="bilinear")
         plt.axis("off")
-
+        word_cloud_path = None
         with tab:
             st.set_option('deprecation.showPyplotGlobalUse', False)
             st.pyplot()

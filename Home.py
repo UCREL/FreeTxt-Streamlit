@@ -2655,7 +2655,7 @@ def textbox_analysis_page():
                         checkbox = cols[j].checkbox(f'"{word}"', value=True, key=f"0_word_{word}")
                         if not checkbox:
                              deselected_words.append(word)
-	       else:
+               else:
 		 for i in range(n_rows):
                   cols = tab5.columns(n_cols)
                   for j in range(n_cols):

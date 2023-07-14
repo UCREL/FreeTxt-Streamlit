@@ -983,7 +983,8 @@ def get_wordcloud (data, key,tab):
         select_all = tab.checkbox('Select/Deselect all', value=True, key=f"{key}_select_all")
 
         deselected_words = []
-        for i in range(n_rows):
+	if select_all:
+         for i in range(n_rows):
            cols = tab.columns(n_cols)
            for j in range(n_cols):
                idx = i * n_cols + j

@@ -1045,7 +1045,10 @@ def get_wordcloud (data, key,tab):
     except ValueError as err:
         with tab:
             st.info(f'Oh oh.. Please ensure that at least one free text column is chosen: {err}', icon="🤨")
-    return word_cloud_path
+    if word_cloud_path is not None:
+        return word_cloud_path
+    else:
+        return "Path not found or word cloud not created"
    ####generate a wordcloud based on Keness
 #####English Keness
 ####load the Bnc Frequency list

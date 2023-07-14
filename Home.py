@@ -930,7 +930,7 @@ def get_wordcloud (data, key,tab):
     colors =['grey','yellow','white','black','green','blue','red']
     outlines = tab.selectbox('Select cloud outline color ', colors, help='Select outline color word cloud')
     mask = np.array(PilImage.open(maskfile_2)) if maskfile_2 else maskfile_2
-   
+    word_cloud_path = None
     
     doc = nlp(input_data)
 
@@ -1021,7 +1021,7 @@ def get_wordcloud (data, key,tab):
         wordcloud_img = wordcloud.recolor(color_func=img_cols)
         plt.imshow(wordcloud_img, interpolation="bilinear")
         plt.axis("off")
-        word_cloud_path = None
+        
         with tab:
             st.set_option('deprecation.showPyplotGlobalUse', False)
             st.pyplot()

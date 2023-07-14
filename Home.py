@@ -1003,6 +1003,7 @@ def get_wordcloud (data, key,tab):
                     checkbox = cols[j].checkbox(f'"{word}"', value=False, key=f"{key}_word_{word}")
                     if not checkbox:
                         deselected_words.append(word)
+                        pass
          # Exclude deselected words from input_data
       
         if cloud_type == 'All words':

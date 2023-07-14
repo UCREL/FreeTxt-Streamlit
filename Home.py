@@ -2594,7 +2594,7 @@ def textbox_analysis_page():
             colors =['grey','yellow','white','black','green','blue','red']
             outlines = tab5.selectbox('Select cloud outline color ', colors, help='Select outline color word cloud')
             mask = np.array(PilImage.open(maskfile_2)) if maskfile_2 else maskfile_2
-   
+            word_cloud_path = None
     
             doc = nlp(input_data)
 
@@ -2643,9 +2643,10 @@ def textbox_analysis_page():
                n_rows = len(all_words) // n_cols
                if len(all_words) % n_cols:
                     n_rows += 1
-
+               select_all = tab.checkbox('Select/Deselect all', value=True, key=f"0_select_all")
                deselected_words = []
-               for i in range(n_rows):
+               if select_all:
+                for i in range(n_rows):
                   cols = tab5.columns(n_cols)
                   for j in range(n_cols):
                      idx = i * n_cols + j
@@ -2654,6 +2655,16 @@ def textbox_analysis_page():
                         checkbox = cols[j].checkbox(f'"{word}"', value=True, key=f"0_word_{word}")
                         if not checkbox:
                              deselected_words.append(word)
+	       else:
+		 for i in range(n_rows):
+                  cols = tab5.columns(n_cols)
+                  for j in range(n_cols):
+                     idx = i * n_cols + j
+                     if idx < len(all_words):
+                        word = all_words[idx]
+                        checkbox = cols[j].checkbox(f'"{word}"', value=False, key=f"0_word_{word}")
+                        if not checkbox:
+                             deselected_words.append(word)      
     
          # Exclude deselected words from input_data
       

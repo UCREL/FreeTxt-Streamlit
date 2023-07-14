@@ -2643,7 +2643,7 @@ def textbox_analysis_page():
                n_rows = len(all_words) // n_cols
                if len(all_words) % n_cols:
                     n_rows += 1
-               select_all = tab.checkbox('Select/Deselect all', value=True, key=f"0_select_all")
+               select_all = tab5.checkbox('Select/Deselect all', value=True, key=f"0_select_all")
                deselected_words = []
                if select_all:
                 for i in range(n_rows):

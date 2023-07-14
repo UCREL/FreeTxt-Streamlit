@@ -29,6 +29,7 @@ In both cases, each file can be up to 200mb in size and multiple files upload is
 6.	**Language Identification**: We have implemented a basic language identification feature which can easily detect whether the text is written in English or Welsh.
 
 ### Contacts
+- [Nouran Khallaf](https://github.com/Nouran-Khallaf)
 - [Ignatius Ezeani](https://github.com/IgnatiusEzeani)
 - [Paul Rayson](https://github.com/perayson)
 - [Mahmoud El-Haj](https://github.com/drelhaj)

@@ -1003,7 +1003,7 @@ def get_wordcloud (data, key,tab):
                     checkbox = cols[j].checkbox(f'"{word}"', value=False, key=f"{key}_word_{word}")
                     if not checkbox:
                         deselected_words.append(word)
-                        pass
+                        
          # Exclude deselected words from input_data
       
         if cloud_type == 'All words':
@@ -1025,30 +1025,31 @@ def get_wordcloud (data, key,tab):
         with tab:
             st.set_option('deprecation.showPyplotGlobalUse', False)
             st.pyplot()
-            with tempfile.NamedTemporaryFile(delete=False, suffix=".png") as tmpfile:
+            if wordcloud_img:
+              with tempfile.NamedTemporaryFile(delete=False, suffix=".png") as tmpfile:
                   wordcloud_img.to_file(tmpfile.name)
                   word_cloud_path = tmpfile.name
 
-            img = PilImage.open(tmpfile.name)
-            img_bytes = BytesIO()
-            img.save(img_bytes, format='PNG')
-            img_bytes = img_bytes.getvalue()
+              img = PilImage.open(tmpfile.name)
+              img_bytes = BytesIO()
+              img.save(img_bytes, format='PNG')
+              img_bytes = img_bytes.getvalue()
   
 
             # Add a download button in Streamlit to download the temporary image file
-            st.download_button(
+              st.download_button(
                 label="Download Word Cloud Image",
                  data=img_bytes,
                  file_name="word_cloud.png",
-                   mime="image/png",
-                   )
+                   mime="image/png",)
+            else:
+               st.warning('No word cloud image was generated please select at least one word')     
     except ValueError as err:
         with tab:
             st.info(f'Oh oh.. Please ensure that at least one free text column is chosen: {err}', icon="🤨")
-    if word_cloud_path is not None:
-        return word_cloud_path
-    else:
-        return "Path not found or word cloud not created"
+
+    return word_cloud_path
+
    ####generate a wordcloud based on Keness
 #####English Keness
 ####load the Bnc Frequency list

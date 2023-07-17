@@ -3056,16 +3056,42 @@ def analysis_page():
                         num_classes = st.radio('How do you want to categorize the sentiments?', ('3 Class Sentiments (Positive, Neutral, Negative)', '5 Class Sentiments (Very Positive, Positive, Neutral, Negative, Very Negative)'))
                         num_classes = 3 if num_classes.startswith("3") else 5
                         language = detect_language(df)
-
-                        
-                        if language == 'en':
-                            sentiments, sentiment_counts = analyse_sentiment(input_text, num_classes)
-                            st.write("""
+                        st.write("""
                            The sentiment analysis is performed using the ["nlptown/bert-base-multilingual-uncased-sentiment"](https://huggingface.co/nlptown/bert-base-multilingual-uncased-sentiment) model from Hugging Face. This model is trained on product reviews in multiple languages and utilizes the BERT architecture.
 
                           As per the information on the Hugging Face model page, the accuracy of this model for sentiment analysis on English text is approximately 95%.
                                """)
+                        
+                        if language == 'en':
+                           results = analyse_sentiment(input_text, num_classes)
+                           if results is not None:
+                                sentiments, sentiment_counts = results
+                                if sentiments is not None and sentiment_counts is not None:
+                                   sentiments, sentiment_counts = analyse_sentiment(input_text, num_classes)
+                            
+                                   net_sentiment = sentiment_counts['Positive'] - sentiment_counts['Negative']
+                            
+                                   st.header(f"Net sentiment: {net_sentiment}")
+                                   if net_sentiment > 0:
+                                          st.write(f'The net sentiment score of {net_sentiment} indicates that there are {net_sentiment} more positive sentiments than negative sentiments in the given text. This suggests that the overall sentiment of the text is positive.')
+                                   elif net_sentiment < 0:
+                                         st.write(f'The net sentiment score of {net_sentiment} indicates that there are {abs(net_sentiment)} more negative sentiments than positive sentiments in the given text. This suggests that the overall sentiment of the text is negative.')
+                                   else:
+                                          st.write('The net sentiment score is zero, which indicates an equal number of positive and negative sentiments. This suggests that the overall sentiment of the text is neutral.')
 
+                                  dfanalysis = pd.DataFrame(sentiments, columns=['Review', 'Sentiment Label', 'Sentiment Score'])
+                                  plot_sentiment_pie(dfanalysis)
+                                  plot_sentiment(dfanalysis)
+                                  pass
+                                else:
+                                   st.write("No reviews selected for analysis. Please select at least one review.")
+                           else:
+                                   st.write("Please press 'Finish selection' to analyze the selected reviews.")
+                            
+                      
+                        elif language == 'cy':
+                            #sentiments = analyse_sentiment_welsh(input_text)
+                            sentiments = analyse_sentiment(input_text,num_classes)
                             net_sentiment = sentiment_counts['Positive'] - sentiment_counts['Negative']
                             
                             st.header(f"Net sentiment: {net_sentiment}")
@@ -3076,13 +3102,6 @@ def analysis_page():
                             else:
                                  st.write('The net sentiment score is zero, which indicates an equal number of positive and negative sentiments. This suggests that the overall sentiment of the text is neutral.')
 
-                            dfanalysis = pd.DataFrame(sentiments, columns=['Review', 'Sentiment Label', 'Sentiment Score'])
-                            plot_sentiment_pie(dfanalysis)
-                            plot_sentiment(dfanalysis)
-                      
-                        elif language == 'cy':
-                            #sentiments = analyse_sentiment_welsh(input_text)
-                            sentiments = analyse_sentiment(input_text,num_classes)
                             dfanalysis = pd.DataFrame(sentiments, columns=['Review', 'Sentiment Label', 'Sentiment Score'])
                             plot_sentiment_pie(dfanalysis)
                             plot_sentiment(dfanalysis)

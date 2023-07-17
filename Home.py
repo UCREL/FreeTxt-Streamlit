@@ -446,10 +446,10 @@ def analyse_sentiment(input_text, num_classes, max_seq_len=512):
     # Initialize a new column 'Selected' to True (all reviews selected by default)
     df['Selected'] = True
 
-    # Define grid options
+# Define grid options
     gb = GridOptionsBuilder.from_dataframe(df)
-    gb.grid_options['rowSelection'] = 'multiple'
-    gb.grid_options['defaultColDef'] = {'flex': 1}
+    gb.enable_selection()
+    gb.set_selection_mode('multiple')
     gridOptions = gb.build()
 
     # Display the DataFrame in AgGrid and capture user changes

@@ -438,7 +438,6 @@ def analyse_sentiment(input_text, num_classes, max_seq_len=512):
     model = AutoModelForSequenceClassification.from_pretrained("nlptown/bert-base-multilingual-uncased-sentiment")
         # Create a hash of the input text
     input_hash = hashlib.md5(input_text.encode()).hexdigest()
-
     # Append the hash to the key string
     key = 'sentiment_analysis_grid_' + input_hash
     # Preprocess input text and split into reviews

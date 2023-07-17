@@ -3072,7 +3072,7 @@ def analysis_page():
                            if results is not None:
                                 sentiments, sentiment_counts = results
                                 if sentiments is not None and sentiment_counts is not None:
-                                   sentiments, sentiment_counts = analyse_sentiment(input_text, num_classes)
+                                   #sentiments, sentiment_counts = analyse_sentiment(input_text, num_classes)
                             
                                    net_sentiment = sentiment_counts['Positive'] - sentiment_counts['Negative']
                             

@@ -433,9 +433,7 @@ def analyse_sentiment_txt(input_text,num_classes, max_seq_len=512):
 from st_aggrid import AgGrid, GridOptionsBuilder, DataReturnMode, GridUpdateMode, JsCode
 
 def analyse_sentiment(input_text, num_classes, max_seq_len=512):
-    # Load tokenizer and model
-    tokenizer = AutoTokenizer.from_pretrained("nlptown/bert-base-multilingual-uncased-sentiment")
-    model = AutoModelForSequenceClassification.from_pretrained("nlptown/bert-base-multilingual-uncased-sentiment")
+    
         # Create a hash of the input text
     input_hash = hashlib.md5(input_text.encode()).hexdigest()
     # Append the hash to the key string

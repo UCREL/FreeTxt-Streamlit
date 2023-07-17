@@ -429,7 +429,7 @@ def analyse_sentiment_txt(input_text,num_classes, max_seq_len=512):
 
     return sentiments
 
-def analyse_sentiment(input_text, num_classes, max_seq_len):
+def analyse_sentiment(input_text, num_classes, max_seq_len=512):
     # preprocess input text and split into reviews
     reviews = input_text.split("\n")
 

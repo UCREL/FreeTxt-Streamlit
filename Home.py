@@ -460,6 +460,7 @@ def analyse_sentiment(input_text, num_classes, max_seq_len=512):
         return sentiments, sentiment_counts
 
     else:
+	    
         st.write("No reviews selected for analysis.")
         return None, None
 def analyse_reviews(reviews, num_classes, max_seq_len):

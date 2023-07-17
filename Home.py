@@ -460,7 +460,7 @@ def analyse_sentiment(input_text, num_classes, max_seq_len=512):
         height='500px',
         data_return_mode='AS_INPUT',
         update_mode=GridUpdateMode.MODEL_CHANGED,
-        fit_columns_on_grid_load=True,
+        fit_columns_on_grid_load=True, columns_auto_size_mode=ColumnsAutoSizeMode.FIT_CONTENTS,
 	    reload_data=True,enable_enterprise_modules=True,
         allow_unsafe_jscode=True,  # Set it to true
     )

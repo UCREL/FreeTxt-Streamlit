@@ -446,12 +446,25 @@ def analyse_sentiment(input_text, num_classes, max_seq_len=512):
     # Initialize a new column 'Selected' to True (all reviews selected by default)
     df['Selected'] = True
 
-# Define grid options
+  # Define a value getter function for the checkbox
+    def checkbox_value_getter():
+        return {
+            'function': '''
+                function(params) {
+                    return params.node.selected
+                }
+            '''
+        }
+
+    # Define grid options
     gb = GridOptionsBuilder.from_dataframe(df)
+    gb.configure_default_column(groupable=True, value=True, enableRowGroup=True, aggFunc='sum', editable=True)
     gb.configure_pagination(paginationAutoPageSize=True) #Add pagination
     gb.configure_side_bar() #Add a sidebar
     gb.configure_selection('multiple', use_checkbox=True, groupSelectsChildren="Group checkbox select children") #Enable multi-row selection
+    gb.configure_column("Selected", valueGetter=checkbox_value_getter(), cellRenderer='booleanCellRenderer', editable=True)
     gridOptions = gb.build()
+
     # Display the DataFrame in AgGrid and capture user changes
     response = AgGrid(
         df, 
@@ -466,6 +479,7 @@ def analyse_sentiment(input_text, num_classes, max_seq_len=512):
     )
 
     # Get the selected rows
+    
     selected_reviews_df = response['data'][response['data']['Selected'] == True]
 
     if not selected_reviews_df.empty:

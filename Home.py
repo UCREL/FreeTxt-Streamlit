@@ -477,7 +477,7 @@ def analyse_sentiment(input_text, num_classes, max_seq_len=512):
 	  enable_enterprise_modules=True,
         allow_unsafe_jscode=True,  # Set it to true
     )
-    selected_reviews_df = response['data'][response['data']['Selected'] == True]
+    
     if st.button('Finish selection'):
         # Get the selected rows
         selected_reviews_df = response['data'][response['data']['Selected'] == True]

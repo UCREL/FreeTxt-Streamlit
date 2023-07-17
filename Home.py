@@ -430,6 +430,7 @@ def analyse_sentiment_txt(input_text,num_classes, max_seq_len=512):
     return sentiments
 
 def analyse_sentiment(input_text, num_classes, max_seq_len=512):
+
     # preprocess input text and split into reviews
     reviews = input_text.split("\n")
 
@@ -458,10 +459,13 @@ def analyse_sentiment(input_text, num_classes, max_seq_len=512):
     page_reviews = df.iloc[start_idx:end_idx]
 
     # Let user select/deselect rows
-    page_reviews['Selected'] = st.multiselect('Select reviews', page_reviews['index'].values, default=page_reviews['index'].values)
-
+    selected_indices = []
+    for idx, row in page_reviews.iterrows():
+        if st.checkbox(f'Select {row["Review"]}', key=idx):
+            selected_indices.append(idx)
+    
     # Get the selected reviews
-    selected_reviews = page_reviews.loc[page_reviews['index'].isin(page_reviews['Selected']), 'Review'].tolist()
+    selected_reviews = page_reviews.loc[selected_indices, 'Review'].tolist()
 
     if selected_reviews:
         # Perform sentiment analysis on the selected reviews

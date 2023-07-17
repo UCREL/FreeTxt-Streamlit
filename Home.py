@@ -429,34 +429,39 @@ def analyse_sentiment_txt(input_text,num_classes, max_seq_len=512):
 
     return sentiments
 
-def analyse_sentiment(input_text, num_classes, max_seq_len=512):
-
+def analyse_sentiment(input_text):
     # preprocess input text and split into reviews
     reviews = input_text.split("\n")
 
     # create a DataFrame
     df = pd.DataFrame(reviews, columns=['Review'])
-    
+
     # generate unique index for each review as a new column
     df.reset_index(inplace=True)
 
-    # get streamlit session
-    session_state = SessionState.get(selected_rows=[])
+    # Set number of items per page
+    items_per_page = 10
 
-    # if no rows selected, set as empty list
-    if not session_state.selected_rows:
-        session_state.selected_rows = []
+    # Get total number of pages
+    num_pages = len(df) // items_per_page
+    if len(df) % items_per_page:
+        num_pages += 1  # Ensure last page is included for items less than items_per_page
 
-    # for each row in the dataframe, add a checkbox in a new 'Selected' column
-    df['Selected'] = df['index'].apply(lambda x: st.checkbox('Select', key=x, value=x in session_state.selected_rows))
+    # Get current page from user (value is 0-indexed)
+    page = st.number_input(label='Page number', min_value=0, max_value=num_pages-1, value=0, step=1)
 
-    # update the session_state with rows that are selected
-    session_state.selected_rows = df.loc[df['Selected'], 'index'].tolist()
+    # Compute start and end indices for the current page
+    start_idx = page * items_per_page
+    end_idx = start_idx + items_per_page
 
-    st.write('Selected Rows:', session_state.selected_rows)
+    # Get the reviews for the current page
+    page_reviews = df.iloc[start_idx:end_idx]
+
+    # Let user select/deselect rows
+    page_reviews['Selected'] = st.multiselect('Select reviews', page_reviews['index'].values, default=page_reviews['index'].values)
 
     # Get the selected reviews
-    selected_reviews = df.loc[df['index'].isin(session_state.selected_rows), 'Review'].tolist()
+    selected_reviews = page_reviews.loc[page_reviews['index'].isin(page_reviews['Selected']), 'Review'].tolist()
 
     if selected_reviews:
         # Perform sentiment analysis on the selected reviews

@@ -475,7 +475,7 @@ def analyse_sentiment(input_text, num_classes, max_seq_len=512):
         update_mode=GridUpdateMode.MODEL_CHANGED,
         fit_columns_on_grid_load=True, columns_auto_size_mode=ColumnsAutoSizeMode.FIT_CONTENTS,
 	  enable_enterprise_modules=True,
-        allow_unsafe_jscode=True,  # Set it to true
+        allow_unsafe_jscode=True,  key='sentiment_analysis_grid'
     )
     
     if st.button('Finish selection'):

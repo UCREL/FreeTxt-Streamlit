@@ -428,7 +428,7 @@ def analyse_sentiment_txt(input_text,num_classes, max_seq_len=512):
         sentiments.append((input_text, sentiment_label, sentiment_score))
 
     return sentiments
-@st.cache_resource
+
 def analyse_sentiment(input_text, num_classes, max_seq_len=512):
     # load tokenizer and model
     tokenizer = AutoTokenizer.from_pretrained("nlptown/bert-base-multilingual-uncased-sentiment")

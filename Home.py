@@ -455,7 +455,7 @@ def analyse_sentiment(input_text, num_classes, max_seq_len=512):
 
     if selected_reviews:
         # Perform sentiment analysis on the selected reviews
-        sentiments, sentiment_counts = analyse_reviews(selected_reviews, num_classes, max_seq_len, tokenizer, model)
+        sentiments, sentiment_counts = analyse_reviews(selected_reviews, num_classes, max_seq_len)
 
         return sentiments, sentiment_counts
 

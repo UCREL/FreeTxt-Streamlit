@@ -463,16 +463,7 @@ def analyse_sentiment(input_text, num_classes, max_seq_len=512):
     gb.configure_selection('multiple', use_checkbox=True, groupSelectsChildren="Group checkbox select children") #Enable multi-row selection
     gb.configure_column("Selected", valueGetter=checkbox_value_getter(), cellRenderer='booleanCellRenderer', editable=True)
 
-# Add the onFirstDataRendered option
-    gb.configure_grid_options({
-    'onFirstDataRendered': {
-        'function': '''
-            function(params) {
-                params.api.selectAll();
-            }
-        '''
-    }
-})
+
 
     gridOptions = gb.build()
 

@@ -461,7 +461,7 @@ def analyse_sentiment(input_text, num_classes, max_seq_len=512):
     # Let user select/deselect rows
     selected_indices = []
     for idx, row in page_reviews.iterrows():
-        if st.checkbox(f'Select {row["Review"]}', key=idx):
+        if st.checkbox(f'Select {row["Review"]}', key=idx, value=True):
             selected_indices.append(idx)
     
     # Get the selected reviews

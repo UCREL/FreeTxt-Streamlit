@@ -466,7 +466,7 @@ def analyse_sentiment(input_text, num_classes, max_seq_len=512):
     gridOptions = gb.build()
 
     # Display the DataFrame in AgGrid and capture user changes
-    response = AgGrid(
+    response_df = AgGrid(
         df, 
         gridOptions=gridOptions,
         width='100%',
@@ -480,7 +480,7 @@ def analyse_sentiment(input_text, num_classes, max_seq_len=512):
     
     if st.button('Finish selection'):
         # Get the selected rows
-        selected_reviews_df = response['data'][response['data']['Selected'] == True]
+        selected_reviews_df = response_df['data'][response['data']['Selected'] == True]
 
         if not selected_reviews_df.empty:
             # Perform sentiment analysis on the selected reviews

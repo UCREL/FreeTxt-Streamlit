@@ -448,16 +448,9 @@ def analyse_sentiment(input_text, num_classes, max_seq_len=512):
 
 # Define grid options
     gb = GridOptionsBuilder.from_dataframe(df)
-    gb.enable_selection()
-    gb.set_selection_mode('multiple')
-    
-    gridOptions = {
-    'columnDefs': [
-        {'checkboxSelection': True, 'headerCheckboxSelection': True},
-        {'field': 'Review', 'sortable': True, 'filter': True},
-        {'field': 'Selected', 'sortable': True, 'filter': True},
-    ],
-}
+    gb.configure_pagination(paginationAutoPageSize=True) #Add pagination
+    gb.configure_side_bar() #Add a sidebar
+    gb.configure_selection('multiple', use_checkbox=True, groupSelectsChildren="Group checkbox select children") #Enable multi-row selection
     gridOptions = gb.build()
     # Display the DataFrame in AgGrid and capture user changes
     response = AgGrid(
@@ -850,7 +843,7 @@ class txtanalysis:
     gridOptions=gridOptions,
     data_return_mode='AS_INPUT', 
     update_mode='MODEL_CHANGED', 
-    fit_columns_on_grid_load=False,
+    fit_columns_on_grid_load=True,
     
     enable_enterprise_modules=True,
     height=350, 

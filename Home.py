@@ -431,50 +431,42 @@ def analyse_sentiment_txt(input_text,num_classes, max_seq_len=512):
 
 def analyse_sentiment(input_text, num_classes, max_seq_len=512):
 
-    # preprocess input text and split into reviews
-    reviews = input_text.split("\n")
+# Preprocess input text and split into reviews
+  reviews = input_text.split("\n")
 
-    # create a DataFrame
-    df = pd.DataFrame(reviews, columns=['Review'])
+# Create a DataFrame
+  df = pd.DataFrame(reviews, columns=['Review'])
 
-    # generate unique index for each review as a new column
-    df.reset_index(inplace=True)
+# Initialize a new column 'Selected' to True (all reviews selected by default)
+  df['Selected'] = True
 
-    # Set number of items per page
-    items_per_page = 10
+# Define grid options
+  gb = GridOptionsBuilder.from_dataframe(df)
+  gb.set_checkbox_selection()
+  gridOptions = gb.build()
 
-    # Get total number of pages
-    num_pages = len(df) // items_per_page
-    if len(df) % items_per_page:
-        num_pages += 1  # Ensure last page is included for items less than items_per_page
+# Display the DataFrame in AgGrid and capture user changes
+  response = AgGrid(
+    df, 
+    gridOptions=gridOptions,
+    width='100%',
+    height='500px',
+    data_return_mode=DataReturnMode.CSV,
+    update_mode=GridUpdateMode.MODEL_CHANGED,
+    fit_columns_on_grid_load=True,
+    allow_unsafe_jscode=True,  # Set it to true
+)
 
-    # Get current page from user (value is 0-indexed)
-    page = st.number_input(label='Page number', min_value=0, max_value=num_pages-1, value=0, step=1)
+# Get the selected rows
+  selected_rows = response['data'][response['data']['Selected'] == True]
 
-    # Compute start and end indices for the current page
-    start_idx = page * items_per_page
-    end_idx = start_idx + items_per_page
-
-    # Get the reviews for the current page
-    page_reviews = df.iloc[start_idx:end_idx]
-
-    # Let user select/deselect rows
-    selected_indices = []
-    for idx, row in page_reviews.iterrows():
-        if st.checkbox(f'Select {row["Review"]}', key=idx, value=True):
-            selected_indices.append(idx)
-    
-    # Get the selected reviews
-    selected_reviews = page_reviews.loc[selected_indices, 'Review'].tolist()
-
-    if selected_reviews:
-        # Perform sentiment analysis on the selected reviews
-        sentiments, sentiment_counts = analyse_reviews(selected_reviews, num_classes=5, max_seq_len=512)
-        return sentiments, sentiment_counts
-
-    else:
-        st.write("No reviews selected for analysis.")
-        return None, None
+  if not selected_rows.empty:
+    # Perform sentiment analysis on the selected reviews
+    sentiments, sentiment_counts = analyse_reviews(selected_rows['Review'].tolist(), num_classes=5, max_seq_len=512)
+    return sentiments, sentiment_counts
+  else:
+    st.write("No reviews selected for analysis.")
+    return None, None
 def analyse_reviews(reviews, num_classes, max_seq_len):
     # initialize sentiment counters
     sentiment_counts = {'Negative': 0, 'Neutral': 0, 'Positive': 0}

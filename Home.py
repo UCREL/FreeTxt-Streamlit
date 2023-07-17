@@ -432,7 +432,7 @@ def analyse_sentiment_txt(input_text,num_classes, max_seq_len=512):
 
 from st_aggrid import AgGrid, GridOptionsBuilder, DataReturnMode, GridUpdateMode, JsCode
 
-def analyse_sentiment(input_text, num_classes, max_seq_len=512):
+def analyse_sentiment_1(input_text, num_classes, max_seq_len=512):
     # Load tokenizer and model
     tokenizer = AutoTokenizer.from_pretrained("nlptown/bert-base-multilingual-uncased-sentiment")
     model = AutoModelForSequenceClassification.from_pretrained("nlptown/bert-base-multilingual-uncased-sentiment")
@@ -562,7 +562,7 @@ def analyse_reviews(reviews, num_classes, max_seq_len):
 
 
 @st.cache_resource
-def analyse_sentiment_1(input_text,num_classes, max_seq_len=512):
+def analyse_sentiment(input_text,num_classes, max_seq_len=512):
     # load tokenizer and model
     tokenizer = AutoTokenizer.from_pretrained("nlptown/bert-base-multilingual-uncased-sentiment")
     model = AutoModelForSequenceClassification.from_pretrained("nlptown/bert-base-multilingual-uncased-sentiment")

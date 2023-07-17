@@ -433,11 +433,10 @@ def analyse_sentiment_txt(input_text,num_classes, max_seq_len=512):
 from st_aggrid import AgGrid, GridOptionsBuilder, DataReturnMode, GridUpdateMode, JsCode
 
 def analyse_sentiment(input_text, num_classes, max_seq_len=512):
-    
-        # Create a hash of the input text
-    input_hash = hashlib.md5(input_text.encode()).hexdigest()
-    # Append the hash to the key string
-    key = 'sentiment_analysis_grid_' + input_hash
+    # Load tokenizer and model
+    tokenizer = AutoTokenizer.from_pretrained("nlptown/bert-base-multilingual-uncased-sentiment")
+    model = AutoModelForSequenceClassification.from_pretrained("nlptown/bert-base-multilingual-uncased-sentiment")
+
     # Preprocess input text and split into reviews
     reviews = input_text.split("\n")
 
@@ -447,7 +446,7 @@ def analyse_sentiment(input_text, num_classes, max_seq_len=512):
     # Initialize a new column 'Selected' to True (all reviews selected by default)
     df['Selected'] = True
 
-  # Define a value getter function for the checkbox
+    # Define a value getter function for the checkbox
     def checkbox_value_getter():
         return {
             'function': '''
@@ -467,21 +466,23 @@ def analyse_sentiment(input_text, num_classes, max_seq_len=512):
     gridOptions = gb.build()
 
     # Display the DataFrame in AgGrid and capture user changes
-    response_df = AgGrid(
+    df_response = AgGrid(
         df, 
         gridOptions=gridOptions,
         width='100%',
         height='500px',
         data_return_mode='AS_INPUT',
         update_mode=GridUpdateMode.MODEL_CHANGED,
-        fit_columns_on_grid_load=True, columns_auto_size_mode=ColumnsAutoSizeMode.FIT_CONTENTS,
-	  enable_enterprise_modules=True,
-        allow_unsafe_jscode=True,  key=key
+        fit_columns_on_grid_load=True,
+        columns_auto_size_mode=ColumnsAutoSizeMode.FIT_CONTENTS,
+        reload_data=True,
+        enable_enterprise_modules=True,
+        allow_unsafe_jscode=True,  # Set it to true
     )
-    
+
     if st.button('Finish selection'):
         # Get the selected rows
-        selected_reviews_df = response_df['data'][response_df['data']['Selected'] == True]
+        selected_reviews_df = df_response['data'][df_response['data']['Selected'] == True]
 
         if not selected_reviews_df.empty:
             # Perform sentiment analysis on the selected reviews
@@ -490,6 +491,9 @@ def analyse_sentiment(input_text, num_classes, max_seq_len=512):
         else:
             st.write("No reviews selected for analysis.")
             return None, None
+    else:
+        return None, None
+
 
 def analyse_reviews(reviews, num_classes, max_seq_len):
     # initialize sentiment counters

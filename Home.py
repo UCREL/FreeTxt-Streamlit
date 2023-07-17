@@ -448,7 +448,8 @@ def analyse_sentiment(input_text, num_classes, max_seq_len=512):
 
     # Define grid options
     gb = GridOptionsBuilder.from_dataframe(df)
-    gb.set_checkbox_selection()
+    gb.grid_options['rowSelection'] = 'multiple'
+    gb.grid_options['defaultColDef'] = {'flex': 1}
     gridOptions = gb.build()
 
     # Display the DataFrame in AgGrid and capture user changes

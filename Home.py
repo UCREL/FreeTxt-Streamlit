@@ -3079,10 +3079,10 @@ def analysis_page():
                                    else:
                                           st.write('The net sentiment score is zero, which indicates an equal number of positive and negative sentiments. This suggests that the overall sentiment of the text is neutral.')
 
-                                  dfanalysis = pd.DataFrame(sentiments, columns=['Review', 'Sentiment Label', 'Sentiment Score'])
-                                  plot_sentiment_pie(dfanalysis)
-                                  plot_sentiment(dfanalysis)
-                                  pass
+                                   dfanalysis = pd.DataFrame(sentiments, columns=['Review', 'Sentiment Label', 'Sentiment Score'])
+                                   plot_sentiment_pie(dfanalysis)
+                                   plot_sentiment(dfanalysis)
+                                   pass
                                 else:
                                    st.write("No reviews selected for analysis. Please select at least one review.")
                            else:

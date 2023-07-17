@@ -445,7 +445,7 @@ def analyse_sentiment(input_text, num_classes, max_seq_len=512):
 
     # Let user deselect rows
     for i in range(df.shape[0]):
-        checkbox_status[i] = st.checkbox(f"Select review: {df.loc[i, 'Review']}", value=True, key=i)
+        checkbox_status[i] = st.checkbox(f"review: {df.loc[i, 'Review']}", value=True, key=i)
 
     # Update the 'Selected' column in df based on checkbox_status
     df['Selected'] = df.index.to_series().map(checkbox_status)

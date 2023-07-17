@@ -450,8 +450,15 @@ def analyse_sentiment(input_text, num_classes, max_seq_len=512):
     gb = GridOptionsBuilder.from_dataframe(df)
     gb.enable_selection()
     gb.set_selection_mode('multiple')
+    
+    gridOptions = {
+    'columnDefs': [
+        {'checkboxSelection': True, 'headerCheckboxSelection': True},
+        {'field': 'Review', 'sortable': True, 'filter': True},
+        {'field': 'Selected', 'sortable': True, 'filter': True},
+    ],
+}
     gridOptions = gb.build()
-
     # Display the DataFrame in AgGrid and capture user changes
     response = AgGrid(
         df, 

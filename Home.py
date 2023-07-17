@@ -456,13 +456,24 @@ def analyse_sentiment(input_text, num_classes, max_seq_len=512):
             '''
         }
 
-    # Define grid options
     gb = GridOptionsBuilder.from_dataframe(df)
     gb.configure_default_column(groupable=True, value=True, enableRowGroup=True, aggFunc='sum', editable=True)
     gb.configure_pagination(paginationAutoPageSize=True) #Add pagination
     gb.configure_side_bar() #Add a sidebar
     gb.configure_selection('multiple', use_checkbox=True, groupSelectsChildren="Group checkbox select children") #Enable multi-row selection
     gb.configure_column("Selected", valueGetter=checkbox_value_getter(), cellRenderer='booleanCellRenderer', editable=True)
+
+# Add the onFirstDataRendered option
+    gb.configure_grid_options({
+    'onFirstDataRendered': {
+        'function': '''
+            function(params) {
+                params.api.selectAll();
+            }
+        '''
+    }
+})
+
     gridOptions = gb.build()
 
     # Display the DataFrame in AgGrid and capture user changes

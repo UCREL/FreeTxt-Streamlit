@@ -478,17 +478,17 @@ def analyse_sentiment(input_text, num_classes, max_seq_len=512):
         allow_unsafe_jscode=True,  # Set it to true
     )
 
-    # Get the selected rows
-    
-    selected_reviews_df = response['data'][response['data']['Selected'] == True]
+    if st.button('Finish selection'):
+        # Get the selected rows
+        selected_reviews_df = response['data'][response['data']['Selected'] == True]
 
-    if not selected_reviews_df.empty:
-        # Perform sentiment analysis on the selected reviews
-        sentiments, sentiment_counts = analyse_reviews(selected_reviews_df['Review'].tolist(), num_classes, max_seq_len)
-        return sentiments, sentiment_counts
-    else:
-        st.write("No reviews selected for analysis.")
-        return None, None
+        if not selected_reviews_df.empty:
+            # Perform sentiment analysis on the selected reviews
+            sentiments, sentiment_counts = analyse_reviews(selected_reviews_df['Review'].tolist(), num_classes, max_seq_len)
+            return sentiments, sentiment_counts
+        else:
+            st.write("No reviews selected for analysis.")
+            return None, None
 
 def analyse_reviews(reviews, num_classes, max_seq_len):
     # initialize sentiment counters

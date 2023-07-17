@@ -428,11 +428,104 @@ def analyse_sentiment_txt(input_text,num_classes, max_seq_len=512):
         sentiments.append((input_text, sentiment_label, sentiment_score))
 
     return sentiments
-  
+@st.cache_resource
+def analyse_sentiment(input_text, num_classes, max_seq_len=512):
+    # load tokenizer and model
+    tokenizer = AutoTokenizer.from_pretrained("nlptown/bert-base-multilingual-uncased-sentiment")
+    model = AutoModelForSequenceClassification.from_pretrained("nlptown/bert-base-multilingual-uncased-sentiment")
+
+    # preprocess input text and split into reviews
+    reviews = input_text.split("\n")
+
+    # Create a DataFrame
+    df = pd.DataFrame(reviews, columns=['Review'])
+
+    # Add a column in the DataFrame for checkboxes and initialize it to True
+    df['Selected'] = True
+
+    # Let user deselect rows
+    for i in range(df.shape[0]):
+        df.loc[i, 'Selected'] = st.checkbox('Select', value=True, key=i)
+
+    # Get the selected reviews
+    selected_reviews = df.loc[df['Selected'], 'Review'].tolist()
+
+    if selected_reviews:
+        # Perform sentiment analysis on the selected reviews
+        sentiments, sentiment_counts = analyse_reviews(selected_reviews, num_classes, max_seq_len)
+
+        return sentiments, sentiment_counts
+
+    else:
+        st.write("No reviews selected for analysis.")
+        return None, None
+def analyse_reviews(reviews, num_classes, max_seq_len):
+    # initialize sentiment counters
+    sentiment_counts = {'Negative': 0, 'Neutral': 0, 'Positive': 0}
+        # load tokenizer and model
+    tokenizer = AutoTokenizer.from_pretrained("nlptown/bert-base-multilingual-uncased-sentiment")
+    model = AutoModelForSequenceClassification.from_pretrained("nlptown/bert-base-multilingual-uncased-sentiment")
+    # predict sentiment for each review
+    sentiments = []
+    for review in reviews:
+        original_review = review
+        review = preprocess_text(review)
+        if review:
+            
+            # Tokenize the review
+            tokens = tokenizer.encode(review, add_special_tokens=True, truncation=True)
+
+            # If the token length exceeds the maximum, split into smaller chunks
+            token_chunks = []
+            if len(tokens) > max_seq_len:
+                token_chunks = [tokens[i:i + max_seq_len] for i in range(0, len(tokens), max_seq_len)]
+            else:
+                token_chunks.append(tokens)
+
+            # Process each chunk
+            sentiment_scores = []
+            for token_chunk in token_chunks:
+                input_ids = torch.tensor([token_chunk])
+                attention_mask = torch.tensor([[1] * len(token_chunk)])
+
+                # Run the model
+                outputs = model(input_ids=input_ids, attention_mask=attention_mask)
+                scores = outputs.logits.softmax(dim=1).detach().numpy()[0]
+                sentiment_scores.append(scores)
+
+            # Aggregate the scores
+            avg_scores = np.mean(sentiment_scores, axis=0)
+            sentiment_labels = ['Very negative', 'Negative', 'Neutral', 'Positive', 'Very positive']
+            sentiment_index = avg_scores.argmax()
+
+            if num_classes == 3:
+                sentiment_labels_3 = ['Negative', 'Neutral', 'Positive']
+                if sentiment_index < 2:
+                    sentiment_index = 0  # Negative
+                elif sentiment_index > 2:
+                    sentiment_index = 2  # Positive
+                else:
+                    sentiment_index = 1  # Neutral
+                sentiment_label = sentiment_labels_3[sentiment_index]
+            else:
+                sentiment_label = sentiment_labels[sentiment_index]
+
+            sentiment_score = avg_scores[sentiment_index]
+            sentiments.append((original_review, sentiment_label, sentiment_score))
+
+            # map 'Very negative' and 'Very positive' to 'Negative' and 'Positive'
+            if sentiment_label in ['Very negative', 'Negative']:
+                sentiment_counts['Negative'] += 1
+            elif sentiment_label in ['Very positive', 'Positive']:
+                sentiment_counts['Positive'] += 1
+            else:
+                sentiment_counts['Neutral'] += 1
+
+    return sentiments, sentiment_counts
 
 
 @st.cache_resource
-def analyse_sentiment(input_text,num_classes, max_seq_len=512):
+def analyse_sentiment_1(input_text,num_classes, max_seq_len=512):
     # load tokenizer and model
     tokenizer = AutoTokenizer.from_pretrained("nlptown/bert-base-multilingual-uncased-sentiment")
     model = AutoModelForSequenceClassification.from_pretrained("nlptown/bert-base-multilingual-uncased-sentiment")
@@ -2932,7 +3025,9 @@ def analysis_page():
                       if status:
                         num_classes = st.radio('How do you want to categorize the sentiments?', ('3 Class Sentiments (Positive, Neutral, Negative)', '5 Class Sentiments (Very Positive, Positive, Neutral, Negative, Very Negative)'))
                         num_classes = 3 if num_classes.startswith("3") else 5
-                        language = detect_language(df)  
+                        language = detect_language(df)
+
+                        
                         if language == 'en':
                             sentiments, sentiment_counts = analyse_sentiment(input_text, num_classes)
                             st.write("""

@@ -434,33 +434,36 @@ def analyse_sentiment(input_text, num_classes, max_seq_len=512):
     # preprocess input text and split into reviews
     reviews = input_text.split("\n")
 
-    # Create a DataFrame
+    # create a DataFrame
     df = pd.DataFrame(reviews, columns=['Review'])
+    
+    # generate unique index for each review as a new column
+    df.reset_index(inplace=True)
 
-    # Add a column in the DataFrame for checkboxes and initialize it to True
-    df['Selected'] = True
+    # get streamlit session
+    session_state = SessionState.get(selected_rows=[])
 
-    # Create a dictionary to store checkbox status
-    checkbox_status = {}
+    # if no rows selected, set as empty list
+    if not session_state.selected_rows:
+        session_state.selected_rows = []
 
-    # Let user deselect rows
-    for i in range(df.shape[0]):
-        checkbox_status[i] = st.checkbox(f"review: {df.loc[i, 'Review']}", value=True, key=i)
+    # for each row in the dataframe, add a checkbox in a new 'Selected' column
+    df['Selected'] = df['index'].apply(lambda x: st.checkbox('Select', key=x, value=x in session_state.selected_rows))
 
-    # Update the 'Selected' column in df based on checkbox_status
-    df['Selected'] = df.index.to_series().map(checkbox_status)
+    # update the session_state with rows that are selected
+    session_state.selected_rows = df.loc[df['Selected'], 'index'].tolist()
+
+    st.write('Selected Rows:', session_state.selected_rows)
 
     # Get the selected reviews
-    selected_reviews = df.loc[df['Selected'], 'Review'].tolist()
+    selected_reviews = df.loc[df['index'].isin(session_state.selected_rows), 'Review'].tolist()
 
     if selected_reviews:
         # Perform sentiment analysis on the selected reviews
-        sentiments, sentiment_counts = analyse_reviews(selected_reviews, num_classes, max_seq_len)
-
+        sentiments, sentiment_counts = analyse_reviews(selected_reviews, num_classes=5, max_seq_len=512)
         return sentiments, sentiment_counts
 
     else:
-	    
         st.write("No reviews selected for analysis.")
         return None, None
 def analyse_reviews(reviews, num_classes, max_seq_len):

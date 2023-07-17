@@ -430,9 +430,6 @@ def analyse_sentiment_txt(input_text,num_classes, max_seq_len=512):
     return sentiments
 
 def analyse_sentiment(input_text, num_classes, max_seq_len=512):
-    # load tokenizer and model
-    tokenizer = AutoTokenizer.from_pretrained("nlptown/bert-base-multilingual-uncased-sentiment")
-    model = AutoModelForSequenceClassification.from_pretrained("nlptown/bert-base-multilingual-uncased-sentiment")
 
     # preprocess input text and split into reviews
     reviews = input_text.split("\n")
@@ -443,16 +440,22 @@ def analyse_sentiment(input_text, num_classes, max_seq_len=512):
     # Add a column in the DataFrame for checkboxes and initialize it to True
     df['Selected'] = True
 
+    # Create a dictionary to store checkbox status
+    checkbox_status = {}
+
     # Let user deselect rows
     for i in range(df.shape[0]):
-        df.loc[i, 'Selected'] = st.checkbox('Select', value=True, key=i)
+        checkbox_status[i] = st.checkbox(f"Select review: {df.loc[i, 'Review']}", value=True, key=i)
+
+    # Update the 'Selected' column in df based on checkbox_status
+    df['Selected'] = df.index.to_series().map(checkbox_status)
 
     # Get the selected reviews
     selected_reviews = df.loc[df['Selected'], 'Review'].tolist()
 
     if selected_reviews:
         # Perform sentiment analysis on the selected reviews
-        sentiments, sentiment_counts = analyse_reviews(selected_reviews, num_classes, max_seq_len)
+        sentiments, sentiment_counts = analyse_reviews(selected_reviews, num_classes, max_seq_len, tokenizer, model)
 
         return sentiments, sentiment_counts
 
@@ -462,7 +465,6 @@ def analyse_sentiment(input_text, num_classes, max_seq_len=512):
 def analyse_reviews(reviews, num_classes, max_seq_len):
     # initialize sentiment counters
     sentiment_counts = {'Negative': 0, 'Neutral': 0, 'Positive': 0}
-        # load tokenizer and model
     tokenizer = AutoTokenizer.from_pretrained("nlptown/bert-base-multilingual-uncased-sentiment")
     model = AutoModelForSequenceClassification.from_pretrained("nlptown/bert-base-multilingual-uncased-sentiment")
     # predict sentiment for each review

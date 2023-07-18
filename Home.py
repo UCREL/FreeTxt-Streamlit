@@ -356,6 +356,10 @@ def analyse_sentiment_welsh_1(input_text):
             text_sentiment.append((review, sentiment, overall_sentiment_polarity))
 
     return text_sentiment
+	
+from polyglot.text import Text
+from polyglot.downloader import downloader
+downloader.download("sentiment2.cy")
 
 def analyse_sentiment_welsh(input_text, num_classes):
     # Preprocess input text and split into reviews
@@ -371,23 +375,23 @@ def analyse_sentiment_welsh(input_text, num_classes):
         review = preprocess_text(review)
         if review:
             # Analyse sentiment using Polyglot
-            text_blob = TextBlob(review)
+            text_blob = Text(review, hint_language_code='cy')
 
             # Calculate overall sentiment polarity
-            sentiment_scores = text_blob.sentiment.polarity
+            sentiment_scores = [w.polarity for w in text_blob.words]
 
             # Aggregate the scores
             avg_scores = np.mean(sentiment_scores)
             sentiment_labels = ['Negative', 'Neutral', 'Positive']
-            sentiment_index = avg_scores
 
-        # classify sentiment based on a threshold
-            if sentiment_scores > 0.2:
-                sentiment = "positive"
-            elif sentiment_scores < -0.2:
-                sentiment = "negative"
+            # classify sentiment based on a threshold
+            if avg_scores > 0.2:
+                sentiment_index = 2 # Positive
+            elif avg_scores < -0.2:
+                sentiment_index = 0 # Negative
             else:
-                sentiment = "neutral"
+                sentiment_index = 1 # Neutral
+                
             sentiment_label = sentiment_labels[sentiment_index]
 
             sentiments.append((original_review, sentiment_label, avg_scores))
@@ -396,6 +400,7 @@ def analyse_sentiment_welsh(input_text, num_classes):
             sentiment_counts[sentiment_label] += 1
 
     return sentiments, sentiment_counts
+
 
 
 # --------------------Sentiments----------------------

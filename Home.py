@@ -654,7 +654,6 @@ def display_dataframe(df):
     gb.configure_column("Selected", valueGetter=checkbox_value_getter(), cellRenderer='booleanCellRenderer', editable=True)
     gb.configure_default_column(groupable=True, value=True, enableRowGroup=True, aggFunc='sum', editable=True)
     gb.configure_grid_options(domLayout='autoHeight')
-    # Build grid options
     gridOptions = gb.build()
 
     # Display the DataFrame in AgGrid and capture user changes

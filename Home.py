@@ -693,7 +693,7 @@ def plot_sentiment(df):
             y=counts.values,
             text=counts.values,
             textposition='auto',
-            marker=dict(color='rgb(63, 81, 181)')
+            marker=dict(color=['rgb(63, 81, 181)' if i=='Positive' else 'rgb(255, 0, 0)' for i in counts.index])
         )
     ]
 
@@ -719,11 +719,12 @@ def plot_sentiment(df):
     html_bytes = buffer.getvalue().encode()
 
     st.download_button(
-            label='Download Bar Chart',
-            data=html_bytes,
-            file_name='Sentiment_analysis_bar.html',
-            mime='text/html'
-        )
+        label='Download Bar Chart',
+        data=html_bytes,
+        file_name='Sentiment_analysis_bar.html',
+        mime='text/html'
+    )
+
 
 from streamlit_plotly_events import plotly_events
 import plotly.express as px

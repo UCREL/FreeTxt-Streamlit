@@ -3169,7 +3169,7 @@ def analysis_page():
                        
                     with tab2:
                       if not filtered_df.empty:
-                         display_dataframe(filtered_df)
+                         filtered_df
                          # Add a button to download the DataFrame as a CSV file
                          if st.button('Download CSV'):
                                     st.markdown(download_csv(dfanalysis), unsafe_allow_html=True)

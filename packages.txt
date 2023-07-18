@@ -1,1 +1,2 @@
-pyicu
+PyICU==2.4.2
+pycld2>=0.3

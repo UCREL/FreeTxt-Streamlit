@@ -357,7 +357,6 @@ def analyse_sentiment_welsh_1(input_text):
 
     return text_sentiment
 
-
 def analyse_sentiment_welsh(input_text, num_classes):
     # Preprocess input text and split into reviews
     reviews = input_text.split("\n")

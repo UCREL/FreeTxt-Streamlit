@@ -652,7 +652,8 @@ def display_dataframe(df):
     gb.configure_side_bar() #Add a sidebar
     gb.configure_selection('multiple', use_checkbox=True, groupSelectsChildren="Group checkbox select children") #Enable multi-row selection
     gb.configure_column("Selected", valueGetter=checkbox_value_getter(), cellRenderer='booleanCellRenderer', editable=True)
-
+    gb.configure_default_column(groupable=True, value=True, enableRowGroup=True, aggFunc='sum', editable=True)
+    gb.configure_grid_options(domLayout='autoHeight')
     # Build grid options
     gridOptions = gb.build()
 
@@ -664,6 +665,7 @@ def display_dataframe(df):
         height='500px',
         data_return_mode='AS_INPUT',
         update_mode=GridUpdateMode.MODEL_CHANGED,
+	data_return_mode=DataReturnMode.FILTERED_AND_SORTED,
         fit_columns_on_grid_load=True,
         columns_auto_size_mode=ColumnsAutoSizeMode.FIT_CONTENTS,
         reload_data=True,
@@ -673,6 +675,7 @@ def display_dataframe(df):
 
     return df_response
 
+        
 #####
 import plotly.graph_objs as go
 import plotly.io as pio

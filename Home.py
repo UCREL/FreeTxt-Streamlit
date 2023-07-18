@@ -358,8 +358,8 @@ def analyse_sentiment_welsh_1(input_text):
     return text_sentiment
 	
 #from polyglot.text import Text
-from polyglot.downloader import downloader
-downloader.download("sentiment2.cy")
+#from polyglot.downloader import downloader
+#downloader.download("sentiment2.cy")
 
 def analyse_sentiment_welsh(input_text, num_classes):
     # Preprocess input text and split into reviews

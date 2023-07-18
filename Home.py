@@ -672,7 +672,10 @@ def display_dataframe(df):
         allow_unsafe_jscode=True,  # Set it to true
     )
 
-    return df_response
+        # Get the filtered and sorted data
+    filtered_df = pd.DataFrame(df_response['data'])
+
+    return filtered_df
 
         
 #####
@@ -3132,9 +3135,9 @@ def analysis_page():
                                         st.write('The net sentiment score is zero, which indicates an equal number of positive and negative sentiments. This suggests that the overall sentiment of the text is neutral.')
 
                                    dfanalysis = pd.DataFrame(sentiments, columns=['Review', 'Sentiment Label', 'Sentiment Score'])
-                                   display_dataframe(dfanalysis)
-                                   plot_sentiment_pie(dfanalysis)
-                                   plot_sentiment(dfanalysis)
+                                   filtered_df = display_dataframe(dfanalysis)
+                                   plot_sentiment_pie(filtered_df)
+                                   plot_sentiment(filtered_df)
                                    pass
                                 else:
                                    st.write("No reviews selected for analysis. Please select at least one review.")

@@ -682,22 +682,27 @@ def display_dataframe(df):
 import plotly.graph_objs as go
 import plotly.io as pio
 
+import colorlover as cl
+
 def plot_sentiment(df):
     # count the number of reviews in each sentiment label
     counts = df['Sentiment Label'].value_counts()
 
-    # create the bar chart
+    # Create colors scale
+    colors = cl.scales[str(len(counts))]['seq']['Blues']
+
+    # Create the bar chart
     data = [
         go.Bar(
             x=counts.index,
             y=counts.values,
             text=counts.values,
             textposition='auto',
-            marker=dict(color=['rgb(63, 81, 181)' if i=='Positive' else 'rgb(255, 0, 0)' for i in counts.index])
+            marker=dict(color=colors)
         )
     ]
 
-    # set the layout
+    # Set the layout
     layout = go.Layout(
         title='Sentiment Analysis Results',
         xaxis=dict(title='Sentiment Label'),
@@ -707,13 +712,15 @@ def plot_sentiment(df):
         margin=dict(l=50, r=50, t=80, b=50)
     )
 
-    # create the figure
+    # Create the figure
     fig = go.Figure(data=data, layout=layout)
-    #Save the plot to an image
-    
+
+    # Save the plot to an image
     pio.write_image(fig, 'Bar_fig.png', format='png', width=800, height=600, scale=2)
-    # show the plot
+    
+    # Show the plot
     st.plotly_chart(fig)
+
     buffer = io.StringIO()
     fig.write_html(buffer, include_plotlyjs='cdn')
     html_bytes = buffer.getvalue().encode()
@@ -724,6 +731,7 @@ def plot_sentiment(df):
         file_name='Sentiment_analysis_bar.html',
         mime='text/html'
     )
+
 
 
 from streamlit_plotly_events import plotly_events

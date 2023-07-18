@@ -630,6 +630,49 @@ def analyse_sentiment(input_text,num_classes, max_seq_len=512):
 
     return sentiments, sentiment_counts
 
+from st_aggrid import AgGrid, GridOptionsBuilder, GridUpdateMode, DataReturnMode, JsCode
+
+def display_dataframe(df):
+    # Define a value getter function for the checkbox
+    def checkbox_value_getter():
+        return {
+            'function': '''
+                function(params) {
+                    return params.node.selected
+                }
+            '''
+        }
+
+    # Create a GridOptionsBuilder from the DataFrame
+    gb = GridOptionsBuilder.from_dataframe(df)
+    
+    # Configure grid options
+    gb.configure_default_column(groupable=True, value=True, enableRowGroup=True, aggFunc='sum', editable=True)
+    gb.configure_pagination(paginationAutoPageSize=True) #Add pagination
+    gb.configure_side_bar() #Add a sidebar
+    gb.configure_selection('multiple', use_checkbox=True, groupSelectsChildren="Group checkbox select children") #Enable multi-row selection
+    gb.configure_column("Selected", valueGetter=checkbox_value_getter(), cellRenderer='booleanCellRenderer', editable=True)
+
+    # Build grid options
+    gridOptions = gb.build()
+
+    # Display the DataFrame in AgGrid and capture user changes
+    df_response = AgGrid(
+        df, 
+        gridOptions=gridOptions,
+        width='100%',
+        height='500px',
+        data_return_mode='AS_INPUT',
+        update_mode=GridUpdateMode.MODEL_CHANGED,
+        fit_columns_on_grid_load=True,
+        columns_auto_size_mode=ColumnsAutoSizeMode.FIT_CONTENTS,
+        reload_data=True,
+        enable_enterprise_modules=True,
+        allow_unsafe_jscode=True,  # Set it to true
+    )
+
+    return df_response
+
 #####
 import plotly.graph_objs as go
 import plotly.io as pio
@@ -3105,6 +3148,7 @@ def analysis_page():
                                         st.write('The net sentiment score is zero, which indicates an equal number of positive and negative sentiments. This suggests that the overall sentiment of the text is neutral.')
 
                                    dfanalysis = pd.DataFrame(sentiments, columns=['Review', 'Sentiment Label', 'Sentiment Score'])
+                                   display_dataframe(dfanalysis)
                                    plot_sentiment_pie(dfanalysis)
                                    plot_sentiment(dfanalysis)
                                    pass

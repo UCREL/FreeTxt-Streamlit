@@ -3194,7 +3194,7 @@ def analysis_page():
 
                          # Add a button to download the DataFrame as a CSV file
                          if st.button('Download CSV'):
-                                    st.markdown(download_csv(dfanalysis), unsafe_allow_html=True)
+                                    st.markdown(download_csv(filtered_df), unsafe_allow_html=True)
 
 			
 			

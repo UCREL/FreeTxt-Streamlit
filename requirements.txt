@@ -40,3 +40,4 @@ fpdf
 streamlit-option-menu
 streamlit_aggrid
 colorlover
+polyglot

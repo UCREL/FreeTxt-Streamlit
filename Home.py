@@ -381,12 +381,13 @@ def analyse_sentiment_welsh(input_text, num_classes):
             sentiment_labels = ['Negative', 'Neutral', 'Positive']
             sentiment_index = avg_scores
 
-            if sentiment_index < 0:
-                sentiment_index = 0  # Negative
-            elif sentiment_index > 0:
-                sentiment_index = 2  # Positive
+        # classify sentiment based on a threshold
+            if overall_sentiment_polarity > 0.2:
+                sentiment = "positive"
+            elif overall_sentiment_polarity < -0.2:
+                sentiment = "negative"
             else:
-                sentiment_index = 1  # Neutral
+                sentiment = "neutral"
             sentiment_label = sentiment_labels[sentiment_index]
 
             sentiments.append((original_review, sentiment_label, avg_scores))

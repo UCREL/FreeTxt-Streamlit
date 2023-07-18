@@ -716,7 +716,21 @@ def plot_sentiment_pie(df):
         sentiment_label = proportions.index[point_number]
         df = df[df['Sentiment Label'] == sentiment_label]
         st.write(f'The proportion of " {sentiment_label} "')
-        st.dataframe(df,use_container_width = True)
+        gb = GridOptionsBuilder.from_dataframe(df)
+        gb.configure_default_column(groupable=True, value=True, enableRowGroup=True, aggFunc='sum', editable=True)
+        gb.configure_grid_options(domLayout='autoHeight')
+        gridOptions = gb.build()
+        
+        AgGrid(
+        df,
+        gridOptions=gridOptions,
+        height='600px',  # sets the height of the grid
+       width='100%',  # sets the width of the grid
+       data_return_mode=DataReturnMode.FILTERED_AND_SORTED,
+       update_mode=GridUpdateMode.MODEL_CHANGED,
+       fit_columns_on_grid_load=True,
+       allow_unsafe_jscode=True,  
+         )
     
     # update the counts and proportions based on the filtered dataframe
     counts = df['Sentiment Label'].value_counts()

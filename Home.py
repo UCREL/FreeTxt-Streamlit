@@ -332,7 +332,7 @@ def analyze_sentiment_welsh_polyglot(input_text):
 from textblob import TextBlob
 # define function to analyse sentiment using TextBlob for Welsh language
 @st.cache_data
-def analyse_sentiment_welsh(input_text):
+def analyse_sentiment_welsh_1(input_text):
     # preprocess input text and split into reviews
     reviews = input_text.split("\n")
 
@@ -357,6 +357,46 @@ def analyse_sentiment_welsh(input_text):
             text_sentiment.append((review, sentiment, overall_sentiment_polarity))
 
     return text_sentiment
+from polyglot.text import Text
+
+def analyse_sentiment_welsh(input_text, num_classes):
+    # Preprocess input text and split into reviews
+    reviews = input_text.split("\n")
+
+    # Initialize sentiment counters
+    sentiment_counts = {'Negative': 0, 'Neutral': 0, 'Positive': 0}
+
+    # Predict sentiment for each review
+    sentiments = []
+    for review in reviews:
+        original_review = review
+        review = preprocess_text(review)
+        if review:
+            # Analyse sentiment using Polyglot
+            text_blob = TextBlob(review)
+
+            # Calculate overall sentiment polarity
+            sentiment_scores = [w.polarity for w in text_blob.words]
+
+            # Aggregate the scores
+            avg_scores = np.mean(sentiment_scores)
+            sentiment_labels = ['Negative', 'Neutral', 'Positive']
+            sentiment_index = avg_scores
+
+            if sentiment_index < 0:
+                sentiment_index = 0  # Negative
+            elif sentiment_index > 0:
+                sentiment_index = 2  # Positive
+            else:
+                sentiment_index = 1  # Neutral
+            sentiment_label = sentiment_labels[sentiment_index]
+
+            sentiments.append((original_review, sentiment_label, avg_scores))
+
+            # Increase the count of the sentiment label
+            sentiment_counts[sentiment_label] += 1
+
+    return sentiments, sentiment_counts
 
 
 # --------------------Sentiments----------------------
@@ -3151,7 +3191,7 @@ def analysis_page():
                             
                       
                         elif language == 'cy':
-                           results = analyse_sentiment(input_text, num_classes)
+                           results = analyse_sentiment_welsh(input_text, num_classes)
                            if results is not None:
                                 sentiments, sentiment_counts = results
                                 if sentiments is not None and sentiment_counts is not None:

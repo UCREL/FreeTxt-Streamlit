@@ -3169,7 +3169,30 @@ def analysis_page():
                        
                     with tab2:
                       if not filtered_df.empty:
-                         filtered_df
+                         #### interactive dataframe
+                         gb = GridOptionsBuilder.from_dataframe(filtered_df)
+                         gb.configure_pagination(paginationAutoPageSize=False) 
+                         gb.configure_grid_options(domLayout='autoHeight', paginationPageSize=10)
+                         gb.configure_side_bar() #Add a sidebar
+                         #gb.configure_selection('multiple', use_checkbox=True, groupSelectsChildren="Group checkbox select children") #Enable multi-row selection
+                         gridOptions = gb.build()
+
+                         grid_response = AgGrid(
+                              dfanalysis,
+                              gridOptions=gridOptions,
+                               data_return_mode='AS_INPUT', 
+                            update_mode='MODEL_CHANGED', 
+                             fit_columns_on_grid_load=False,
+    
+                                  enable_enterprise_modules=True,
+                             height=350, 
+                              width='100%',
+                              reload_data=True
+                                                )
+                         data = grid_response['data']
+                         selected = grid_response['selected_rows'] 
+                         dd = pd.DataFrame(selected) #Pass the selected rows to a new dataframe df
+
                          # Add a button to download the DataFrame as a CSV file
                          if st.button('Download CSV'):
                                     st.markdown(download_csv(dfanalysis), unsafe_allow_html=True)

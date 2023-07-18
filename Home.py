@@ -648,12 +648,12 @@ def display_dataframe(df):
     
     # Configure grid options
     gb.configure_default_column(groupable=True, value=True, enableRowGroup=True, aggFunc='sum', editable=True)
-    gb.configure_pagination(paginationAutoPageSize=True, paginationPageSize=10) #Add pagination
+    gb.configure_pagination(paginationAutoPageSize=False) #Add pagination
     gb.configure_side_bar() #Add a sidebar
     gb.configure_selection('multiple', use_checkbox=True, groupSelectsChildren="Group checkbox select children") #Enable multi-row selection
     gb.configure_column("Selected", valueGetter=checkbox_value_getter(), cellRenderer='booleanCellRenderer', editable=True)
     gb.configure_default_column(groupable=True, value=True, enableRowGroup=True, aggFunc='sum', editable=True)
-    gb.configure_grid_options(domLayout='autoHeight')
+    gb.configure_grid_options(domLayout='autoHeight', paginationPageSize=10)
     gridOptions = gb.build()
 #data_return_mode='AS_INPUT',
     # Display the DataFrame in AgGrid and capture user changes

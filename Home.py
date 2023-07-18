@@ -3133,7 +3133,7 @@ def analysis_page():
 
                           As per the information on the Hugging Face model page, the accuracy of this model for sentiment analysis on English text is approximately 95%.
                                """)
-                        
+                        filtered_df = pd.DataFrame()
                         if language == 'en':
                            results = analyse_sentiment(input_text, num_classes)
                            if results is not None:
@@ -3168,29 +3168,8 @@ def analysis_page():
                             plot_sentiment(dfanalysis)
                        
                     with tab2:
-                      if not dfanalysis.empty:
-                         #### interactive dataframe
-                         gb = GridOptionsBuilder.from_dataframe(dfanalysis)
-                         gb.configure_pagination(paginationAutoPageSize=True) #Add pagination
-                         gb.configure_side_bar() #Add a sidebar
-                         #gb.configure_selection('multiple', use_checkbox=True, groupSelectsChildren="Group checkbox select children") #Enable multi-row selection
-                         gridOptions = gb.build()
-
-                         grid_response = AgGrid(
-                              dfanalysis,
-                              gridOptions=gridOptions,
-                               data_return_mode='AS_INPUT', 
-                            update_mode='MODEL_CHANGED', 
-                             fit_columns_on_grid_load=False,
-    
-                                  enable_enterprise_modules=True,
-                             height=350, 
-                              width='100%',
-                              reload_data=True
-                                                )
-                         data = grid_response['data']
-                         selected = grid_response['selected_rows'] 
-                         dd = pd.DataFrame(selected) #Pass the selected rows to a new dataframe df
+                      if not filtered_df.empty:
+			 display_dataframe(filtered_df)
                          # Add a button to download the DataFrame as a CSV file
                          if st.button('Download CSV'):
                                     st.markdown(download_csv(dfanalysis), unsafe_allow_html=True)

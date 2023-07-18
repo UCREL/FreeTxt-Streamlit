@@ -655,14 +655,14 @@ def display_dataframe(df):
     gb.configure_default_column(groupable=True, value=True, enableRowGroup=True, aggFunc='sum', editable=True)
     gb.configure_grid_options(domLayout='autoHeight')
     gridOptions = gb.build()
-
+#data_return_mode='AS_INPUT',
     # Display the DataFrame in AgGrid and capture user changes
     df_response = AgGrid(
         df, 
         gridOptions=gridOptions,
         width='100%',
         height='500px',
-        data_return_mode='AS_INPUT',
+        
         update_mode=GridUpdateMode.MODEL_CHANGED,
 	data_return_mode=DataReturnMode.FILTERED_AND_SORTED,
         fit_columns_on_grid_load=True,

@@ -357,7 +357,7 @@ def analyse_sentiment_welsh_1(input_text):
 
     return text_sentiment
 	
-from polyglot.text import Text
+#from polyglot.text import Text
 from polyglot.downloader import downloader
 downloader.download("sentiment2.cy")
 
@@ -3195,7 +3195,7 @@ def analysis_page():
                             
                       
                         elif language == 'cy':
-                           results = analyse_sentiment_welsh(input_text, num_classes)
+                           results = analyse_sentiment(input_text, num_classes)
                            if results is not None:
                                 sentiments, sentiment_counts = results
                                 if sentiments is not None and sentiment_counts is not None:

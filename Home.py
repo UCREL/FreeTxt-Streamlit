@@ -382,9 +382,9 @@ def analyse_sentiment_welsh(input_text, num_classes):
             sentiment_index = avg_scores
 
         # classify sentiment based on a threshold
-            if overall_sentiment_polarity > 0.2:
+            if sentiment_scores > 0.2:
                 sentiment = "positive"
-            elif overall_sentiment_polarity < -0.2:
+            elif sentiment_scores < -0.2:
                 sentiment = "negative"
             else:
                 sentiment = "neutral"

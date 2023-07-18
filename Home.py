@@ -3178,13 +3178,12 @@ def analysis_page():
                          gridOptions = gb.build()
 
                          grid_response = AgGrid(
-                              dfanalysis,
+                              filtered_df,
                               gridOptions=gridOptions,
                                data_return_mode='AS_INPUT', 
                             update_mode='MODEL_CHANGED', 
                              fit_columns_on_grid_load=False,
-    
-                                  enable_enterprise_modules=True,
+                             enable_enterprise_modules=True,
                              height=350, 
                               width='100%',
                               reload_data=True

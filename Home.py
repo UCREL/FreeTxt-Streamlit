@@ -374,7 +374,7 @@ def analyse_sentiment_welsh(input_text, num_classes):
             text_blob = TextBlob(review)
 
             # Calculate overall sentiment polarity
-            sentiment_scores = [w.polarity for w in text_blob.words]
+            sentiment_scores = text_blob.sentiment.polarity
 
             # Aggregate the scores
             avg_scores = np.mean(sentiment_scores)

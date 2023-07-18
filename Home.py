@@ -735,7 +735,7 @@ def plot_sentiment_pie(df):
 
     # calculate the proportions
     proportions = counts / counts.sum()
-    net_sentiment = sentiment_counts['Positive'] - sentiment_counts['Negative']
+    net_sentiment = counts.get('Positive', 0) - counts.get('Negative', 0)
     st.header(f"Net sentiment: {net_sentiment}")
     if net_sentiment > 0:
         st.write(f'The net sentiment score of {net_sentiment} indicates that there are {net_sentiment} more positive sentiments than negative sentiments in the given text. This suggests that the overall sentiment of the text is positive.')

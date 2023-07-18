@@ -357,7 +357,7 @@ def analyse_sentiment_welsh_1(input_text):
             text_sentiment.append((review, sentiment, overall_sentiment_polarity))
 
     return text_sentiment
-from polyglot.text import Text
+
 
 def analyse_sentiment_welsh(input_text, num_classes):
     # Preprocess input text and split into reviews

@@ -1656,7 +1656,7 @@ def plot_kwic(data, key,tab):
                     
                 elif Word_type == 'Nouns':
                        
-                       collocs = [token.text for token in words if token.pos_ == "NOUN"]
+                       colloc_str = [token.text for token in words if token.pos_ == "NOUN"]
                        st.write(collocs)
                        st.write(f"Collocations for '{keyword}':\n{colloc_str}")
                 elif Word_type == 'Proper nouns':

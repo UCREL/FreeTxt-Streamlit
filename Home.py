@@ -964,7 +964,7 @@ class txtanalysis:
             st.write(data)
              
             display_dataframe(data)
-            df = pd.DataFrame(selected) #Pass the selected rows to a new dataframe df
+            #df = pd.DataFrame(selected) #Pass the selected rows to a new dataframe df
             
 		
             st.write('Total number of reviews: ', len(self.reviews))

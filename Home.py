@@ -1638,41 +1638,27 @@ def plot_kwic(data, key,tab):
                 reset_button = st.button('Reset Graph')
 
                 if reset_button:
-                         plot_coll_14(keyword, collocs, expander, tab)
+                        plot_coll_14(keyword, collocs, expander, tab)
                 if Word_type == 'All words':
-                       st.write(f"Collocations for '{keyword}':\n{colloc_str}")
-                    
-                elif Word_type == 'Nouns':
-                       
-                       colloc_str = [token.text for token in words if token.pos_ == "NOUN"]
-                       st.write(collocs)
-                       st.write(f"Collocations for '{keyword}':\n{colloc_str}")
-                elif Word_type == 'Proper nouns':
-                       collocs = [token.text for token in words if token.pos_ == "PROPN"]
-                       st.write(collocs)
-                       st.write(f"Collocations for '{keyword}':\n{colloc_str}")
-                
-                elif Word_type == 'Verbs':
-                       collocs = [token.text for token in words if token.pos_ == "VERB"]
-                       st.write(collocs)
-                       st.write(f"Collocations for '{keyword}':\n{colloc_str}")
-                elif Word_type == 'Adjectives':
-                       collocs = [token.text for token in words if token.pos_ == "ADJ"]
-                       st.write(collocs)
-                       st.write(f"Collocations for '{keyword}':\n{colloc_str}")
-                elif Word_type == 'Adverbs':
-                       collocs = [token.text for token in words if token.pos_ == "ADV"]
-                       st.write(collocs)
-                       st.write(f"Collocations for '{keyword}':\n{colloc_str}")
-                elif Word_type == 'Numbers':
-                       collocs = [token.text for token in words if token.pos_ == "NUM"]
-                       st.write(collocs)
-                       st.write(f"Collocations for '{keyword}':\n{colloc_str}")
-                else: 
-                      pass
-		
+                        st.write(f"Collocations for '{keyword}':\n{colloc_str}")
+                        plot_coll_14(keyword, collocs, expander, tab,output_file='network_output.html')
+                else:
+                     pos_map = {
+                        'Nouns': 'NOUN',
+                        'Proper nouns': 'PROPN',
+                        'Verbs': 'VERB',
+                        'Adjectives': 'ADJ',
+                        'Adverbs': 'ADV',
+                         'Numbers': 'NUM'
+                           }
+                     if Word_type in pos_map:
+   
+                       pos = pos_map[Word_type]
+                       collocs = [(w, c) for w, c in collocs if nlp(w)[0].pos_ == pos]
+                       colloc_str = ', '.join([f"{w} [{c}]" for w, c in collocs])
+                       st.write(f"{Word_type} Collocations for '{keyword}':\n{colloc_str}")
+                       plot_coll_14(keyword, collocs, expander, tab, output_file='network_output.html')
              
-                plot_coll_14(keyword, collocs, expander, tab,output_file='network_output.html')
                 with open('network_output.html', 'r', encoding='utf-8') as f:
                          html_string = f.read()
                 components.html(html_string, width=800, height=750, scrolling=True)

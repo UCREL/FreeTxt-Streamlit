@@ -983,9 +983,9 @@ class txtanalysis:
         )
             data = grid_response['data']
             selected = grid_response['selected_rows'] 
-            
+            display_dataframe(data)
             df = pd.DataFrame(selected) #Pass the selected rows to a new dataframe df
-            display_dataframe(df)
+            
 		
             st.write('Total number of reviews: ', len(self.reviews))
 	    

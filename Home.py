@@ -1524,6 +1524,7 @@ def plot_kwic_txt(input_data,tab):
                         plot_coll_14(keyword, collocs, expander, tab)
                 if Word_type == 'All words':
                         st.write(f"Collocations for '{keyword}':\n{colloc_str}")
+			plot_coll_14(keyword, collocs, expander, tab,output_file='network_output.html')
                 else:
                      pos_map = {
                         'Nouns': 'NOUN',
@@ -1538,7 +1539,7 @@ def plot_kwic_txt(input_data,tab):
                            collocs = [(w, c) for w, c in collocs if nlp(w)[0].pos_ == pos]
                            colloc_str = ', '.join([f"{w} [{c}]" for w, c in collocs])
                            st.write(f"{Word_type} Collocations for '{keyword}':\n{colloc_str}")
-                plot_coll_14(keyword, collocs, expander, tab,output_file='network_output.html')
+                           plot_coll_14(keyword, collocs, expander, tab,output_file='network_output.html')
                 with open('network_output.html', 'r', encoding='utf-8') as f:
                          html_string = f.read()
                 components.html(html_string, width=800, height=750, scrolling=True)

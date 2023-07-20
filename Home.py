@@ -732,12 +732,8 @@ def plot_sentiment(df):
     # count the number of reviews in each sentiment label
     counts = df['Sentiment Label'].value_counts()
 
-    # If only one sentiment is present, repeat the color for visualization
-    if len(counts) == 1:
-        colors = ['Blues']
-    else:
-        # Create colors scale based on the number of unique sentiments
-        colors = cl.scales[str(len(counts))]['seq']['Blues']
+    # Pre-defined color list, adjust to your needs
+    color_list = ['blue', 'green', 'red', 'purple', 'yellow', 'pink']
 
     # Create the bar chart
     data = [
@@ -746,7 +742,7 @@ def plot_sentiment(df):
             y=counts.values,
             text=counts.values,
             textposition='auto',
-            marker=dict(color=colors)
+            marker=dict(color=color_list[:len(counts)]),
         )
     ]
 
@@ -779,7 +775,6 @@ def plot_sentiment(df):
         file_name='Sentiment_analysis_bar.html',
         mime='text/html'
     )
-
 
 
 

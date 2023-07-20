@@ -1525,7 +1525,7 @@ def plot_kwic_txt(input_data,tab):
                 if Word_type == 'All words':
                         st.write(f"Collocations for '{keyword}':\n{colloc_str}")
                 else:
-                      pos_map = {
+                     pos_map = {
                         'Nouns': 'NOUN',
                         'Proper nouns': 'PROPN',
                         'Verbs': 'VERB',

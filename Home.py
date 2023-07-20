@@ -1519,7 +1519,6 @@ def plot_kwic_txt(input_data,tab):
                 st.write('The search word is placed in the middle, and the green circle represents the most frequent word that appeared next to the search word, the darker blue the circle is the more frequent the word is, also the frequency represented by the length and thickness of the lines attaching the words')
                 st.write('The number represents the number of occurrences for each collocated word.')
                 reset_button = st.button('Reset Graph')
-
                 if reset_button:
                         plot_coll_14(keyword, collocs, expander, tab)
                 if Word_type == 'All words':

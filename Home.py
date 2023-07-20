@@ -1524,7 +1524,7 @@ def plot_kwic_txt(input_data,tab):
                         plot_coll_14(keyword, collocs, expander, tab)
                 if Word_type == 'All words':
                         st.write(f"Collocations for '{keyword}':\n{colloc_str}")
-			plot_coll_14(keyword, collocs, expander, tab,output_file='network_output.html')
+                        plot_coll_14(keyword, collocs, expander, tab,output_file='network_output.html')
                 else:
                      pos_map = {
                         'Nouns': 'NOUN',

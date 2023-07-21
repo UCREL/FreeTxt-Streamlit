@@ -97,6 +97,32 @@ def detect_language_file(text):
         return detect(text)
     except:
         return None
+def detect_and_split_languages(data, column):
+    data[column + '_Language'] = data[column].apply(detect_language_file)
+    unique_languages = data[column + '_Language'].unique()
+
+    if len(unique_languages) == 1:  # Only one language is present
+        st.info(f'Your data in column {column} is {unique_languages[0]}.')
+    else:  # More than one language is present
+        if 'cy' in unique_languages and 'en' in unique_languages:
+            st.info(f'Your data in column {column} contains both English and Welsh.')
+            if st.button(f'Would you like to split the English and Welsh records in column {column}?'):
+                split_and_download_files(data, column)
+
+def split_and_download_files(data, column):
+    english_data = data[data[column + '_Language'] == 'en']
+    welsh_data = data[data[column + '_Language'] == 'cy']
+
+    create_and_download_csv(english_data, 'english_data.csv', 'Download English data')
+    create_and_download_csv(welsh_data, 'welsh_data.csv', 'Download Welsh data')
+
+    st.info('Please upload each file separately for further processing.')
+
+def create_and_download_csv(data, filename, label):
+    data_file = data.to_csv(index=False)
+    st.download_button(label, data_file, file_name=filename, mime='text/csv')
+
+
 
 def handle_language_detection(data, column):
     english_data = None
@@ -3113,7 +3139,7 @@ def analysis_page():
                 df = df.applymap(lambda s: s.lower())
                 check_language = st.checkbox('Check file language')
                 if check_language:
-                      handle_language_detection(df,selected_columns[0])
+                      detect_and_split_languages(df,selected_columns[0])
                 if df.empty:
                     st.info('''**NoColumnSelected 🤨**: Please select one or more columns to analyse.''', icon="ℹ️")
                 else:

@@ -3142,7 +3142,7 @@ def analysis_page():
                   check_language = st.checkbox('Check file language')
                   if check_language:
                            detect_and_split_languages(df,selected_columns[0])
-		  if st.button('Proceed with analysis without language detection'):
+                  if st.button('Proceed with analysis without language detection'):
                 
                     input_text = '\n'.join(['\n'.join([str(t) for t in list(df[col]) if str(t) not in STOPWORDS and str(t) not in PUNCS]) for col in df])
                      

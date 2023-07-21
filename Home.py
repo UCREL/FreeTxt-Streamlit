@@ -1052,9 +1052,7 @@ class txtanalysis:
         components.html(source_code,height = 800)
 
     def concordance(self, fname,tab):
-        def __init__(self, reviews):
-            self.html_instance = html(reviews)
-        def concordance_func(self, fname,tab):
+
           with tab:
        	    st.header('Search Word')
             st.write('Please write a search word')
@@ -3264,7 +3262,7 @@ def analysis_page():
                     textanalysis.show_reviews(filenames[i],tab4)
                     word_cloud_path = textanalysis.show_wordcloud(filenames[i],tab5)
                     Keyword_context = textanalysis.show_kwic(filenames[i],tab6)
-                    textanalysis.concordance.concordance_func(filenames[i],tab7)
+                    textanalysis.concordance(filenames[i],tab7)
 
          
                     with tab8:

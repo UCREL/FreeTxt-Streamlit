@@ -3137,9 +3137,11 @@ def analysis_page():
                 df = df.astype(str)
                 # Convert all string values in the DataFrame to lowercase
                 df = df.applymap(lambda s: s.lower())
-                check_language = st.checkbox('Check file language')
+		# Add condition to check if columns have been selected
+                if len(selected_columns) > 0:
+                      check_language = st.checkbox('Check file language')
                 if check_language:
-                      detect_and_split_languages(df,selected_columns[0])
+                       detect_and_split_languages(df,selected_columns[0])
                 if df.empty:
                     st.info('''**NoColumnSelected 🤨**: Please select one or more columns to analyse.''', icon="ℹ️")
                 else:

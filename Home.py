@@ -2682,7 +2682,7 @@ def textbox_analysis_page():
                                     input_data = input_data.replace('.', '.\n')
                                                             
                        
-                                    results = analyse_sentiment(input_text, num_classes)
+                                    results = analyse_sentiment(input_data, num_classes)
                                     if results is not None:
                                           sentiments, sentiment_counts = results
                                     if sentiments is not None and sentiment_counts is not None:

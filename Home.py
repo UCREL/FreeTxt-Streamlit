@@ -447,7 +447,12 @@ def preprocess_text(text):
     return text
 
 @st.cache_resource
-def analyse_sentiment_txt(input_text,num_classes, max_seq_len=512):
+def from IPython.display import display, HTML
+
+# Assuming that dataframes df1 and df2 are already defined:
+print("DataFrame 1")
+display(HTML(errors_BERT.to_html()))
+(input_text,num_classes, max_seq_len=512):
     # load tokenizer and model
     tokenizer = AutoTokenizer.from_pretrained("nlptown/bert-base-multilingual-uncased-sentiment")
     model = AutoModelForSequenceClassification.from_pretrained("nlptown/bert-base-multilingual-uncased-sentiment")
@@ -2667,7 +2672,7 @@ def textbox_analysis_page():
                         num_classes = 3 if num_classes.startswith("3") else 5
 
                         language = detect_language(df)  
-
+                        filtered_df = pd.DataFrame()
                         if language == 'en':
                                   st.write("""
                                  The sentiment analysis is performed using the ["nlptown/bert-base-multilingual-uncased-sentiment"](https://huggingface.co/nlptown/bert-base-multilingual-uncased-sentiment) model from Hugging Face. This model is trained on product reviews in multiple languages and utilizes the BERT architecture.
@@ -2678,20 +2683,22 @@ def textbox_analysis_page():
                                       sentiments = analyse_sentiment_txt(input_data,num_classes)
                                   else:
                                     input_data = input_data.replace('.', '.\n')
-                                    sentiments, sentiment_counts = analyse_sentiment(input_data, num_classes)
+                                                            
+                       
+                                    results = analyse_sentiment(input_text, num_classes)
+                                    if results is not None:
+                                          sentiments, sentiment_counts = results
+                                    if sentiments is not None and sentiment_counts is not None:
+                                         dfanalysis = pd.DataFrame(sentiments, columns=['Review', 'Sentiment Label', 'Sentiment Score'])
+                                         filtered_df = display_dataframe(dfanalysis)
+                                         plot_sentiment_pie(filtered_df)
+                                         plot_sentiment(filtered_df)
+                                         pass
+                                else:
+                                   st.write("No reviews selected for analysis. Please select at least one review.")
                                      
-
-                                    net_sentiment = sentiment_counts['Positive'] - sentiment_counts['Negative']
                             
-                                    #st.header(f"Net sentiment: {net_sentiment}")
-                                    #if net_sentiment > 0:
-                                    #     st.write(f'The net sentiment score of {net_sentiment} indicates that there are {net_sentiment} more positive sentiments than negative sentiments in the given text. This suggests that the overall sentiment of the text is positive.')
-                                   # elif net_sentiment < 0:
-                                    #     st.write(f'The net sentiment score of {net_sentiment} indicates that there are {abs(net_sentiment)} more negative sentiments than positive sentiments in the given text. This suggests that the overall sentiment of the text is negative.')
-                                   # else:
-                                     #   st.write('The net sentiment score is zero, which indicates an equal number of positive and negative sentiments. This suggests that the overall sentiment of the text is neutral.')
-
-
+                                   
                                       
                         elif language == 'cy':
                                   if analysis_type == 'analyse whole text':

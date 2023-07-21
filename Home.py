@@ -447,12 +447,8 @@ def preprocess_text(text):
     return text
 
 @st.cache_resource
-def from IPython.display import display, HTML
 
-# Assuming that dataframes df1 and df2 are already defined:
-print("DataFrame 1")
-display(HTML(errors_BERT.to_html()))
-(input_text,num_classes, max_seq_len=512):
+def analyse_sentiment_txt(input_text,num_classes, max_seq_len=512):
     # load tokenizer and model
     tokenizer = AutoTokenizer.from_pretrained("nlptown/bert-base-multilingual-uncased-sentiment")
     model = AutoModelForSequenceClassification.from_pretrained("nlptown/bert-base-multilingual-uncased-sentiment")
@@ -473,6 +469,7 @@ display(HTML(errors_BERT.to_html()))
 
         # Process each chunk
         sentiment_scores = []
+
         for token_chunk in token_chunks:
             input_ids = torch.tensor([token_chunk])
             attention_mask = torch.tensor([[1] * len(token_chunk)])

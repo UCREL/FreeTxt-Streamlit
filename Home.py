@@ -2691,8 +2691,8 @@ def textbox_analysis_page():
                                          plot_sentiment_pie(filtered_df)
                                          plot_sentiment(filtered_df)
                                          pass
-                                else:
-                                   st.write("No reviews selected for analysis. Please select at least one review.")
+                                    else:
+                                          st.write("No reviews selected for analysis. Please select at least one review.")
                                      
                             
                                    

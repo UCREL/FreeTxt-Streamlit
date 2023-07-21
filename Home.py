@@ -3139,12 +3139,11 @@ def analysis_page():
                 df = df.applymap(lambda s: s.lower())
 		# Add condition to check if columns have been selected
                 if len(selected_columns) > 0:
-                      check_language = st.checkbox('Check file language')
-                      if check_language:
+                  check_language = st.checkbox('Check file language')
+                  if check_language:
                            detect_and_split_languages(df,selected_columns[0])
-                elif df.empty:
-                    st.info('''**NoColumnSelected 🤨**: Please select one or more columns to analyse.''', icon="ℹ️")
-                else:
+		  if st.button('Proceed with analysis without language detection'):
+                
                     input_text = '\n'.join(['\n'.join([str(t) for t in list(df[col]) if str(t) not in STOPWORDS and str(t) not in PUNCS]) for col in df])
                      
                     tab1, tab2,tab3,tab4,tab5,tab6,tab7,tab8= st.tabs(["📈 Meaning analysis",'💬 Keyword scatter','📝 Summarisation',"📈 Data View", "☁️ Keyword Cloud",'💬 Keyword in Context & Collocation', "🌳 Word Tree",'📥 Download pdf'])
@@ -3465,7 +3464,9 @@ def analysis_page():
                                   b64 = base64.b64encode(generated_pdf_data).decode()  # some strings <-> bytes conversions necessary here
                                   href = f'<a href="data:application/pdf;base64,{b64}" download="report_positiveandnegative.pdf">Download PDF</a>'
                                   st.markdown(href, unsafe_allow_html=True)
-        
+                
+                  elif df.empty:
+                    st.info('''**NoColumnSelected 🤨**: Please select one or more columns to analyse.''', icon="ℹ️")
 
 
 

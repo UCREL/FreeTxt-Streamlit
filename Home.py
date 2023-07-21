@@ -2970,6 +2970,9 @@ def textbox_analysis_page():
                              
 
 ###########################################Analysis page#######################################################################
+@st.cache(allow_output_mutation=True)
+def get_state():
+    return {}
 def analysis_page():
     state = get_state()
     st.markdown(
@@ -3128,6 +3131,10 @@ def analysis_page():
     else: pass
     status, data = input_data
     dfanalysis = pd.DataFrame()
+    
+
+    state = get_state()
+
 
 
     if status:
@@ -3147,7 +3154,12 @@ def analysis_page():
                   check_language = st.checkbox('Check file language')
                   if check_language:
                            detect_and_split_languages(df,selected_columns[0])
-                  if st.button('Proceed with analysis without language detection'):
+                    # to set state
+                  state["button_clicked"] = st.button('Proceed with analysis without language detection')
+
+                # to get state
+                  if state.get("button_clicked"):
+			
                 
                     input_text = '\n'.join(['\n'.join([str(t) for t in list(df[col]) if str(t) not in STOPWORDS and str(t) not in PUNCS]) for col in df])
                      

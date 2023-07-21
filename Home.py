@@ -3140,9 +3140,9 @@ def analysis_page():
 		# Add condition to check if columns have been selected
                 if len(selected_columns) > 0:
                       check_language = st.checkbox('Check file language')
-                if check_language:
-                       detect_and_split_languages(df,selected_columns[0])
-                if df.empty:
+                      if check_language:
+                           detect_and_split_languages(df,selected_columns[0])
+                elif df.empty:
                     st.info('''**NoColumnSelected 🤨**: Please select one or more columns to analyse.''', icon="ℹ️")
                 else:
                         

@@ -3155,10 +3155,10 @@ def analysis_page():
                   if check_language:
                            detect_and_split_languages(df,selected_columns[0])
                     # Change the button to a checkbox
-                   state["proceed_with_analysis"] = st.checkbox('Proceed with analysis without language detection')
+                  state["proceed_with_analysis"] = st.checkbox('Proceed with analysis without language detection')
 
                     # Check the state
-                   if state.get("proceed_with_analysis"):
+                  if state.get("proceed_with_analysis"):
 			
                 
                     input_text = '\n'.join(['\n'.join([str(t) for t in list(df[col]) if str(t) not in STOPWORDS and str(t) not in PUNCS]) for col in df])

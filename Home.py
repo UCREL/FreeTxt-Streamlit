@@ -2034,34 +2034,54 @@ class html:
         #sentences_json = json.dumps(sentences)
 
         Func.write(f'''
-            <html>
-              <head>
-                <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-                <script type="text/javascript">
-                  google.charts.load('current', {{packages:['wordtree']}});
-                  google.charts.setOnLoadCallback(drawChart);
+            
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {packages:['wordtree']});
+      google.charts.setOnLoadCallback(drawChart);
 
-                  function drawChart() {{
-                    var data = google.visualization.arrayToDataTable({[['good location average hotel.'], ['small room and tiny en-suite but friendly and helpful'], ['can’t believe the place is still in business!'], ['worst hotel ever in 10 years of business travel'], ['great location average hotel'], ['impersonal a bit depressing but not the worst place ever i suppose'], ['not all bad'], ['dreadful'], ['below average hotel - more like a 2* "b'], ['dont stay here'], ['1 lexham gardens hotel (london earls court) by blr'], ['do not book this hotel!'], ['a smart clean perfectly located hotel at affordable prices'], ['i wish i paid an bit more for somewhere better'], ['other than location... expect nothing!'], ['good value - clean and convenient'], ['poor excuse for a hotel'], ['not really what we expected'], ['not bad not bad'], ['small but clean good location'], ['give us a smile!'], ['not for claustrophobics'], ['this is not a three stars hotel!'], ['sssshh - really good value!!!'], ['great hotel'], ['loved the shellbourne hotel'], ['nice hotel at the center'], ['not for swinging cats'], ['you get what you pay for'], ['pay for what you get'], ['scary place-no fire escapes.'], ['great value'], ['pretty good and value for money'], ['great hotel!'], ['one of the better places i stayed in'], ['cheap but.........'], ['pleasantly suprised'], ['great price great area'], ['they could try harder'], ["it's o.k"], ['worst hotel i have ever stayed in'], ['all right you get what you pay for!'], ['scaring experience'], ['what a horrendous place!'], ['get what you pay for'], ['absolutely horrendous'], ['avoid'], ['in defence of the shellbourne'], ['affordable for budget travelers'], ['horribilis !'], ['a dump!'], ['value.... it is a budget hotel with a great staff'], ['excellent'], ['good value!'], ['an awful place to stay'], ['pretty bad'], ['stay far away from this hotel!'], ['was the name the hellborn hotel?'], ['awful !!!!!!'], ['a good alternative for a budget traveler'], ['a terriblew hotel'], ['absolutely awful'], ['good value'], ['beware of the shellbourne'], ['se possibile cercate di meglio'], ['giusto'], ['bon marché'], ['ottimo molto pulito cosa rara a londra'], ['io non ci tornerei'], ['hotel a londra consigliato!'], ['visto il costo..fantastico!!']]});
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable(
+          [ ['Phrases'],
+            ['cats are better than dogs'],
+            ['cats eat kibble'],
+            ['cats are better than hamsters'],
+            ['cats are awesome'],
+            ['cats are people too'],
+            ['cats eat mice'],
+            ['cats meowing'],
+            ['cats in the cradle'],
+            ['cats eat mice'],
+            ['cats in the cradle lyrics'],
+            ['cats eat kibble'],
+            ['cats for adoption'],
+            ['cats are family'],
+            ['cats eat mice'],
+            ['cats are better than kittens'],
+            ['cats are evil'],
+            ['cats are weird'],
+            ['cats eat mice'],
+          ]
+        );
 
-                    var options = {{
-                      wordtree: {{
-                        format: 'implicit',
-                        type: 'double',
-                        word: "{search_word}",
-                        colors: ['red', 'black', 'green']
-                      }}
-                    }};
+        var options = {
+          wordtree: {
+            format: 'implicit',
+            word: 'cats'
+          }
+        };
 
-                    var chart = new google.visualization.WordTree(document.getElementById('wordtree_basic'));
-                    chart.draw(data, options);
-                  }}
-                </script>
-              </head>
-              <body>
-                <div id="wordtree_basic" style="width: 900px; height: 500px;"></div>
-              </body>
-            </html>
+        var chart = new google.visualization.WordTree(document.getElementById('wordtree_basic'));
+        chart.draw(data, options);
+      }
+    </script>
+  </head>
+  <body>
+    <div id="wordtree_basic" style="width: 900px; height: 500px;"></div>
+  </body>
+</html>
             ''')
         Func.close()
 

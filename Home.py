@@ -2031,7 +2031,7 @@ class html:
 
         # Ensure that reviews are a list of lists, convert to json
         sentences = self.reviews.values.tolist()
-        sentences_json = json.dumps(sentences)
+        #sentences_json = json.dumps(sentences)
 
         Func.write(f'''
             <html>
@@ -2042,7 +2042,7 @@ class html:
                   google.charts.setOnLoadCallback(drawChart);
 
                   function drawChart() {{
-                    var data = google.visualization.arrayToDataTable({sentences_json});
+                    var data = google.visualization.arrayToDataTable({sentences});
 
                     var options = {{
                       wordtree: {{

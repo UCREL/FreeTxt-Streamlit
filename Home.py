@@ -1075,6 +1075,8 @@ class txtanalysis:
             components.html(source_code,height = 800)
             
 
+    
+
 #create function to get a color dictionary
 def get_colordict(palette,number,start):
     pal = list(sns.color_palette(palette=palette, n_colors=number).as_hex())
@@ -2021,15 +2023,13 @@ unsafe_allow_html=True
      )
 #######################################################################################################
 ##create the html file for the wordTree
-class html:
+class HTML:
     def __init__(self, reviews):
         self.reviews = reviews
-    def create_html(self, fname,search_word):
-    
-    # Creating an HTML file to pass to google chart
-        Func = open("GFG-1.html","w")
+
+    def create_html(self, fname, search_word):
+        Func = open(fname,"w")
         sentences = ''.join(str(self.reviews.values.tolist()))
-        st.write(sentences)
         Func.write('''<html>
   <head>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -2074,22 +2074,18 @@ class html:
     
         ''')
         Func.close()
-    def create_html_txt(search_word, input_data):
-    # Creating an HTML file to pass to google chart
-      Func = open("GFG-2.html","w")
-      lines = input_data.split('\n')
-      input_data = pd.DataFrame(lines, columns=['reviews'])
-      sentences = input_data['reviews'].values.tolist()
+    def create_html_txt(self, search_word, input_data):
+        Func = open("GFG-2.html","w")
+        lines = input_data.split('\n')
+        input_data = pd.DataFrame(lines, columns=['reviews'])
+        sentences = input_data['reviews'].values.tolist()
 
-    # Convert to list of lists and remove empty sentences
-      sentences = [[sentence] for sentence in sentences if sentence.strip()]
+        sentences = [[sentence] for sentence in sentences if sentence.strip()]
+        sentences_string = str(json.dumps(sentences))
 
-    # Convert list of lists to string
-      sentences_string = str(json.dumps(sentences))
-
-      st.write(sentences_string)
-      Func.write('''<html>
-     <head>
+        st.write(sentences_string)
+                Func.write('''<html>
+  <head>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
       google.charts.load('current', {packages:['wordtree']});
@@ -2097,9 +2093,10 @@ class html:
 
       function drawChart() {
         var data = google.visualization.arrayToDataTable(
-          
+          '''+
            sentences
-        
+             +
+         ''' 
         );
 
         var options = {
@@ -2111,7 +2108,7 @@ class html:
             +
             search_word
             +
-            '''"
+            '''
                         
             ,
             colors: ['red', 'black', 'green']
@@ -2130,7 +2127,7 @@ class html:
 
     
         ''')
-      Func.close()
+        Func.close()
 
 ###########################################about page#######################################################################
 def about_page():

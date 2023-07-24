@@ -2078,6 +2078,7 @@ class html:
 
     
         ''')
+        st.write(Func)
         Func.close()
 
     def create_html_txt(search_word, input_data):

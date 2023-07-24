@@ -1062,7 +1062,7 @@ class txtanalysis:
             st.write('The word frequency is represented by the weight in the tool tip')
             # Create a download button for the HTML file
          
-            html.create_html(self, fname,search_word)
+            html.create_html(self, search_word)
             HtmlFile = open("GFG-1.html", 'r')
             source_code = HtmlFile.read()
             st.download_button(
@@ -2026,7 +2026,7 @@ class html:
         self.reviews = reviews
 
     
-    def create_html(self, fname,search_word):
+    def create_html(self, search_word):
     
     # Creating an HTML file to pass to google chart
         Func = open("GFG-1.html","w")
@@ -2080,6 +2080,7 @@ class html:
         ''')
         with open('GFG-1.html', 'r') as f:
              html_content = f.read()
+        st.write('the file contents')
         st.write(html_content)
         Func.close()
 

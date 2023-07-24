@@ -2034,7 +2034,7 @@ class html:
 
         #sentences = self.reviews.values.tolist()
         sentences_json = json.dumps(sentences)
-
+        st.write(sentences_json)
         Func.write('''<html>
   <head>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -2078,7 +2078,9 @@ class html:
 
     
         ''')
-        st.write(Func)
+        with open('GFG-1.html', 'r') as f:
+             html_content = f.read()
+        st.write(html_content)
         Func.close()
 
     def create_html_txt(search_word, input_data):

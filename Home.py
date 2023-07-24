@@ -2025,17 +2025,17 @@ class html:
     def __init__(self, reviews):
         self.reviews = reviews
 
-    def create_html(self, fname, search_word):
-        # Creating an HTML file to pass to google chart
-        Func = open(fname, "w")
+    
+    def create_html(self, fname,search_word):
+    
+    # Creating an HTML file to pass to google chart
+        Func = open("GFG-1.html","w")
+        sentences = ''.join(str(self.reviews.values.tolist()))
 
-        # Ensure that reviews are a list of lists, convert to json
-        sentences = self.reviews.values.tolist()
+        #sentences = self.reviews.values.tolist()
         #sentences_json = json.dumps(sentences)
 
-        Func.write(f'''
-            
-<html>
+        Func.write('''<html>
   <head>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
@@ -2044,32 +2044,25 @@ class html:
 
       function drawChart() {
         var data = google.visualization.arrayToDataTable(
-          [ ['Phrases'],
-            ['cats are better than dogs'],
-            ['cats eat kibble'],
-            ['cats are better than hamsters'],
-            ['cats are awesome'],
-            ['cats are people too'],
-            ['cats eat mice'],
-            ['cats meowing'],
-            ['cats in the cradle'],
-            ['cats eat mice'],
-            ['cats in the cradle lyrics'],
-            ['cats eat kibble'],
-            ['cats for adoption'],
-            ['cats are family'],
-            ['cats eat mice'],
-            ['cats are better than kittens'],
-            ['cats are evil'],
-            ['cats are weird'],
-            ['cats eat mice'],
-          ]
+          '''+
+           sentences
+             +
+         ''' 
         );
 
         var options = {
           wordtree: {
             format: 'implicit',
-            word: 'cats'
+            type: 'double',
+            word:
+            "'''          
+            +
+            search_word
+            +
+            '''
+                        
+            ,
+            colors: ['red', 'black', 'green']
           }
         };
 
@@ -2082,7 +2075,9 @@ class html:
     <div id="wordtree_basic" style="width: 900px; height: 500px;"></div>
   </body>
 </html>
-            ''')
+
+    
+        ''')
         Func.close()
 
     def create_html_txt(search_word, input_data):

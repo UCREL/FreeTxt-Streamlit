@@ -2033,7 +2033,7 @@ class html:
         sentences = ''.join(str(self.reviews.values.tolist()))
 
         #sentences = self.reviews.values.tolist()
-        #sentences_json = json.dumps(sentences)
+        sentences_json = json.dumps(sentences)
 
         Func.write('''<html>
   <head>
@@ -2045,7 +2045,7 @@ class html:
       function drawChart() {
         var data = google.visualization.arrayToDataTable(
           '''+
-           sentences
+           sentences_json
              +
          ''' 
         );

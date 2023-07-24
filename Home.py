@@ -1071,7 +1071,7 @@ class txtanalysis:
             file_name="GFG-1.html",
             mime="text/html",
         )
-            print(source_code)
+            #print(source_code)
             components.html(source_code,height = 800)
             
 

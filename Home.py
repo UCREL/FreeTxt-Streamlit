@@ -2030,6 +2030,7 @@ class html:
         Func = open("GFG-1.html","w")
         sentences = ''.join(str(self.reviews.values.tolist()))
         st.write(sentences)
+        sentences_json = json.dumps(sentences)
         Func.write('''<html>
   <head>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -2040,7 +2041,7 @@ class html:
       function drawChart() {
         var data = google.visualization.arrayToDataTable(
           '''+
-           sentences
+           sentences_json
              +
          ''' 
         );

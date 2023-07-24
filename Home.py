@@ -2024,57 +2024,47 @@ unsafe_allow_html=True
 class html:
     def __init__(self, reviews):
         self.reviews = reviews
-    def create_html(self, fname,search_word):
-    
-    # Creating an HTML file to pass to google chart
-        Func = open("GFG-1.html","w")
-        sentences = ''.join(str(self.reviews.values.tolist()))
-        st.write(sentences)
+
+    def create_html(self, fname, search_word):
+        # Creating an HTML file to pass to google chart
+        Func = open(fname, "w")
+
+        # Ensure that reviews are a list of lists, convert to json
+        sentences = self.reviews.values.tolist()
         sentences_json = json.dumps(sentences)
-        Func.write('''<html>
-  <head>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-      google.charts.load('current', {packages:['wordtree']});
-      google.charts.setOnLoadCallback(drawChart);
 
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable(
-          '''+
-           sentences_json
-             +
-         ''' 
-        );
+        Func.write(f'''
+            <html>
+              <head>
+                <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                <script type="text/javascript">
+                  google.charts.load('current', {{packages:['wordtree']}});
+                  google.charts.setOnLoadCallback(drawChart);
 
-        var options = {
-          wordtree: {
-            format: 'implicit',
-            type: 'double',
-            word:
-            "'''          
-            +
-            search_word
-            +
-            '''
-                        
-            ,
-            colors: ['red', 'black', 'green']
-          }
-        };
+                  function drawChart() {{
+                    var data = google.visualization.arrayToDataTable({sentences_json});
 
-        var chart = new google.visualization.WordTree(document.getElementById('wordtree_basic'));
-        chart.draw(data, options);
-      }
-    </script>
-  </head>
-  <body>
-    <div id="wordtree_basic" style="width: 900px; height: 500px;"></div>
-  </body>
-</html>
+                    var options = {{
+                      wordtree: {{
+                        format: 'implicit',
+                        type: 'double',
+                        word: "{search_word}",
+                        colors: ['red', 'black', 'green']
+                      }}
+                    }};
 
-    
-        ''')
+                    var chart = new google.visualization.WordTree(document.getElementById('wordtree_basic'));
+                    chart.draw(data, options);
+                  }}
+                </script>
+              </head>
+              <body>
+                <div id="wordtree_basic" style="width: 900px; height: 500px;"></div>
+              </body>
+            </html>
+            ''')
         Func.close()
+
     def create_html_txt(search_word, input_data):
     # Creating an HTML file to pass to google chart
       Func = open("GFG-2.html","w")

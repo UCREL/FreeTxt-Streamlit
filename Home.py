@@ -2029,7 +2029,7 @@ class html:
     # Creating an HTML file to pass to google chart
         Func = open("GFG-1.html","w")
         sentences = ''.join(str(self.reviews.values.tolist()))
-        st.write(sentences)
+        #st.write(sentences)
         Func.write('''<html>
   <head>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>

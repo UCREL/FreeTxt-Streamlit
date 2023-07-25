@@ -2098,9 +2098,10 @@ class html:
 
       function drawChart() {
         var data = google.visualization.arrayToDataTable(
-          
+          '''+
            sentences
-        
+             +
+         ''' 
         );
 
         var options = {

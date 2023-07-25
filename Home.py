@@ -2074,21 +2074,29 @@ class html:
         ''')
         Func.close()
 
+
+
     def create_html_txt(search_word, input_data):
-    # Creating an HTML file to pass to google chart
       Func = open("GFG-2.html","w")
       lines = input_data.split('\n')
       input_data = pd.DataFrame(lines, columns=['reviews'])
       sentences = input_data['reviews'].values.tolist()
 
     # Convert to list of lists and remove empty sentences
-      sentences = [[sentence] for sentence in sentences if sentence.strip()]
-      words = ' '.join(sentences_string).split()
+      sentences = [sentence for sentence in sentences if sentence.strip()]
+
     # Convert list of lists to string
-      sentences_string = str(json.dumps(sentences))
+      sentences_string = str(json.dumps([[sentence] for sentence in sentences]))
+
+    # Create a list of words from sentences
+      words = ' '.join(sentences).split()
+
+    # Check if the search_word is 'the'
       if search_word == 'the':
-            search_word = random.choice(words)
-      #st.write(sentences_string)
+        
+        search_word = random.choice(words)
+
+      st.write(sentences_string)
       Func.write('''<html>
      <head>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -2135,6 +2143,7 @@ class html:
     
         ''')
       Func.close()
+
 
 
 

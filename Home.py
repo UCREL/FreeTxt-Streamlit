@@ -2075,7 +2075,64 @@ class html:
         Func.close()
 	
 
-   
+    def create_html_txt(search_word, input_data):
+    # Creating an HTML file to pass to google chart
+      Func = open("GFG-2.html","w")
+      lines = input_data.split('\n')
+      input_data = pd.DataFrame(lines, columns=['reviews'])
+      sentences = input_data['reviews'].values.tolist()
+
+    # Convert to list of lists and remove empty sentences
+      sentences = [[sentence] for sentence in sentences if sentence.strip()]
+
+    # Convert list of lists to string
+      sentences_string = str(json.dumps(sentences))
+
+      st.write(sentences_string)
+      Func.write('''<html>
+     <head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {packages:['wordtree']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable(
+          
+           sentences
+        
+        );
+
+        var options = {
+          wordtree: {
+            format: 'implicit',
+            type: 'double',
+            word:
+            "'''          
+            +
+            search_word
+            +
+            '''"
+                        
+            ,
+            colors: ['red', 'black', 'green']
+          }
+        };
+
+        var chart = new google.visualization.WordTree(document.getElementById('wordtree_basic'));
+        chart.draw(data, options);
+      }
+    </script>
+  </head>
+  <body>
+    <div id="wordtree_basic" style="width: 900px; height: 500px;"></div>
+  </body>
+</html>
+
+    
+        ''')
+      Func.close()
+
 
 ###########################################about page#######################################################################
 def about_page():
@@ -2656,7 +2713,7 @@ def textbox_analysis_page():
                       
                     with tab7:
                             input_data = input_data.replace('. ', '.\n').replace('.', '.\n')
-                            #txtanalysis.concordance_txt(input_data,tab7)
+                            txtanalysis.concordance_txt(input_data,tab7)
                     with tab2:
                       if not dfanalysis.empty:
                          #### interactive dataframe

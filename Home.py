@@ -2093,8 +2093,7 @@ class html:
 
     # Check if the search_word is 'the'
       if search_word == 'the':
-        
-        search_word = random.choice(words)
+           search_word = random.choice(words)
 
       st.write(sentences_string)
       Func.write('''<html>

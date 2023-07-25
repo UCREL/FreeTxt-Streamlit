@@ -2710,9 +2710,9 @@ def textbox_analysis_page():
                                        input_data = input_data.replace('.', '.\n')
                                        sentiments = analyse_sentiment(input_data,num_classes)
 
-                        dfanalysis = pd.DataFrame(sentiments, columns=['Review', 'Sentiment Label', 'Sentiment Score'])
-                        plot_sentiment_pie(dfanalysis)
-                        plot_sentiment(dfanalysis)
+                                  dfanalysis = pd.DataFrame(sentiments, columns=['Review', 'Sentiment Label', 'Sentiment Score'])
+                                  plot_sentiment_pie(dfanalysis)
+                                  plot_sentiment(dfanalysis)
                       
                     with tab7:
                             input_data = input_data.replace('. ', '.\n').replace('.', '.\n')

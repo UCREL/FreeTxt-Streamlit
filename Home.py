@@ -2083,19 +2083,20 @@ class html:
       sentences = input_data['reviews'].values.tolist()
 
     # Convert to list of lists and remove empty sentences
-      sentences = [sentence for sentence in sentences if sentence.strip()]
-
-    # Convert list of lists to string
-      sentences_string = str(json.dumps([[sentence] for sentence in sentences]))
+      sentences = [[sentence] for sentence in sentences if sentence.strip()]
 
     # Create a list of words from sentences
-      words = ' '.join(sentences).split()
+      all_sentences = ' '.join([sent[0] for sent in sentences])
+      words = all_sentences.split()
 
-    # Check if the search_word is 'the'
+    
       if search_word == 'the':
-           search_word = random.choice(words)
+        
+        search_word = random.choice(words)
 
-      st.write(sentences_string)
+   
+      sentences_string = str(json.dumps(sentences))
+
       Func.write('''<html>
      <head>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -2142,7 +2143,6 @@ class html:
     
         ''')
       Func.close()
-
 
 
 

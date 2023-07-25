@@ -2086,8 +2086,10 @@ class html:
 
     # Convert list of lists to string
       sentences_string = str(json.dumps(sentences))
-
-      st.write(sentences_string)
+      if search_word == 'the':
+        
+            search_word = random.choice(words)
+      #st.write(sentences_string)
       Func.write('''<html>
      <head>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>

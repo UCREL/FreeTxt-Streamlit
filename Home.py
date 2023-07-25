@@ -2073,7 +2073,6 @@ class html:
     
         ''')
         Func.close()
-	
 
     def create_html_txt(search_word, input_data):
     # Creating an HTML file to pass to google chart

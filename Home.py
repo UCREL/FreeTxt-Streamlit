@@ -2099,7 +2099,7 @@ class html:
         var data = google.visualization.arrayToDataTable(
           
                      '''+
-           sentences
+           sentences_string
              +
          ''' 
         

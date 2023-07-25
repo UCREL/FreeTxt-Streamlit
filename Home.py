@@ -2083,7 +2083,7 @@ class html:
 
     # Convert to list of lists and remove empty sentences
       sentences = [[sentence] for sentence in sentences if sentence.strip()]
-
+      words = ' '.join(sentences).split()
     # Convert list of lists to string
       sentences_string = str(json.dumps(sentences))
       if search_word == 'the':

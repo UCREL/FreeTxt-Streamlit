@@ -233,6 +233,12 @@ def select_columns(data, key):
             st.warning(f"Column '{column}' does not contain text data. Please select a different column.")
             return
 
+    # Confirm if selected columns contain only text data
+    text_only_columns = [col for col in selected_columns if data[col].dtype == 'object']
+    if len(text_only_columns) != len(selected_columns):
+        st.warning("Some of the selected columns are not text data. Please select only text data columns.")
+        return
+
     if len(selected_columns)>=2 and layout[4].checkbox('Filter rows?'):
         filter_column = layout[6].selectbox('Select filter column', selected_columns)
         if filter_column: 
@@ -241,6 +247,7 @@ def select_columns(data, key):
             return data.loc[data[filter_column] == filter_key].drop_duplicates(), selected_columns
     else:
         return data[selected_columns][start_row:].dropna(how='all').drop_duplicates(), selected_columns
+
 
 
     if len(selected_columns)>=2 and layout[4].checkbox('Filter rows?'):

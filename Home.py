@@ -1230,7 +1230,6 @@ def get_wordcloud (data, key,tab):
             background_color="white",
             font_path='font/Ubuntu-B.ttf'
         ).generate_from_text(input_data)
-        
 
         # Allow the user to select the measure to use
 	#measure = tab2.selectbox("Select a measure:", options=["Frequency","KENESS", "Log-Likelihood"])    
@@ -1251,13 +1250,15 @@ def get_wordcloud (data, key,tab):
               all_words = [token.text for token in doc if token.pos_ == pos_dict[cloud_type]]
         elif cloud_type == 'Semantic Tags':
               tags = Pymsas_tags(input_data)
-              
               tags_freq = tags.value_counts().reset_index()
               tags_freq.columns = ['USAS Tags', 'freq']
               st.write(tags_freq)
               merged_df = pd.merge(tags_freq, Bnc_sementic_tags, on='USAS Tags', how='inner')
+              merged_df = merged_df.rename(columns={'USAS Tags': 'words'})
               st.write(merged_df[['USAS Tags', 'freq','f_reference']])
-              all_words = list(tags.astype(str))
+              Tags_f_reference = calculate_measures(merged_df[['USAS Tags', 'freq','f_reference']],'KENESS')
+              all_words = Tags_f_reference['word'].tolist() 
+              #all_words = list(tags.astype(str))
         else: 
             pass
         all_words = list(set(all_words))

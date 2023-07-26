@@ -221,8 +221,6 @@ def get_data(file_source='example'):
         return False, st.error(f'''**UnexpectedFileError:** {err} Some or all of your files may be empty or invalid. Acceptable file formats include `.txt`, `.xlsx`, `.xls`, `.tsv`.''', icon="🚨")
 
 
-import pandas as pd
-
 def is_date_like(column):
     # A helper function to check if a column can be converted to datetime
     try:
@@ -237,10 +235,10 @@ def select_columns(data, key):
     start_row=0
     if selected_columns: start_row = layout[2].number_input('Choose start row:', value=0, min_value=0, max_value=5)
     
-    # Check if any selected column doesn't contain object data or is date-like
+    # Check if any selected column doesn't contain object data, is date-like or is completely null
     for column in selected_columns:
-        if data[column].dtypes != 'object' or is_date_like(data[column]):
-            st.warning(f"Column '{column}' does not contain non-date text data. Please select a different column.")
+        if data[column].dtypes != 'object' or is_date_like(data[column]) or data[column].isna().all():
+            st.warning(f"Column '{column}' does not contain non-date text data or is completely null. Please select a different column.")
             return
 
     if len(selected_columns)>=2 and layout[4].checkbox('Filter rows?'):
@@ -251,6 +249,7 @@ def select_columns(data, key):
             return data.loc[data[filter_column] == filter_key].drop_duplicates(), selected_columns
     else:
         return data[selected_columns][start_row:].dropna(how='all').drop_duplicates(), selected_columns
+
 
 
 

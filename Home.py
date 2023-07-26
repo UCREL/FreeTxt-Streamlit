@@ -250,6 +250,7 @@ def select_columns(data, key):
 
 
 
+
     if len(selected_columns)>=2 and layout[4].checkbox('Filter rows?'):
         filter_column = layout[6].selectbox('Select filter column', selected_columns)
         if filter_column: 

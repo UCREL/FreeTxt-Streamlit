@@ -1252,11 +1252,11 @@ def get_wordcloud (data, key,tab):
               tags = Pymsas_tags(input_data)
               tags_freq = tags.value_counts().reset_index()
               tags_freq.columns = ['USAS Tags', 'freq']
-              st.write(tags_freq)
+              #st.write(tags_freq)
               merged_df = pd.merge(tags_freq, Bnc_sementic_tags, on='USAS Tags', how='inner')
               merged_df = merged_df.rename(columns={'USAS Tags': 'word'})
               merged_df = merged_df.rename(columns={'f_reference': 'f_Reference'})
-              st.write(merged_df[['word', 'freq','f_Reference']])
+              #st.write(merged_df[['word', 'freq','f_Reference']])
               Tags_f_reference = calculate_measures(merged_df[['word', 'freq','f_Reference']],'KENESS')
               all_words = Tags_f_reference['word'].tolist() 
               #all_words = list(tags.astype(str))
@@ -2919,11 +2919,11 @@ def textbox_analysis_page():
                    tags = Pymsas_tags(input_data)
                    tags_freq = tags.value_counts().reset_index()
                    tags_freq.columns = ['USAS Tags', 'freq']
-                   st.write(tags_freq)
+                   #st.write(tags_freq)
                    merged_df = pd.merge(tags_freq, Bnc_sementic_tags, on='USAS Tags', how='inner')
                    merged_df = merged_df.rename(columns={'USAS Tags': 'word'})
                    merged_df = merged_df.rename(columns={'f_reference': 'f_Reference'})
-                   st.write(merged_df[['word', 'freq','f_Reference']])
+                   #st.write(merged_df[['word', 'freq','f_Reference']])
                    Tags_f_reference = calculate_measures(merged_df[['word', 'freq','f_Reference']],'KENESS')
                    all_words = Tags_f_reference['word'].tolist() 
                else: 

@@ -1190,6 +1190,7 @@ def get_wordcloud (data, key,tab):
     
    # Calculate the total number of words in the text
     Bnc_corpus=pd.read_csv('keness/Bnc.csv')
+    Bnc_sementic_tags = pd.read_csv('keness/BNC_semantictags.csv')
     #### Get the frequency list of the requested data using NLTK
     words = nltk.tokenize.word_tokenize(input_data)
     fdist1 = nltk.FreqDist(words)
@@ -1252,6 +1253,7 @@ def get_wordcloud (data, key,tab):
               tags = Pymsas_tags(input_data)
               tags_freq = tags.value_counts()
               st.write(tags_freq)
+              merged_df = pd.merge(tags_freq, Bnc_sementic_tags, on='USAS Tags', how='inner')
               all_words = list(tags.astype(str))
         else: 
             pass
@@ -2851,6 +2853,7 @@ def textbox_analysis_page():
     
    # Calculate the total number of words in the text
             Bnc_corpus=pd.read_csv('keness/Bnc.csv')
+            Bnc_sementic_tags = pd.read_csv('keness/BNC_semantictags.csv')
     #### Get the frequency list of the requested data using NLTK
             words = nltk.tokenize.word_tokenize(input_data)
             fdist1 = nltk.FreqDist(words)

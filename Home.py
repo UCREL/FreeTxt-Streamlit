@@ -953,11 +953,15 @@ def run_summarizer(input_text, num, lang='en'):
 
     summary = text_rank_summarize(input_text, ratio=chosen_ratio_2)
     if summary:
-        st.write(text_rank_summarize(input_text, ratio=chosen_ratio_2))
+        st.write(summary)
     else:
-        st.write(sent_tokenize(text_rank_summarize(input_text, ratio=0.5))[0])
+        sentences = sent_tokenize(input_text)
+        if sentences:
+            st.write(sentences[0])
+        else:
+            st.write("Unable to summarize the input text.")
 
-    return summary    
+    return summary
             
             
 #-------------Summariser--------------

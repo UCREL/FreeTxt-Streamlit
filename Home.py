@@ -1250,6 +1250,8 @@ def get_wordcloud (data, key,tab):
               all_words = [token.text for token in doc if token.pos_ == pos_dict[cloud_type]]
         elif cloud_type == 'Semantic Tags':
               tags = Pymsas_tags(input_data)
+              tags_freq = tags.value_counts()
+              st.write(tags_freq)
               all_words = list(tags.astype(str))
         else: 
             pass

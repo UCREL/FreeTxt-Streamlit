@@ -1256,7 +1256,7 @@ def get_wordcloud (data, key,tab):
               tags_freq.columns = ['USAS Tags', 'freq']
               st.write(tags_freq)
               merged_df = pd.merge(tags_freq, Bnc_sementic_tags, on='USAS Tags', how='inner')
-              st.write(merged_df['USAS Tags', 'freq','f_reference'])
+              st.write(merged_df[['USAS Tags', 'freq','f_reference']])
               all_words = list(tags.astype(str))
         else: 
             pass

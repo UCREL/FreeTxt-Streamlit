@@ -944,20 +944,20 @@ def text_rank_summarize(article, ratio):
   return summa_summarizer(article, ratio=ratio)
 
 # ------------------Summarizer--------------
-def run_summarizer(input_text, num,lang='en'):
+def run_summarizer(input_text, num, lang='en'):
+    if not isinstance(input_text, str):
+        st.write("Please select another column with text data to analyze.")
+        return None
 
     chosen_ratio_2 = st.slider(SUM_MESSAGES[f'{lang}.sb.sl'],key = f"q{num}_1", min_value=10, max_value=50, step=10)/100
 
-    #if st.button(SUM_MESSAGES[f'{lang}.button'],key = f'bb+ {num}'):
-    #if input_text and input_text!='<Rhowch eich testun (Please enter your text...)>':
     summary = text_rank_summarize(input_text, ratio=chosen_ratio_2)
     if summary:
-                st.write(text_rank_summarize(input_text, ratio=chosen_ratio_2))
+        st.write(text_rank_summarize(input_text, ratio=chosen_ratio_2))
     else:
-                st.write(sent_tokenize(text_rank_summarize(input_text, ratio=0.5))[0])
-    #else:
-     #       st.write("Please enter your text in the above textbox")
-    return summary      
+        st.write(sent_tokenize(text_rank_summarize(input_text, ratio=0.5))[0])
+
+    return summary    
             
             
 #-------------Summariser--------------

@@ -221,23 +221,27 @@ def get_data(file_source='example'):
         return False, st.error(f'''**UnexpectedFileError:** {err} Some or all of your files may be empty or invalid. Acceptable file formats include `.txt`, `.xlsx`, `.xls`, `.tsv`.''', icon="🚨")
 
 
+import pandas as pd
+
+def is_date_like(column):
+    # A helper function to check if a column can be converted to datetime
+    try:
+        pd.to_datetime(column)
+        return True
+    except (ValueError, TypeError):
+        return False
+
 def select_columns(data, key):
     layout = st.columns([7, 0.2, 2, 0.2, 2, 0.2, 3, 0.2, 3])
     selected_columns = layout[0].multiselect('Select column(s) below to analyse', data.columns, help='Select columns you are interested in with this selection box', key= f"{key}_cols_multiselect")
     start_row=0
     if selected_columns: start_row = layout[2].number_input('Choose start row:', value=0, min_value=0, max_value=5)
     
-    # Check if any selected column doesn't contain object data
+    # Check if any selected column doesn't contain object data or is date-like
     for column in selected_columns:
-        if data[column].dtypes != 'object':
-            st.warning(f"Column '{column}' does not contain text data. Please select a different column.")
+        if data[column].dtypes != 'object' or is_date_like(data[column]):
+            st.warning(f"Column '{column}' does not contain non-date text data. Please select a different column.")
             return
-
-    # Confirm if selected columns contain only text data
-    text_only_columns = [col for col in selected_columns if data[col].dtype == 'object']
-    if len(text_only_columns) != len(selected_columns):
-        st.warning("Some of the selected columns are not text data. Please select only text data columns.")
-        return
 
     if len(selected_columns)>=2 and layout[4].checkbox('Filter rows?'):
         filter_column = layout[6].selectbox('Select filter column', selected_columns)
@@ -247,6 +251,7 @@ def select_columns(data, key):
             return data.loc[data[filter_column] == filter_key].drop_duplicates(), selected_columns
     else:
         return data[selected_columns][start_row:].dropna(how='all').drop_duplicates(), selected_columns
+
 
 
 

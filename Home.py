@@ -1251,6 +1251,8 @@ def get_wordcloud (data, key,tab):
               all_words = [token.text for token in doc if token.pos_ == pos_dict[cloud_type]]
         elif cloud_type == 'Semantic Tags':
               tags = Pymsas_tags(input_data)
+              
+              tags_freq = tags.value_counts().reset_index()
               tags_freq.columns = ['USAS Tags', 'freq']
               st.write(tags_freq)
               merged_df = pd.merge(tags_freq, Bnc_sementic_tags, on='USAS Tags', how='inner')

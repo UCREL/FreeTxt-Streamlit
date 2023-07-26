@@ -1200,6 +1200,8 @@ def get_wordcloud (data, key,tab):
     word_freq['word']= column1
     word_freq['freq']= column2
     s = Bnc_corpus.loc[Bnc_corpus['word'].isin(column1)]
+    word_freq['word'] = word_freq['word'].astype(str)
+    s['word'] = s['word'].astype(str)
     word_freq = word_freq.merge(s, how='inner', on='word')
     #tab.write(word_freq)
     df = word_freq[['word','freq','f_Reference']]

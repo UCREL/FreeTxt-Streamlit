@@ -2693,6 +2693,9 @@ def textbox_analysis_page():
                                """)
                                   if analysis_type == 'analyse whole text':
                                       sentiments = analyse_sentiment_txt(input_data,num_classes)
+                                      dfanalysis = pd.DataFrame(sentiments, columns=['Review', 'Sentiment Label', 'Sentiment Score'])
+                                      plot_sentiment_pie(dfanalysis)
+                                      plot_sentiment(dfanalysis)
                                   else:
                                     input_data = input_data.replace('.', '.\n')
                                                             

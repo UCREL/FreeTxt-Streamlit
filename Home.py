@@ -1208,7 +1208,8 @@ def get_wordcloud (data, key,tab,language):
         #tab.write(word_freq)
         df = word_freq[['word','freq','f_Reference']]
     elif language == 'cy':
-        corcencc_corpus=pd.read_csv('keness/BncSampWr.wrd.fql')
+        corcencc_corpus=pd.read_csv('keness/file.raw.pos.sem.wrd.fql')
+        
      
     #tab2.subheader("upload mask Image")
     #image_file = tab2.file_uploader("Upload Images", type=["png","jpg","jpeg"])

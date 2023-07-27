@@ -1210,6 +1210,7 @@ def get_wordcloud (data, key,tab,language):
     elif language == 'cy':
         column_names = ['word', 'f_Reference']
         corcencc_corpus = pd.read_csv('keness/file.raw.pos.sem.wrd.fql', sep='\t', names=column_names)
+        corcencc_sementic_tags = pd.read_csv('keness/BNC_semantictags.csv')
         st.write(corcencc_corpus)
         words = nltk.tokenize.word_tokenize(input_data)
         fdist1 = nltk.FreqDist(words)

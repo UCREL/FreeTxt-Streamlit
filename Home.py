@@ -1284,9 +1284,10 @@ def get_wordcloud (data, key,tab,language):
               if language == 'en':
                    merged_df = pd.merge(tags_freq, Bnc_sementic_tags, on='USAS Tags', how='inner')
                    merged_df = merged_df.rename(columns={'f_reference': 'f_Reference'})
+                   merged_df = merged_df.rename(columns={'USAS Tags': 'word'})
               elif language == 'cy':
                    merged_df = pd.merge(tags_freq, corcencc_sementic_tags, on='USAS Tags', how='inner')
-              merged_df = merged_df.rename(columns={'USAS Tags': 'word'})
+              
               
               st.write(merged_df[['word', 'freq','f_Reference']])
               Tags_f_reference = calculate_measures(merged_df[['word', 'freq','f_Reference']],'KENESS',language)

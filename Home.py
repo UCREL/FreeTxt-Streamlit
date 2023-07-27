@@ -13,6 +13,7 @@ from spacy.tokens import Doc
 from spacy.vocab import Vocab
 import nltk
 import io
+import requests   
 import matplotlib.pyplot as plt
 import seaborn as sns
 from PIL import Image as PilImage

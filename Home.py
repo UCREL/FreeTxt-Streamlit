@@ -1219,7 +1219,7 @@ def get_wordcloud (data, key,tab,language):
         column_names = ['word', 'f_Reference']
         corcencc_corpus = pd.read_csv('keness/file.raw.pos.sem.wrd.fql', sep='\t', names=column_names)
         corcencc_sementic_tags = pd.read_csv('keness/Cy_semantictags.csv')
-        st.write(corcencc_corpus)
+        #st.write(corcencc_corpus)
         words = nltk.tokenize.word_tokenize(input_data)
         fdist1 = nltk.FreqDist(words)
         filtered_word_freq = dict((word, freq) for word, freq in fdist1.items() if not word.isdigit())
@@ -1280,7 +1280,7 @@ def get_wordcloud (data, key,tab,language):
               tags = Pymsas_tags(input_data)
               tags_freq = tags.value_counts().reset_index()
               tags_freq.columns = ['USAS Tags', 'freq']
-              st.write(tags_freq)
+              #st.write(tags_freq)
               if language == 'en':
                    merged_df = pd.merge(tags_freq, Bnc_sementic_tags, on='USAS Tags', how='inner')
                    merged_df = merged_df.rename(columns={'f_reference': 'f_Reference'})
@@ -1289,7 +1289,7 @@ def get_wordcloud (data, key,tab,language):
                    corcencc_sementic_tags = corcencc_sementic_tags.drop(columns=['USAS Tags'])
                    corcencc_sementic_tags = corcencc_sementic_tags.rename(columns={'Equivalent Tag': 'USAS Tags'})
                    merged_df = pd.merge(tags_freq, corcencc_sementic_tags, on='USAS Tags', how='inner')
-                   st.write(merged_df)
+                   #st.write(merged_df)
               
               
               merged_df = merged_df.rename(columns={'USAS Tags': 'word'})

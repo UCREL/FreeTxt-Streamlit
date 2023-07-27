@@ -1145,7 +1145,7 @@ def Pymsas_tags(text):
         cy_tagged['USAS Tags'] = cy_tagged['USAS Tags'].str.split('+').str[0]
         #st.write(cy_tagged)
         merged_df = pd.merge(cy_tagged, pymusaslist, on='USAS Tags', how='left')
-        st.write(merged_df)
+        #st.write(merged_df)
         merged_df.loc[merged_df['Equivalent Tag'].notnull(), 'USAS Tags'] = merged_df['Equivalent Tag'] 
         merged_df = merged_df.drop(['Equivalent Tag'], axis=1)
         tags_to_remove = ['Unmatched', 'Grammatical bin', 'Pronouns', 'Period']

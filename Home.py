@@ -1344,7 +1344,7 @@ def get_wordcloud (data, key,tab):
    ####generate a wordcloud based on Keness
 #####English Keness
 ####load the Bnc Frequency list
-def calculate_measures(df,measure):
+def calculate_measures(df,measure,language):
 
     # Convert the frequency column to an integer data type
     df['freq'] = df['freq'].astype(int)
@@ -1352,7 +1352,10 @@ def calculate_measures(df,measure):
     # Calculate the total number of words in the text
     total_words = df['freq'].sum()
     # Calculate the total number of words in the reference corpus
-    ref_words = 968267
+    if language == 'en':
+         ref_words = 968267
+    elif language == 'cy':
+         ref_words = 13487210
    # Calculate the KENESS and log-likelihood measures for each word
     values = []
     for index, row in df.iterrows():
@@ -2904,7 +2907,7 @@ def textbox_analysis_page():
                cloud_type = tab5.selectbox('Choose Cloud category:', ['All words', 'Semantic Tags', 'Bigrams', 'Trigrams', '4-grams', 'Nouns', 'Proper nouns', 'Verbs', 'Adjectives', 'Adverbs', 'Numbers'])
                if cloud_type == 'All words':
                  all_words = nltk.tokenize.word_tokenize(input_data)
-                 df = calculate_measures(df,'KENESS')
+                 df = calculate_measures(df,'KENESS',language)
                  all_words = df['word'].tolist() 
                elif cloud_type == 'Bigrams':
                   all_words = list(set([' '.join(g) for g in nltk.ngrams(input_data.split(),2)]))
@@ -2924,7 +2927,7 @@ def textbox_analysis_page():
                    merged_df = merged_df.rename(columns={'USAS Tags': 'word'})
                    merged_df = merged_df.rename(columns={'f_reference': 'f_Reference'})
                    #st.write(merged_df[['word', 'freq','f_Reference']])
-                   Tags_f_reference = calculate_measures(merged_df[['word', 'freq','f_Reference']],'KENESS')
+                   Tags_f_reference = calculate_measures(merged_df[['word', 'freq','f_Reference']],'KENESS',language)
                    all_words = Tags_f_reference['word'].tolist() 
                else: 
                    pass

@@ -1287,6 +1287,7 @@ def get_wordcloud (data, key,tab,language):
                    merged_df = merged_df.rename(columns={'USAS Tags': 'word'})
               elif language == 'cy':
                    merged_df = pd.merge(tags_freq, corcencc_sementic_tags, on='USAS Tags', how='inner')
+                   st.write(merged_df)
               
               
               st.write(merged_df[['word', 'freq','f_Reference']])

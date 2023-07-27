@@ -1241,7 +1241,7 @@ def get_wordcloud (data, key,tab,language):
         cloud_type = tab.selectbox('Choose Cloud category:', ['All words', 'Semantic Tags', 'Bigrams', 'Trigrams', '4-grams', 'Nouns', 'Proper nouns', 'Verbs', 'Adjectives', 'Adverbs', 'Numbers'], key=f"{key}_cloud_select")
         if cloud_type == 'All words':
              all_words = nltk.tokenize.word_tokenize(input_data)
-             df = calculate_measures(df,'KENESS')
+             df = calculate_measures(df,'KENESS',language)
              all_words = df['word'].tolist()  # Update all_words from the DataFrame after calculation
         elif cloud_type == 'Bigrams':
             all_words = list(set([' '.join(g) for g in nltk.ngrams(input_data.split(),2)]))
@@ -1261,7 +1261,7 @@ def get_wordcloud (data, key,tab,language):
               merged_df = merged_df.rename(columns={'USAS Tags': 'word'})
               merged_df = merged_df.rename(columns={'f_reference': 'f_Reference'})
               #st.write(merged_df[['word', 'freq','f_Reference']])
-              Tags_f_reference = calculate_measures(merged_df[['word', 'freq','f_Reference']],'KENESS')
+              Tags_f_reference = calculate_measures(merged_df[['word', 'freq','f_Reference']],'KENESS',language)
               all_words = Tags_f_reference['word'].tolist() 
               #all_words = list(tags.astype(str))
         else: 

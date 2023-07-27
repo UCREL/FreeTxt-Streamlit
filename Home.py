@@ -1141,7 +1141,9 @@ def Pymsas_tags(text):
         # Read the response into a DataFrame
         cy_tagged = pd.read_csv(io.StringIO(response.text), sep='\t')
         cy_tagged['USAS Tags'] = cy_tagged['USAS Tags'].str.split('[,/mf]').str[0].str.replace('[\[\]"\']', '', regex=True)
+        st.write(cy_tagged)
         cy_tagged['USAS Tags'] = cy_tagged['USAS Tags'].str.split('+').str[0]
+        st.write(cy_tagged)
         merged_df = pd.merge(cy_tagged, pymusaslist, on='USAS Tags', how='left')
         merged_df.loc[merged_df['Equivalent Tag'].notnull(), 'USAS Tags'] = merged_df['Equivalent Tag'] 
         merged_df = merged_df.drop(['Equivalent Tag'], axis=1)

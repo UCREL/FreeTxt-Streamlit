@@ -1135,8 +1135,13 @@ def Pymsas_tags(text):
     	'lang': (None, 'cy'),
     	'text': text,
 		}
-        response = requests.post('http://ucrel-api.lancaster.ac.uk/cgi-bin/pymusas.pl', files=files)
-        data = response.text
+
+         response = requests.post('http://ucrel-api-01.lancaster.ac.uk/cgi-bin/pymusas.pl', files=files)
+
+        # Read the response into a DataFrame
+        data = pd.read_csv(io.StringIO(response.text), sep='\t')
+        #response = requests.post('http://ucrel-api.lancaster.ac.uk/cgi-bin/pymusas.pl', files=files)
+        #data = response.text
         cy_tagged =pd.read_csv('cy_tagged.txt',sep='\t')
         st.write(data)
         cy_tagged['USAS Tags'] = cy_tagged['USAS Tags'].str.split('[,/mf]').str[0].str.replace('[\[\]"\']', '', regex=True)

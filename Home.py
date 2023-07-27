@@ -1148,6 +1148,8 @@ def Pymsas_tags(text):
         st.write(merged_df)
         merged_df.loc[merged_df['Equivalent Tag'].notnull(), 'USAS Tags'] = merged_df['Equivalent Tag'] 
         merged_df = merged_df.drop(['Equivalent Tag'], axis=1)
+        tags_to_remove = ['Unmatched', 'Grammatical bin', 'Pronouns', 'Period']
+        merged_df = merged_df[~merged_df['USAS Tags'].str.contains('|'.join(tags_to_remove))]
         
     elif lang_detected == 'en':
         nlp = spacy.load('en_core_web_sm-3.2.0')	

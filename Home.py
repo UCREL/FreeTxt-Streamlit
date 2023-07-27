@@ -1210,6 +1210,20 @@ def get_wordcloud (data, key,tab,language):
     elif language == 'cy':
         corcencc_corpus = pd.read_csv('keness/file.raw.pos.sem.wrd.fql', sep='\t')
         st.write(corcencc_corpus)
+        words = nltk.tokenize.word_tokenize(input_data)
+        fdist1 = nltk.FreqDist(words)
+        filtered_word_freq = dict((word, freq) for word, freq in fdist1.items() if not word.isdigit())
+        column1 = list(filtered_word_freq.keys())
+        column2= list(filtered_word_freq.values())
+        word_freq = pd.DataFrame()
+        word_freq['word']= column1
+        word_freq['freq']= column2
+        s = corcencc_corpus.loc[corcencc_corpus['word'].isin(column1)]
+        word_freq['word'] = word_freq['word'].astype(str)
+        s['word'] = s['word'].astype(str)
+        word_freq = word_freq.merge(s, how='inner', on='word')
+        #tab.write(word_freq)
+        df = word_freq[['word','freq','f_Reference']]
      
     #tab2.subheader("upload mask Image")
     #image_file = tab2.file_uploader("Upload Images", type=["png","jpg","jpeg"])

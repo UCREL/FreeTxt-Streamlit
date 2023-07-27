@@ -1290,7 +1290,7 @@ def get_wordcloud (data, key,tab,language):
                    st.write(merged_df)
               
               
-              st.write(merged_df[['word', 'freq','f_Reference']])
+              #st.write(merged_df[['word', 'freq','f_Reference']])
               Tags_f_reference = calculate_measures(merged_df[['word', 'freq','f_Reference']],'KENESS',language)
               all_words = Tags_f_reference['word'].tolist() 
               #all_words = list(tags.astype(str))

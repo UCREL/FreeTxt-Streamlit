@@ -1138,6 +1138,7 @@ def Pymsas_tags(text):
         response = requests.post('http://ucrel-api-01.lancaster.ac.uk/cgi-bin/pymusas.pl', files=files)
         data = response.text
         cy_tagged =pd.read_csv('cy_tagged.txt',sep='\t')
+        st.write(cy_tagged['USAS Tags'])
         cy_tagged['USAS Tags'] = cy_tagged['USAS Tags'].str.split('[,/mf]').str[0].str.replace('[\[\]"\']', '', regex=True)
         cy_tagged['USAS Tags'] = cy_tagged['USAS Tags'].str.split('+').str[0]
         merged_df = pd.merge(cy_tagged, pymusaslist, on='USAS Tags', how='left')

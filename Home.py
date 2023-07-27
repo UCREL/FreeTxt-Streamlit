@@ -1141,16 +1141,16 @@ def Pymsas_tags(text):
         # Read the response into a DataFrame
         cy_tagged = pd.read_csv(io.StringIO(response.text), sep='\t')
         cy_tagged['USAS Tags'] = cy_tagged['USAS Tags'].str.split('[,/mf]').str[0].str.replace('[\[\]"\']', '', regex=True)
-        st.write(cy_tagged)
+        #st.write(cy_tagged)
         cy_tagged['USAS Tags'] = cy_tagged['USAS Tags'].str.split('+').str[0]
-        st.write(cy_tagged)
+        #st.write(cy_tagged)
         merged_df = pd.merge(cy_tagged, pymusaslist, on='USAS Tags', how='left')
         st.write(merged_df)
         merged_df.loc[merged_df['Equivalent Tag'].notnull(), 'USAS Tags'] = merged_df['Equivalent Tag'] 
         merged_df = merged_df.drop(['Equivalent Tag'], axis=1)
         tags_to_remove = ['Unmatched', 'Grammatical bin', 'Pronouns', 'Period']
         merged_df = merged_df[~merged_df['USAS Tags'].str.contains('|'.join(tags_to_remove))]
-        st.write(merged_df)
+        #st.write(merged_df)
     elif lang_detected == 'en':
         nlp = spacy.load('en_core_web_sm-3.2.0')	
         english_tagger_pipeline = spacy.load('en_dual_none_contextual')
@@ -1167,7 +1167,7 @@ def Pymsas_tags(text):
         merged_df = merged_df.drop(['Equivalent Tag'], axis=1)
         tags_to_remove = ['Unmatched', 'Grammatical bin', 'Pronouns', 'Period']
         merged_df = merged_df[~merged_df['USAS Tags'].str.contains('|'.join(tags_to_remove))]
-        st.write(merged_df)
+        #st.write(merged_df)
     return(merged_df['USAS Tags'])
 
 
@@ -1280,14 +1280,15 @@ def get_wordcloud (data, key,tab,language):
               tags = Pymsas_tags(input_data)
               tags_freq = tags.value_counts().reset_index()
               tags_freq.columns = ['USAS Tags', 'freq']
-              #st.write(tags_freq)
+              st.write(tags_freq)
               if language == 'en':
                    merged_df = pd.merge(tags_freq, Bnc_sementic_tags, on='USAS Tags', how='inner')
+                   merged_df = merged_df.rename(columns={'f_reference': 'f_Reference'})
               elif language == 'cy':
                    merged_df = pd.merge(tags_freq, corcencc_sementic_tags, on='USAS Tags', how='inner')
               merged_df = merged_df.rename(columns={'USAS Tags': 'word'})
-              merged_df = merged_df.rename(columns={'f_reference': 'f_Reference'})
-              #st.write(merged_df[['word', 'freq','f_Reference']])
+              
+              st.write(merged_df[['word', 'freq','f_Reference']])
               Tags_f_reference = calculate_measures(merged_df[['word', 'freq','f_Reference']],'KENESS',language)
               all_words = Tags_f_reference['word'].tolist() 
               #all_words = list(tags.astype(str))

@@ -1050,9 +1050,9 @@ class txtanalysis:
                       st._legacy_dataframe(filterdf)
                       st.write('filtered  number of reviews: ', len(filterdf))
                       
-    def show_wordcloud(self, fname,tab):
+    def show_wordcloud(self, fname,tab,language):
         ## st.info('Word cloud ran into a technical hitch and we are fixing it...Thanks for you patience', icon='😎')
-        image_path=get_wordcloud(self.reviews, fname,tab)
+        image_path=get_wordcloud(self.reviews, fname,tab,language)
 	    
         return image_path
     
@@ -1169,7 +1169,7 @@ def load_image(image_file):
 	img = PilImage.open(image_file)
 	return img
 
-def get_wordcloud (data, key,tab):
+def get_wordcloud (data, key,tab,language):
 
     tab.markdown('''    
     ☁️ Word Cloud
@@ -1189,24 +1189,27 @@ def get_wordcloud (data, key,tab):
     image_mask_2 = {'cloud':'img/cloud.png','Welsh Flag': 'img/welsh_flag.png', 'Sherlock Holmes': 'img/holmes_silhouette.png', 'national-trust':'img/national-trust-logo-black-on-white-silhouette.webp','Cadw':'img/cadw-clip.jpeg','Rectangle': None,'Tweet':'img/tweet.png','circle':'img/circle.png', 'Cadw2':'img/CadwLogo.png'}
     
    # Calculate the total number of words in the text
-    Bnc_corpus=pd.read_csv('keness/Bnc.csv')
-    Bnc_sementic_tags = pd.read_csv('keness/BNC_semantictags.csv')
-    #### Get the frequency list of the requested data using NLTK
-    words = nltk.tokenize.word_tokenize(input_data)
-    fdist1 = nltk.FreqDist(words)
-    filtered_word_freq = dict((word, freq) for word, freq in fdist1.items() if not word.isdigit())
-    column1 = list(filtered_word_freq.keys())
-    column2= list(filtered_word_freq.values())
-    word_freq = pd.DataFrame()
-    word_freq['word']= column1
-    word_freq['freq']= column2
-    s = Bnc_corpus.loc[Bnc_corpus['word'].isin(column1)]
-    word_freq['word'] = word_freq['word'].astype(str)
-    s['word'] = s['word'].astype(str)
-    word_freq = word_freq.merge(s, how='inner', on='word')
-    #tab.write(word_freq)
-    df = word_freq[['word','freq','f_Reference']]
-    
+    if language == 'en':
+        Bnc_corpus=pd.read_csv('keness/Bnc.csv')
+        Bnc_sementic_tags = pd.read_csv('keness/BNC_semantictags.csv')
+        #### Get the frequency list of the requested data using NLTK
+        words = nltk.tokenize.word_tokenize(input_data)
+        fdist1 = nltk.FreqDist(words)
+        filtered_word_freq = dict((word, freq) for word, freq in fdist1.items() if not word.isdigit())
+        column1 = list(filtered_word_freq.keys())
+        column2= list(filtered_word_freq.values())
+        word_freq = pd.DataFrame()
+        word_freq['word']= column1
+        word_freq['freq']= column2
+        s = Bnc_corpus.loc[Bnc_corpus['word'].isin(column1)]
+        word_freq['word'] = word_freq['word'].astype(str)
+        s['word'] = s['word'].astype(str)
+        word_freq = word_freq.merge(s, how='inner', on='word')
+        #tab.write(word_freq)
+        df = word_freq[['word','freq','f_Reference']]
+    elif language == 'cy':
+        corcencc_corpus=pd.read_csv('keness/Bnc.csv')
+     
     #tab2.subheader("upload mask Image")
     #image_file = tab2.file_uploader("Upload Images", type=["png","jpg","jpeg"])
     maskfile_2 = image_mask_2[tab.selectbox('Select Cloud shape:', image_mask_2.keys(), help='Select the shape of the word cloud')]
@@ -3344,7 +3347,7 @@ def analysis_page():
                     tab4.dataframe(df ,use_container_width=True)
                     textanalysis = txtanalysis(df)
                     textanalysis.show_reviews(filenames[i],tab4)
-                    word_cloud_path = textanalysis.show_wordcloud(filenames[i],tab5)
+                    word_cloud_path = textanalysis.show_wordcloud(filenames[i],tab5,language)
                     Keyword_context = textanalysis.show_kwic(filenames[i],tab6)
                     textanalysis.concordance(filenames[i],tab7)
 

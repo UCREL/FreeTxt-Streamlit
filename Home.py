@@ -3292,9 +3292,10 @@ def analysis_page():
                                 if sentiments is not None and sentiment_counts is not None:
                                    dfanalysis = pd.DataFrame(sentiments, columns=['Review', 'Sentiment Label', 'Sentiment Score'])
                                    filtered_df = display_dataframe(dfanalysis)
-                                   plot_sentiment_pie(filtered_df)
-                                   plot_sentiment(filtered_df)
-                                   pass
+                                   if filtered_df is not None:
+                                       plot_sentiment_pie(filtered_df)
+                                       plot_sentiment(filtered_df)
+                                       pass
                                 else:
                                    st.write("No reviews selected for analysis. Please select at least one review.")
                            else:

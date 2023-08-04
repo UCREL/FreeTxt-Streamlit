@@ -3080,7 +3080,7 @@ def textbox_analysis_page():
                              
 
 ###########################################Analysis page#######################################################################
-@st.cache(allow_output_mutation=True)
+@st.cache_data
 def get_state():
     return {}
 def analysis_page():

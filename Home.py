@@ -3274,7 +3274,7 @@ def analysis_page():
                     input_text = '\n'.join(['\n'.join([str(t) for t in list(df[col]) if str(t) not in STOPWORDS and str(t) not in PUNCS]) for col in df])
                      
                     tab1, tab2,tab3,tab4,tab5,tab6,tab7,tab8= st.tabs(["📈 Data","📈 Meaning analysis",'💬 Keyword scatter','📝 Summarisation', "☁️ Keyword Cloud",'💬 Keyword in Context & Collocation', "🌳 Word Tree",'📥 Download pdf'])
-                    with tab4:
+                    with tab2:
                       
                         num_classes = st.radio('How do you want to categorize the sentiments?', ('3 Class Sentiments (Positive, Neutral, Negative)', '5 Class Sentiments (Very Positive, Positive, Neutral, Negative, Very Negative)'))
                         num_classes = 3 if num_classes.startswith("3") else 5
@@ -3317,7 +3317,7 @@ def analysis_page():
                            else:
                                    st.write("Please press 'Finish selection' to analyze the selected reviews.")
                        
-                    with tab2:
+                    with tab3:
                       if not filtered_df.empty:
                          #### interactive dataframe
                          gb = GridOptionsBuilder.from_dataframe(filtered_df)
@@ -3374,7 +3374,7 @@ def analysis_page():
                          source_code = HtmlFile.read() 
                          print(source_code)
                          components.html(source_code,height = 1500,width = 800)
-                    with tab3:
+                    with tab4:
 
                        st.write('This tool, adapted from the Welsh Summarization project, produces a basic extractive summary of the review text from the selected columns.')
                        summarized_text =run_summarizer(input_text[:2000],i)

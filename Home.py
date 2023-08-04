@@ -3382,6 +3382,7 @@ def analysis_page():
                     tab1.header('View all Data')
                     tab1.dataframe(df ,use_container_width=True)
                     textanalysis = txtanalysis(df)
+			  
                     textanalysis.show_reviews(filenames[i],tab1)
                     word_cloud_path = textanalysis.show_wordcloud(filenames[i],tab5,language)
                     Keyword_context = textanalysis.show_kwic(filenames[i],tab6)

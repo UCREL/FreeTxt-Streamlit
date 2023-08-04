@@ -3379,8 +3379,8 @@ def analysis_page():
                        st.write('This tool, adapted from the Welsh Summarization project, produces a basic extractive summary of the review text from the selected columns.')
                        summarized_text =run_summarizer(input_text[:2000],i)
 	       ##show review
-                    tab4.header('View all Data')
-                    tab4.dataframe(df ,use_container_width=True)
+                    tab1.header('View all Data')
+                    tab1.dataframe(df ,use_container_width=True)
                     textanalysis = txtanalysis(df)
                     textanalysis.show_reviews(filenames[i],tab1)
                     word_cloud_path = textanalysis.show_wordcloud(filenames[i],tab5,language)

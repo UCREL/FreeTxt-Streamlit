@@ -3386,7 +3386,6 @@ def analysis_page():
                     word_cloud_path = textanalysis.show_wordcloud(filenames[i],tab5,language)
                     Keyword_context = textanalysis.show_kwic(filenames[i],tab6)
                     textanalysis.concordance(filenames[i],tab7)
-
          
                     with tab8:
                      column1, column2 = st.columns([1, 2])

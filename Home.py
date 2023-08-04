@@ -2757,7 +2757,7 @@ def textbox_analysis_page():
                      
                     tab1,tab2,tab3,tab4,tab5,tab6,tab7,tab8= st.tabs(["📈 Data","📈 Meaning analysis",'💬 Keyword scatter','📝 Summarisation', "☁️ Keyword Cloud",'💬 Keyword in Context & Collocation', "🌳 Word Tree",'📥 Download pdf'])
                     
-                    with tab4:
+                    with tab2:
                         analysis_type = st.selectbox(
                                 'How would you like to analyse the text?',
                                          ('analyse whole text', 'analyse sentence by sentence')
@@ -2813,7 +2813,7 @@ def textbox_analysis_page():
                     with tab7:
                             input_data = input_data.replace('. ', '.\n').replace('.', '.\n')
                             txtanalysis.concordance_txt(input_data,tab7)
-                    with tab2:
+                    with tab3:
                       if not dfanalysis.empty:
                          #### interactive dataframe
                          gb = GridOptionsBuilder.from_dataframe(dfanalysis)
@@ -2870,7 +2870,7 @@ def textbox_analysis_page():
                          print(source_code)
                          components.html(source_code,height = 1500,width = 800)   
        
-                    with tab3:
+                    with tab4:
 
                        st.write('This tool, adapted from the Welsh Summarization project, produces a basic extractive summary of the review text from the selected columns.')
                        summarized_text =run_summarizertxt(text)

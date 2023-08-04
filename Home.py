@@ -2755,9 +2755,9 @@ def textbox_analysis_page():
                               
                     input_data = ' '.join([str(t) for t in df[0].split(' ') if t not in STOPWORDS])
                      
-                    tab1,tab2,tab3,tab4,tab5,tab6,tab7,tab8= st.tabs(["📈 Meaning analysis",'💬 Keyword scatter','📝 Summarisation',"📈 Data View", "☁️ Keyword Cloud",'💬 Keyword in Context & Collocation', "🌳 Word Tree",'📥 Download pdf'])
+                    tab1,tab2,tab3,tab4,tab5,tab6,tab7,tab8= st.tabs(["📈 Data","📈 Meaning analysis",'💬 Keyword scatter','📝 Summarisation', "☁️ Keyword Cloud",'💬 Keyword in Context & Collocation', "🌳 Word Tree",'📥 Download pdf'])
                     
-                    with tab1:
+                    with tab4:
                         analysis_type = st.selectbox(
                                 'How would you like to analyse the text?',
                                          ('analyse whole text', 'analyse sentence by sentence')
@@ -2876,7 +2876,7 @@ def textbox_analysis_page():
                        summarized_text =run_summarizertxt(text)
 	       ##show review
                     ##show review
-            tab4.dataframe(df ,use_container_width=True)
+            tab1.dataframe(df ,use_container_width=True)
         ###show word cloud
         
             tab5.markdown('''    
@@ -3273,8 +3273,8 @@ def analysis_page():
                 
                     input_text = '\n'.join(['\n'.join([str(t) for t in list(df[col]) if str(t) not in STOPWORDS and str(t) not in PUNCS]) for col in df])
                      
-                    tab1, tab2,tab3,tab4,tab5,tab6,tab7,tab8= st.tabs(["📈 Meaning analysis",'💬 Keyword scatter','📝 Summarisation',"📈 Data View", "☁️ Keyword Cloud",'💬 Keyword in Context & Collocation', "🌳 Word Tree",'📥 Download pdf'])
-                    with tab1:
+                    tab1, tab2,tab3,tab4,tab5,tab6,tab7,tab8= st.tabs(["📈 Data","📈 Meaning analysis",'💬 Keyword scatter','📝 Summarisation', "☁️ Keyword Cloud",'💬 Keyword in Context & Collocation', "🌳 Word Tree",'📥 Download pdf'])
+                    with tab4:
                       
                         num_classes = st.radio('How do you want to categorize the sentiments?', ('3 Class Sentiments (Positive, Neutral, Negative)', '5 Class Sentiments (Very Positive, Positive, Neutral, Negative, Very Negative)'))
                         num_classes = 3 if num_classes.startswith("3") else 5
@@ -3382,7 +3382,7 @@ def analysis_page():
                     tab4.header('View all Data')
                     tab4.dataframe(df ,use_container_width=True)
                     textanalysis = txtanalysis(df)
-                    textanalysis.show_reviews(filenames[i],tab4)
+                    textanalysis.show_reviews(filenames[i],tab1)
                     word_cloud_path = textanalysis.show_wordcloud(filenames[i],tab5,language)
                     Keyword_context = textanalysis.show_kwic(filenames[i],tab6)
                     textanalysis.concordance(filenames[i],tab7)

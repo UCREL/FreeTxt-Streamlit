@@ -2756,7 +2756,7 @@ def textbox_analysis_page():
                               
                     input_data = ' '.join([str(t) for t in df[0].split(' ') if t not in STOPWORDS])
                      
-                    tab1,tab2,tab3,tab4,tab5,tab6,tab7,tab8= st.tabs(["📈 Data","📈 Meaning Analysis",'💬 Keyword Scatter','📝 Summarisation', "☁️ Keyword Cloud",'💬 Keyword in Context & Collocation', "🌳 Word Tree",'📥 Download Pdf'])
+                    tab1,tab2,tab3,tab4,tab5,tab6,tab7,tab8= st.tabs(["📈 Data","📈 Meaning Analysis",'💬 Sentiment Plot','📝 Summarisation', "☁️ Keyword Cloud",'💬 Keyword in Context & Collocation', "🌳 Word Tree",'📥 Download Pdf'])
                     
                     with tab2:
                         analysis_type = st.selectbox(
@@ -3274,7 +3274,7 @@ def analysis_page():
                 
                     input_text = '\n'.join(['\n'.join([str(t) for t in list(df[col]) if str(t) not in STOPWORDS and str(t) not in PUNCS]) for col in df])
                      
-                    tab1, tab2,tab3,tab4,tab5,tab6,tab7,tab8= st.tabs(["📈 Data","📈 Meaning analysis",'💬 Keyword scatter','📝 Summarisation', "☁️ Keyword Cloud",'💬 Keyword in Context & Collocation', "🌳 Word Tree",'📥 Download pdf'])
+                    tab1, tab2,tab3,tab4,tab5,tab6,tab7,tab8= st.tabs(["📈 Data","📈 Meaning analysis",'💬 Sentiment Plot','📝 Summarisation', "☁️ Keyword Cloud",'💬 Keyword in Context & Collocation', "🌳 Word Tree",'📥 Download pdf'])
                     with tab2:
                       
                         num_classes = st.radio('How do you want to categorize the sentiments?', ('3 Class Sentiments (Positive, Neutral, Negative)', '5 Class Sentiments (Very Positive, Positive, Neutral, Negative, Very Negative)'))

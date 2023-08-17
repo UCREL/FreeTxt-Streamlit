@@ -2440,6 +2440,7 @@ def contact_page():
     margin: 0px;
     transition: 0.3s;
 }}
+
 .link-container a.menu-link:hover {{
     color: #2281EF;
     font-weight: bold;

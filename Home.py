@@ -3805,7 +3805,6 @@ def app():
           st.experimental_set_query_params(page="home")
           main()
 
-
     else:
         main()
 

@@ -68,7 +68,6 @@ from reportlab.lib.units import inch
 ##Multilinguial 
 import gettext
 _ = gettext.gettext
-
 def get_image_as_base64(path):
     with open(path, "rb") as img_file:
         return base64.b64encode(img_file.read()).decode('utf-8')

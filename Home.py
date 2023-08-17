@@ -1092,7 +1092,7 @@ class txtanalysis:
             st.write('Please write a search word')
            
             search_word = st.text_input('', 'the')
-            st.write('The graph below represents the searched word in the middle and the right and the left context for the word, the bigger the font size the more frequent the word is')
+            st.write('This word tree shows the words which commonly occur before and after your searched word. The bigger the font size, the more often the word occurs. The number of times each word occurs is also shown when you scroll over the word (the number after ‘weight’)')
             st.write('The word frequency is represented by the weight in the tool tip')
             # Create a download button for the HTML file
          

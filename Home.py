@@ -2042,7 +2042,7 @@ def demo_page():
     </style>
     <div class="content-container">
         <div>
-            <h3>Word Collocation</h3>
+            <h3>Word Use & Relationships</h3>
             <iframe class="a-image" src="data:text/html;base64,{get_html_as_base64('img/analysis/network_output.html')}" width="550" height="350" title="Network Output"></iframe>
         </div>
         <div>
@@ -2050,7 +2050,7 @@ def demo_page():
             <img class="a-image" src="data:image/png;base64,{get_image_as_base64('img/analysis/Keyword.png')}" alt="Keyword in Context" width="500" title="Keyword in Context">
         </div>
         <div>
-            <h3>Positive and Negative Ratio<h3>
+            <h3>Meaning Analysis<h3>
             <iframe class="a-image" src="data:text/html;base64,{get_html_as_base64('img/analysis/Sentiment_analysis_pie.html')}" width="500" height="400" title="Sentiment Analysis Pie"></iframe>
         </div>
         <div>
@@ -2058,7 +2058,7 @@ def demo_page():
             <img class="a-image" src="data:image/png;base64,{get_image_as_base64('img/analysis/word_cloud.png')}" alt="Wordcloud" width="500" title="Wordcloud">
         </div>
         <div>
-            <h3>Text Visualisation</h3>
+            <h3>Sentiement Plot</h3>
             <iframe class="a-image" src="data:text/html;base64,{get_html_as_base64('img/analysis/scattertext_visualization.html')}" width="900" height="500" title="Scattertext Visualization"></iframe>
         </div>
     </div>

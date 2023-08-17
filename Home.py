@@ -1840,32 +1840,7 @@ st.set_page_config(
      menu_items={
          'Get Help': "https://ucrel.lancs.ac.uk/freetxt/",
          'Report a bug': "https://github.com/UCREL/welsh-freetxt-app/issues",
-                 'About': '''## The FreeTxt/TestunRhydd tool 
-         FreeTxt was developed as part of an AHRC funded collaborative
-    FreeTxt supporting bilingual free-text survey  
-    and questionnaire data analysis
-    research project involving colleagues from
-    Cardiff University and Lancaster University (Grant Number AH/W004844/1). 
-    The team included PI - Dawn Knight;
-    CIs - Paul Rayson, Mo El-Haj;
-    RAs - Ignatius Ezeani, Nouran Khallaf and Steve Morris. 
-    The Project Advisory Group included representatives from 
-    National Trust Wales, Cadw, National Museum Wales,
-    CBAC | WJEC and National Centre for Learning Welsh.
-    -------------------------------------------------------   
-    Datblygwyd TestunRhydd fel rhan o brosiect ymchwil 
-    cydweithredol a gyllidwyd gan yr AHRC 
-    ‘TestunRhydd: yn cefnogi dadansoddi data arolygon testun 
-    rhydd a holiaduron dwyieithog’ sy’n cynnwys cydweithwyr
-    o Brifysgol Caerdydd a Phrifysgol Caerhirfryn (Rhif y 
-    Grant AH/W004844/1).  
-    Roedd y tîm yn cynnwys PY – Dawn Knight; 
-    CYwyr – Paul Rayson, Mo El-Haj; CydY 
-    – Igantius Ezeani, Nouran Khallaf a Steve Morris.
-    Roedd Grŵp Ymgynghorol y Prosiect yn cynnwys cynrychiolwyr 
-    o Ymddiriedolaeth Genedlaethol Cymru, Amgueddfa Cymru,
-    CBAC a’r Ganolfan Dysgu Cymraeg Genedlaethol.  
-       '''
+                 
      }
  )
 

@@ -90,7 +90,6 @@ pd.set_option('display.max_colwidth',None)
 
 lang='en'
 EXAMPLES_DIR = 'example_texts_pub'
- 
 nlp = spacy.load('en_core_web_sm-3.2.0')
 def detect_language_file(text):
     try:

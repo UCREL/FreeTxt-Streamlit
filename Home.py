@@ -1238,7 +1238,7 @@ def get_wordcloud (data, key,tab,language):
      
     #tab2.subheader("upload mask Image")
     #image_file = tab2.file_uploader("Upload Images", type=["png","jpg","jpeg"])
-    maskfile_2 = image_mask_2[tab.selectbox('Select Cloud shape:', image_mask_2.keys(), help='Select the shape of the word cloud')]
+    maskfile_2 = image_mask_2[tab.selectbox('Select cloud shape:', image_mask_2.keys(), help='Select the shape of the word cloud')]
     colors =['grey','yellow','white','black','green','blue','red']
     outlines = tab.selectbox('Select cloud outline color ', colors, help='Select outline color word cloud')
     mask = np.array(PilImage.open(maskfile_2)) if maskfile_2 else maskfile_2
@@ -1263,7 +1263,7 @@ def get_wordcloud (data, key,tab,language):
         # Allow the user to select the measure to use
 	#measure = tab2.selectbox("Select a measure:", options=["Frequency","KENESS", "Log-Likelihood"])    
         all_words = []
-        cloud_type = tab.selectbox('Choose Cloud category:', ['All words', 'Semantic Tags', 'Bigrams', 'Trigrams', '4-grams', 'Nouns', 'Proper nouns', 'Verbs', 'Adjectives', 'Adverbs', 'Numbers'], key=f"{key}_cloud_select")
+        cloud_type = tab.selectbox('Choose cloud category:', ['All words',  'Nouns', 'Proper nouns', 'Verbs', 'Adjectives', 'Adverbs', 'Numbers','2-word clusters', '3-word clusters', '4-word clusterss', 'Semantic Tags'], key=f"{key}_cloud_select")
         if cloud_type == 'All words':
              all_words = nltk.tokenize.word_tokenize(input_data)
              df = calculate_measures(df,'KENESS',language)
@@ -2756,7 +2756,7 @@ def textbox_analysis_page():
                               
                     input_data = ' '.join([str(t) for t in df[0].split(' ') if t not in STOPWORDS])
                      
-                    tab1,tab2,tab3,tab4,tab5,tab6,tab7,tab8= st.tabs(["📈 Data","📈 Meaning Analysis",'💬 Sentiment Plot','📝 Summarisation', "☁️ Keyword Cloud",'💬 Keyword in Context & Collocation', "🌳 Word Tree",'📥 Download Pdf'])
+                    tab1,tab2,tab3,tab4,tab5,tab6,tab7,tab8= st.tabs(["📈 Data","📈 Meaning Analysis",'💬 Sentiment Plot','📝 Summarisation', "☁️ Word Cloud",'💬 Word Use & Relationships', "🌳 Word Tree",'📥 Download Pdf'])
                     
                     with tab2:
                         analysis_type = st.selectbox(
@@ -2943,7 +2943,7 @@ def textbox_analysis_page():
         # Allow the user to select the measure to use
 	#measure = tab2.selectbox("Select a measure:", options=["Frequency","KENESS", "Log-Likelihood"])    
                all_words = []
-               cloud_type = tab5.selectbox('Choose Cloud category:', ['All words', 'Semantic Tags', 'Bigrams', 'Trigrams', '4-grams', 'Nouns', 'Proper nouns', 'Verbs', 'Adjectives', 'Adverbs', 'Numbers'])
+               cloud_type = tab5.selectbox('Choose Cloud category:', ['All words', 'Nouns', 'Proper nouns', 'Verbs', 'Adjectives', 'Adverbs', 'Numbers', '2-word clusters', '3-word clusters', '4-word clusterss', 'Semantic Tags'])
                if cloud_type == 'All words':
                  all_words = nltk.tokenize.word_tokenize(input_data)
                  df = calculate_measures(df,'KENESS',language)
@@ -3274,7 +3274,7 @@ def analysis_page():
                 
                     input_text = '\n'.join(['\n'.join([str(t) for t in list(df[col]) if str(t) not in STOPWORDS and str(t) not in PUNCS]) for col in df])
                      
-                    tab1, tab2,tab3,tab4,tab5,tab6,tab7,tab8= st.tabs(["📈 Data","📈 Meaning analysis",'💬 Sentiment Plot','📝 Summarisation', "☁️ Keyword Cloud",'💬 Keyword in Context & Collocation', "🌳 Word Tree",'📥 Download pdf'])
+                    tab1, tab2,tab3,tab4,tab5,tab6,tab7,tab8= st.tabs(["📈 Data","📈 Meaning analysis",'💬 Sentiment Plot','📝 Summarisation', "☁️ Word Cloud",'💬 Word Use & Relationships', "🌳 Word Tree",'📥 Download pdf'])
                     with tab2:
                       
                         num_classes = st.radio('How do you want to categorize the sentiments?', ('3 Class Sentiments (Positive, Neutral, Negative)', '5 Class Sentiments (Very Positive, Positive, Neutral, Negative, Very Negative)'))
@@ -3377,7 +3377,7 @@ def analysis_page():
                          components.html(source_code,height = 1500,width = 800)
                     with tab4:
 
-                       st.write('This tool, adapted from the Welsh Summarization project, produces a basic extractive summary of the review text from the selected columns.')
+                       st.write('This tool, adapted from the Welsh Summarisation project, produces a basic extractive summary of the review text from the selected columns.')
                        summarized_text =run_summarizer(input_text[:2000],i)
 	       ##show review
                     tab1.header('View all Data')

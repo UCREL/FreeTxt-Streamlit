@@ -848,9 +848,10 @@ def plot_sentiment_pie(df):
     net_sentiment = counts.get('Positive', 0) - counts.get('Negative', 0)
     st.header(f"Overall sentiment: {net_sentiment}")
     if net_sentiment > 0:
-        st.write(f'The overall sentiment score of {net_sentiment} indicates that there are {net_sentiment} more positive sentiments than negative sentiments in the given text. This suggests that the overall sentiment of the text is positive.')
+    	st.write(f'The overall sentiment score of {net_sentiment} indicates that there are {abs(net_sentiment)} more positive than positive sentiments in the given text. This suggests that the overall sentiment of the text is positive.')
+    
     elif net_sentiment < 0:
-        st.write(f'The overall sentiment score of {net_sentiment} indicates that there are {abs(net_sentiment)} more negative sentiments than positive sentiments in the given text. This suggests that the overall sentiment of the text is negative.')
+	st.write(f'The overall sentiment score of {net_sentiment} indicates that there are {abs(net_sentiment)} more negative than positive sentiments in the given text. This suggests that the overall sentiment of the text is negative.')
     else:
         st.write('The overall sentiment score is zero, which indicates an equal number of positive and negative sentiments. This suggests that the overall sentiment of the text is neutral.')
 

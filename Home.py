@@ -3694,14 +3694,7 @@ def main():
     st.markdown(
       """
 <div style='background-color: white; padding: 10px; border-radius: 5px; color: black; font-size:20px; '>
-A free online text analysis and visualisation tool for English and Welsh. 
-FreeTxt allows you to upload free-text feedback data from surveys, questionnaires etc., 
-and to carry out quick and detailed analysis of the responses. FreeTxt will reveal 
-common patterns of meaning in the feedback (e.g. what people are talking about/what they are saying about things),
-common feelings about topics being discussed (i.e. their ‘sentiment’), 
-and can produce simple summaries of the feedback provided. FreeTxt presents the results of 
-analyses in visually engaging and easy to interpret ways, and has been designed to allow anyone in 
-any sector in Wales and beyond to use it.
+FreeTxt is a free online text analysis and visualisation tool for English and Welsh. FreeTxt allows you to upload text-based feedback data from surveys, questionnaires etc., and to carry out quick and detailed analysis of the responses. FreeTxt will reveal common patterns of meaning in the feedback (e.g. what things people are talking about and what they are saying about them), common feelings about topics being discussed (i.e. their ‘sentiment’), and can produce simple summaries of the feedback provided. FreeTxt presents the results of analyses in visually engaging and easy to interpret ways, and has been designed to allow anyone in any sector in Wales and beyond to use it.
 </div>
 """,
     unsafe_allow_html=True,

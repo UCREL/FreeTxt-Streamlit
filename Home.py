@@ -232,7 +232,7 @@ def is_date_like(column):
 
 def select_columns(data, key):
     layout = st.columns([7, 0.2, 2, 0.2, 2, 0.2, 3, 0.2, 3])
-    selected_columns = layout[0].multiselect('Select column(s) below to analyse', data.columns, help='Select columns you are interested in with this selection box', key= f"{key}_cols_multiselect")
+    selected_columns = layout[0].multiselect('Select column(s) below to analyse', data.columns, help='Use this selection box to select the columns you are interested in analysing in your data', key= f"{key}_cols_multiselect")
     start_row=0
     if selected_columns: start_row = layout[2].number_input('Choose start row:', value=0, min_value=0, max_value=5)
     
@@ -245,7 +245,7 @@ def select_columns(data, key):
     if len(selected_columns)>=2 and layout[4].checkbox('Filter rows?'):
         filter_column = layout[6].selectbox('Select filter column', selected_columns)
         if filter_column: 
-            filter_key = layout[8].selectbox('Select filter key', set(data[filter_column]))
+            filter_key = layout[8].selectbox('Select filter value', set(data[filter_column]))
             data = data[selected_columns][start_row:].dropna(how='all')
             return data.loc[data[filter_column] == filter_key].drop_duplicates(), selected_columns
     else:
@@ -2755,23 +2755,23 @@ def textbox_analysis_page():
                               
                     input_data = ' '.join([str(t) for t in df[0].split(' ') if t not in STOPWORDS])
                      
-                    tab1,tab2,tab3,tab4,tab5,tab6,tab7,tab8= st.tabs(["📈 Data","📈 Meaning analysis",'💬 Keyword scatter','📝 Summarisation', "☁️ Keyword Cloud",'💬 Keyword in Context & Collocation', "🌳 Word Tree",'📥 Download pdf'])
+                    tab1,tab2,tab3,tab4,tab5,tab6,tab7,tab8= st.tabs(["📈 Data","📈 Meaning Analysis",'💬 Keyword Scatter','📝 Summarisation', "☁️ Keyword Cloud",'💬 Keyword in Context & Collocation', "🌳 Word Tree",'📥 Download Pdf'])
                     
                     with tab2:
                         analysis_type = st.selectbox(
                                 'How would you like to analyse the text?',
                                          ('analyse whole text', 'analyse sentence by sentence')
                                                               )
-                        num_classes = st.radio('How do you want to categorize the sentiments?', ('3 Class Sentiments (Positive, Neutral, Negative)', '5 Class Sentiments (Very Positive, Positive, Neutral, Negative, Very Negative)'))
+                        num_classes = st.radio('How do you want to categorise the sentiments?', ('3 Class Sentiments (Positive, Neutral, Negative)', '5 Class Sentiments (Very Positive, Positive, Neutral, Negative, Very Negative)'))
                         num_classes = 3 if num_classes.startswith("3") else 5
 
                         language = detect_language(df)  
                         filtered_df = pd.DataFrame()
                         if language == 'en':
                                   st.write("""
-                                 The sentiment analysis is performed using the ["nlptown/bert-base-multilingual-uncased-sentiment"](https://huggingface.co/nlptown/bert-base-multilingual-uncased-sentiment) model from Hugging Face. This model is trained on product reviews in multiple languages and utilizes the BERT architecture.
+                                 The sentiment analysis is performed using the ["nlptown/bert-base-multilingual-uncased-sentiment"](https://huggingface.co/nlptown/bert-base-multilingual-uncased-sentiment) model from Hugging Face. This model is trained on product reviews in multiple languages and utilises the BERT architecture.
 
-                                   As per the information on the Hugging Face model page, the accuracy of this model for sentiment analysis on English text is approximately 95%.
+                                   The accuracy of this model for sentiment analysis on English text is reported to be approximately 95% (see Hugging Face website for more information)..
                                """)
                                   if analysis_type == 'analyse whole text':
                                       sentiments = analyse_sentiment_txt(input_data,num_classes)

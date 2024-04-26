@@ -22,8 +22,6 @@ python-gettext
 ucrel_api
 python-dateutil
 pymupdf
-reportlab
-canvas
 numpy>=1.6.1
 transformers
 torch
